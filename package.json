@@ -7,10 +7,10 @@
   "homepage": "https://f5xc-salesdemos.github.io/docs-theme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/f5xc-SalesDemos/docs-theme"
+    "url": "https://github.com/f5xc-salesdemos/docs-theme"
   },
   "bugs": {
-    "url": "https://github.com/f5xc-SalesDemos/docs-theme/issues"
+    "url": "https://github.com/f5xc-salesdemos/docs-theme/issues"
   },
   "exports": {
     ".": "./index.ts",

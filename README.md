@@ -57,7 +57,7 @@ Custom footer with social media links (Facebook, X, LinkedIn, Instagram, YouTube
 
 ## Architecture
 
-This repo is checked out at build time by the [f5xc-docs-builder](https://github.com/f5xc-SalesDemos/docs-builder) reusable workflow into a `theme/` directory. The Astro config references these files as `./theme/fonts/...`, `./theme/styles/...`, etc.
+This repo is checked out at build time by the [f5xc-docs-builder](https://github.com/f5xc-salesdemos/docs-builder) reusable workflow into a `theme/` directory. The Astro config references these files as `./theme/fonts/...`, `./theme/styles/...`, etc.
 
 ```
 Content repo push
