@@ -1,0 +1,41 @@
+name: Dispatch Downstream Rebuild
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dispatch-downstream
+  cancel-in-progress: true
+
+jobs:
+  dispatch:
+    name: Notify f5xc-docs-builder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify npm package version exists
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          VERSION="${TAG#v}"
+          echo "Checking npm for f5xc-docs-theme@${VERSION}..."
+          for i in 1 2 3 4 5; do
+            if npm view "f5xc-docs-theme@${VERSION}" version 2>/dev/null; then
+              echo "Version ${VERSION} confirmed on npm"
+              exit 0
+            fi
+            echo "Attempt ${i}: not found yet, waiting 15s for npm propagation..."
+            sleep 15
+          done
+          echo "::error::Version ${VERSION} not found on npm after 5 attempts"
+          exit 1
+
+      - name: Dispatch rebuild-image event
+        uses: peter-evans/repository-dispatch@v4
+        with:
+          token: ${{ secrets.REPO_ADMIN_TOKEN }}
+          repository: f5xc-SalesDemos/docs-builder
+          event-type: rebuild-image
+          client-payload: '{"version": "${{ github.event.release.tag_name }}", "source_repo": "${{ github.repository }}"}'

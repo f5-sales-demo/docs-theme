@@ -1,0 +1,628 @@
+/* ===== F5 Brand Color Tokens ===== */
+:root {
+  --f5-red: #e4002b;
+  --f5-red-1: #f7b2bf;
+  --f5-red-2: #f06680;
+  --f5-red-3: #a70020;
+  --f5-red-4: #720016;
+  --f5-tangerine: #f29a36;
+  --f5-tangerine-1: #ffe4c4;
+  --f5-tangerine-2: #ffbd61;
+  --f5-tangerine-3: #a35700;
+  --f5-tangerine-4: #7a4100;
+  --f5-river: #0e41aa;
+  --f5-river-1: #b7c6e5;
+  --f5-river-2: #6e8dcc;
+  --f5-river-3: #0b3180;
+  --f5-river-4: #072155;
+  --f5-raspberry: #ab2782;
+  --f5-raspberry-1: #e6bed9;
+  --f5-raspberry-2: #cd7db4;
+  --f5-raspberry-3: #801d62;
+  --f5-raspberry-4: #561441;
+  --f5-jade: #009639;
+  --f5-jade-1: #b2dfc4;
+  --f5-jade-2: #66c088;
+  --f5-jade-3: #00712b;
+  --f5-jade-4: #004b1d;
+  --f5-eggplant: #62228b;
+  --f5-eggplant-1: #cdabe3;
+  --f5-eggplant-2: #9c59c9;
+  --f5-eggplant-3: #822cb8;
+  --f5-eggplant-4: #41175d;
+  --f5-bay: #0072b0;
+  --f5-bay-1: #b2d7eb;
+  --f5-bay-2: #66afd7;
+  --f5-bay-3: #005c8d;
+  --f5-bay-4: #003d5f;
+  --f5-white: #ffffff;
+  --f5-white-1: #faf9f7;
+  --f5-white-2: #f5f5f5;
+  --f5-white-3: #e6e6e6;
+  --f5-white-4: #cccccc;
+  --f5-black: #000000;
+  --f5-black-1: #999999;
+  --f5-black-2: #666666;
+  --f5-black-3: #343434;
+  --f5-black-4: #222222;
+}
+
+/* ===== Dark Mode (Starlight default) ===== */
+:root {
+  --sl-color-white: var(--f5-white);
+  --sl-color-gray-1: var(--f5-white-2);
+  --sl-color-gray-2: var(--f5-white-4);
+  --sl-color-gray-3: var(--f5-black-1);
+  --sl-color-gray-4: var(--f5-black-2);
+  --sl-color-gray-5: var(--f5-black-3);
+  --sl-color-gray-6: var(--f5-black-4);
+  --sl-color-black: var(--f5-black);
+  --sl-color-accent-low: var(--f5-red-4);
+  --sl-color-accent: var(--f5-red-2);
+  --sl-color-accent-high: var(--f5-red-1);
+
+  --sl-color-bg-badge-default: var(--f5-bay-4);
+  --sl-color-bg-badge-note: var(--f5-bay-4);
+  --sl-color-bg-badge-danger: var(--f5-red-4);
+  --sl-color-bg-badge-success: var(--f5-jade-4);
+  --sl-color-bg-badge-caution: var(--f5-tangerine-4);
+  --sl-color-bg-badge-tip: var(--f5-eggplant-4);
+
+  /* ===== Design Token Scale ===== */
+
+  /* Border radius */
+  --f5-radius-xs: 0.1875rem;
+  --f5-radius-sm: 0.3125rem;
+  --f5-radius-md: 0.375rem;
+  --f5-radius-lg: 0.5rem;
+  --f5-radius-full: 999px;
+
+  /* Shadows — dark mode (neutral-tinted #cccccc base) */
+  --f5-shadow-low:
+    0px 1px 1px 0px #cccccc0a,
+    0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #cccccc0d,
+    0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high:
+    0px 2px 3px 0px #cccccc1a,
+    0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #cccccc0d,
+    0px 12px 28px 0px #cccccc26;
+
+  /* Borders — dark mode (alpha-transparent) */
+  --f5-border-faint: #f5f5f51a;
+  --f5-border-default: #f5f5f533;
+  --f5-border-strong: #cccccc66;
+
+  /* Surfaces — dark mode */
+  --f5-surface-hover: var(--f5-black-3);
+  --f5-surface-active: var(--f5-black-2);
+
+  /* Transitions */
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+
+  /* Focus rings */
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+}
+
+/* ===== Light Mode ===== */
+:root[data-theme='light'] {
+  --sl-color-white: var(--f5-black-4);
+  --sl-color-gray-1: var(--f5-black-4);
+  --sl-color-gray-2: var(--f5-black-3);
+  --sl-color-gray-3: var(--f5-black-2);
+  --sl-color-gray-4: var(--f5-black-1);
+  --sl-color-gray-5: var(--f5-white-4);
+  --sl-color-gray-6: var(--f5-white-2);
+  --sl-color-gray-7: var(--f5-white-1);
+  --sl-color-black: var(--f5-white);
+  --sl-color-accent-low: var(--f5-red-1);
+  --sl-color-accent: var(--f5-red);
+  --sl-color-accent-high: var(--f5-red-4);
+
+  --sl-color-bg-badge-default: var(--f5-bay-1);
+  --sl-color-bg-badge-note: var(--f5-bay-1);
+  --sl-color-bg-badge-danger: var(--f5-red-1);
+  --sl-color-bg-badge-success: var(--f5-jade-1);
+  --sl-color-bg-badge-caution: var(--f5-tangerine-1);
+  --sl-color-bg-badge-tip: var(--f5-eggplant-1);
+
+  /* Shadows — light mode (#343434 base) */
+  --f5-shadow-low:
+    0px 1px 1px 0px #3434340d,
+    0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #3434341a,
+    0px 8px 16px -10px #34343433;
+  --f5-shadow-high:
+    0px 2px 3px 0px #34343426,
+    0px 16px 16px -10px #34343433;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #3434341a,
+    0px 12px 28px 0px #34343440;
+
+  /* Borders — light mode */
+  --f5-border-faint: #3434341a;
+  --f5-border-default: #34343433;
+  --f5-border-strong: #22222266;
+
+  /* Surfaces — light mode */
+  --f5-surface-hover: var(--f5-white-2);
+  --f5-surface-active: var(--f5-white-3);
+}
+
+/* ===== Fonts & Layout ===== */
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-font-heading: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-content-width: 60rem;
+  --sl-sidebar-width: 15rem;
+
+  /* Typography scale mapped to F5 hierarchy */
+  --sl-line-height-headings: 1.1;
+  --sl-text-h1: var(--sl-text-5xl);
+  --sl-text-h2: var(--sl-text-3xl);
+  --sl-text-h3: var(--sl-text-2xl);
+  --sl-text-h4: var(--sl-text-lg);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--sl-font-heading);
+}
+
+/* F5 type hierarchy weights */
+h1, h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+h4, h5, h6 {
+  font-family: var(--sl-font);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 72rem) {
+  .right-sidebar-container {
+    max-width: 11rem;
+  }
+}
+
+.mermaid-container {
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--f5-shadow-mid);
+  margin-block: 1.5rem;
+  background: #fff;
+}
+
+/* Force white background on Mermaid SVG for dark mode compatibility */
+.mermaid-container svg {
+  background: white !important;
+  border-radius: var(--f5-radius-md);
+}
+
+/* fill is a valid SVG presentation property (CSS Masking/SVG spec) */
+.mermaid-container svg rect,
+.mermaid-container svg polygon {
+  fill: white !important;
+}
+
+.starlight-aside {
+  border-radius: var(--f5-radius-md);
+  box-shadow: var(--f5-shadow-low);
+}
+
+.expressive-code .frame {
+  --header-border-radius: var(--f5-radius-md);
+  border-radius: var(--f5-radius-md);
+  overflow: hidden;
+  box-shadow: var(--f5-shadow-mid);
+}
+
+/* macOS iTerm-style window frame for terminal code blocks */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.expressive-code .frame.is-terminal .header {
+  padding-block: 0.25rem;
+  border: none;
+  border-radius: var(--f5-radius-md) var(--f5-radius-md) 0 0;
+  background: #323232 !important;
+  color: #ccc !important;
+}
+
+.expressive-code .frame.is-terminal .header::after {
+  border-bottom: none !important;
+}
+
+.expressive-code .frame.is-terminal .header::before {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 12'%3E%3Ccircle cx='6' cy='6' r='6' fill='%23ff5f56'/%3E%3Cpath d='M3.8 3.8L8.2 8.2M8.2 3.8L3.8 8.2' stroke='%234d0000' stroke-width='1.1' stroke-linecap='round'/%3E%3Ccircle cx='26' cy='6' r='6' fill='%23ffbd2e'/%3E%3Cpath d='M23.5 6H28.5' stroke='%23995700' stroke-width='1.1' stroke-linecap='round'/%3E%3Ccircle cx='46' cy='6' r='6' fill='%2327c93f'/%3E%3Cpolygon points='43.5,3.5 43.5,6 46,3.5' fill='%23006500'/%3E%3Cpolygon points='48.5,8.5 48.5,6 46,8.5' fill='%23006500'/%3E%3C/svg%3E") no-repeat center / contain !important;
+  opacity: 1 !important;
+  width: 52px;
+  height: 12px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.expressive-code .frame.is-terminal pre {
+  border: none;
+  border-radius: 0 0 var(--f5-radius-md) var(--f5-radius-md);
+}
+
+:root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
+  background: #1a1b26 !important;
+}
+
+/* Breadcrumb navigation */
+.breadcrumbs {
+  position: sticky;
+  top: calc(var(--sl-nav-height, 3.5rem) + var(--sl-mobile-toc-height, 0rem));
+  z-index: 1;
+  background: var(--sl-color-black);
+  padding-block: 0.5rem;
+  padding-inline: var(--sl-content-pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--sl-color-gray-3);
+}
+
+.breadcrumbs li + li::before {
+  content: '/';
+  padding-inline: 0.375rem;
+  color: var(--sl-color-gray-5);
+}
+
+.breadcrumbs a {
+  color: var(--sl-color-text-accent);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbs [aria-current="page"] {
+  color: var(--sl-color-white);
+}
+
+/* Edit on GitHub pill */
+.edit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--f5-radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--sl-color-gray-3);
+  background: var(--sl-color-gray-6);
+  border: 1px solid var(--f5-border-default);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color var(--f5-transition-fast),
+              background var(--f5-transition-fast),
+              border-color var(--f5-transition-fast);
+}
+
+.edit-link:hover {
+  color: var(--sl-color-white);
+  background: var(--sl-color-gray-5);
+  border-color: var(--sl-color-gray-4);
+  text-decoration: none;
+}
+
+.edit-link svg {
+  flex-shrink: 0;
+}
+
+/* ===== Color Swatch Styles ===== */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 1rem;
+  margin-block: 1.5rem;
+}
+
+.swatch {
+  border-radius: var(--f5-radius-md);
+  overflow: hidden;
+  box-shadow: var(--f5-shadow-low);
+  border: 1px solid var(--f5-border-default);
+}
+
+.swatch-color {
+  height: 5rem;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--sl-font);
+}
+
+.swatch-color.text-light { color: #ffffff; }
+.swatch-color.text-dark { color: #000000; }
+
+.swatch-label {
+  padding: 0.5rem;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  font-family: var(--sl-font);
+  background: var(--sl-color-gray-6);
+  color: var(--sl-color-gray-1);
+}
+
+.swatch-label code {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--sl-color-gray-3);
+}
+
+/* ===== Brand Icon Grid Styles ===== */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  gap: 1rem;
+  margin-block: 1.5rem;
+}
+
+.icon-card {
+  border-radius: var(--f5-radius-md);
+  overflow: hidden;
+  box-shadow: var(--f5-shadow-low);
+  border: 1px solid var(--f5-border-default);
+  text-align: center;
+  margin: 0;
+}
+
+.icon-card-image {
+  padding: 0;
+  background: var(--sl-color-gray-7, #faf9f7);
+}
+
+:root:not([data-theme='light']) .icon-card-image {
+  background: var(--sl-color-gray-6);
+}
+
+.icon-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Invert near-black SVGs for dark mode visibility */
+:root:not([data-theme='light']) .icon-card-image img {
+  filter: invert(1);
+}
+
+.icon-card-label {
+  margin: 0;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.65rem;
+  line-height: 1.3;
+  font-family: var(--sl-font);
+  background: var(--sl-color-gray-6);
+  color: var(--sl-color-gray-1);
+  word-break: break-word;
+}
+
+/* ===== Scroll-to-Top Button Size Override ===== */
+.scroll-to-top-button {
+  width: 36px !important;
+  height: 36px !important;
+}
+.scroll-to-top-button svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+.scroll-to-top-button .scroll-progress-ring {
+  width: 36px !important;
+  height: 36px !important;
+}
+.scroll-to-top-button .scroll-progress-ring circle {
+  cx: 18;
+  cy: 18;
+  r: 16;
+}
+
+/* ===== Prevent Scalar API Viewer Body Pollution ===== */
+body.dark-mode,
+body.light-mode {
+  background-color: var(--sl-color-bg) !important;
+  color: var(--sl-color-text) !important;
+}
+body {
+  --scalar-background-1: unset;
+  --scalar-background-2: unset;
+  --scalar-background-3: unset;
+}
+
+/* ===== Phase 2: Sidebar Navigation Enhancement ===== */
+.sidebar-content a {
+  border-radius: var(--f5-radius-sm);
+  transition: background-color var(--f5-transition-fast),
+              color var(--f5-transition-fast);
+}
+
+.sidebar-content a:hover {
+  background-color: var(--f5-surface-hover);
+}
+
+.sidebar-content a[aria-current="page"] {
+  background-color: var(--f5-surface-active);
+  color: var(--sl-color-white);
+  font-weight: 600;
+  border-inline-start: 3px solid var(--sl-color-accent);
+  padding-inline-start: calc(0.5rem - 3px);
+}
+
+/* ===== Phase 3: Card Hover Effects + Link Transitions ===== */
+.swatch, .icon-card {
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+
+.swatch:hover, .icon-card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+.sl-markdown-content a {
+  transition: color var(--f5-transition-fast);
+}
+
+/* ===== Phase 4: Button Component System ===== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--f5-red);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  font-family: var(--sl-font);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+.btn-primary:hover {
+  background: var(--f5-red-3);
+  box-shadow: var(--f5-shadow-low);
+  text-decoration: none;
+  color: var(--f5-white);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  font-family: var(--sl-font);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--f5-transition-fast),
+              border-color var(--f5-transition-fast);
+}
+.btn-secondary:hover {
+  background: var(--f5-surface-hover);
+  border-color: var(--f5-border-strong);
+  text-decoration: none;
+}
+
+.btn-tertiary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--sl-color-accent);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  font-family: var(--sl-font);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--f5-transition-fast);
+}
+.btn-tertiary:hover {
+  background: var(--f5-surface-hover);
+  text-decoration: none;
+}
+
+.btn-sm { padding: 0.375rem 0.75rem; font-size: 0.8125rem; }
+.btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; }
+
+/* ===== Phase 5: Hero Gradients ===== */
+.hero-gradient-primary {
+  background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
+}
+
+.hero-gradient-eggplant {
+  background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
+}
+
+.hero-gradient-red {
+  background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
+}
+
+:root[data-theme='light'] .hero-gradient-faint {
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
+}
+:root:not([data-theme='light']) .hero-gradient-faint {
+  background: linear-gradient(180deg, #222222 0%, #000000 100%);
+}
+
+.hero-fade {
+  position: relative;
+}
+.hero-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+
+/* ===== Phase 6: Focus Rings + Final Transition Polish ===== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: none;
+  box-shadow: var(--f5-focus-action);
+}
+
+.breadcrumbs a {
+  transition: color var(--f5-transition-fast);
+}
+
+.social-links a {
+  transition: opacity var(--f5-transition-base),
+              color var(--f5-transition-base);
+}

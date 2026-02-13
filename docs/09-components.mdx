@@ -1,0 +1,377 @@
+---
+title: Components
+description: Starlight built-in components — asides, tabs, steps, cards, badges, tables, images, file tree, and icons.
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+---
+
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, LinkCard, Badge, FileTree, Icon } from '@astrojs/starlight/components';
+
+## Asides
+
+Each aside type uses the `:::` fence syntax with its default title.
+
+:::note
+This is a **note** aside. It draws attention to supplementary information the reader should be aware of.
+:::
+
+:::tip
+This is a **tip** aside. It highlights a best practice or useful shortcut.
+:::
+
+:::caution
+This is a **caution** aside. It warns about a potential pitfall or non-obvious behavior.
+:::
+
+:::danger
+This is a **danger** aside. It flags a destructive or irreversible action.
+:::
+
+### Custom Titles
+
+<Aside type="note" title="Custom Note Title">
+This aside uses the `<Aside>` component with a custom title override.
+</Aside>
+
+<Aside type="tip" title="Pro Tip">
+You can nest **bold**, *italic*, and `inline code` inside aside components.
+</Aside>
+
+<Aside type="caution" title="Watch Out">
+Be careful when upgrading dependencies — check the changelog first.
+</Aside>
+
+<Aside type="danger" title="Destructive Action">
+Running `git reset --hard` will permanently discard uncommitted changes.
+</Aside>
+
+### Rich Content Inside Asides
+
+:::tip[Aside with mixed content]
+Here is a code block inside an aside:
+
+```bash
+npm install @astrojs/starlight
+```
+
+A list of items:
+
+- First item with **bold text**
+- Second item with `inline code`
+- Third item with a [link to Starlight docs](https://starlight.astro.build)
+:::
+
+### Aside CSS
+
+Starlight's built-in aside components get rounded corners and a layered shadow:
+
+```css
+.starlight-aside {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+## Tabs
+
+### Basic Tabs
+
+<Tabs>
+  <TabItem label="Overview">
+    This is the overview tab content. It contains plain text to verify basic tab rendering.
+  </TabItem>
+  <TabItem label="Details">
+    This is the details tab. Switching between tabs should be instant with no page reload.
+  </TabItem>
+</Tabs>
+
+### Tabs with Mixed Content
+
+<Tabs>
+  <TabItem label="Text">
+    Plain paragraph content in the first tab.
+  </TabItem>
+  <TabItem label="Code">
+    ```javascript
+    const greeting = "Hello from a code block inside a tab!";
+    console.log(greeting);
+    ```
+  </TabItem>
+  <TabItem label="List">
+    - Item one inside a tab
+    - Item two with **bold text**
+    - Item three with `inline code`
+  </TabItem>
+</Tabs>
+
+### Synced Tabs
+
+These two tab groups share `syncKey="pkg"`. Selecting a tab in one group should update the other.
+
+**Install command:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install f5xc-docs-theme
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add f5xc-docs-theme
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add f5xc-docs-theme
+    ```
+  </TabItem>
+</Tabs>
+
+**Run command:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+
+## Steps
+
+<Steps>
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/example/repo.git
+   cd repo
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the dev server**
+
+   ```bash
+   npm run dev
+   ```
+
+   The site will be available at `http://localhost:4321`.
+
+</Steps>
+
+## Cards
+
+### Single Card
+
+<Card title="Single Card" icon="star">
+  This is a standalone card with an icon. Cards are useful for highlighting key information or features.
+</Card>
+
+### Card Grid
+
+<CardGrid>
+  <Card title="Performance" icon="rocket">
+    Astro delivers zero-JS by default for fast page loads.
+  </Card>
+  <Card title="Customizable" icon="pencil">
+    Starlight provides extensive theming and plugin options.
+  </Card>
+  <Card title="Accessible" icon="heart">
+    Built-in accessibility features ensure content reaches everyone.
+  </Card>
+  <Card title="Documented" icon="open-book">
+    Comprehensive documentation makes getting started straightforward.
+  </Card>
+</CardGrid>
+
+### Stagger Layout
+
+<CardGrid stagger>
+  <Card title="Step One" icon="setting">
+    Configure your project settings and environment variables.
+  </Card>
+  <Card title="Step Two" icon="document">
+    Create your content pages using MDX format.
+  </Card>
+  <Card title="Step Three" icon="laptop">
+    Preview locally with the development server.
+  </Card>
+  <Card title="Step Four" icon="rocket">
+    Deploy to your hosting platform of choice.
+  </Card>
+</CardGrid>
+
+### Link Cards
+
+<CardGrid>
+  <LinkCard
+    title="Starlight Documentation"
+    description="Learn how to build documentation sites with Starlight."
+    href="https://starlight.astro.build"
+  />
+  <LinkCard
+    title="Astro Documentation"
+    description="Explore the Astro framework for content-driven websites."
+    href="https://docs.astro.build"
+  />
+</CardGrid>
+
+## Badges
+
+### Inline Badge Variants
+
+All six badge variants rendered inline:
+
+<Badge text="Default" /> <Badge text="Note" variant="note" /> <Badge text="Danger" variant="danger" /> <Badge text="Success" variant="success" /> <Badge text="Tip" variant="tip" /> <Badge text="Caution" variant="caution" />
+
+### Badge Sizes
+
+<Badge text="Small" size="small" /> <Badge text="Medium" size="medium" /> <Badge text="Large" size="large" />
+
+Each size with a variant:
+
+<Badge text="Small Tip" variant="tip" size="small" /> <Badge text="Medium Danger" variant="danger" size="medium" /> <Badge text="Large Success" variant="success" size="large" />
+
+### Heading Badges
+
+The following headings use the `starlight-heading-badges` plugin syntax.
+
+#### Feature Complete :badge[Stable]{variant=success}
+
+This heading has a success badge indicating the feature is stable.
+
+#### Experimental API :badge[Beta]{variant=caution}
+
+This heading has a caution badge indicating the API is experimental.
+
+#### Legacy System :badge[Deprecated]{variant=danger}
+
+This heading has a danger badge indicating deprecation.
+
+#### New Feature :badge[New]{variant=tip}
+
+This heading has a tip badge indicating a new feature.
+
+#### Documentation :badge[Updated]{variant=note}
+
+This heading has a note badge indicating recent updates.
+
+#### Default Badge :badge[Info]
+
+This heading has a default badge with no variant specified.
+
+### Sidebar Badge
+
+Check the sidebar: this page has a "New" badge with the `tip` variant applied via frontmatter.
+
+## Tables
+
+### Simple Table
+
+| Feature | Status | Priority |
+|---------|--------|----------|
+| Dark mode | Supported | High |
+| Image zoom | Supported | Medium |
+| Mermaid diagrams | Supported | Medium |
+| Heading badges | Supported | Low |
+
+### Table with Alignment and Code
+
+| Property | Type | Default | Description |
+|:---------|:----:|--------:|:------------|
+| `title` | `string` | — | Page title displayed in the header |
+| `description` | `string` | `""` | Meta description for SEO |
+| `sidebar.order` | `number` | `0` | Sort order in the sidebar |
+| `sidebar.badge` | `object` | `null` | Badge shown next to sidebar label |
+| `template` | `"doc" \| "splash"` | `"doc"` | Page layout template |
+
+## Images
+
+The image below tests the `starlight-image-zoom` plugin. Click to zoom.
+
+![GitHub Avatar](https://github.com/f5xc-SalesDemos.png)
+
+## File Tree
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - index.mdx
+      - 01-environment-variables.mdx
+      - 02-build-pipeline.mdx
+      - 03-astro-config.mdx
+      - 04-logo.mdx
+      - 05-colors.mdx
+      - 06-brand-icons.mdx
+      - 07-typography.mdx
+      - 08-code-blocks.mdx
+      - **09-components.mdx** This page
+      - 10-mermaid.mdx
+      - 11-footer.mdx
+      - 12-style-enhancement-guide.mdx
+  - plugins/
+    - remark-mermaid.mjs
+- styles/
+  - custom.css
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## Icons
+
+Starlight provides built-in icons via the `<Icon>` component.
+
+<Icon name="star" size="1.5rem" /> Star
+<Icon name="rocket" size="1.5rem" /> Rocket
+<Icon name="heart" size="1.5rem" /> Heart
+<Icon name="setting" size="1.5rem" /> Setting
+<Icon name="pencil" size="1.5rem" /> Pencil
+<Icon name="document" size="1.5rem" /> Document
+<Icon name="open-book" size="1.5rem" /> Open Book
+<Icon name="laptop" size="1.5rem" /> Laptop
+
+## Theme Checks
+
+- Border-left color differs per aside variant (blue, purple, yellow, red)
+- Aside background tint is visible in both light and dark modes
+- Box-shadow is subtle but visible around each aside
+- Rounded corners (0.75rem) on all asides
+- Tab active indicator color uses the accent color
+- Step connector line is visible between numbered steps
+- Synced tabs stay in sync when switching between groups
+- Code blocks inside tabs render with proper syntax highlighting
+- Card border color adapts between light and dark modes
+- Hover background effect is visible on cards
+- LinkCard arrow icon color matches the accent color
+- Stagger layout offsets alternate cards vertically
+- Icons render correctly inside card headers
+- Badge background colors per variant differ between dark and light modes
+- Dark mode badges use deep tones (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
+- Light mode badges use light tones (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
+- Heading badges align inline with heading text
+- Sidebar badge renders next to the page label
+- Table border colors adapt between light and dark modes
+- Table header row has a distinct background
+- Image zoom overlay works on click (starlight-image-zoom)
+- FileTree background uses theme-appropriate colors
+- Icons inherit the current text color

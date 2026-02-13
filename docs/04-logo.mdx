@@ -1,0 +1,53 @@
+---
+title: Logo
+description: How the logo is configured and how to replace it.
+sidebar:
+  order: 4
+---
+
+The theme displays the logo in the sidebar of every documentation site.
+
+## Current Logo
+
+- **File**: `assets/logo.svg`
+- **Format**: SVG with `viewBox="0 0 1000 1000"`
+- **Primary color**: Cloud Red (`#e4002b`)
+
+## How It's Referenced
+
+In `astro.config.mjs`, the logo is passed to the Starlight `logo` option:
+
+```js
+starlight({
+  logo: {
+    src: './theme/assets/logo.svg',
+  },
+})
+```
+
+The `./theme/` prefix is required because the builder workflow checks out this theme repository into a `theme/` directory inside the build workspace.
+
+## Replacing the Logo
+
+1. **Create your SVG** — use a square or near-square aspect ratio for best results in the sidebar
+2. **Save it** to `assets/` (e.g., `assets/my-logo.svg`)
+3. **Update `astro.config.mjs`** to point to the new file:
+   ```js
+   logo: {
+     src: './theme/assets/my-logo.svg',
+   },
+   ```
+
+### Guidelines
+
+- **Use SVG format** — raster images (PNG, JPG) will work but won't scale cleanly at all sizes
+- **Include a `viewBox`** — ensures the logo scales proportionally (e.g., `viewBox="0 0 100 100"`)
+- **Keep file size small** — the logo loads on every page; aim for under 10 KB
+- **Test in both themes** — verify the logo looks correct in both light and dark mode
+- **Starlight also supports separate light/dark logos** via `logo.light` and `logo.dark` if needed:
+  ```js
+  logo: {
+    light: './theme/assets/logo-light.svg',
+    dark: './theme/assets/logo-dark.svg',
+  },
+  ```

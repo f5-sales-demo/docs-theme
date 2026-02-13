@@ -1,0 +1,104 @@
+---
+title: Footer
+description: Custom Starlight footer component with social media links.
+sidebar:
+  order: 11
+---
+
+The theme replaces the default Starlight footer with a custom `Footer.astro` component that adds social media links below the standard footer content.
+
+## Component Pattern
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+This pattern **extends** the default footer rather than replacing it entirely. `<Default {...Astro.props}><slot /></Default>` renders the original Starlight footer (previous/next navigation), then the social links are appended below.
+
+## How It's Registered
+
+In `astro.config.mjs`:
+
+```js
+starlight({
+  components: {
+    Footer: './theme/components/Footer.astro',
+  },
+})
+```
+
+## Social Links
+
+| Platform | URL | Icon Color | Aria Label |
+|----------|-----|------------|------------|
+| Facebook | `https://www.facebook.com/example` | `#1877F2` (Facebook Blue) | Facebook |
+| X | `https://x.com/example` | `currentColor` (inherits) | X |
+| LinkedIn | `https://www.linkedin.com/company/example/` | `#0A66C2` (LinkedIn Blue) | LinkedIn |
+| Instagram | `https://www.instagram.com/example/` | `#E4405F` (Instagram Pink) | Instagram |
+| YouTube | `https://www.youtube.com/user/example` | `#FF0000` (YouTube Red) | YouTube |
+
+Each link opens in a new tab (`target="_blank"`) with `rel="noopener noreferrer"` for security.
+
+## CSS Styling
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+The links are right-aligned in a flex row with a subtle opacity hover effect.
+
+## Customization
+
+### Changing a URL
+
+Edit the `href` attribute on the corresponding `<a>` tag in `components/Footer.astro`.
+
+### Adding a Link
+
+Add a new `<a>` element inside the `.social-links` div with a 24x24 SVG icon. Follow the existing pattern:
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### Removing a Link
+
+Delete the entire `<a>...</a>` block for the platform you want to remove.
+
+### Changing Icon Colors
+
+Modify the `fill` attribute on the `<svg>` element. Use `currentColor` to inherit the text color, or a specific hex value for brand colors.
+
+### Changing Layout
+
+Modify the `.social-links` CSS in the `<style>` block:
+- **Center alignment**: Change `justify-content` to `center`
+- **Wider spacing**: Increase the `gap` value
+- **Left alignment**: Change `justify-content` to `flex-start`

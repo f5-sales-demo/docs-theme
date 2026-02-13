@@ -1,0 +1,314 @@
+---
+title: Typography
+description: Font families, type hierarchy, weight usage, leading specs, case conventions, live examples, and Starlight theme mapping.
+sidebar:
+  order: 7
+---
+
+The type system blends two font families inspired by Swiss design, establishing a clear hierarchy between expressive headlines and functional body copy.
+
+## Design Philosophy
+
+Fonts typography uses proportion, rhythm, and tempo — achieved through type style, scale, weight, color, leading, horizontal space, and vertical space — to create clear visual hierarchy.
+
+- **Neusa Next Wide** is inspired by type treatments from early space exploration, adding a human and expressive character to headlines and subheads
+- **Proxima Nova** brings openness and geometric styling to harder-working moments such as body and utility copy
+
+Hierarchy is established through descending type size **and** contrast via alternating lowercase/uppercase treatments. Sign-offs and CTAs use the wide bold face to pop from a lower hierarchy position.
+
+## Font Families
+
+### Neusa Next Wide
+
+**Role**: Headlines, subheads, pull quotes, CTAs, labels, numeric stats
+
+The Brand Center specimen shows five styles:
+
+| Style | Weight Value | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Light | 300 | `300` | `normal` |
+| Regular | 400 | `400` | `normal` |
+| Italic | 400 | `400` | `italic` |
+| Medium | 500 | `500` | `normal` |
+| Bold | 700 | `700` | `normal` |
+
+### Proxima Nova
+
+**Role**: Body copy, utility text, section headers, UI elements
+
+The Brand Center specimen shows four styles:
+
+| Style | Weight Value | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Regular | 400 | `400` | `normal` |
+| Regular Italic | 400 | `400` | `italic` |
+| Bold | 700 | `700` | `normal` |
+| Bold Italic | 700 | `700` | `italic` |
+
+Proxima Nova is separately licensed and is **not** included in the Brand Center font download. The theme ships with weights 400, 500, 600, and 700 in normal style.
+
+## Type Hierarchy
+
+### Core Principles
+
+- Establish hierarchy through **descending type size** combined with **alternating case** treatments
+- Use **Neusa Wide Bold, sentence case** for campaign headlines and subheads
+- Set headline leading to **1.1× the type size**
+- Use **Proxima Nova Bold, UPPERCASE** with letter-spacing for section headers to contrast with sentence-case headings
+- Sign-offs and CTAs use **Neusa Wide Bold** with a right-facing caret (**›**) in Cloud Red to indicate action in digital experiences
+
+### Hierarchy Table
+
+| Element | Font | Weight | Case | Notes |
+|---------|------|--------|------|-------|
+| Headline | Neusa Wide | Bold (700) | Sentence | Leading = 1.1× type size |
+| Eyebrow | Proxima Nova | Bold (700) | UPPERCASE | Small, with letter-spacing |
+| Subhead / Intro | Neusa Wide | Medium (500) | Sentence | Or Proxima Nova if immediately followed by body copy |
+| Section header | Proxima Nova | Bold (700) | UPPERCASE | With letter-spacing |
+| Sub-subhead | Proxima Nova | Bold (700) | Sentence | |
+| Body copy | Proxima Nova | Regular (400) | Sentence | |
+| Bullet points | Proxima Nova | Regular (400) | Sentence | |
+| Pull quote | Neusa Wide | Bold (700) | Sentence | Cloud Red color; large red quotation marks with attribution below |
+| Sign-off / CTA | Neusa Wide | Bold (700) | Sentence | With right-facing caret (›) in Cloud Red |
+
+### Specialized Treatments
+
+| Context | Font | Weight | Size/Leading | Notes |
+|---------|------|--------|-------------|-------|
+| Collateral pull quotes | Neusa Wide | Bold (700) | 9pt / 14pt | Sentence case |
+| eBook pull quotes | Neusa Wide | Regular (400) | 16pt / 19pt | With rule above |
+| Infographic numerals/factoids | Neusa Wide | Light (300) | — | For visual impact at large sizes |
+| Chart/bar numerals | Neusa Wide | Regular (400) | — | Standard chart labeling |
+
+### Title Case Usage
+
+Title case may be used for:
+- Subheads
+- Pull quotes
+- Numeric stats
+- Labels
+
+All other elements default to sentence case.
+
+## Live Examples
+
+### Headings
+
+## Heading Level 2
+
+### Heading Level 3
+
+#### Heading Level 4
+
+##### Heading Level 5
+
+###### Heading Level 6
+
+### Text Styles
+
+This is **bold text** for emphasis.
+
+This is *italic text* for subtle emphasis.
+
+This is ~~strikethrough text~~ for deprecated content.
+
+This is `inline code` for technical references.
+
+This is ***bold italic text*** for strong emphasis.
+
+This is a combination: **bold with `inline code` inside** and *italic with `code` inside*.
+
+### Ordered List
+
+1. First item in the ordered list
+2. Second item with **bold text**
+3. Third item with `inline code`
+4. Fourth item with a [link to Astro](https://astro.build)
+
+### Unordered List
+
+- First bullet point
+- Second bullet with **emphasis**
+- Third bullet with `code reference`
+- Fourth bullet with a [link](https://starlight.astro.build)
+
+### Nested Lists
+
+1. Top-level ordered item
+   - Nested unordered item A
+   - Nested unordered item B
+     1. Deep nested ordered item
+     2. Another deep nested item
+   - Back to first nesting level
+2. Second top-level item
+   - Another nested item
+
+### Blockquotes
+
+> This is a single-line blockquote.
+
+> This is a multi-line blockquote.
+>
+> It spans multiple paragraphs and can contain **bold**, *italic*, and `code` formatting.
+
+> Nested blockquotes:
+>
+> > This is a nested blockquote inside the outer one.
+> >
+> > It can contain its own formatting.
+
+### Horizontal Rule
+
+Content above the rule.
+
+---
+
+Content below the rule.
+
+### Links
+
+- Internal link: [Back to docs overview](/)
+- External link: [Starlight Documentation](https://starlight.astro.build)
+- Link with title: [Astro](https://astro.build "Astro Framework Homepage")
+
+### Footnotes
+
+Here is a sentence with a footnote reference[^1].
+
+And another sentence with a different footnote[^2].
+
+[^1]: This is the first footnote content. It appears at the bottom of the page.
+
+[^2]: This is the second footnote. It can contain **formatting** and `code`.
+
+## Font Assets
+
+The theme ships **10 woff2 files** in the `fonts/` directory:
+
+### Neusa Next Pro Wide
+
+| File | Weight | Style | Size |
+|------|--------|-------|------|
+| `neusaNextProWide-300.woff2` | 300 (Light) | Normal | ~49 KB |
+| `neusaNextProWide-400.woff2` | 400 (Regular) | Normal | ~49 KB |
+| `neusaNextProWide-400i.woff2` | 400 (Regular) | Italic | ~49 KB |
+| `neusaNextProWide-500.woff2` | 500 (Medium) | Normal | ~49 KB |
+| `neusaNextProWide-700.woff2` | 700 (Bold) | Normal | ~49 KB |
+| `neusaNextProWide-700i.woff2` | 700 (Bold) | Italic | ~49 KB |
+
+### Proxima Nova
+
+| File | Weight | Style | Size |
+|------|--------|-------|------|
+| `proximaNova-400.woff2` | 400 (Regular) | Normal | ~18 KB |
+| `proximaNova-500.woff2` | 500 (Medium) | Normal | ~18 KB |
+| `proximaNova-600.woff2` | 600 (Semi-Bold) | Normal | ~18 KB |
+| `proximaNova-700.woff2` | 700 (Bold) | Normal | ~18 KB |
+
+### Naming Convention
+
+Font files follow the pattern `familyName-weight.woff2`, with an `i` suffix for italic variants (e.g., `neusaNextProWide-400i.woff2`).
+
+### Coverage Gaps
+
+The following italic variants are not yet available in the theme:
+
+| Missing Variant | Reason |
+|----------------|--------|
+| Proxima Nova 400 italic | Source file not available in current downloads |
+| Proxima Nova 500 italic | Source file not available in current downloads |
+| Proxima Nova 600 italic (Semi-Bold) | Source file not available |
+| Proxima Nova 700 italic (Bold) | Source file not available |
+
+To add Proxima Nova italic variants, obtain genuine woff2 files from a licensed source, name them following the convention (e.g., `proximaNova-400i.woff2`), and add corresponding `@font-face` rules to `font-face.css`.
+
+## @font-face Declarations
+
+All font registrations live in `fonts/font-face.css`. Each declaration uses:
+
+- **`font-display: swap`** — text renders immediately with a fallback font, then swaps when the custom font loads
+- **`format("woff2")`** — modern compressed format supported by all current browsers
+- **Relative URLs** — `./` paths resolve relative to the CSS file location
+
+To add a new font variant, append a `@font-face` block to `font-face.css`:
+
+```css
+@font-face {
+  font-family: "familyName";
+  font-weight: 400;
+  font-style: italic;  /* or normal */
+  font-display: swap;
+  src: url("./familyName-400i.woff2") format("woff2");
+}
+```
+
+## CSS Integration
+
+The theme plugin (`index.ts`) injects both CSS files via the `config:setup` hook:
+
+```
+index.ts → fonts/font-face.css → styles/custom.css → Starlight renders
+```
+
+### Font Assignments
+
+In `styles/custom.css`:
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+```
+
+- **`--sl-font`** (Starlight body font variable) → Proxima Nova for body text and UI
+- **`--sl-font-heading`** (custom token) → Neusa Next Pro Wide for heading font reference
+- **`h1`–`h6`** → Font family, weight, and case applied per the Cloud type hierarchy
+- **Fallback stack**: `system-ui, "Segoe UI", Helvetica, Arial, sans-serif` for fast initial rendering before custom fonts load
+
+### Starlight Typography Tokens
+
+The theme overrides these Starlight CSS custom properties:
+
+| Token | Value | Purpose |
+|-------|-------|---------|
+| `--sl-font` | `"proximaNova", ...` | Body text, UI elements |
+| `--sl-font-heading` | `"neusaNextProWide", ...` | Custom token for heading font |
+| `--sl-line-height-headings` | `1.1` | Cloud brand headline leading |
+| `--sl-text-h1` | `var(--sl-text-5xl)` | 2.625rem headline |
+| `--sl-text-h2` | `var(--sl-text-3xl)` | 1.8125rem subhead |
+| `--sl-text-h3` | `var(--sl-text-2xl)` | 1.5rem section intro |
+| `--sl-text-h4` | `var(--sl-text-lg)` | 1.125rem sub-section |
+
+### Heading Hierarchy Mapping
+
+| HTML | Font Family | Weight | Case | Brand Role |
+|------|------------|--------|------|------------|
+| `h1` | Neusa Next Wide | 700 (Bold) | Sentence | Headline |
+| `h2` | Neusa Next Wide | 700 (Bold) | Sentence | Subhead |
+| `h3` | Neusa Next Wide | 500 (Medium) | Sentence | Intro / Sub-subhead |
+| `h4` | Proxima Nova | 700 (Bold) | UPPERCASE | Section header |
+| `h5` | Proxima Nova | 700 (Bold) | UPPERCASE | Sub-section header |
+| `h6` | Proxima Nova | 700 (Bold) | UPPERCASE | Minor section header |
+
+## Replacing Fonts
+
+To use different font families:
+
+1. **Add woff2 files** to `fonts/` using the naming convention `familyName-weight.woff2` (add `i` suffix for italic)
+2. **Update `fonts/font-face.css`** with new `@font-face` rules matching your file names, weights, and styles
+3. **Update `styles/custom.css`** to set `--sl-font` and heading `font-family` to your new family names
+4. **Keep the fallback stack** (`system-ui, "Segoe UI", Helvetica, Arial, sans-serif`) for fast initial rendering
+
+## Theme Checks
+
+- H2 and H3 use `neusaNextProWide` font family with weight 700/500
+- H4, H5, H6 use `proximaNova` font, uppercase, with letter-spacing 0.05em
+- Link accent color is `#f06680` in dark mode, `#e4002b` in light mode
+- Inline code has a background tint from `--sl-color-gray-5`
+- Blockquote border-left is visible in both themes
+- Footnote references are superscripted and linked
+- Horizontal rule has appropriate contrast

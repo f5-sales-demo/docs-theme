@@ -1,0 +1,52 @@
+---
+import Default from '@astrojs/starlight/components/Banner.astro';
+
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io';
+const { sidebar, entry, siteTitle, editUrl } = Astro.locals.starlightRoute;
+
+const isIndexPage = entry.filePath ? /(?:^|[\\/])index\.mdx?$/.test(entry.filePath) : false;
+const hideBreadcrumbs = isIndexPage;
+
+function findTrail(entries: typeof sidebar, trail: { label: string }[] = []): { label: string }[] | null {
+  for (const item of entries) {
+    if (item.type === 'link' && item.isCurrent) {
+      return trail;
+    }
+    if (item.type === 'group') {
+      const result = findTrail(item.entries, [...trail, { label: item.label }]);
+      if (result) return result;
+    }
+  }
+  return null;
+}
+
+const trail = findTrail(sidebar) || [];
+const fixedEditUrl = editUrl
+  ? editUrl.href.replace('/src/content/docs/', '/docs/')
+  : undefined;
+---
+
+<Default {...Astro.props}><slot /></Default>
+{!hideBreadcrumbs && (
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href={docsHome}>Home</a></li>
+      <li><a href={import.meta.env.BASE_URL}>{siteTitle}</a></li>
+      {trail.map((crumb) => (
+        <li><span>{crumb.label}</span></li>
+      ))}
+      <li aria-current="page"><span>{entry.data.title}</span></li>
+    </ol>
+    {fixedEditUrl && (
+      <a href={fixedEditUrl} target="_blank" rel="noopener noreferrer" class="edit-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+          <path d="m15 5 4 4" />
+        </svg>
+        <span>Edit</span>
+      </a>
+    )}
+  </nav>
+)}

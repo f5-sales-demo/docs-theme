@@ -1,0 +1,223 @@
+---
+title: Code Blocks
+description: Syntax highlighting, terminal mode, line highlights, diff blocks, and CSS reference for Expressive Code styling.
+sidebar:
+  order: 8
+---
+
+All code blocks use [Expressive Code](https://expressive-code.com/) with custom styling defined in `styles/custom.css`.
+
+## Language Examples
+
+### JavaScript
+
+```js
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log(fibonacci(10)); // 55
+```
+
+### Python
+
+```python
+def fibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print(fibonacci(10))  # 55
+```
+
+### Bash
+
+```bash
+#!/bin/bash
+for i in $(seq 1 5); do
+  echo "Iteration $i"
+done
+```
+
+### YAML
+
+```yaml
+site:
+  title: Documentation
+  base: /
+  integrations:
+    - starlight
+    - react
+```
+
+### JSON
+
+```json
+{
+  "name": "f5xc-docs-theme",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js"
+}
+```
+
+### HTML
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Page</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+  </body>
+</html>
+```
+
+### CSS
+
+```css
+:root {
+  --sl-color-accent: #f06680;
+  --sl-font: "proximaNova", system-ui;
+}
+
+h1 {
+  font-family: var(--sl-font-heading);
+  font-weight: 700;
+}
+```
+
+### TypeScript
+
+```ts
+interface Config {
+  title: string;
+  base: string;
+  plugins: string[];
+}
+
+const config: Config = {
+  title: "Documentation",
+  base: "/",
+  plugins: ["starlight", "react"],
+};
+```
+
+## Terminal Mode
+
+Terminal-style code blocks (fenced with ` ```bash ` or ` ```sh `) receive an iTerm-inspired window frame with macOS traffic light dots.
+
+```bash title="Terminal"
+npm install f5xc-docs-theme
+npx astro build
+npx astro preview
+```
+
+### Terminal CSS Reference
+
+```css
+/* Frame border */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Dark header with traffic light SVG dots */
+.expressive-code .frame.is-terminal .header {
+  background: #323232 !important;
+  color: #ccc !important;
+}
+
+/* Dark mode terminal body — Tokyo Night-inspired */
+:root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
+  background: #1a1b26 !important;
+}
+
+/* Light mode border override */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## File Name Titles
+
+```ts title="src/config.ts"
+export default {
+  site: "https://example.com",
+  title: "My Docs",
+};
+```
+
+## Line Highlighting
+
+```js {1,3-5}
+const name = "highlighted"; // line 1 highlighted
+const other = "normal";
+const a = 1; // lines 3-5 highlighted
+const b = 2;
+const c = 3;
+const d = "normal again";
+```
+
+## Inserted and Deleted Lines
+
+```js ins={2} del={3}
+const config = {
+  theme: "dark", // inserted
+  theme: "light", // deleted
+  lang: "en",
+};
+```
+
+## Diff Blocks
+
+```diff
+- const oldValue = "deprecated";
++ const newValue = "replacement";
+  const unchanged = "stays";
+- removeThis();
++ addThis();
+```
+
+## CSS Reference
+
+### Frame Styling
+
+All code blocks get rounded corners and a layered shadow:
+
+```css
+.expressive-code .frame {
+  --header-border-radius: 0.75rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+### Theme-Aware Borders
+
+```css
+/* Dark mode (default) */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Light mode */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## Theme Checks
+
+- Code block background color adapts to theme
+- Terminal header background is `#323232` with macOS traffic light dots
+- Terminal border uses `rgba(255, 255, 255, 0.15)` in dark, `rgba(0, 0, 0, 0.2)` in light
+- Dark mode terminal body uses `#1a1b26`
+- Syntax colors remain readable in both themes
+- Line highlights have visible background tint
+- Inserted lines show green tint, deleted lines show red tint
+- Code blocks have 0.75rem border radius and box shadow

@@ -1,0 +1,153 @@
+---
+title: Astro Configuration
+description: Line-by-line reference for astro.config.mjs.
+sidebar:
+  order: 3
+---
+
+The `astro.config.mjs` file is the shared Astro/Starlight configuration used by every documentation site built with this theme. It is read by the builder at build time.
+
+## Full Configuration
+
+```js
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
+import react from '@astrojs/react';
+import remarkMermaid from './src/plugins/remark-mermaid.mjs';
+
+const title = process.env.DOCS_TITLE || 'Documentation';
+const site = process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const base = process.env.DOCS_BASE || '/';
+
+export default defineConfig({
+  site,
+  base,
+  markdown: {
+    remarkPlugins: [remarkMermaid],
+  },
+  integrations: [
+    starlight({
+      title,
+      customCss: [
+        './theme/fonts/font-face.css',
+        './theme/styles/custom.css',
+      ],
+      logo: {
+        src: './theme/assets/logo.svg',
+      },
+      components: {
+        Footer: './theme/components/Footer.astro',
+      },
+      social: [
+        {
+          label: 'GitHub',
+          icon: 'github',
+          href: `https://github.com/${process.env.GITHUB_REPOSITORY || ''}`,
+        },
+      ],
+    }),
+    react(),
+  ],
+});
+```
+
+## Section Breakdown
+
+### Imports
+
+```js
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
+import react from '@astrojs/react';
+import remarkMermaid from './src/plugins/remark-mermaid.mjs';
+```
+
+- **defineConfig** — Astro's typed configuration helper
+- **starlight** — the Starlight documentation framework integration
+- **react** — enables React components in Astro pages
+- **remarkMermaid** — custom remark plugin that transforms Mermaid code blocks into rendered diagrams during the Markdown processing pipeline
+
+### Environment Variables
+
+```js
+const title = process.env.DOCS_TITLE || 'Documentation';
+const site = process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const base = process.env.DOCS_BASE || '/';
+```
+
+These are read at build time and allow each content repository to customize the site without modifying the config. See the [Environment Variables](./environment-variables) page for full details.
+
+### Markdown Configuration
+
+```js
+markdown: {
+  remarkPlugins: [remarkMermaid],
+},
+```
+
+Registers the custom Mermaid remark plugin. This runs during Markdown processing and converts ` ```mermaid ` code blocks into styled SVG diagrams.
+
+### Starlight Integration
+
+#### Custom CSS
+
+```js
+customCss: [
+  './theme/fonts/font-face.css',
+  './theme/styles/custom.css',
+],
+```
+
+Loads the font declarations first, then the custom styles. Order matters — `custom.css` references the font families registered by `font-face.css`.
+
+#### Logo
+
+```js
+logo: {
+  src: './theme/assets/logo.svg',
+},
+```
+
+Displays the logo in the sidebar. The `./theme/` prefix is required because the builder places this theme repository in a `theme/` directory.
+
+#### Footer Component Override
+
+```js
+components: {
+  Footer: './theme/components/Footer.astro',
+},
+```
+
+Replaces the default Starlight footer with the custom footer that includes social media links.
+
+#### Social Links
+
+```js
+social: [
+  {
+    label: 'GitHub',
+    icon: 'github',
+    href: `https://github.com/${process.env.GITHUB_REPOSITORY || ''}`,
+  },
+],
+```
+
+Adds a GitHub icon link in the site header. The URL is built dynamically from the `GITHUB_REPOSITORY` environment variable.
+
+#### Sidebar
+
+No custom sidebar is defined. Starlight auto-generates the sidebar from the file structure in `docs/`, using each page's `title` frontmatter as the link text and `sidebar.order` for sorting.
+
+### React Integration
+
+```js
+react(),
+```
+
+Enables React component support. Required for any interactive components used in documentation pages.
+
+## Shared Configuration Constraint
+
+:::caution
+This configuration is shared across all documentation sites. Any change to `astro.config.mjs` affects every content repository that builds with this theme. Test changes carefully.
+:::

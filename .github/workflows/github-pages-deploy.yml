@@ -1,0 +1,22 @@
+name: GitHub Pages Deploy
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    # TODO: Phase 3 — migrate to f5xc-SalesDemos/f5xc-template
+    uses: robinmordasiewicz/f5xc-template/.github/workflows/github-pages-deploy.yml@main

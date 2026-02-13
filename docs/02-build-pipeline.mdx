@@ -1,0 +1,123 @@
+---
+title: Build Pipeline
+description: How content repositories consume the theme at build time through f5xc-docs-builder.
+sidebar:
+  order: 2
+---
+
+This page describes how the f5xc-docs-theme is consumed by content repositories to produce fully branded documentation sites.
+
+## Architecture
+
+```
+┌─────────────────┐     ┌─────────────────┐
+│  Content Repo   │     │  f5xc-docs-theme │
+│  (docs/ folder) │     │  (this repo)     │
+└────────┬────────┘     └────────┬─────────┘
+         │                       │
+         └───────────┬───────────┘
+                     ▼
+         ┌───────────────────────┐
+         │   f5xc-docs-builder   │
+         │  (reusable workflow)  │
+         └───────────┬───────────┘
+                     ▼
+         ┌───────────────────────┐
+         │   Astro Build Output  │
+         │   (static HTML/CSS)   │
+         └───────────┬───────────┘
+                     ▼
+         ┌───────────────────────┐
+         │    GitHub Pages       │
+         └───────────────────────┘
+```
+
+## Build Process Step by Step
+
+1. **Content repo push** — a push to `main` (or manual dispatch) triggers the GitHub Pages Deploy workflow
+2. **Reusable workflow** — the content repo's workflow calls the builder:
+   ```yaml
+   jobs:
+     docs:
+       uses: robinmordasiewicz/f5xc-template/.github/workflows/docs-build-deploy.yml@main
+   ```
+3. **Checkout** — the builder checks out both the content repo and this theme repo into the workspace:
+   ```
+   workspace/
+   ├── docs/          ← content repo's documentation
+   └── theme/         ← f5xc-docs-theme
+       ├── astro.config.mjs
+       ├── fonts/
+       ├── styles/
+       ├── assets/
+       └── components/
+   ```
+4. **Install dependencies** — `npm install` runs with the theme's `package.json`
+5. **Astro build** — Astro reads `theme/astro.config.mjs` which references all theme assets via `./theme/` paths
+6. **Deploy** — the built static site is deployed to GitHub Pages
+
+## Content Repo Requirements
+
+A content repository only needs:
+
+- A `docs/` directory containing Markdown (`.md`) or MDX (`.mdx`) files
+- A GitHub Actions workflow that calls the builder
+
+### Minimal Workflow
+
+```yaml
+name: GitHub Pages Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    uses: robinmordasiewicz/f5xc-template/.github/workflows/docs-build-deploy.yml@main
+```
+
+This is the same workflow used by this theme repository itself to build the documentation you are reading.
+
+## Path Resolution
+
+All paths in `astro.config.mjs` use the `./theme/` prefix:
+
+```js
+customCss: [
+  './theme/fonts/font-face.css',
+  './theme/styles/custom.css',
+],
+logo: {
+  src: './theme/assets/f5-logo.svg',
+},
+components: {
+  Footer: './theme/components/Footer.astro',
+},
+```
+
+These paths resolve correctly because the builder places the theme checkout at `./theme/` relative to the build workspace root.
+
+:::note
+Font file paths inside `font-face.css` use `./` (e.g., `url("./neusaNextProWide-300.woff2")`). These are relative to the CSS file itself, so they resolve to other files within the `fonts/` directory regardless of the workspace structure.
+:::
+
+## Change Propagation
+
+Theme changes propagate automatically:
+
+1. A change is merged to `main` in `f5xc-docs-theme`
+2. The next time any content repo's workflow runs, it checks out the latest `main` of this theme
+3. The Astro build picks up the updated fonts, styles, logo, or footer
+4. The content repo's site deploys with the new theme
+
+There is no versioning or pinning — content repos always get the latest theme from `main`. This ensures visual consistency across all sites but means changes should be tested carefully before merging.

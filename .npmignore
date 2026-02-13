@@ -1,0 +1,7 @@
+docs/
+.github/
+.editorconfig
+.gitignore
+CLAUDE.md
+CONTRIBUTING.md
+release.config.js

@@ -1,0 +1,77 @@
+{
+  "name": "f5xc-docs-theme",
+  "version": "0.1.0",
+  "description": "F5 Distributed Cloud branded Starlight documentation theme",
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://f5xc-salesdemos.github.io/docs-theme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/f5xc-SalesDemos/docs-theme"
+  },
+  "bugs": {
+    "url": "https://github.com/f5xc-SalesDemos/docs-theme/issues"
+  },
+  "exports": {
+    ".": "./index.ts",
+    "./fonts/font-face.css": "./fonts/font-face.css",
+    "./styles/custom.css": "./styles/custom.css",
+    "./components/Banner.astro": "./components/Banner.astro",
+    "./components/EditLink.astro": "./components/EditLink.astro",
+    "./components/Footer.astro": "./components/Footer.astro",
+    "./components/SiteTitle.astro": "./components/SiteTitle.astro",
+    "./components/MarkdownContent.astro": "./components/MarkdownContent.astro",
+    "./assets/f5-logo.svg": "./assets/f5-logo.svg",
+    "./assets/github-avatar.png": "./assets/github-avatar.png",
+    "./config": "./config.ts",
+    "./route-middleware": "./route-middleware.ts",
+    "./src/plugins/remark-mermaid.mjs": "./src/plugins/remark-mermaid.mjs"
+  },
+  "files": [
+    "index.ts",
+    "config.ts",
+    "route-middleware.ts",
+    "astro.config.mjs",
+    "fonts/",
+    "styles/",
+    "assets/",
+    "components/",
+    "src/"
+  ],
+  "keywords": [
+    "starlight",
+    "theme",
+    "astro",
+    "withastro",
+    "starlight-theme",
+    "f5",
+    "f5xc",
+    "documentation",
+    "docs-theme"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0"
+  },
+  "scripts": {
+    "test:visual": "playwright test",
+    "test:visual:update": "playwright test --update-snapshots"
+  },
+  "peerDependencies": {
+    "@astrojs/starlight": ">=0.34.0"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.0.0",
+    "unist-util-visit": "^5.0.0",
+    "starlight-heading-badges": "^0.6.1",
+    "starlight-image-zoom": "^0.13.2",
+    "starlight-llms-txt": "^0.7.0",
+    "starlight-mega-menu": "^1.0.1",
+    "starlight-page-actions": "^0.5.0",
+    "starlight-plugin-icons": "^1.1.3",
+    "starlight-scroll-to-top": "^0.4.0",
+    "starlight-videos": "^0.3.1"
+  }
+}
