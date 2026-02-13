@@ -39,7 +39,7 @@ This page describes how the f5xc-docs-theme is consumed by content repositories 
    ```yaml
    jobs:
      docs:
-       uses: robinmordasiewicz/f5xc-template/.github/workflows/docs-build-deploy.yml@main
+       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
 3. **Checkout** — the builder checks out both the content repo and this theme repo into the workspace:
    ```
@@ -83,7 +83,7 @@ concurrency:
 
 jobs:
   docs:
-    uses: robinmordasiewicz/f5xc-template/.github/workflows/docs-build-deploy.yml@main
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
 This is the same workflow used by this theme repository itself to build the documentation you are reading.

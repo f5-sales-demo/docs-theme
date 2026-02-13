@@ -18,7 +18,6 @@ concurrency:
 
 jobs:
   enforce:
-    # TODO: Phase 3 — migrate to f5xc-salesdemos/f5xc-template
-    uses: robinmordasiewicz/f5xc-template/.github/workflows/enforce-repo-settings.yml@main
+    uses: f5xc-salesdemos/docs-control/.github/workflows/enforce-repo-settings.yml@main
     secrets:
       repo-admin-token: ${{ secrets.REPO_ADMIN_TOKEN }}
