@@ -176,7 +176,7 @@ shared pipeline:
 | ---- | ---- |
 | `f5xc-docs-theme` | Astro/Starlight config, CSS, logos, layout |
 | `f5xc-docs-builder` | Dockerfile, npm deps, build scripts |
-| `f5xc-template` | CI workflow, governance files |
+| `docs-control` | CI workflow, governance files |
 
 Content repos only need a `docs/` directory — the
 build container and workflow handle everything else.
@@ -193,7 +193,7 @@ CI builds trigger when files in `docs/` change on
   change `f5xc-docs-builder` (owns the
   Dockerfile and dependency set)
 - **CI workflow or governance files** —
-  change `f5xc-template`
+  change `docs-control`
 - **Page content and images** —
   change the `docs/` directory in the content
   repo itself
