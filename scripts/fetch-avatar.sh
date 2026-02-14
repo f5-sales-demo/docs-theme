@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Determine the GitHub org from git remote or argument
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Determine the GitHub org from this repo's remote or argument
 if [ $# -ge 1 ]; then
   ORG="$1"
 else
-  REMOTE_URL=$(git remote get-url origin 2>/dev/null || true)
+  REMOTE_URL=$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || true)
   ORG=$(echo "$REMOTE_URL" | sed -E 's|.*github\.com[:/]([^/]+)/.*|\1|')
 fi
 
@@ -15,8 +18,6 @@ if [ -z "$ORG" ]; then
   exit 1
 fi
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 DEST="$REPO_ROOT/assets/github-avatar.png"
 
 echo "Fetching avatar for GitHub org: $ORG"
