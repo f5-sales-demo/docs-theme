@@ -1,68 +1,29 @@
-# F5 XC Documentation Theme
+# XC Docs Theme
 
-Branding assets for all F5 XC documentation sites. Changes pushed here are picked up automatically on the next build of any content site.
+[![GitHub Pages Deploy](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/github-pages-deploy.yml/badge.svg)](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/github-pages-deploy.yml)
+[![Repo Settings](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/enforce-repo-settings.yml/badge.svg)](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/enforce-repo-settings.yml)
+[![License](https://img.shields.io/github/license/f5xc-salesdemos/docs-theme)](LICENSE)
 
-## What's in this repo
+Shared branding and styling for F5 Distributed Cloud documentation sites
 
-| Folder | Contents | What to edit |
-|--------|----------|--------------|
-| `fonts/` | Custom web fonts (woff2) and `font-face.css` declarations | Replace font files or update `font-face.css` to change typefaces |
-| `styles/` | `custom.css` -- colors, spacing, code blocks, Mermaid diagrams | Edit CSS variables and rules to change the look and feel |
-| `assets/` | `f5-logo.svg` -- sidebar logo | Replace the SVG to update the logo across all sites |
-| `components/` | `Footer.astro` -- custom footer with social links | Edit HTML/SVG to change footer links or icons |
+## Documentation
 
-## How to make changes
+Full documentation is available at **[https://f5xc-salesdemos.github.io/docs-theme/](https://f5xc-salesdemos.github.io/docs-theme/)**.
 
-1. Edit the file you want to change (use the GitHub web editor or clone locally)
-2. Commit and push to `main`
-3. The next time any documentation site rebuilds, it will use your updated theme
+## Getting Started
 
-No npm, no build tools, no technical setup required.
-
-## File reference
-
-### Fonts (`fonts/`)
-
-- **`font-face.css`** -- Declares which font files to load and at which weights
-- **`neusaNextProWide-*.woff2`** -- Heading font (weights: 300, 400, 500, 700)
-- **`proximaNova-*.woff2`** -- Body text font (weights: 400, 500, 600, 700)
-
-To change a font: replace the `.woff2` file with a new one (keep the same filename), or update `font-face.css` to point to a different file.
-
-### Styles (`styles/custom.css`)
-
-Key CSS variables you can change:
-
-```css
-:root {
-  --sl-font: "proximaNova", ...;    /* Body font family */
-  --sl-content-width: 60rem;         /* Main content area width */
-  --sl-sidebar-width: 15rem;         /* Left sidebar width */
-}
+```bash
+git clone https://github.com/f5xc-salesdemos/docs-theme.git
 ```
 
-The file also controls:
-- Heading font family
-- Mermaid diagram container styling (border, shadow, background)
-- Code block appearance (rounded corners, terminal-style header)
-- Aside/callout box styling
+See the [documentation](https://f5xc-salesdemos.github.io/docs-theme/) for detailed setup
+and usage guides.
 
-### Logo (`assets/f5-logo.svg`)
+## Contributing
 
-The SVG file displayed in the sidebar header. Replace it with any SVG file using the same filename.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for workflow rules,
+branch naming, and CI requirements.
 
-### Footer (`components/Footer.astro`)
+## License
 
-Custom footer with social media links (Facebook, X, LinkedIn, Instagram, YouTube). Edit the HTML to change links, add new icons, or update styling.
-
-## Architecture
-
-This repo is checked out at build time by the [f5xc-docs-builder](https://github.com/f5xc-salesdemos/docs-builder) reusable workflow into a `theme/` directory. The Astro config references these files as `./theme/fonts/...`, `./theme/styles/...`, etc.
-
-```
-Content repo push
-  -> Builder workflow runs
-     -> Checks out this theme repo into builder/theme/
-     -> Astro build uses theme files
-     -> Site deployed with your branding
-```
+See [LICENSE](LICENSE).
