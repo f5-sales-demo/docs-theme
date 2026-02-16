@@ -1,0 +1,369 @@
+---
+title: Icons
+description: Complete reference for built-in Starlight icons and available icon packs.
+sidebar:
+  order: 13
+---
+
+import { Icon, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Starlight includes over 200 built-in icons available via the `<Icon>` component — no installation required. This page is the complete reference for every icon name you can use.
+
+## Using the Icon Component
+
+Import the component and pass an icon name:
+
+```mdx
+import { Icon } from '@astrojs/starlight/components';
+
+<Icon name="star" />
+<Icon name="rocket" size="2rem" color="var(--sl-color-accent)" />
+<Icon name="seti:python" label="Python file" />
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `name` | `string` | — | **Required.** The icon name from the tables below. |
+| `label` | `string` | — | Accessible label for screen readers. Use for meaningful icons; omit for decorative ones. |
+| `size` | `string` | `"1em"` | CSS size value applied to width and height. |
+| `color` | `string` | `"currentColor"` | CSS color value. |
+| `class` | `string` | — | Additional CSS classes. |
+
+:::tip[Accessibility]
+Add a `label` prop when an icon conveys meaning (e.g. a link icon). Omit `label` for purely decorative icons — Starlight will hide them from assistive technology automatically.
+:::
+
+## Navigation Icons
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="up-caret" size="1.5rem" /></div><div class="icon-card-label">up-caret</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="down-caret" size="1.5rem" /></div><div class="icon-card-label">down-caret</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="right-caret" size="1.5rem" /></div><div class="icon-card-label">right-caret</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="left-caret" size="1.5rem" /></div><div class="icon-card-label">left-caret</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="up-arrow" size="1.5rem" /></div><div class="icon-card-label">up-arrow</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="down-arrow" size="1.5rem" /></div><div class="icon-card-label">down-arrow</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="right-arrow" size="1.5rem" /></div><div class="icon-card-label">right-arrow</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="left-arrow" size="1.5rem" /></div><div class="icon-card-label">left-arrow</div></div>
+</div>
+
+## UI &amp; Interface Icons
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="bars" size="1.5rem" /></div><div class="icon-card-label">bars</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="translate" size="1.5rem" /></div><div class="icon-card-label">translate</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="pencil" size="1.5rem" /></div><div class="icon-card-label">pencil</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="pen" size="1.5rem" /></div><div class="icon-card-label">pen</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="document" size="1.5rem" /></div><div class="icon-card-label">document</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="add-document" size="1.5rem" /></div><div class="icon-card-label">add-document</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="setting" size="1.5rem" /></div><div class="icon-card-label">setting</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="external" size="1.5rem" /></div><div class="icon-card-label">external</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="download" size="1.5rem" /></div><div class="icon-card-label">download</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="cloud-download" size="1.5rem" /></div><div class="icon-card-label">cloud-download</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="moon" size="1.5rem" /></div><div class="icon-card-label">moon</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="sun" size="1.5rem" /></div><div class="icon-card-label">sun</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="laptop" size="1.5rem" /></div><div class="icon-card-label">laptop</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="open-book" size="1.5rem" /></div><div class="icon-card-label">open-book</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="information" size="1.5rem" /></div><div class="icon-card-label">information</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="magnifier" size="1.5rem" /></div><div class="icon-card-label">magnifier</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="forward-slash" size="1.5rem" /></div><div class="icon-card-label">forward-slash</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="close" size="1.5rem" /></div><div class="icon-card-label">close</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="error" size="1.5rem" /></div><div class="icon-card-label">error</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="warning" size="1.5rem" /></div><div class="icon-card-label">warning</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="approve-check-circle" size="1.5rem" /></div><div class="icon-card-label">approve-check-circle</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="approve-check" size="1.5rem" /></div><div class="icon-card-label">approve-check</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="rocket" size="1.5rem" /></div><div class="icon-card-label">rocket</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="star" size="1.5rem" /></div><div class="icon-card-label">star</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="puzzle" size="1.5rem" /></div><div class="icon-card-label">puzzle</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="list-format" size="1.5rem" /></div><div class="icon-card-label">list-format</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="random" size="1.5rem" /></div><div class="icon-card-label">random</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="comment" size="1.5rem" /></div><div class="icon-card-label">comment</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="comment-alt" size="1.5rem" /></div><div class="icon-card-label">comment-alt</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="heart" size="1.5rem" /></div><div class="icon-card-label">heart</div></div>
+</div>
+
+## Social &amp; Community Icons
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="github" size="1.5rem" /></div><div class="icon-card-label">github</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="gitlab" size="1.5rem" /></div><div class="icon-card-label">gitlab</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="bitbucket" size="1.5rem" /></div><div class="icon-card-label">bitbucket</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="codePen" size="1.5rem" /></div><div class="icon-card-label">codePen</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="farcaster" size="1.5rem" /></div><div class="icon-card-label">farcaster</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="discord" size="1.5rem" /></div><div class="icon-card-label">discord</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="gitter" size="1.5rem" /></div><div class="icon-card-label">gitter</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="twitter" size="1.5rem" /></div><div class="icon-card-label">twitter</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="x.com" size="1.5rem" /></div><div class="icon-card-label">x.com</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="mastodon" size="1.5rem" /></div><div class="icon-card-label">mastodon</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="codeberg" size="1.5rem" /></div><div class="icon-card-label">codeberg</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="youtube" size="1.5rem" /></div><div class="icon-card-label">youtube</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="threads" size="1.5rem" /></div><div class="icon-card-label">threads</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="linkedin" size="1.5rem" /></div><div class="icon-card-label">linkedin</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="twitch" size="1.5rem" /></div><div class="icon-card-label">twitch</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="azureDevOps" size="1.5rem" /></div><div class="icon-card-label">azureDevOps</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="microsoftTeams" size="1.5rem" /></div><div class="icon-card-label">microsoftTeams</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="instagram" size="1.5rem" /></div><div class="icon-card-label">instagram</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="stackOverflow" size="1.5rem" /></div><div class="icon-card-label">stackOverflow</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="telegram" size="1.5rem" /></div><div class="icon-card-label">telegram</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="rss" size="1.5rem" /></div><div class="icon-card-label">rss</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="facebook" size="1.5rem" /></div><div class="icon-card-label">facebook</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="email" size="1.5rem" /></div><div class="icon-card-label">email</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="phone" size="1.5rem" /></div><div class="icon-card-label">phone</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="reddit" size="1.5rem" /></div><div class="icon-card-label">reddit</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="patreon" size="1.5rem" /></div><div class="icon-card-label">patreon</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="signal" size="1.5rem" /></div><div class="icon-card-label">signal</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="slack" size="1.5rem" /></div><div class="icon-card-label">slack</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="matrix" size="1.5rem" /></div><div class="icon-card-label">matrix</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="hackerOne" size="1.5rem" /></div><div class="icon-card-label">hackerOne</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="openCollective" size="1.5rem" /></div><div class="icon-card-label">openCollective</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="blueSky" size="1.5rem" /></div><div class="icon-card-label">blueSky</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="discourse" size="1.5rem" /></div><div class="icon-card-label">discourse</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="zulip" size="1.5rem" /></div><div class="icon-card-label">zulip</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="pinterest" size="1.5rem" /></div><div class="icon-card-label">pinterest</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="tiktok" size="1.5rem" /></div><div class="icon-card-label">tiktok</div></div>
+</div>
+
+## Technology &amp; Framework Icons
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="astro" size="1.5rem" /></div><div class="icon-card-label">astro</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="starlight" size="1.5rem" /></div><div class="icon-card-label">starlight</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="node" size="1.5rem" /></div><div class="icon-card-label">node</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="npm" size="1.5rem" /></div><div class="icon-card-label">npm</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="pnpm" size="1.5rem" /></div><div class="icon-card-label">pnpm</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="bun" size="1.5rem" /></div><div class="icon-card-label">bun</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="deno" size="1.5rem" /></div><div class="icon-card-label">deno</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="biome" size="1.5rem" /></div><div class="icon-card-label">biome</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="mdx" size="1.5rem" /></div><div class="icon-card-label">mdx</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="alpine" size="1.5rem" /></div><div class="icon-card-label">alpine</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="pkl" size="1.5rem" /></div><div class="icon-card-label">pkl</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="jsr" size="1.5rem" /></div><div class="icon-card-label">jsr</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="nostr" size="1.5rem" /></div><div class="icon-card-label">nostr</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="cloudflare" size="1.5rem" /></div><div class="icon-card-label">cloudflare</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="vercel" size="1.5rem" /></div><div class="icon-card-label">vercel</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="netlify" size="1.5rem" /></div><div class="icon-card-label">netlify</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="apple" size="1.5rem" /></div><div class="icon-card-label">apple</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="linux" size="1.5rem" /></div><div class="icon-card-label">linux</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="homebrew" size="1.5rem" /></div><div class="icon-card-label">homebrew</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="nix" size="1.5rem" /></div><div class="icon-card-label">nix</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="backstage" size="1.5rem" /></div><div class="icon-card-label">backstage</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="confluence" size="1.5rem" /></div><div class="icon-card-label">confluence</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="jira" size="1.5rem" /></div><div class="icon-card-label">jira</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="storybook" size="1.5rem" /></div><div class="icon-card-label">storybook</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="sourcehut" size="1.5rem" /></div><div class="icon-card-label">sourcehut</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="substack" size="1.5rem" /></div><div class="icon-card-label">substack</div></div>
+</div>
+
+### Editors &amp; Browsers
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="vscode" size="1.5rem" /></div><div class="icon-card-label">vscode</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="jetbrains" size="1.5rem" /></div><div class="icon-card-label">jetbrains</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="zed" size="1.5rem" /></div><div class="icon-card-label">zed</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="vim" size="1.5rem" /></div><div class="icon-card-label">vim</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="figma" size="1.5rem" /></div><div class="icon-card-label">figma</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="sketch" size="1.5rem" /></div><div class="icon-card-label">sketch</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="chrome" size="1.5rem" /></div><div class="icon-card-label">chrome</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="edge" size="1.5rem" /></div><div class="icon-card-label">edge</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="firefox" size="1.5rem" /></div><div class="icon-card-label">firefox</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="safari" size="1.5rem" /></div><div class="icon-card-label">safari</div></div>
+</div>
+
+## Seti File Icons
+
+Seti icons use the `seti:` prefix and are designed for file-type representation. They work in the `<Icon>` component and the `<FileTree>` component.
+
+```mdx
+<Icon name="seti:typescript" />
+<Icon name="seti:docker" />
+```
+
+### Languages
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:javascript" size="1.5rem" /></div><div class="icon-card-label">seti:javascript</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:typescript" size="1.5rem" /></div><div class="icon-card-label">seti:typescript</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:python" size="1.5rem" /></div><div class="icon-card-label">seti:python</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:rust" size="1.5rem" /></div><div class="icon-card-label">seti:rust</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:go" size="1.5rem" /></div><div class="icon-card-label">seti:go</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:java" size="1.5rem" /></div><div class="icon-card-label">seti:java</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:c" size="1.5rem" /></div><div class="icon-card-label">seti:c</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:cpp" size="1.5rem" /></div><div class="icon-card-label">seti:cpp</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:c-sharp" size="1.5rem" /></div><div class="icon-card-label">seti:c-sharp</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:f-sharp" size="1.5rem" /></div><div class="icon-card-label">seti:f-sharp</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:ruby" size="1.5rem" /></div><div class="icon-card-label">seti:ruby</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:php" size="1.5rem" /></div><div class="icon-card-label">seti:php</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:swift" size="1.5rem" /></div><div class="icon-card-label">seti:swift</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:kotlin" size="1.5rem" /></div><div class="icon-card-label">seti:kotlin</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:dart" size="1.5rem" /></div><div class="icon-card-label">seti:dart</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:scala" size="1.5rem" /></div><div class="icon-card-label">seti:scala</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:haskell" size="1.5rem" /></div><div class="icon-card-label">seti:haskell</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:elixir" size="1.5rem" /></div><div class="icon-card-label">seti:elixir</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:clojure" size="1.5rem" /></div><div class="icon-card-label">seti:clojure</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:lua" size="1.5rem" /></div><div class="icon-card-label">seti:lua</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:perl" size="1.5rem" /></div><div class="icon-card-label">seti:perl</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:R" size="1.5rem" /></div><div class="icon-card-label">seti:R</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:julia" size="1.5rem" /></div><div class="icon-card-label">seti:julia</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:nim" size="1.5rem" /></div><div class="icon-card-label">seti:nim</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:zig" size="1.5rem" /></div><div class="icon-card-label">seti:zig</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:d" size="1.5rem" /></div><div class="icon-card-label">seti:d</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:crystal" size="1.5rem" /></div><div class="icon-card-label">seti:crystal</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:ocaml" size="1.5rem" /></div><div class="icon-card-label">seti:ocaml</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:haxe" size="1.5rem" /></div><div class="icon-card-label">seti:haxe</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:powershell" size="1.5rem" /></div><div class="icon-card-label">seti:powershell</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:shell" size="1.5rem" /></div><div class="icon-card-label">seti:shell</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:prolog" size="1.5rem" /></div><div class="icon-card-label">seti:prolog</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:purescript" size="1.5rem" /></div><div class="icon-card-label">seti:purescript</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:elm" size="1.5rem" /></div><div class="icon-card-label">seti:elm</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:vala" size="1.5rem" /></div><div class="icon-card-label">seti:vala</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:asm" size="1.5rem" /></div><div class="icon-card-label">seti:asm</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:cu" size="1.5rem" /></div><div class="icon-card-label">seti:cu</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:wasm" size="1.5rem" /></div><div class="icon-card-label">seti:wasm</div></div>
+</div>
+
+### Web &amp; Markup
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:html" size="1.5rem" /></div><div class="icon-card-label">seti:html</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:css" size="1.5rem" /></div><div class="icon-card-label">seti:css</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:sass" size="1.5rem" /></div><div class="icon-card-label">seti:sass</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:stylus" size="1.5rem" /></div><div class="icon-card-label">seti:stylus</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:json" size="1.5rem" /></div><div class="icon-card-label">seti:json</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:xml" size="1.5rem" /></div><div class="icon-card-label">seti:xml</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:yml" size="1.5rem" /></div><div class="icon-card-label">seti:yml</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:markdown" size="1.5rem" /></div><div class="icon-card-label">seti:markdown</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:csv" size="1.5rem" /></div><div class="icon-card-label">seti:csv</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:graphql" size="1.5rem" /></div><div class="icon-card-label">seti:graphql</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:svg" size="1.5rem" /></div><div class="icon-card-label">seti:svg</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:tex" size="1.5rem" /></div><div class="icon-card-label">seti:tex</div></div>
+</div>
+
+### Frameworks &amp; Templates
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:react" size="1.5rem" /></div><div class="icon-card-label">seti:react</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:vue" size="1.5rem" /></div><div class="icon-card-label">seti:vue</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:svelte" size="1.5rem" /></div><div class="icon-card-label">seti:svelte</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:spring" size="1.5rem" /></div><div class="icon-card-label">seti:spring</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:rescript" size="1.5rem" /></div><div class="icon-card-label">seti:rescript</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:jade" size="1.5rem" /></div><div class="icon-card-label">seti:jade</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:pug" size="1.5rem" /></div><div class="icon-card-label">seti:pug</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:haml" size="1.5rem" /></div><div class="icon-card-label">seti:haml</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:mustache" size="1.5rem" /></div><div class="icon-card-label">seti:mustache</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:nunjucks" size="1.5rem" /></div><div class="icon-card-label">seti:nunjucks</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:jinja" size="1.5rem" /></div><div class="icon-card-label">seti:jinja</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:twig" size="1.5rem" /></div><div class="icon-card-label">seti:twig</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:liquid" size="1.5rem" /></div><div class="icon-card-label">seti:liquid</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:smarty" size="1.5rem" /></div><div class="icon-card-label">seti:smarty</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:slim" size="1.5rem" /></div><div class="icon-card-label">seti:slim</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:coldfusion" size="1.5rem" /></div><div class="icon-card-label">seti:coldfusion</div></div>
+</div>
+
+### DevOps &amp; Build Tools
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:docker" size="1.5rem" /></div><div class="icon-card-label">seti:docker</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:terraform" size="1.5rem" /></div><div class="icon-card-label">seti:terraform</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:git" size="1.5rem" /></div><div class="icon-card-label">seti:git</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:github" size="1.5rem" /></div><div class="icon-card-label">seti:github</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:gitlab" size="1.5rem" /></div><div class="icon-card-label">seti:gitlab</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:jenkins" size="1.5rem" /></div><div class="icon-card-label">seti:jenkins</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:npm" size="1.5rem" /></div><div class="icon-card-label">seti:npm</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:yarn" size="1.5rem" /></div><div class="icon-card-label">seti:yarn</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:webpack" size="1.5rem" /></div><div class="icon-card-label">seti:webpack</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:rollup" size="1.5rem" /></div><div class="icon-card-label">seti:rollup</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:vite" size="1.5rem" /></div><div class="icon-card-label">seti:vite</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:gulp" size="1.5rem" /></div><div class="icon-card-label">seti:gulp</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:grunt" size="1.5rem" /></div><div class="icon-card-label">seti:grunt</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:gradle" size="1.5rem" /></div><div class="icon-card-label">seti:gradle</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:maven" size="1.5rem" /></div><div class="icon-card-label">seti:maven</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:sbt" size="1.5rem" /></div><div class="icon-card-label">seti:sbt</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:makefile" size="1.5rem" /></div><div class="icon-card-label">seti:makefile</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:bazel" size="1.5rem" /></div><div class="icon-card-label">seti:bazel</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:babel" size="1.5rem" /></div><div class="icon-card-label">seti:babel</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:eslint" size="1.5rem" /></div><div class="icon-card-label">seti:eslint</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:stylelint" size="1.5rem" /></div><div class="icon-card-label">seti:stylelint</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:prisma" size="1.5rem" /></div><div class="icon-card-label">seti:prisma</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:firebase" size="1.5rem" /></div><div class="icon-card-label">seti:firebase</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:heroku" size="1.5rem" /></div><div class="icon-card-label">seti:heroku</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:puppet" size="1.5rem" /></div><div class="icon-card-label">seti:puppet</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:pipeline" size="1.5rem" /></div><div class="icon-card-label">seti:pipeline</div></div>
+</div>
+
+### File Types &amp; Misc
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:folder" size="1.5rem" /></div><div class="icon-card-label">seti:folder</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:default" size="1.5rem" /></div><div class="icon-card-label">seti:default</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:config" size="1.5rem" /></div><div class="icon-card-label">seti:config</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:tsconfig" size="1.5rem" /></div><div class="icon-card-label">seti:tsconfig</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:lock" size="1.5rem" /></div><div class="icon-card-label">seti:lock</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:license" size="1.5rem" /></div><div class="icon-card-label">seti:license</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:todo" size="1.5rem" /></div><div class="icon-card-label">seti:todo</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:ignored" size="1.5rem" /></div><div class="icon-card-label">seti:ignored</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:db" size="1.5rem" /></div><div class="icon-card-label">seti:db</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:notebook" size="1.5rem" /></div><div class="icon-card-label">seti:notebook</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:image" size="1.5rem" /></div><div class="icon-card-label">seti:image</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:svg" size="1.5rem" /></div><div class="icon-card-label">seti:svg</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:pdf" size="1.5rem" /></div><div class="icon-card-label">seti:pdf</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:font" size="1.5rem" /></div><div class="icon-card-label">seti:font</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:video" size="1.5rem" /></div><div class="icon-card-label">seti:video</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:audio" size="1.5rem" /></div><div class="icon-card-label">seti:audio</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:zip" size="1.5rem" /></div><div class="icon-card-label">seti:zip</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:word" size="1.5rem" /></div><div class="icon-card-label">seti:word</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:xls" size="1.5rem" /></div><div class="icon-card-label">seti:xls</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:windows" size="1.5rem" /></div><div class="icon-card-label">seti:windows</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:sublime" size="1.5rem" /></div><div class="icon-card-label">seti:sublime</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:illustrator" size="1.5rem" /></div><div class="icon-card-label">seti:illustrator</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:photoshop" size="1.5rem" /></div><div class="icon-card-label">seti:photoshop</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:favicon" size="1.5rem" /></div><div class="icon-card-label">seti:favicon</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:code-search" size="1.5rem" /></div><div class="icon-card-label">seti:code-search</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:info" size="1.5rem" /></div><div class="icon-card-label">seti:info</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:clock" size="1.5rem" /></div><div class="icon-card-label">seti:clock</div></div>
+</div>
+
+## Community Icon Packs
+
+The built-in icons cover common needs, but additional icon packs can be integrated into the `docs-builder` for broader coverage. These are not installed by default — content authors can request additions by opening an issue in the `docs-builder` repository.
+
+### astro-icon + Iconify
+
+The [`astro-icon`](https://github.com/natemoo-re/astro-icon) package provides access to [Iconify](https://iconify.design/), a unified framework with over 200,000 icons from sets like Lucide, Material Design, Phosphor, Tabler, and Carbon.
+
+```mdx
+---
+// Example (requires installation in docs-builder)
+import { Icon } from 'astro-icon/components';
+---
+<Icon name="lucide:rocket" />
+<Icon name="mdi:database" />
+```
+
+### starlight-plugin-icons
+
+The [`starlight-plugin-icons`](https://github.com/HiDeoo/starlight-plugin-icons) Starlight plugin adds Iconify icons directly to sidebars and content without extra imports. It integrates with Starlight's native icon system.
+
+### Lucide Astro
+
+[`lucide-astro`](https://lucide.dev/guide/packages/lucide-astro) provides 1,600+ modern stroke icons optimized for technical documentation. Icons are tree-shakeable and available as individual Astro components.
+
+```mdx
+---
+// Example (requires installation in docs-builder)
+import { Rocket, Database, Shield } from 'lucide-astro';
+---
+<Rocket size={24} />
+```
+
+## HashiCorp Flight Icons
+
+The [`@hashicorp/flight-icons`](https://github.com/hashicorp/design-system/tree/main/packages/flight-icons) package provides approximately 2,700 icons covering networking, security, cloud, and infrastructure domains — relevant for F5 and multi-cloud documentation.
+
+- **License**: MPL-2.0 (permissive, can be used in non-HashiCorp projects)
+- **Format**: SVG sprites and individual SVGs
+- **Status**: Not currently installed in docs-builder
+
+:::note
+To use community icon packs or HashiCorp Flight icons, open an issue in the [`docs-builder`](https://github.com/f5xc-salesdemos/docs-builder) repository requesting the package be added to the build container.
+:::
