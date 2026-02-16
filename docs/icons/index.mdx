@@ -8,7 +8,7 @@ sidebar:
 
 import { Icon } from '@astrojs/starlight/components';
 
-The documentation theme provides access to thousands of icons from multiple packs. Icons can be used in MDX content via the `<Icon>` component or as `<img>` tags referencing SVG files.
+The documentation theme provides access to thousands of icons from multiple packs. Icons can be used in MDX content via the `<Icon>` component, `<img>` tags referencing SVG files, or `<img>` tags referencing the Iconify API.
 
 ## Available Icon Packs
 
@@ -16,27 +16,27 @@ The documentation theme provides access to thousands of icons from multiple pack
 |------|-------|-------|------|
 | Starlight Built-in | ~200 | `<Icon name="star" />` | [Starlight Built-in](/icons/starlight/) |
 | F5 Brand | 666 | `<img src="/brand-icons/f5-icon-*.svg" />` | [F5 Brand](/icons/brand/) |
-| Lucide | ~1,600 | `<Icon name="lucide:rocket" />` | [Lucide](/icons/lucide/) |
-| Material Design | 7,000+ | `<Icon name="mdi:database" />` | [Iconify Packs](/icons/iconify-packs/) |
-| Carbon | ~1,500 | `<Icon name="carbon:cloud" />` | [Iconify Packs](/icons/iconify-packs/) |
-| Phosphor | ~1,200 | `<Icon name="ph:globe" />` | [Iconify Packs](/icons/iconify-packs/) |
-| Tabler | ~4,500 | `<Icon name="tabler:shield" />` | [Iconify Packs](/icons/iconify-packs/) |
+| Lucide | ~1,600 | `<img>` via Iconify API | [Lucide](/icons/lucide/) |
+| Material Design | 7,000+ | `<img>` via Iconify API | [Iconify Packs](/icons/iconify-packs/) |
+| Carbon | ~1,500 | `<img>` via Iconify API | [Iconify Packs](/icons/iconify-packs/) |
+| Phosphor | ~1,200 | `<img>` via Iconify API | [Iconify Packs](/icons/iconify-packs/) |
+| Tabler | ~4,500 | `<img>` via Iconify API | [Iconify Packs](/icons/iconify-packs/) |
 | HashiCorp Flight | 671 | `<img>` via CDN | [HashiCorp Flight](/icons/hashicorp-flight/) |
 
 ## Rendering Methods
 
 There are three ways to render icons, each with different dark mode behavior.
 
-### 1. `<Icon>` Component (Starlight + Iconify)
+### 1. `<Icon>` Component (Starlight Built-in)
 
-Used for Starlight built-in icons and all Iconify packs (Lucide, MDI, Carbon, Phosphor, Tabler).
+Used for Starlight's ~200 built-in icons. These are the only icons supported by the `<Icon>` component.
 
 ```mdx
 import { Icon } from '@astrojs/starlight/components';
 
 <Icon name="star" />
-<Icon name="lucide:rocket" size="2rem" />
-<Icon name="mdi:database" color="var(--sl-color-accent)" />
+<Icon name="rocket" size="2rem" />
+<Icon name="heart" color="var(--sl-color-accent)" />
 ```
 
 Icons render as inline SVGs using `currentColor` — they automatically adapt to light and dark mode with no special handling needed.
@@ -48,7 +48,31 @@ Icons render as inline SVGs using `currentColor` — they automatically adapt to
   <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="heart" size="1.5rem" /></div><div class="icon-card-label">heart</div></div>
 </div>
 
-### 2. `<img>` with Local SVG Path (F5 Brand)
+### 2. `<img>` with Iconify API (Lucide, MDI, Carbon, Phosphor, Tabler)
+
+Used for all Iconify icon packs. Reference icons via the Iconify API URL pattern:
+
+```mdx
+<img src="https://api.iconify.design/lucide/rocket.svg" alt="rocket" width="24" height="24" />
+<img src="https://api.iconify.design/mdi/database.svg" alt="database" width="24" height="24" />
+```
+
+Wrap in `.icon-card-image` for automatic dark mode inversion:
+
+```mdx
+<div class="icon-card-image" style="display:inline-flex;">
+  <img src="https://api.iconify.design/lucide/rocket.svg" alt="rocket" width="24" height="24" />
+</div>
+```
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><img src="https://api.iconify.design/lucide/rocket.svg" alt="rocket" width="24" height="24" /></div><div class="icon-card-label">lucide/rocket</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><img src="https://api.iconify.design/mdi/database.svg" alt="database" width="24" height="24" /></div><div class="icon-card-label">mdi/database</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><img src="https://api.iconify.design/carbon/cloud.svg" alt="cloud" width="24" height="24" /></div><div class="icon-card-label">carbon/cloud</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><img src="https://api.iconify.design/tabler/shield.svg" alt="shield" width="24" height="24" /></div><div class="icon-card-label">tabler/shield</div></div>
+</div>
+
+### 3. `<img>` with Local SVG Path (F5 Brand)
 
 Used for the 666 F5 brand icons stored in `docs/brand-icons/`.
 
@@ -58,7 +82,7 @@ Used for the 666 F5 brand icons stored in `docs/brand-icons/`.
 
 These monochrome SVGs get `filter: invert(1)` applied in dark mode via the `.icon-card-image` CSS class.
 
-### 3. `<img>` with CDN URL (HashiCorp Flight)
+### 4. `<img>` with CDN URL (HashiCorp Flight)
 
 Used for HashiCorp Flight icons loaded from jsDelivr CDN.
 
@@ -106,7 +130,7 @@ The theme CSS handles dark mode for `<img>` icons:
 | General UI (arrows, close, search) | Starlight Built-in | Zero config, always available |
 | F5 product diagrams | F5 Brand | Domain-specific networking/security art |
 | Modern stroke icons | Lucide | Clean, consistent 1,600+ icons |
-| Filled/outlined icons at scale | Material Design (mdi:) | Largest set with 7,000+ icons |
+| Filled/outlined icons at scale | Material Design (mdi) | Largest set with 7,000+ icons |
 | IBM design language | Carbon | Enterprise-grade icons |
 | Flexible weight options | Phosphor | Thin/light/regular/bold/fill/duotone |
 | Crisp line icons | Tabler | 4,500+ with consistent stroke |
