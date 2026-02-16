@@ -5,7 +5,7 @@ sidebar:
   order: 1
 ---
 
-The theme reads environment variables at build time from `astro.config.mjs` and custom components. Content repositories set these in their GitHub Actions workflow to customize each site without forking the theme.
+The theme reads environment variables at build time from `config.ts` and custom components. Content repositories set these in their GitHub Actions workflow to customize each site without modifying the configuration.
 
 ## Variable Reference
 
@@ -14,38 +14,53 @@ The theme reads environment variables at build time from `astro.config.mjs` and 
 | `DOCS_TITLE` | `Documentation` | Site title shown in the header and browser tab |
 | `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | Canonical base URL for the deployed site |
 | `DOCS_BASE` | `/` | URL base path (e.g., `/my-repo/` for project sites) |
+| `DOCS_DESCRIPTION` | _(empty string)_ | Site description for metadata and the llms.txt plugin |
 | `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | Home page URL linked from the site title |
-| `GITHUB_REPOSITORY` | _(empty string)_ | Used to build the GitHub social link in the header |
+| `GITHUB_REPOSITORY` | _(empty string)_ | Used to build the GitHub social link and edit links |
+| `LLMS_OPTIONAL_LINKS` | `[]` | JSON array of additional links for the llms.txt plugin |
 
 ## Where Each Variable Is Used
 
 ### DOCS_TITLE
 
-```js
-const title = process.env.DOCS_TITLE || 'Documentation';
+```ts
+// config.ts
+const title = options.title || process.env.DOCS_TITLE || 'Documentation';
 ```
 
-Passed to the Starlight `title` option. Appears in the site header and the HTML `<title>` tag.
+Passed to the Starlight `title` option and the `starlight-llms-txt` plugin. Appears in the site header and the HTML `<title>` tag.
 
 ### DOCS_SITE
 
-```js
-const site = process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+```ts
+// config.ts
+const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
 ```
 
 Sets Astro's top-level `site` property. Used for canonical URLs, sitemap generation, and Open Graph metadata.
 
 ### DOCS_BASE
 
-```js
-const base = process.env.DOCS_BASE || '/';
+```ts
+// config.ts
+const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
 Sets Astro's top-level `base` property. Required when deploying to a subdirectory (e.g., `https://example.com/my-repo/`).
 
+### DOCS_DESCRIPTION
+
+```ts
+// config.ts
+const description = options.description || process.env.DOCS_DESCRIPTION || '';
+```
+
+Passed to the `starlight-llms-txt` plugin as the site description. Used in the generated `llms.txt` file.
+
 ### DOCS_HOME
 
-```js
+```ts
+// components/SiteTitle.astro
 const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
 ```
 
@@ -53,15 +68,28 @@ Read by the custom `SiteTitle.astro` component. Wraps the site title in the head
 
 ### GITHUB_REPOSITORY
 
-```js
-{
-  label: 'GitHub',
-  icon: 'github',
-  href: `https://github.com/${process.env.GITHUB_REPOSITORY || ''}`,
-}
+```ts
+// config.ts
+const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
 ```
 
-Used in the Starlight `social` array to generate the GitHub link in the site header. GitHub Actions sets this variable automatically (e.g., `owner/repo`).
+Used to generate the GitHub social icon in the site header and the edit link base URL. GitHub Actions sets this variable automatically (e.g., `owner/repo`).
+
+### LLMS_OPTIONAL_LINKS
+
+```ts
+// config.ts
+const llmsOptionalLinks = options.llmsOptionalLinks
+  || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+```
+
+A JSON-encoded array of `{ title, url }` objects passed to the `starlight-llms-txt` plugin. These appear as additional links in the generated `llms.txt` file.
+
+Example value:
+
+```json
+[{"title": "API Reference", "url": "https://api.example.com/docs"}]
+```
 
 ## Setting Variables in GitHub Actions
 

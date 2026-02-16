@@ -5,49 +5,71 @@ sidebar:
   order: 4
 ---
 
-The theme displays the logo in the sidebar of every documentation site.
+The theme displays a logo in the site header of every documentation site.
 
-## Current Logo
+## Available Logo Assets
 
-- **File**: `assets/logo.svg`
-- **Format**: SVG with `viewBox="0 0 1000 1000"`
-- **Primary color**: Cloud Red (`#e4002b`)
+The theme ships two logo files in the `assets/` directory:
 
-## How It's Referenced
+| File | Format | Description |
+|------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | F5 logo in Cloud Red (`#e4002b`) |
+| `assets/github-avatar.png` | PNG | GitHub organization avatar (default) |
 
-In `astro.config.mjs`, the logo is passed to the Starlight `logo` option:
+## Default Logo
 
-```js
-starlight({
-  logo: {
-    src: './theme/assets/logo.svg',
-  },
-})
+The default logo is set in the `createF5xcDocsConfig` factory in `config.ts`:
+
+```ts
+const logo = options.logo || { src: 'f5xc-docs-theme/assets/github-avatar.png' };
 ```
 
-The `./theme/` prefix is required because the builder workflow checks out this theme repository into a `theme/` directory inside the build workspace.
+If no `logo` option is provided, the GitHub avatar PNG is used. The path is an npm package specifier resolved through the `exports` map in `package.json`.
 
 ## Replacing the Logo
 
-1. **Create your SVG** — use a square or near-square aspect ratio for best results in the sidebar
-2. **Save it** to `assets/` (e.g., `assets/my-logo.svg`)
-3. **Update `astro.config.mjs`** to point to the new file:
-   ```js
-   logo: {
-     src: './theme/assets/my-logo.svg',
-   },
-   ```
+### Option 1: Use the F5 SVG logo
 
-### Guidelines
+Pass the `logo` option to `createF5xcDocsConfig`:
+
+```ts
+import { createF5xcDocsConfig } from 'f5xc-docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: 'f5xc-docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### Option 2: Use a custom logo
+
+Place your logo file in the content repo and reference it:
+
+```ts
+import { createF5xcDocsConfig } from 'f5xc-docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### Option 3: Separate light and dark logos
+
+Starlight supports separate logos for light and dark mode:
+
+```ts
+import { createF5xcDocsConfig } from 'f5xc-docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## Guidelines
 
 - **Use SVG format** — raster images (PNG, JPG) will work but won't scale cleanly at all sizes
 - **Include a `viewBox`** — ensures the logo scales proportionally (e.g., `viewBox="0 0 100 100"`)
 - **Keep file size small** — the logo loads on every page; aim for under 10 KB
 - **Test in both themes** — verify the logo looks correct in both light and dark mode
-- **Starlight also supports separate light/dark logos** via `logo.light` and `logo.dark` if needed:
-  ```js
-  logo: {
-    light: './theme/assets/logo-light.svg',
-    dark: './theme/assets/logo-dark.svg',
-  },
-  ```

@@ -1,153 +1,136 @@
 ---
 title: Astro Configuration
-description: Line-by-line reference for astro.config.mjs.
+description: Reference for the plugin-based Astro/Starlight configuration factory.
 sidebar:
   order: 3
 ---
 
-The `astro.config.mjs` file is the shared Astro/Starlight configuration used by every documentation site built with this theme. It is read by the builder at build time.
+Content repositories do not maintain their own `astro.config.mjs`. Instead, they import a configuration factory from the `f5xc-docs-theme` npm package that returns a complete Astro config with Starlight, eight bundled plugins, and all theme defaults.
 
-## Full Configuration
+## Consuming the Theme
+
+A content repo's `astro.config.mjs` (provided by the Docker builder) is a thin wrapper:
 
 ```js
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
-import react from '@astrojs/react';
-import remarkMermaid from './src/plugins/remark-mermaid.mjs';
+import { createF5xcDocsConfig } from 'f5xc-docs-theme/config';
 
-const title = process.env.DOCS_TITLE || 'Documentation';
-const site = process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
-const base = process.env.DOCS_BASE || '/';
+export default createF5xcDocsConfig();
+```
 
-export default defineConfig({
-  site,
-  base,
-  markdown: {
-    remarkPlugins: [remarkMermaid],
-  },
-  integrations: [
-    starlight({
-      title,
-      customCss: [
-        './theme/fonts/font-face.css',
-        './theme/styles/custom.css',
-      ],
-      logo: {
-        src: './theme/assets/logo.svg',
+All customization is done through the options object or environment variables — there is no need to touch plugin wiring, CSS imports, or component overrides.
+
+## Configuration Options
+
+`createF5xcDocsConfig` accepts an `F5xcDocsConfigOptions` object. Every field is optional; environment variables and sensible defaults fill in the gaps.
+
+```ts
+interface F5xcDocsConfigOptions {
+  site?: string;
+  base?: string;
+  title?: string;
+  description?: string;
+  githubRepository?: string;
+  llmsOptionalLinks?: Array<{ title: string; url: string }>;
+  additionalIntegrations?: AstroIntegration[];
+  additionalRemarkPlugins?: Array<unknown>;
+  megaMenuItems?: MegaMenuItem[];
+  head?: HeadEntry[];
+  logo?: { src: string } | { light: string; dark: string };
+}
+```
+
+| Option | Default / Env Fallback | Purpose |
+|--------|----------------------|---------|
+| `site` | `DOCS_SITE` or `https://f5xc-salesdemos.github.io` | Canonical base URL |
+| `base` | `DOCS_BASE` or `/` | URL base path for project sites |
+| `title` | `DOCS_TITLE` or `Documentation` | Site title in header and browser tab |
+| `description` | `DOCS_DESCRIPTION` or empty string | Site description for metadata and llms.txt |
+| `githubRepository` | `GITHUB_REPOSITORY` or empty string | Enables edit links and GitHub social icon |
+| `llmsOptionalLinks` | `LLMS_OPTIONAL_LINKS` (JSON) or `[]` | Additional links for the llms.txt plugin |
+| `additionalIntegrations` | `[]` | Extra Astro integrations to append |
+| `additionalRemarkPlugins` | `[]` | Extra remark plugins added after remark-mermaid |
+| `megaMenuItems` | Built-in Products/Solutions/Docs/Support menu | Top-level mega menu entries |
+| `head` | Mermaid CDN `<script>` tag | Custom `<head>` entries |
+| `logo` | `f5xc-docs-theme/assets/github-avatar.png` | Sidebar logo (single src or light/dark pair) |
+
+## Bundled Starlight Plugins
+
+The factory wires up eight Starlight plugins automatically:
+
+| Plugin | Purpose |
+|--------|---------|
+| `starlight-mega-menu` | Top navigation mega menu with grid/list layouts |
+| `starlight-videos` | Embed videos in documentation pages |
+| `starlight-image-zoom` | Click-to-zoom on images |
+| `f5xc-docs-theme` (self) | CSS injection, component overrides, route middleware |
+| `starlight-scroll-to-top` | Scroll-to-top button with progress ring |
+| `starlight-heading-badges` | Badge annotations on headings |
+| `starlight-page-actions` | Page action buttons |
+| `starlight-plugin-icons` | Icon support in Starlight |
+| `starlight-llms-txt` | Generates `llms.txt` and `llms-full.txt` for LLM consumption |
+
+These are registered in order inside `config.ts`. The theme plugin (`f5xc-docs-theme`) is itself a Starlight plugin that runs in this list.
+
+## Theme Plugin Hook
+
+The theme plugin is defined in `index.ts` and registered among the bundled plugins above. Its `config:setup` hook does three things:
+
+1. **Injects CSS** — prepends `fonts/font-face.css` and `styles/custom.css` to Starlight's `customCss` array
+2. **Overrides components** — replaces five Starlight components:
+   - `Banner` — breadcrumb navigation with edit link
+   - `EditLink` — intentionally empty (edit link lives in Banner)
+   - `Footer` — social media links appended below default footer
+   - `SiteTitle` — logo with home link
+   - `MarkdownContent` — wrapper enabling videos and image zoom
+3. **Adds route middleware** — registers `route-middleware.ts` which filters index pages from the sidebar and suppresses the table of contents on index pages
+
+```ts
+// index.ts — Starlight plugin entry point
+export default function f5xcDocsTheme(): StarlightPlugin {
+  return {
+    name: 'f5xc-docs-theme',
+    hooks: {
+      'config:setup'({ config, updateConfig, addRouteMiddleware }) {
+        addRouteMiddleware({
+          entrypoint: 'f5xc-docs-theme/route-middleware',
+          order: 'pre',
+        });
+        updateConfig({
+          customCss: [
+            ...(config.customCss ?? []),
+            'f5xc-docs-theme/fonts/font-face.css',
+            'f5xc-docs-theme/styles/custom.css',
+          ],
+          components: {
+            ...config.components,
+            Banner: 'f5xc-docs-theme/components/Banner.astro',
+            EditLink: 'f5xc-docs-theme/components/EditLink.astro',
+            Footer: 'f5xc-docs-theme/components/Footer.astro',
+            SiteTitle: 'f5xc-docs-theme/components/SiteTitle.astro',
+            MarkdownContent: 'f5xc-docs-theme/components/MarkdownContent.astro',
+          },
+        });
       },
-      components: {
-        Footer: './theme/components/Footer.astro',
-      },
-      social: [
-        {
-          label: 'GitHub',
-          icon: 'github',
-          href: `https://github.com/${process.env.GITHUB_REPOSITORY || ''}`,
-        },
-      ],
-    }),
-    react(),
-  ],
-});
+    },
+  };
+}
 ```
 
-## Section Breakdown
+All paths use npm package specifiers (e.g., `f5xc-docs-theme/styles/custom.css`) which resolve through the `exports` map in `package.json`.
 
-### Imports
+## Other Integrations
 
-```js
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
-import react from '@astrojs/react';
-import remarkMermaid from './src/plugins/remark-mermaid.mjs';
-```
+Beyond Starlight and its plugins, the factory also registers:
 
-- **defineConfig** — Astro's typed configuration helper
-- **starlight** — the Starlight documentation framework integration
-- **react** — enables React components in Astro pages
-- **remarkMermaid** — custom remark plugin that transforms Mermaid code blocks into rendered diagrams during the Markdown processing pipeline
+- **`@astrojs/react`** — enables React component support in MDX pages
+- **`remark-mermaid`** — custom remark plugin that converts ` ```mermaid ` code blocks into rendered diagrams
 
-### Environment Variables
+Additional integrations and remark plugins can be appended via the `additionalIntegrations` and `additionalRemarkPlugins` options.
 
-```js
-const title = process.env.DOCS_TITLE || 'Documentation';
-const site = process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
-const base = process.env.DOCS_BASE || '/';
-```
+## Sidebar
 
-These are read at build time and allow each content repository to customize the site without modifying the config. See the [Environment Variables](./environment-variables) page for full details.
-
-### Markdown Configuration
-
-```js
-markdown: {
-  remarkPlugins: [remarkMermaid],
-},
-```
-
-Registers the custom Mermaid remark plugin. This runs during Markdown processing and converts ` ```mermaid ` code blocks into styled SVG diagrams.
-
-### Starlight Integration
-
-#### Custom CSS
-
-```js
-customCss: [
-  './theme/fonts/font-face.css',
-  './theme/styles/custom.css',
-],
-```
-
-Loads the font declarations first, then the custom styles. Order matters — `custom.css` references the font families registered by `font-face.css`.
-
-#### Logo
-
-```js
-logo: {
-  src: './theme/assets/logo.svg',
-},
-```
-
-Displays the logo in the sidebar. The `./theme/` prefix is required because the builder places this theme repository in a `theme/` directory.
-
-#### Footer Component Override
-
-```js
-components: {
-  Footer: './theme/components/Footer.astro',
-},
-```
-
-Replaces the default Starlight footer with the custom footer that includes social media links.
-
-#### Social Links
-
-```js
-social: [
-  {
-    label: 'GitHub',
-    icon: 'github',
-    href: `https://github.com/${process.env.GITHUB_REPOSITORY || ''}`,
-  },
-],
-```
-
-Adds a GitHub icon link in the site header. The URL is built dynamically from the `GITHUB_REPOSITORY` environment variable.
-
-#### Sidebar
-
-No custom sidebar is defined. Starlight auto-generates the sidebar from the file structure in `docs/`, using each page's `title` frontmatter as the link text and `sidebar.order` for sorting.
-
-### React Integration
-
-```js
-react(),
-```
-
-Enables React component support. Required for any interactive components used in documentation pages.
-
-## Shared Configuration Constraint
+No custom sidebar is defined. Starlight auto-generates the sidebar from the file structure in `docs/`, using each page's `title` frontmatter as the link text and `sidebar.order` for sorting. The route middleware filters index pages out of the sidebar automatically.
 
 :::caution
-This configuration is shared across all documentation sites. Any change to `astro.config.mjs` affects every content repository that builds with this theme. Test changes carefully.
+The configuration factory is shared across all documentation sites. Any change to `config.ts` affects every content repository that builds with this theme. Test changes carefully.
 :::

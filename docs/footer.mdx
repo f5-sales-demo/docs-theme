@@ -25,25 +25,29 @@ This pattern **extends** the default footer rather than replacing it entirely. `
 
 ## How It's Registered
 
-In `astro.config.mjs`:
+The footer override is registered by the Starlight plugin in `index.ts`. During the `config:setup` hook, it sets the `Footer` component override:
 
-```js
-starlight({
+```ts
+updateConfig({
   components: {
-    Footer: './theme/components/Footer.astro',
+    ...config.components,
+    Footer: 'f5xc-docs-theme/components/Footer.astro',
+    // ... other component overrides
   },
-})
+});
 ```
+
+Content repositories do not need to register the footer manually — it is applied automatically when the theme plugin loads.
 
 ## Social Links
 
 | Platform | URL | Icon Color | Aria Label |
 |----------|-----|------------|------------|
-| Facebook | `https://www.facebook.com/example` | `#1877F2` (Facebook Blue) | Facebook |
-| X | `https://x.com/example` | `currentColor` (inherits) | X |
-| LinkedIn | `https://www.linkedin.com/company/example/` | `#0A66C2` (LinkedIn Blue) | LinkedIn |
-| Instagram | `https://www.instagram.com/example/` | `#E4405F` (Instagram Pink) | Instagram |
-| YouTube | `https://www.youtube.com/user/example` | `#FF0000` (YouTube Red) | YouTube |
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Facebook Blue) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (inherits) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (LinkedIn Blue) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Instagram Pink) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (YouTube Red) | YouTube |
 
 Each link opens in a new tab (`target="_blank"`) with `rel="noopener noreferrer"` for security.
 
@@ -74,7 +78,7 @@ The links are right-aligned in a flex row with a subtle opacity hover effect.
 
 ### Changing a URL
 
-Edit the `href` attribute on the corresponding `<a>` tag in `components/Footer.astro`.
+Edit the `href` attribute on the corresponding `<a>` tag in `components/Footer.astro` within the `f5xc-docs-theme` package.
 
 ### Adding a Link
 
