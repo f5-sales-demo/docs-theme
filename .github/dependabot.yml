@@ -11,6 +11,8 @@ updates:
       prefix: "chore(deps):"
     labels:
       - "dependencies"
+    assignees:
+      - "robinmordasiewicz"
     open-pull-requests-limit: 10
     groups:
       actions-minor-patch:
@@ -28,6 +30,8 @@ updates:
       prefix: "chore(deps):"
     labels:
       - "dependencies"
+    assignees:
+      - "robinmordasiewicz"
     open-pull-requests-limit: 10
     groups:
       npm-minor-patch:
