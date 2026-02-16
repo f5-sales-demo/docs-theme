@@ -32,7 +32,7 @@ workflows succeed, and local branches are cleaned.
 
 ### Merging (Step 7)
 
-7. **Merge after CI passes** — once all status checks
+1. **Merge after CI passes** — once all status checks
    are green, merge the PR yourself. Do not wait for
    manual approval (none is required).
 
@@ -49,7 +49,7 @@ workflows succeed, and local branches are cleaned.
 
 ### Post-Merge Monitoring (Steps 8-9)
 
-8. **Monitor post-merge workflows** — merging to
+1. **Monitor post-merge workflows** — merging to
    `main` triggers additional workflows (docs
    builds, governance sync, etc.). Discover and
    watch them:
@@ -62,7 +62,7 @@ workflows succeed, and local branches are cleaned.
    gh run watch <RUN-ID> --exit-status
    ```
 
-9. **Iterate on failures** — if any workflow fails:
+2. **Iterate on failures** — if any workflow fails:
    - View logs: `gh run view <RUN-ID> --log-failed`
    - Analyze the root cause
    - Fix the code locally
@@ -75,7 +75,7 @@ workflows succeed, and local branches are cleaned.
 
 ### Cleanup (Steps 10-11)
 
-10. **Clean up branches** — only after all workflows
+1. **Clean up branches** — only after all workflows
     succeed. Delete your feature branch and any other
     stale local branches already merged to `main`:
 
@@ -84,7 +84,7 @@ workflows succeed, and local branches are cleaned.
     git branch --merged main | grep -v '^\*\|main' | xargs -r git branch -d
     ```
 
-11. **Verify completion** — confirm clean state:
+2. **Verify completion** — confirm clean state:
 
     ```
     git status
@@ -94,7 +94,7 @@ workflows succeed, and local branches are cleaned.
 
 ### Verification (Steps 12-13)
 
-12. **Verify outcomes** — confirm changes had the
+1. **Verify outcomes** — confirm changes had the
     intended effect, not just that workflows passed:
 
     Always check:
@@ -128,7 +128,7 @@ workflows succeed, and local branches are cleaned.
     done
     ```
 
-13. **Check repo health** — after your task is fully
+2. **Check repo health** — after your task is fully
     done, scan for any outstanding problems across
     the repository:
 
