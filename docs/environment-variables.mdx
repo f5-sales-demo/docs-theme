@@ -14,7 +14,7 @@ The theme reads environment variables at build time from `astro.config.mjs` and 
 | `DOCS_TITLE` | `Documentation` | Site title shown in the header and browser tab |
 | `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | Canonical base URL for the deployed site |
 | `DOCS_BASE` | `/` | URL base path (e.g., `/my-repo/` for project sites) |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/f5xc-docs/` | Home page URL linked from the site title |
+| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | Home page URL linked from the site title |
 | `GITHUB_REPOSITORY` | _(empty string)_ | Used to build the GitHub social link in the header |
 
 ## Where Each Variable Is Used
@@ -46,7 +46,7 @@ Sets Astro's top-level `base` property. Required when deploying to a subdirector
 ### DOCS_HOME
 
 ```js
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/f5xc-docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
 ```
 
 Read by the custom `SiteTitle.astro` component. Wraps the site title in the header with a link to this URL, allowing users to navigate back to a central documentation home page. Useful when multiple content repositories share the same theme and you want a consistent "home" link across all sites.

@@ -1,7 +1,7 @@
 ---
 import Default from '@astrojs/starlight/components/Banner.astro';
 
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io';
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
 const { sidebar, entry, siteTitle, editUrl } = Astro.locals.starlightRoute;
 
 const isIndexPage = entry.filePath ? /(?:^|[\\/])index\.mdx?$/.test(entry.filePath) : false;
