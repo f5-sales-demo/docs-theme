@@ -1,65 +1,38 @@
 ---
 title: Style Enhancement Guide
-description: Design system reference comparing HashiCorp Helios patterns with current f5xc-docs-theme values, organized by light and dark mode, with actionable enhancement recommendations for future sprints.
+description: Design system token reference for the f5xc-docs-theme
 sidebar:
   order: 12
 ---
 
-This guide documents patterns from the [HashiCorp Helios Design System](https://helios.hashicorp.design) (used on developer.hashicorp.com) alongside current f5xc-docs-theme values. It serves as a reference for the design system tokens and component classes implemented in `styles/custom.css`.
+This guide documents the design system tokens and component classes implemented in `styles/custom.css`. It serves as a reference for border, surface, shadow, radius, button, gradient, transition, focus, and typography tokens used across the theme.
 
-> **Status**: All five enhancement sprints are **complete**. The tokens and component classes described below are implemented and available for use.
+> **Status**: All design tokens and component classes described below are implemented and available for use.
 
 ## How to Read This Guide
 
-Each section presents:
+Each section documents a token category:
 
-1. **Current state** — what the f5xc-docs-theme uses today
-2. **Helios reference** — the corresponding HashiCorp design token or pattern
-3. **Recommendation** — specific CSS changes for a future sprint
+1. **Token definitions** — CSS custom properties with light/dark mode values
+2. **Component mapping** — which theme components use each token
+3. **Implementation notes** — usage guidance and accessibility considerations
 
-Token tables are split by **light mode** and **dark mode** where values differ. Priority labels indicate sprint sequencing.
+Token tables are split by **light mode** and **dark mode** where values differ.
 
 ---
 
-## 1. Color System Enhancements
+## 1. Color System
 
 ### Alpha-Transparent Borders
 
-The most impactful pattern from Helios is using **alpha-transparent borders** instead of solid gray colors. This allows borders to adapt naturally to any background.
-
-**Current approach** — solid gray borders:
+The theme uses **alpha-transparent borders** instead of solid gray colors. This allows borders to adapt naturally to any background.
 
 ```css
-/* f5xc-docs-theme today */
-border: 1px solid var(--sl-color-gray-5);  /* #343434 dark, #cccccc light */
+/* Alpha-transparent border pattern */
+border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 ```
 
-**Helios approach** — alpha-transparent borders:
-
-```css
-/* Helios pattern */
-border: 1px solid #656a7633;  /* neutral-500 at 20% alpha */
-```
-
-#### Light Mode Border Tokens
-
-| Helios Token | Value | Opacity | Use Case |
-|---|---|---|---|
-| `border-faint` | `#656a761a` | 10% | Subtle separators, table rows |
-| `border-primary` | `#656a7633` | 20% | Default borders, card outlines |
-| `border-strong` | `#3b3d4566` | 40% | Emphasized borders, active states |
-
-#### Dark Mode Border Tokens
-
-| Helios Token | Value | Opacity | Use Case |
-|---|---|---|---|
-| `border-faint` | `#f1f2f31a` | 10% | Subtle separators |
-| `border-primary` | `#f1f2f333` | 20% | Default borders |
-| `border-strong` | `#f1f2f366` | 40% | Emphasized borders |
-
-#### Recommended F5 Adaptation
-
-Map the alpha-border pattern onto the existing F5 neutral palette:
+#### Border Tokens
 
 ```css
 /* Light mode */
@@ -77,32 +50,40 @@ Map the alpha-border pattern onto the existing F5 neutral palette:
 }
 ```
 
+#### Border Use Cases
+
+| Token | Opacity | Use Case |
+|---|---|---|
+| `--f5-border-faint` | 10% | Subtle separators, table rows |
+| `--f5-border-default` | 20% | Default borders, card outlines |
+| `--f5-border-strong` | 40% | Emphasized borders, active states |
+
 > **Status**: Complete — implemented in `styles/custom.css`.
 
 ### Interactive Surface Colors
 
-Helios defines semantic surface tokens for hover and active states, absent from the current theme.
+Semantic surface tokens for hover and active states.
 
 #### Light Mode Surfaces
 
-| Token | Helios Value | F5 Equivalent | Purpose |
-|---|---|---|---|
-| `surface-primary` | `#ffffff` | `--f5-white` | Main backgrounds |
-| `surface-faint` | `#fafafa` | `--f5-white-1` | Sidebar, subtle areas |
-| `surface-strong` | `#f1f2f3` | `--f5-white-2` | Elevated surfaces |
-| `surface-interactive-hover` | `#f1f2f3` | `--f5-white-2` | Hover fill |
-| `surface-interactive-active` | `#dedfe3` | `--f5-white-3` | Pressed/active fill |
+| Token | Value | Purpose |
+|---|---|---|
+| `--f5-white` | `#ffffff` | Main backgrounds |
+| `--f5-white-1` | `#faf9f7` | Sidebar, subtle areas |
+| `--f5-white-2` | `#f5f5f5` | Elevated surfaces |
+| `--f5-surface-hover` | `var(--f5-white-2)` | Hover fill |
+| `--f5-surface-active` | `var(--f5-white-3)` | Pressed/active fill |
 
 #### Dark Mode Surfaces
 
-| Token | Helios Value | F5 Equivalent | Purpose |
-|---|---|---|---|
-| `surface-primary` | `#1a1c22` | `--f5-black` | Main backgrounds |
-| `surface-faint` | `#26282e` | `--f5-black-4` | Sidebar, subtle areas |
-| `surface-interactive-hover` | `#2e3038` | `--f5-black-3` | Hover fill |
-| `surface-interactive-active` | `#3b3d45` | `--f5-black-2` | Pressed/active fill |
+| Token | Value | Purpose |
+|---|---|---|
+| `--f5-black` | `#000000` | Main backgrounds |
+| `--f5-black-4` | `#222222` | Sidebar, subtle areas |
+| `--f5-surface-hover` | `var(--f5-black-3)` | Hover fill |
+| `--f5-surface-active` | `var(--f5-black-2)` | Pressed/active fill |
 
-#### Recommended F5 Tokens
+#### Surface Token Definitions
 
 ```css
 :root[data-theme='light'] {
@@ -122,52 +103,11 @@ Helios defines semantic surface tokens for hover and active states, absent from 
 
 ## 2. Elevation and Shadow System
 
-### Current State
+### Shadow Scale
 
-The theme uses a single heavy shadow across all elevated components:
+The theme uses **neutral-tinted alpha shadows** with double-layer values for natural depth. Light mode uses `--f5-black-3` (`#343434`) as the tint base; dark mode uses `#cccccc`.
 
-```css
-/* Used on .mermaid-container, .starlight-aside, .expressive-code .frame, .swatch, .icon-card */
-box-shadow:
-  0 2px 4px rgba(0, 0, 0, 0.04),
-  0 8px 16px rgba(0, 0, 0, 0.08),
-  0 24px 48px rgba(0, 0, 0, 0.12);
-```
-
-**Issues**:
-
-- Pure black (`rgba(0,0,0,...)`) shadows look harsh, especially in light mode
-- Single shadow level means no visual hierarchy between cards at rest, hover, and overlays
-
-### Helios Elevation System (Light Mode)
-
-Helios uses **neutral-tinted alpha shadows** (`#656a76` base) with double-layer values:
-
-| Level | Value | Use Case |
-|---|---|---|
-| **Inset** | `inset 0px 1px 2px 1px #656a761a` | Recessed inputs |
-| **Low** | `0px 1px 1px 0px #656a760d, 0px 2px 2px 0px #656a760d` | Cards at rest |
-| **Mid** | `0px 2px 3px 0px #656a761a, 0px 8px 16px -10px #656a7633` | Hover cards, dropdowns |
-| **High** | `0px 2px 3px 0px #656a7626, 0px 16px 16px -10px #656a7633` | Popovers |
-| **Higher** | `0px 2px 3px 0px #656a761a, 0px 12px 28px 0px #656a7640` | Modals |
-| **Overlay** | `0px 2px 3px 0px #3b3d4540, 0px 12px 24px 0px #3b3d4559` | Full overlays |
-
-### Helios Surface System (Border + Shadow Combined)
-
-Helios combines a `0 0 0 1px` border-shadow with elevation for crisp edges plus soft depth:
-
-| Level | Value |
-|---|---|
-| **Base** | `0 0 0 1px #656a7633` |
-| **Low** | `0 0 0 1px #656a7626, 0px 1px 1px 0px #656a760d, 0px 2px 2px 0px #656a760d` |
-| **Mid** | `0 0 0 1px #656a7626, 0px 2px 3px 0px #656a761a, 0px 8px 16px -10px #656a7633` |
-| **High** | `0 0 0 1px #656a7640, 0px 2px 3px 0px #656a7626, 0px 16px 16px -10px #656a7633` |
-
-> The `0 0 0 1px` shadow acts as a crisp border without using the `border` property, avoiding layout shifts on hover.
-
-### Recommended F5 Shadow Scale
-
-Using `--f5-black-3` (`#343434`) as the tint base for light mode:
+#### Light Mode Shadows
 
 ```css
 :root[data-theme='light'] {
@@ -187,7 +127,7 @@ Using `--f5-black-3` (`#343434`) as the tint base for light mode:
 }
 ```
 
-Using `#cccccc` as the tint base for dark mode:
+#### Dark Mode Shadows
 
 ```css
 :root {
@@ -209,15 +149,15 @@ Using `#cccccc` as the tint base for dark mode:
 
 ### Component Shadow Mapping
 
-| Component | Current | Recommended Level |
-|---|---|---|
-| `.swatch`, `.icon-card` | Heavy 3-layer shadow | `--f5-shadow-low` (at rest) |
-| `.starlight-aside` | Heavy 3-layer shadow | `--f5-shadow-low` |
-| `.expressive-code .frame` | Heavy 3-layer shadow | `--f5-shadow-mid` |
-| `.mermaid-container` | Heavy 3-layer shadow | `--f5-shadow-mid` |
-| Cards on hover | (none) | `--f5-shadow-mid` |
-| Dropdowns, popovers | (none) | `--f5-shadow-high` |
-| Modals | (none) | `--f5-shadow-higher` |
+| Component | Shadow Level |
+|---|---|
+| `.swatch`, `.icon-card` | `--f5-shadow-low` (at rest) |
+| `.starlight-aside` | `--f5-shadow-low` |
+| `.expressive-code .frame` | `--f5-shadow-mid` |
+| `.mermaid-container` | `--f5-shadow-mid` |
+| Cards on hover | `--f5-shadow-mid` |
+| Dropdowns, popovers | `--f5-shadow-high` |
+| Modals | `--f5-shadow-higher` |
 
 > **Status**: Complete — all shadow levels (`inset`, `low`, `mid`, `high`, `higher`) implemented in `styles/custom.css`.
 
@@ -225,27 +165,7 @@ Using `#cccccc` as the tint base for dark mode:
 
 ## 3. Border Radius Scale
 
-### Current State
-
-Every rounded element uses `0.75rem` (12px):
-
-```css
-/* Used everywhere: .mermaid-container, .starlight-aside, .expressive-code .frame, .swatch, .icon-card */
-border-radius: 0.75rem;
-```
-
-### Helios Scale
-
-Helios uses notably smaller, tighter radii:
-
-| Token | Value | Use Case |
-|---|---|---|
-| `x-small` | `3px` / `0.1875rem` | Badges, tags, small chips |
-| `small` | `5px` / `0.3125rem` | Sidebar nav items, inline elements |
-| `medium` | `6px` / `0.375rem` | Cards, code blocks, inputs |
-| `large` | `8px` / `0.5rem` | Modals, large containers |
-
-### Recommended F5 Radius Scale
+### Radius Tokens
 
 ```css
 :root {
@@ -259,16 +179,16 @@ Helios uses notably smaller, tighter radii:
 
 ### Component Radius Mapping
 
-| Component | Current | Recommended |
-|---|---|---|
-| `.swatch` | `0.75rem` | `--f5-radius-md` (6px) |
-| `.icon-card` | `0.75rem` | `--f5-radius-md` (6px) |
-| `.starlight-aside` | `0.75rem` | `--f5-radius-md` (6px) |
-| `.expressive-code .frame` | `0.75rem` | `--f5-radius-md` (6px) |
-| `.mermaid-container` | `0.75rem` | `--f5-radius-lg` (8px) |
-| `.edit-link` | `999px` | `--f5-radius-full` (keep) |
-| Sidebar nav items | (none) | `--f5-radius-sm` (5px) |
-| Badges | (none) | `--f5-radius-xs` (3px) |
+| Component | Radius Token |
+|---|---|
+| `.swatch` | `--f5-radius-md` (6px) |
+| `.icon-card` | `--f5-radius-md` (6px) |
+| `.starlight-aside` | `--f5-radius-md` (6px) |
+| `.expressive-code .frame` | `--f5-radius-md` (6px) |
+| `.mermaid-container` | `--f5-radius-lg` (8px) |
+| `.edit-link` | `--f5-radius-full` (pill) |
+| Sidebar nav items | `--f5-radius-sm` (5px) |
+| Badges | `--f5-radius-xs` (3px) |
 
 > **Status**: Complete — radius scale (`xs`, `sm`, `md`, `lg`, `full`) implemented in `styles/custom.css`.
 
@@ -276,39 +196,7 @@ Helios uses notably smaller, tighter radii:
 
 ## 4. Sidebar Navigation Styling
 
-### Current State
-
-The sidebar uses default Starlight styling with no custom hover, active, or spacing overrides.
-
-### Helios Sidebar Specification
-
-| Property | Value | Notes |
-|---|---|---|
-| Wrapper border | `1px solid #dedfe3` | Light mode; subtle right border |
-| Wrapper padding | `16px` horiz, `16px` vert | Consistent padding |
-| Wrapper background | `#fafafa` (surface-faint) | Slightly off-white |
-| Item height | `36px` | Consistent click target |
-| Item padding | `8px` horiz, `4px` vert | Compact |
-| Item spacing | `2px` vertical gap | Tight grouping |
-| Item border-radius | `5px` | Tight, not pill-shaped |
-| Text color (default) | `#3b3d45` (foreground-primary) | Readable but not heavy |
-| Text color (muted) | `#656a76` (foreground-faint) | Section labels, inactive items |
-| Hover background | `#f1f2f3` (surface-interactive-hover) | Subtle gray fill |
-| Active background | `#c2c5cb` (neutral-300) | Visible selection |
-| Active font weight | `600` | Bolder than siblings |
-
-### Dark Mode Sidebar
-
-| Property | Value |
-|---|---|
-| Wrapper background | `#26282e` |
-| Wrapper border | `1px solid #3b3d4540` |
-| Text color (default) | `#c2c5cb` |
-| Text color (muted) | `#8c909c` |
-| Hover background | `#2e3038` |
-| Active background | `#3b3d45` |
-
-### Recommended CSS
+### Sidebar Item Styles
 
 ```css
 /* Sidebar navigation items */
@@ -342,9 +230,7 @@ nav.sidebar a[aria-current="page"] {
 }
 ```
 
-### Left Accent Indicator (Optional)
-
-Helios uses a left border accent on the active item:
+### Left Accent Indicator
 
 ```css
 nav.sidebar a[aria-current="page"] {
@@ -357,72 +243,9 @@ nav.sidebar a[aria-current="page"] {
 
 ---
 
-## 5. Button Enhancement Guide
+## 5. Button System
 
-### Current State
-
-The theme has no button system. The only button-like element is the edit-link pill:
-
-```css
-.edit-link {
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border: 1px solid var(--sl-color-gray-5);
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-```
-
-### Helios Button Variants
-
-#### Primary Button
-
-| Property | Light Mode | Dark Mode |
-|---|---|---|
-| Background | `#1060ff` (action) | `#1060ff` |
-| Background hover | `#0c56e9` (action-hover) | `#0c56e9` |
-| Text color | `#ffffff` | `#ffffff` |
-| Border | none | none |
-| Border radius | `5px` | `5px` |
-| Padding | `10px 16px` | `10px 16px` |
-| Font weight | `500` | `500` |
-| Font size | `14px` (0.875rem) | `14px` |
-| Shadow | `--f5-shadow-low` | subtle glow |
-
-#### Secondary Button
-
-| Property | Light Mode | Dark Mode |
-|---|---|---|
-| Background | `transparent` | `transparent` |
-| Background hover | `#f1f2f3` | `#2e3038` |
-| Text color | `#3b3d45` | `#c2c5cb` |
-| Border | `1px solid #656a7633` | `1px solid #f1f2f333` |
-| Border hover | `1px solid #3b3d4566` | `1px solid #f1f2f366` |
-| Border radius | `5px` | `5px` |
-
-#### Tertiary / Ghost Button
-
-| Property | Light Mode | Dark Mode |
-|---|---|---|
-| Background | `transparent` | `transparent` |
-| Background hover | `#f1f2f3` | `#2e3038` |
-| Text color | `#1060ff` | `#5990ff` |
-| Border | none | none |
-| Underline on hover | optional | optional |
-
-#### Critical / Destructive Button
-
-| Property | Light Mode | Dark Mode |
-|---|---|---|
-| Background | `#c00005` | `#c00005` |
-| Background hover | `#a30004` | `#a30004` |
-| Text color | `#ffffff` | `#ffffff` |
-| Border | none | none |
-
-### Recommended F5 Button Adaptation
-
-Map Helios action colors to F5 brand equivalents:
+### Button Variants
 
 ```css
 /* Primary — using F5 Red as brand action */
@@ -487,22 +310,7 @@ Map Helios action colors to F5 brand equivalents:
 
 ## 6. Hero and Header Backgrounds
 
-### Current State
-
-No hero or header background treatments exist. Pages use the plain page background.
-
-### Helios Product Gradient Pattern
-
-Each HashiCorp product uses a unique gradient for hero sections. Example from Terraform:
-
-| Token | Value | Use |
-|---|---|---|
-| Primary start | `#bb8deb` | Rich gradient for hero |
-| Primary stop | `#844fba` | |
-| Faint start | `#fcfaff` | Subtle page wash |
-| Faint stop | `#f4ecff` | |
-
-### Recommended F5 Hero Gradients
+### Hero Gradients
 
 Using the F5 brand palette:
 
@@ -565,27 +373,25 @@ Using the F5 brand palette:
 
 ## 7. Hover Effects and Transitions
 
-### Current State
-
-Only the edit-link has transition properties:
+### Transition Tokens
 
 ```css
-.edit-link {
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+:root {
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
 }
 ```
 
-No sidebar, navigation, card, or button hover transitions exist.
-
-### Helios Transition System
-
-| Type | Duration | Easing | Use Case |
+| Token | Duration | Easing | Use Case |
 |---|---|---|---|
-| **Standard** | `0.15s` | `ease` | Most hover states, color changes |
-| **Interactive** | `0.2s` | `ease` | Background fills, border changes |
-| **Bouncy toggle** | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | Switches, toggles |
-| **Slide decelerate** | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | Tab indicators, sliding panels |
-| **Spring tooltip** | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | Tooltips, popover entry |
+| `--f5-transition-fast` | `0.15s` | `ease` | Most hover states, color changes |
+| `--f5-transition-base` | `0.2s` | `ease` | Background fills, border changes |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | Switches, toggles |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | Tab indicators, sliding panels |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | Tooltips, popover entry |
 
 ### What to Animate
 
@@ -599,18 +405,6 @@ No sidebar, navigation, card, or button hover transitions exist.
 | `opacity` | Yes | Fade in/out |
 | `width`, `height` | Avoid | Causes layout reflow |
 | `padding`, `margin` | Avoid | Causes layout reflow |
-
-### Recommended Transition Tokens
-
-```css
-:root {
-  --f5-transition-fast: 0.15s ease;
-  --f5-transition-base: 0.2s ease;
-  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
-  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
-  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
-}
-```
 
 ### Component Transition Mapping
 
@@ -650,20 +444,9 @@ a {
 
 ## 8. Focus Ring System
 
-### Current State
+### Focus Ring Tokens
 
-Default browser focus outlines. No custom focus ring styling.
-
-### Helios Focus Ring Pattern
-
-Helios uses a **double-ring** pattern with an inset inner ring and an outer glow:
-
-| Type | Value | Use Case |
-|---|---|---|
-| **Action** | `inset 0 0 0 1px #0c56e9, 0 0 0 3px #5990ff` | Interactive elements (links, buttons) |
-| **Critical** | `inset 0 0 0 1px #c00005, 0 0 0 3px #dd7578` | Destructive action buttons |
-
-### Recommended F5 Focus Rings
+The theme uses a **double-ring** pattern with an inset inner ring and an outer glow:
 
 ```css
 /* Action focus — using F5 River blue */
@@ -701,9 +484,9 @@ textarea:focus-visible {
 
 ---
 
-## 9. Typography Comparison
+## 9. Typography
 
-### Current State
+### Font Stack
 
 ```css
 :root {
@@ -713,9 +496,9 @@ textarea:focus-visible {
 }
 ```
 
-### Helios Type Scale
+### Type Scale
 
-| Scale | Size | Line Height | F5 Equivalent |
+| Scale | Size | Line Height | Usage |
 |---|---|---|---|
 | Display 500 | `1.875rem` (30px) | 1.267 | `--sl-text-h1` |
 | Display 400 | `1.5rem` (24px) | 1.333 | `--sl-text-h2` |
@@ -726,97 +509,36 @@ textarea:focus-visible {
 | Body 200 | `0.875rem` (14px) | 1.429 | Sidebar text, captions |
 | Body 100 | `0.8125rem` (13px) | 1.385 | Small print |
 
-### Key Differences
+### Key Characteristics
 
-| Aspect | Current f5xc | Helios | Notes |
-|---|---|---|---|
-| Heading line height | `1.1` | `1.267–1.333` | F5 headings are tighter; consider loosening to `1.2` for readability |
-| Body line height | Starlight default (`1.5`) | `1.5` | Aligned |
-| Font family | Custom brand fonts | System fonts | F5 correctly uses brand fonts; no change needed |
-| Heading weights | `h1-h2: 700, h3: 500, h4-h6: 700 uppercase` | `400-600` | F5 typography is more opinionated (good for brand) |
+| Aspect | Value | Notes |
+|---|---|---|
+| Heading line height | `1.1` | Tight headings for brand impact; consider `1.2` for readability |
+| Body line height | `1.5` (Starlight default) | Well-suited for reading |
+| Font family | Custom brand fonts | proximaNova (body), neusaNextProWide (headings) |
+| Heading weights | `h1-h2: 700, h3: 500, h4-h6: 700 uppercase` | Opinionated for brand consistency |
 
-> **Priority**: No sprint needed. Current typography is well-defined and brand-appropriate. Minor adjustment to heading line height (`1.1` to `1.2`) is optional.
+> **Priority**: No changes needed. Current typography is well-defined and brand-appropriate. Minor adjustment to heading line height (`1.1` to `1.2`) is optional.
 
 ---
 
-## 10. Sprint Enhancement Roadmap
+## 10. Implementation Changelog
 
-### Sprint 1: Foundation — Shadows + Border Radius ✅
+All design tokens were implemented across five sprints:
 
-**Scope**: Replace the single shadow with a graduated scale; introduce a border-radius scale.
-
-| Task | Details |
-|---|---|
-| Define `--f5-shadow-*` tokens | 5 levels: inset, low, mid, high, higher |
-| Define `--f5-radius-*` tokens | 4 levels: xs, sm, md, lg, full |
-| Update `.mermaid-container` | `--f5-shadow-mid`, `--f5-radius-lg` |
-| Update `.starlight-aside` | `--f5-shadow-low`, `--f5-radius-md` |
-| Update `.expressive-code .frame` | `--f5-shadow-mid`, `--f5-radius-md` |
-| Update `.swatch`, `.icon-card` | `--f5-shadow-low`, `--f5-radius-md` |
-
-**Estimated diff**: ~40 lines changed in `custom.css`.
-
-### Sprint 2: Sidebar Navigation + Surface Tokens ✅
-
-**Scope**: Add hover/active states to sidebar; define interactive surface tokens.
-
-| Task | Details |
-|---|---|
-| Define `--f5-surface-hover`, `--f5-surface-active` | Light and dark mode values |
-| Define `--f5-border-faint`, `--f5-border-default`, `--f5-border-strong` | Alpha-transparent borders |
-| Style sidebar nav items | Height, padding, border-radius, hover bg, active bg |
-| Add left accent indicator | Active page border-left |
-| Add `--f5-transition-fast` | Apply to sidebar items |
-
-**Estimated diff**: ~60 lines added to `custom.css`.
-
-### Sprint 3: Button Component System ✅
-
-**Scope**: Create primary, secondary, tertiary, and critical button classes.
-
-| Task | Details |
-|---|---|
-| Define `.btn-primary` | F5 Red background, white text |
-| Define `.btn-secondary` | Outline with alpha border |
-| Define `.btn-tertiary` | Ghost/text-only with hover fill |
-| Define `.btn-critical` | Red destructive variant |
-| Define size variants | Small, medium (default), large |
-| Update `.edit-link` | Migrate to `.btn-secondary` pattern |
-
-**Estimated diff**: ~80 lines added to `custom.css`.
-
-### Sprint 4: Hero Gradient Backgrounds ✅
-
-**Scope**: Create hero gradient utilities and page wash effects.
-
-| Task | Details |
-|---|---|
-| Define gradient classes | `.hero-gradient-primary`, `-eggplant`, `-red` |
-| Define faint page wash | `.hero-gradient-faint` for subtle backgrounds |
-| Create overlay utilities | `.hero-vignette`, `.hero-fade` |
-| Update hero component | Apply gradient to documentation landing page |
-
-**Estimated diff**: ~50 lines added to `custom.css`.
-
-### Sprint 5: Focus Rings + Transition Polish ✅
-
-**Scope**: Accessibility-compliant focus rings and comprehensive transition system.
-
-| Task | Details |
-|---|---|
-| Define `--f5-focus-action`, `--f5-focus-critical` | Double-ring focus pattern |
-| Apply `:focus-visible` styles | All interactive elements |
-| Define `--f5-transition-*` tokens | Fast, base, bounce, decelerate, spring |
-| Add card hover effects | Shadow lift + translateY on swatches, icon cards |
-| Add link transitions | Color transition on all links |
-
-**Estimated diff**: ~60 lines added to `custom.css`.
+| Sprint | Scope | Tokens Added |
+|---|---|---|
+| 1. Foundation | Shadows + border radius | `--f5-shadow-*` (5 levels), `--f5-radius-*` (5 levels) |
+| 2. Sidebar + Surfaces | Navigation + interactive tokens | `--f5-surface-hover`, `--f5-surface-active`, `--f5-border-*` (3 levels), `--f5-transition-fast` |
+| 3. Buttons | Component system | `.btn-primary`, `.btn-secondary`, `.btn-tertiary`, `.btn-critical`, size variants |
+| 4. Hero Gradients | Background utilities | `.hero-gradient-primary`, `-eggplant`, `-red`, `-faint`, `.hero-vignette`, `.hero-fade` |
+| 5. Focus + Transitions | Accessibility + polish | `--f5-focus-action`, `--f5-focus-critical`, `--f5-transition-*` (5 tokens), card hover effects |
 
 ---
 
 ## Quick Reference: Token Summary
 
-### All Proposed Custom Properties
+### All Custom Properties
 
 ```css
 :root {
@@ -871,33 +593,3 @@ textarea:focus-visible {
   --f5-surface-active: var(--f5-white-3);
 }
 ```
-
----
-
-## Appendix: Helios vs F5 Side-by-Side
-
-### Neutral Scale Comparison
-
-| Helios Token | Helios Value | F5 Equivalent | F5 Value |
-|---|---|---|---|
-| neutral-0 | `#ffffff` | `--f5-white` | `#ffffff` |
-| neutral-50 | `#fafafa` | `--f5-white-1` | `#faf9f7` |
-| neutral-100 | `#f1f2f3` | `--f5-white-2` | `#f5f5f5` |
-| neutral-200 | `#dedfe3` | `--f5-white-3` | `#e6e6e6` |
-| neutral-300 | `#c2c5cb` | `--f5-white-4` | `#cccccc` |
-| neutral-400 | `#8c909c` | `--f5-black-1` | `#999999` |
-| neutral-500 | `#656a76` | `--f5-black-2` | `#666666` |
-| neutral-600 | `#3b3d45` | `--f5-black-3` | `#343434` |
-| neutral-700 | `#0c0c0e` | `--f5-black-4` | `#222222` |
-
-The F5 palette aligns closely with Helios neutrals. The Helios tokens have slightly cooler undertones (blue-gray) while F5 uses pure grays, but the value steps map well.
-
-### Shadow Comparison
-
-| Level | Current f5xc | Proposed f5xc (light) | Helios (light) |
-|---|---|---|---|
-| At rest | 3-layer heavy shadow | `--f5-shadow-low` | Elevation Low |
-| Hover | (same as rest) | `--f5-shadow-mid` | Elevation Mid |
-| Dropdown | (same as rest) | `--f5-shadow-high` | Elevation High |
-| Modal | (same as rest) | `--f5-shadow-higher` | Elevation Higher |
-| Tint color | `rgba(0,0,0,...)` pure black | `#343434xx` neutral-tinted | `#656a76xx` neutral-tinted |
