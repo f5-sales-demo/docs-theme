@@ -32,7 +32,7 @@ workflows succeed, and local branches are cleaned.
 
 ### Merging (Step 7)
 
-1. **Merge after CI passes** — once all status checks
+7. **Merge after CI passes** — once all status checks
    are green, merge the PR yourself. Do not wait for
    manual approval (none is required).
 
@@ -49,7 +49,7 @@ workflows succeed, and local branches are cleaned.
 
 ### Post-Merge Monitoring (Steps 8-9)
 
-1. **Monitor post-merge workflows** — merging to
+8. **Monitor post-merge workflows** — merging to
    `main` triggers additional workflows (docs
    builds, governance sync, etc.). Discover and
    watch them:
@@ -62,7 +62,7 @@ workflows succeed, and local branches are cleaned.
    gh run watch <RUN-ID> --exit-status
    ```
 
-2. **Iterate on failures** — if any workflow fails:
+9. **Iterate on failures** — if any workflow fails:
    - View logs: `gh run view <RUN-ID> --log-failed`
    - Analyze the root cause
    - Fix the code locally
@@ -75,7 +75,7 @@ workflows succeed, and local branches are cleaned.
 
 ### Cleanup (Steps 10-11)
 
-1. **Clean up branches** — only after all workflows
+10. **Clean up branches** — only after all workflows
     succeed. Delete your feature branch and any other
     stale local branches already merged to `main`:
 
@@ -84,7 +84,7 @@ workflows succeed, and local branches are cleaned.
     git branch --merged main | grep -v '^\*\|main' | xargs -r git branch -d
     ```
 
-2. **Verify completion** — confirm clean state:
+11. **Verify completion** — confirm clean state:
 
     ```
     git status
@@ -94,7 +94,7 @@ workflows succeed, and local branches are cleaned.
 
 ### Verification (Steps 12-13)
 
-1. **Verify outcomes** — confirm changes had the
+12. **Verify outcomes** — confirm changes had the
     intended effect, not just that workflows passed:
 
     Always check:
@@ -128,7 +128,7 @@ workflows succeed, and local branches are cleaned.
     done
     ```
 
-2. **Check repo health** — after your task is fully
+13. **Check repo health** — after your task is fully
     done, scan for any outstanding problems across
     the repository:
 
@@ -302,8 +302,8 @@ shared pipeline:
 
 | Repo | Role |
 | ---- | ---- |
-| `f5xc-docs-theme` | npm package — Starlight plugin, Astro config, CSS, fonts, logos, layout components |
-| `f5xc-docs-builder` | Docker image — build orchestration, npm deps, Puppeteer PDF generation, interactive components |
+| `docs-theme` | npm package — Starlight plugin, Astro config, CSS, fonts, logos, layout components |
+| `docs-builder` | Docker image — build orchestration, npm deps, Puppeteer PDF generation, interactive components |
 | `docs-control` | Source-of-truth — reusable CI workflows, governance templates, repo settings enforcement |
 
 Content repos only need a `docs/` directory — the
@@ -314,15 +314,15 @@ CI builds trigger when files in `docs/` change on
 ### Where to make changes
 
 - **Site appearance, navigation, or Astro config** —
-  change `f5xc-docs-theme` (owns
+  change `docs-theme` (owns
   `astro.config.mjs`, `content.config.ts`,
   CSS, fonts, logos, and layout components)
 - **Build process, Docker image, or npm deps** —
-  change `f5xc-docs-builder` (owns the
+  change `docs-builder` (owns the
   Dockerfile, entrypoint, and dependency set)
 - **Interactive components** (placeholder forms,
   API viewers, Mermaid rendering) —
-  change `f5xc-docs-builder`
+  change `docs-builder`
 - **CI workflow or governance files** —
   change `docs-control` (syncs managed files
   and repo settings to downstream repos)
