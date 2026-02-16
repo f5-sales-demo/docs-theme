@@ -360,6 +360,16 @@ h4, h5, h6 {
   border: 1px solid var(--f5-border-default);
 }
 
+/* Prevent Starlight content-gap from displacing grid items */
+.swatch-grid > .swatch {
+  margin-top: 0;
+}
+
+/* Remove injected gap between color block and label */
+.swatch > .swatch-label {
+  margin-top: 0;
+}
+
 .swatch-color {
   height: 5rem;
   display: flex;
