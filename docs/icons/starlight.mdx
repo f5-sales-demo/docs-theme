@@ -1,13 +1,14 @@
 ---
-title: Icons
-description: Complete reference for built-in Starlight icons and available icon packs.
+title: Starlight Built-in Icons
+description: Complete reference for all 200+ built-in Starlight icons available via the Icon component.
 sidebar:
-  order: 13
+  label: Starlight Built-in
+  order: 2
 ---
 
-import { Icon, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Icon } from '@astrojs/starlight/components';
 
-Starlight includes over 200 built-in icons available via the `<Icon>` component — no installation required. This page is the complete reference for every icon name you can use.
+Starlight includes over 200 built-in icons available via the `<Icon>` component — no installation needed. The `starlight-plugin-icons` plugin is already configured in the theme, so these icons work in any content repo.
 
 ## Using the Icon Component
 
@@ -322,49 +323,3 @@ Seti icons use the `seti:` prefix and are designed for file-type representation.
   <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:info" size="1.5rem" /></div><div class="icon-card-label">seti:info</div></div>
   <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="seti:clock" size="1.5rem" /></div><div class="icon-card-label">seti:clock</div></div>
 </div>
-
-## Community Icon Packs
-
-The built-in icons cover common needs, but additional icon packs can be integrated into the `docs-builder` for broader coverage. These are not installed by default — adding them is tracked in [docs-builder issue #80](https://github.com/f5xc-salesdemos/docs-builder/issues/80).
-
-### astro-icon + Iconify
-
-The [`astro-icon`](https://github.com/natemoo-re/astro-icon) package provides access to [Iconify](https://iconify.design/), a unified framework with over 200,000 icons from sets like Lucide, Material Design, Phosphor, Tabler, and Carbon.
-
-```mdx
----
-// Example (requires installation in docs-builder)
-import { Icon } from 'astro-icon/components';
----
-<Icon name="lucide:rocket" />
-<Icon name="mdi:database" />
-```
-
-### starlight-plugin-icons
-
-The [`starlight-plugin-icons`](https://github.com/HiDeoo/starlight-plugin-icons) Starlight plugin adds Iconify icons directly to sidebars and content without extra imports. It integrates with Starlight's native icon system.
-
-### Lucide Astro
-
-[`lucide-astro`](https://lucide.dev/guide/packages/lucide-astro) provides 1,600+ modern stroke icons optimized for technical documentation. Icons are tree-shakeable and available as individual Astro components.
-
-```mdx
----
-// Example (requires installation in docs-builder)
-import { Rocket, Database, Shield } from 'lucide-astro';
----
-<Rocket size={24} />
-```
-
-## HashiCorp Flight Icons
-
-The [`@hashicorp/flight-icons`](https://github.com/hashicorp/design-system/tree/main/packages/flight-icons) package provides 671 icons (at 24px) covering networking, security, cloud, and infrastructure domains — relevant for F5 and multi-cloud documentation.
-
-- **License**: MPL-2.0 (permissive, can be used in non-HashiCorp projects)
-- **Format**: SVG sprites and individual SVGs
-- **Status**: Not currently installed in docs-builder — available via CDN for reference
-- **Visual reference**: See the [HashiCorp Flight Icons](/hashicorp-icons/) page for every icon organized by category
-
-:::note
-Adding community icon packs and HashiCorp Flight icons to the docs-builder container is tracked in [docs-builder issue #80](https://github.com/f5xc-salesdemos/docs-builder/issues/80).
-:::

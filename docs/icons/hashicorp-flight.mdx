@@ -2,13 +2,30 @@
 title: HashiCorp Flight Icons
 description: Visual reference for all 671 HashiCorp Flight icons from @hashicorp/flight-icons.
 sidebar:
-  order: 14
+  label: HashiCorp Flight
+  order: 6
 ---
 
 Complete visual reference for every icon in the [`@hashicorp/flight-icons`](https://github.com/hashicorp/design-system/tree/main/packages/flight-icons) package. Icons are loaded from the jsDelivr CDN at 24px and organized by category.
 
-:::note
-These icons are not installed in the docs-builder container. They are rendered here via CDN `<img>` tags for reference. To request native Astro component integration, see [docs-builder issue #80](https://github.com/f5xc-salesdemos/docs-builder/issues/80). For Starlight built-in icons and other icon packs, see the [Icons](/icons/) reference.
+## Usage
+
+HashiCorp Flight icons are rendered via CDN `<img>` tags. The `@hashicorp/flight-icons` npm package is installed in the docs-builder container.
+
+```mdx
+<!-- Monochrome icon — auto-inverts in dark mode -->
+<div class="icon-card-image">
+  <img src="https://cdn.jsdelivr.net/npm/@hashicorp/flight-icons@latest/svg/cloud-24.svg" alt="cloud" />
+</div>
+
+<!-- Color variant — add no-invert class to preserve colors -->
+<div class="icon-card-image no-invert">
+  <img src="https://cdn.jsdelivr.net/npm/@hashicorp/flight-icons@latest/svg/aws-color-24.svg" alt="aws-color" />
+</div>
+```
+
+:::note[Dark Mode]
+Monochrome icons get `filter: invert(1)` in dark mode. Color variants (icons ending in `-color`) use the `no-invert` class on `.icon-card-image` to preserve their original colors.
 :::
 
 ## Services (172)

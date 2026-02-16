@@ -1,0 +1,133 @@
+---
+title: Lucide Icons
+description: Curated reference for Lucide icons — 1,600+ modern stroke icons available via the Icon component.
+sidebar:
+  label: Lucide
+  order: 4
+---
+
+import { Icon } from '@astrojs/starlight/components';
+
+[Lucide](https://lucide.dev/) provides ~1,600 modern, consistent stroke icons. The `@iconify-json/lucide` and `@lucide/astro` packages are installed in the docs-builder container.
+
+## Usage
+
+### Via Iconify (Recommended)
+
+Use the `lucide:` prefix with the Starlight `<Icon>` component:
+
+```mdx
+import { Icon } from '@astrojs/starlight/components';
+
+<Icon name="lucide:rocket" />
+<Icon name="lucide:shield" size="2rem" />
+<Icon name="lucide:cloud" color="var(--sl-color-accent)" />
+```
+
+### Via Lucide Astro (Alternative)
+
+Import individual components from `lucide-astro`:
+
+```mdx
+import { Rocket, Shield, Cloud } from 'lucide-astro';
+
+<Rocket size={24} />
+<Shield size={24} strokeWidth={1.5} />
+```
+
+Both methods render inline SVGs using `currentColor` — icons automatically adapt to light and dark mode.
+
+## Navigation
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:arrow-up" size="1.5rem" /></div><div class="icon-card-label">lucide:arrow-up</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:arrow-down" size="1.5rem" /></div><div class="icon-card-label">lucide:arrow-down</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:arrow-left" size="1.5rem" /></div><div class="icon-card-label">lucide:arrow-left</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:arrow-right" size="1.5rem" /></div><div class="icon-card-label">lucide:arrow-right</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:chevron-up" size="1.5rem" /></div><div class="icon-card-label">lucide:chevron-up</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:chevron-down" size="1.5rem" /></div><div class="icon-card-label">lucide:chevron-down</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:chevron-left" size="1.5rem" /></div><div class="icon-card-label">lucide:chevron-left</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:chevron-right" size="1.5rem" /></div><div class="icon-card-label">lucide:chevron-right</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:external-link" size="1.5rem" /></div><div class="icon-card-label">lucide:external-link</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:home" size="1.5rem" /></div><div class="icon-card-label">lucide:home</div></div>
+</div>
+
+## Actions
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:search" size="1.5rem" /></div><div class="icon-card-label">lucide:search</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:plus" size="1.5rem" /></div><div class="icon-card-label">lucide:plus</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:minus" size="1.5rem" /></div><div class="icon-card-label">lucide:minus</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:x" size="1.5rem" /></div><div class="icon-card-label">lucide:x</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:check" size="1.5rem" /></div><div class="icon-card-label">lucide:check</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:copy" size="1.5rem" /></div><div class="icon-card-label">lucide:copy</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:download" size="1.5rem" /></div><div class="icon-card-label">lucide:download</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:upload" size="1.5rem" /></div><div class="icon-card-label">lucide:upload</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:trash-2" size="1.5rem" /></div><div class="icon-card-label">lucide:trash-2</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:edit" size="1.5rem" /></div><div class="icon-card-label">lucide:edit</div></div>
+</div>
+
+## Objects
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:file" size="1.5rem" /></div><div class="icon-card-label">lucide:file</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:folder" size="1.5rem" /></div><div class="icon-card-label">lucide:folder</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:image" size="1.5rem" /></div><div class="icon-card-label">lucide:image</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:settings" size="1.5rem" /></div><div class="icon-card-label">lucide:settings</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:calendar" size="1.5rem" /></div><div class="icon-card-label">lucide:calendar</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:clock" size="1.5rem" /></div><div class="icon-card-label">lucide:clock</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:bookmark" size="1.5rem" /></div><div class="icon-card-label">lucide:bookmark</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:star" size="1.5rem" /></div><div class="icon-card-label">lucide:star</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:heart" size="1.5rem" /></div><div class="icon-card-label">lucide:heart</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:rocket" size="1.5rem" /></div><div class="icon-card-label">lucide:rocket</div></div>
+</div>
+
+## Communication
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:mail" size="1.5rem" /></div><div class="icon-card-label">lucide:mail</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:message-circle" size="1.5rem" /></div><div class="icon-card-label">lucide:message-circle</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:phone" size="1.5rem" /></div><div class="icon-card-label">lucide:phone</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:send" size="1.5rem" /></div><div class="icon-card-label">lucide:send</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:bell" size="1.5rem" /></div><div class="icon-card-label">lucide:bell</div></div>
+</div>
+
+## Security &amp; Status
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:shield" size="1.5rem" /></div><div class="icon-card-label">lucide:shield</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:lock" size="1.5rem" /></div><div class="icon-card-label">lucide:lock</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:unlock" size="1.5rem" /></div><div class="icon-card-label">lucide:unlock</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:key" size="1.5rem" /></div><div class="icon-card-label">lucide:key</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:eye" size="1.5rem" /></div><div class="icon-card-label">lucide:eye</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:alert-triangle" size="1.5rem" /></div><div class="icon-card-label">lucide:alert-triangle</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:info" size="1.5rem" /></div><div class="icon-card-label">lucide:info</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:circle-check" size="1.5rem" /></div><div class="icon-card-label">lucide:circle-check</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:circle-x" size="1.5rem" /></div><div class="icon-card-label">lucide:circle-x</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:loader" size="1.5rem" /></div><div class="icon-card-label">lucide:loader</div></div>
+</div>
+
+## Infrastructure
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:cloud" size="1.5rem" /></div><div class="icon-card-label">lucide:cloud</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:server" size="1.5rem" /></div><div class="icon-card-label">lucide:server</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:database" size="1.5rem" /></div><div class="icon-card-label">lucide:database</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:globe" size="1.5rem" /></div><div class="icon-card-label">lucide:globe</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:network" size="1.5rem" /></div><div class="icon-card-label">lucide:network</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:wifi" size="1.5rem" /></div><div class="icon-card-label">lucide:wifi</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:hard-drive" size="1.5rem" /></div><div class="icon-card-label">lucide:hard-drive</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:cpu" size="1.5rem" /></div><div class="icon-card-label">lucide:cpu</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:terminal" size="1.5rem" /></div><div class="icon-card-label">lucide:terminal</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="lucide:code" size="1.5rem" /></div><div class="icon-card-label">lucide:code</div></div>
+</div>
+
+## Browse All Icons
+
+For the complete list of ~1,600 Lucide icons, visit [lucide.dev/icons](https://lucide.dev/icons/).
+
+Use any icon name from the Lucide site with the `lucide:` prefix:
+
+```mdx
+<Icon name="lucide:icon-name-here" />
+```

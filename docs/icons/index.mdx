@@ -1,0 +1,113 @@
+---
+title: Icon Reference
+description: Overview of all icon packs available in the documentation theme — usage, dark mode behavior, and selection guide.
+sidebar:
+  label: Overview
+  order: 1
+---
+
+import { Icon } from '@astrojs/starlight/components';
+
+The documentation theme provides access to thousands of icons from multiple packs. Icons can be used in MDX content via the `<Icon>` component or as `<img>` tags referencing SVG files.
+
+## Available Icon Packs
+
+| Pack | Count | Usage | Page |
+|------|-------|-------|------|
+| Starlight Built-in | ~200 | `<Icon name="star" />` | [Starlight Built-in](/icons/starlight/) |
+| F5 Brand | 666 | `<img src="/brand-icons/f5-icon-*.svg" />` | [F5 Brand](/icons/brand/) |
+| Lucide | ~1,600 | `<Icon name="lucide:rocket" />` | [Lucide](/icons/lucide/) |
+| Material Design | 7,000+ | `<Icon name="mdi:database" />` | [Iconify Packs](/icons/iconify-packs/) |
+| Carbon | ~1,500 | `<Icon name="carbon:cloud" />` | [Iconify Packs](/icons/iconify-packs/) |
+| Phosphor | ~1,200 | `<Icon name="ph:globe" />` | [Iconify Packs](/icons/iconify-packs/) |
+| Tabler | ~4,500 | `<Icon name="tabler:shield" />` | [Iconify Packs](/icons/iconify-packs/) |
+| HashiCorp Flight | 671 | `<img>` via CDN | [HashiCorp Flight](/icons/hashicorp-flight/) |
+
+## Rendering Methods
+
+There are three ways to render icons, each with different dark mode behavior.
+
+### 1. `<Icon>` Component (Starlight + Iconify)
+
+Used for Starlight built-in icons and all Iconify packs (Lucide, MDI, Carbon, Phosphor, Tabler).
+
+```mdx
+import { Icon } from '@astrojs/starlight/components';
+
+<Icon name="star" />
+<Icon name="lucide:rocket" size="2rem" />
+<Icon name="mdi:database" color="var(--sl-color-accent)" />
+```
+
+Icons render as inline SVGs using `currentColor` — they automatically adapt to light and dark mode with no special handling needed.
+
+<div class="not-content icon-grid" style="grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));">
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="star" size="1.5rem" /></div><div class="icon-card-label">star</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="rocket" size="1.5rem" /></div><div class="icon-card-label">rocket</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="setting" size="1.5rem" /></div><div class="icon-card-label">setting</div></div>
+  <div class="icon-card"><div class="icon-card-image" style="display:flex;align-items:center;justify-content:center;padding:0.75rem;"><Icon name="heart" size="1.5rem" /></div><div class="icon-card-label">heart</div></div>
+</div>
+
+### 2. `<img>` with Local SVG Path (F5 Brand)
+
+Used for the 666 F5 brand icons stored in `docs/brand-icons/`.
+
+```mdx
+<img src="/brand-icons/f5-icon-ai-admin.svg" alt="Admin" />
+```
+
+These monochrome SVGs get `filter: invert(1)` applied in dark mode via the `.icon-card-image` CSS class.
+
+### 3. `<img>` with CDN URL (HashiCorp Flight)
+
+Used for HashiCorp Flight icons loaded from jsDelivr CDN.
+
+```mdx
+<!-- Monochrome — auto-inverts in dark mode -->
+<div class="icon-card-image">
+  <img src="https://cdn.jsdelivr.net/npm/@hashicorp/flight-icons@latest/svg/cloud-24.svg" alt="cloud" />
+</div>
+
+<!-- Color variant — add no-invert to preserve colors -->
+<div class="icon-card-image no-invert">
+  <img src="https://cdn.jsdelivr.net/npm/@hashicorp/flight-icons@latest/svg/aws-color-24.svg" alt="aws-color" />
+</div>
+```
+
+## Dark/Light Mode Behavior
+
+### `<Icon>` Component Icons
+
+Icons rendered via `<Icon>` use `currentColor` and automatically adapt to the current theme. No special CSS is needed.
+
+### `<img>` Icons in `.icon-card-image`
+
+The theme CSS handles dark mode for `<img>` icons:
+
+```css
+/* Invert near-black SVGs for dark mode visibility */
+:root:not([data-theme='light']) .icon-card-image img {
+  filter: invert(1);
+}
+
+/* Preserve original colors for branded/color-variant icons */
+:root:not([data-theme='light']) .icon-card-image.no-invert img {
+  filter: none;
+}
+```
+
+- **Monochrome icons**: Automatically invert to white in dark mode
+- **Color icons**: Add `no-invert` class to `.icon-card-image` to preserve original colors
+
+## Which Pack Should I Use?
+
+| Use Case | Recommended Pack | Why |
+|----------|------------------|-----|
+| General UI (arrows, close, search) | Starlight Built-in | Zero config, always available |
+| F5 product diagrams | F5 Brand | Domain-specific networking/security art |
+| Modern stroke icons | Lucide | Clean, consistent 1,600+ icons |
+| Filled/outlined icons at scale | Material Design (mdi:) | Largest set with 7,000+ icons |
+| IBM design language | Carbon | Enterprise-grade icons |
+| Flexible weight options | Phosphor | Thin/light/regular/bold/fill/duotone |
+| Crisp line icons | Tabler | 4,500+ with consistent stroke |
+| Cloud/infra vendor logos | HashiCorp Flight | AWS, GCP, Azure, K8s vendor icons |
