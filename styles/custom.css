@@ -78,6 +78,7 @@
   --f5-radius-full: 999px;
 
   /* Shadows — dark mode (neutral-tinted #cccccc base) */
+  --f5-shadow-inset: inset 0px 1px 2px 1px #cccccc0d;
   --f5-shadow-low:
     0px 1px 1px 0px #cccccc0a,
     0px 2px 2px 0px #cccccc0a;
@@ -104,6 +105,8 @@
   --f5-transition-fast: 0.15s ease;
   --f5-transition-base: 0.2s ease;
   --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
 
   /* Focus rings */
   --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
@@ -133,6 +136,7 @@
   --sl-color-bg-badge-tip: var(--f5-eggplant-1);
 
   /* Shadows — light mode (#343434 base) */
+  --f5-shadow-inset: inset 0px 1px 2px 1px #3434341a;
   --f5-shadow-low:
     0px 1px 1px 0px #3434340d,
     0px 2px 2px 0px #3434340d;
@@ -511,6 +515,7 @@ body {
   border: none;
   border-radius: var(--f5-radius-sm);
   padding: 0.625rem 1rem;
+  min-height: 2.5rem;
   font-weight: 500;
   font-size: 0.875rem;
   font-family: var(--sl-font);
@@ -535,6 +540,7 @@ body {
   border: 1px solid var(--f5-border-default);
   border-radius: var(--f5-radius-sm);
   padding: 0.625rem 1rem;
+  min-height: 2.5rem;
   font-weight: 500;
   font-size: 0.875rem;
   font-family: var(--sl-font);
@@ -558,6 +564,7 @@ body {
   border: none;
   border-radius: var(--f5-radius-sm);
   padding: 0.625rem 1rem;
+  min-height: 2.5rem;
   font-weight: 500;
   font-size: 0.875rem;
   font-family: var(--sl-font);
@@ -570,8 +577,36 @@ body {
   text-decoration: none;
 }
 
-.btn-sm { padding: 0.375rem 0.75rem; font-size: 0.8125rem; }
-.btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; }
+.btn-sm { padding: 0.375rem 0.75rem; font-size: 0.8125rem; min-height: 2rem; }
+.btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; min-height: 3rem; }
+
+.btn-critical {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--f5-red-3);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  min-height: 2.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  font-family: var(--sl-font);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+.btn-critical:hover {
+  background: var(--f5-red-4);
+  box-shadow: var(--f5-shadow-low);
+  text-decoration: none;
+  color: var(--f5-white);
+}
+.btn-critical:focus-visible {
+  box-shadow: var(--f5-focus-critical);
+}
 
 /* ===== Phase 5: Hero Gradients ===== */
 .hero-gradient-primary {
@@ -604,6 +639,15 @@ body {
   right: 0;
   height: 30%;
   background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+
+.hero-vignette { position: relative; }
+.hero-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
   pointer-events: none;
 }
 
