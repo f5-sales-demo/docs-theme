@@ -325,7 +325,7 @@ Seti icons use the `seti:` prefix and are designed for file-type representation.
 
 ## Community Icon Packs
 
-The built-in icons cover common needs, but additional icon packs can be integrated into the `docs-builder` for broader coverage. These are not installed by default — content authors can request additions by opening an issue in the `docs-builder` repository.
+The built-in icons cover common needs, but additional icon packs can be integrated into the `docs-builder` for broader coverage. These are not installed by default — adding them is tracked in [docs-builder issue #80](https://github.com/f5xc-salesdemos/docs-builder/issues/80).
 
 ### astro-icon + Iconify
 
@@ -358,12 +358,13 @@ import { Rocket, Database, Shield } from 'lucide-astro';
 
 ## HashiCorp Flight Icons
 
-The [`@hashicorp/flight-icons`](https://github.com/hashicorp/design-system/tree/main/packages/flight-icons) package provides approximately 2,700 icons covering networking, security, cloud, and infrastructure domains — relevant for F5 and multi-cloud documentation.
+The [`@hashicorp/flight-icons`](https://github.com/hashicorp/design-system/tree/main/packages/flight-icons) package provides 671 icons (at 24px) covering networking, security, cloud, and infrastructure domains — relevant for F5 and multi-cloud documentation.
 
 - **License**: MPL-2.0 (permissive, can be used in non-HashiCorp projects)
 - **Format**: SVG sprites and individual SVGs
-- **Status**: Not currently installed in docs-builder
+- **Status**: Not currently installed in docs-builder — available via CDN for reference
+- **Visual reference**: See the [HashiCorp Flight Icons](/hashicorp-icons/) page for every icon organized by category
 
 :::note
-To use community icon packs or HashiCorp Flight icons, open an issue in the [`docs-builder`](https://github.com/f5xc-salesdemos/docs-builder) repository requesting the package be added to the build container.
+Adding community icon packs and HashiCorp Flight icons to the docs-builder container is tracked in [docs-builder issue #80](https://github.com/f5xc-salesdemos/docs-builder/issues/80).
 :::

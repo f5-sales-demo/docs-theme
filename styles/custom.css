@@ -429,6 +429,11 @@ h4, h5, h6 {
   filter: invert(1);
 }
 
+/* Preserve original colors for branded/color-variant icons in dark mode */
+:root:not([data-theme='light']) .icon-card-image.no-invert img {
+  filter: none;
+}
+
 .icon-card-label {
   margin: 0;
   padding: 0.375rem 0.5rem;
