@@ -9,6 +9,7 @@ sidebar:
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, LinkCard, Badge, FileTree } from '@astrojs/starlight/components';
+import IconLinkCard from 'f5xc-docs-theme/components/LinkCard.astro';
 
 ## Asides
 
@@ -232,6 +233,39 @@ These two tab groups share `syncKey="pkg"`. Selecting a tab in one group should 
     title="Astro Documentation"
     description="Explore the Astro framework for content-driven websites."
     href="https://docs.astro.build"
+  />
+</CardGrid>
+
+### Link Cards with Icons
+
+The theme provides a custom `LinkCard` component that supports an optional `icon` prop. Import it from the theme package:
+
+```mdx
+import IconLinkCard from 'f5xc-docs-theme/components/LinkCard.astro';
+```
+
+<CardGrid>
+  <IconLinkCard
+    icon="lucide:shield-check"
+    title="Web App Firewall"
+    description="Firewall policies and configuration."
+    href="https://f5xc-salesdemos.github.io/waf/"
+  />
+  <IconLinkCard
+    icon="lucide:globe"
+    title="Multi-Cloud Networking"
+    description="Site connectivity across clouds."
+    href="https://f5xc-salesdemos.github.io/mcn/"
+  />
+</CardGrid>
+
+Without the `icon` prop it renders identically to the standard `LinkCard`:
+
+<CardGrid>
+  <IconLinkCard
+    title="No Icon Example"
+    description="This card behaves like a standard LinkCard."
+    href="https://starlight.astro.build"
   />
 </CardGrid>
 
