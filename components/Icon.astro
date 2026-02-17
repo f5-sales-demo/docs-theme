@@ -14,13 +14,12 @@ const isScoped = name.includes(':');
 
 let svgBody = '';
 let viewBox = '0 0 24 24';
+let iconData: any;
 
 if (isScoped) {
   const colonIndex = name.indexOf(':');
   const prefix = name.slice(0, colonIndex);
   const iconName = name.slice(colonIndex + 1);
-
-  let iconData: any;
 
   switch (prefix) {
     case 'lucide':
