@@ -8,8 +8,8 @@ sidebar:
     variant: tip
 ---
 
-import { Aside, Tabs, TabItem, Steps, Card, CardGrid, LinkCard, Badge, FileTree } from '@astrojs/starlight/components';
-import IconLinkCard from 'f5xc-docs-theme/components/LinkCard.astro';
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
+import LinkCard from 'f5xc-docs-theme/components/LinkCard.astro';
 
 ## Asides
 
@@ -223,6 +223,12 @@ These two tab groups share `syncKey="pkg"`. Selecting a tab in one group should 
 
 ### Link Cards
 
+The theme provides a `LinkCard` component that works with or without icons. Import it from the theme:
+
+```mdx
+import LinkCard from 'f5xc-docs-theme/components/LinkCard.astro';
+```
+
 <CardGrid>
   <LinkCard
     title="Starlight Documentation"
@@ -236,26 +242,20 @@ These two tab groups share `syncKey="pkg"`. Selecting a tab in one group should 
   />
 </CardGrid>
 
-### Link Cards with Icons
+#### With Icons
 
-The theme provides a custom `LinkCard` component that supports an optional `icon` prop. Import it from the theme package:
+Add an `icon` prop using `prefix:name` syntax. All eight icon packs are supported — see the [Icon Packages](https://f5xc-salesdemos.github.io/docs-icons/) documentation for the full catalog.
 
-```mdx
-import LinkCard from 'f5xc-docs-theme/components/LinkCard.astro';
-```
-
-All eight icon packs are supported via the `prefix:name` syntax. See the [Icon Packages](https://f5xc-salesdemos.github.io/docs-icons/) documentation for the full catalog.
-
-#### Lucide (`lucide:`)
+##### Lucide (`lucide:`)
 
 <CardGrid>
-  <IconLinkCard
+  <LinkCard
     icon="lucide:shield-check"
     title="Web App Firewall"
     description="Firewall policies and configuration."
     href="https://f5xc-salesdemos.github.io/waf/"
   />
-  <IconLinkCard
+  <LinkCard
     icon="lucide:globe"
     title="Multi-Cloud Networking"
     description="Site connectivity across clouds."
@@ -263,16 +263,16 @@ All eight icon packs are supported via the `prefix:name` syntax. See the [Icon P
   />
 </CardGrid>
 
-#### Carbon (`carbon:`)
+##### Carbon (`carbon:`)
 
 <CardGrid>
-  <IconLinkCard
+  <LinkCard
     icon="carbon:security"
     title="Security Services"
     description="IBM Carbon security icon set."
     href="https://f5xc-salesdemos.github.io/docs-icons/"
   />
-  <IconLinkCard
+  <LinkCard
     icon="carbon:cloud"
     title="Cloud Services"
     description="IBM Carbon cloud icon set."
@@ -280,16 +280,16 @@ All eight icon packs are supported via the `prefix:name` syntax. See the [Icon P
   />
 </CardGrid>
 
-#### Material Design Icons (`mdi:`)
+##### Material Design Icons (`mdi:`)
 
 <CardGrid>
-  <IconLinkCard
+  <LinkCard
     icon="mdi:shield-lock"
     title="Access Control"
     description="Material Design shield lock icon."
     href="https://f5xc-salesdemos.github.io/docs-icons/"
   />
-  <IconLinkCard
+  <LinkCard
     icon="mdi:database"
     title="Data Management"
     description="Material Design database icon."
@@ -297,16 +297,16 @@ All eight icon packs are supported via the `prefix:name` syntax. See the [Icon P
   />
 </CardGrid>
 
-#### Phosphor (`phosphor:`)
+##### Phosphor (`phosphor:`)
 
 <CardGrid>
-  <IconLinkCard
+  <LinkCard
     icon="phosphor:shield"
     title="Threat Defense"
     description="Phosphor shield icon."
     href="https://f5xc-salesdemos.github.io/docs-icons/"
   />
-  <IconLinkCard
+  <LinkCard
     icon="phosphor:globe"
     title="Global Network"
     description="Phosphor globe icon."
@@ -314,16 +314,16 @@ All eight icon packs are supported via the `prefix:name` syntax. See the [Icon P
   />
 </CardGrid>
 
-#### Tabler (`tabler:`)
+##### Tabler (`tabler:`)
 
 <CardGrid>
-  <IconLinkCard
+  <LinkCard
     icon="tabler:cloud"
     title="Cloud Platform"
     description="Tabler cloud icon."
     href="https://f5xc-salesdemos.github.io/docs-icons/"
   />
-  <IconLinkCard
+  <LinkCard
     icon="tabler:rocket"
     title="Deployment"
     description="Tabler rocket icon."
@@ -331,16 +331,16 @@ All eight icon packs are supported via the `prefix:name` syntax. See the [Icon P
   />
 </CardGrid>
 
-#### F5 Brand (`f5-brand:`)
+##### F5 Brand (`f5-brand:`)
 
 <CardGrid>
-  <IconLinkCard
+  <LinkCard
     icon="f5-brand:cloud-shield-checkmark"
     title="Cloud Security"
     description="F5 branded cloud shield icon."
     href="https://f5xc-salesdemos.github.io/docs-icons/"
   />
-  <IconLinkCard
+  <LinkCard
     icon="f5-brand:security-firewall"
     title="Firewall"
     description="F5 branded firewall icon."
@@ -348,18 +348,18 @@ All eight icon packs are supported via the `prefix:name` syntax. See the [Icon P
   />
 </CardGrid>
 
-#### F5 Distributed Cloud (`f5xc:`)
+##### F5 Distributed Cloud (`f5xc:`)
 
 These icons are multi-color and use CSS custom properties for light/dark mode color adaptation.
 
 <CardGrid>
-  <IconLinkCard
+  <LinkCard
     icon="f5xc:web-app-and-api-protection"
     title="App & API Protection"
     description="F5 XC web app and API protection icon."
     href="https://f5xc-salesdemos.github.io/docs-icons/"
   />
-  <IconLinkCard
+  <LinkCard
     icon="f5xc:bot-defense"
     title="Bot Defense"
     description="F5 XC bot defense icon."
@@ -367,32 +367,20 @@ These icons are multi-color and use CSS custom properties for light/dark mode co
   />
 </CardGrid>
 
-#### HashiCorp Flight (`hashicorp-flight:`)
+##### HashiCorp Flight (`hashicorp-flight:`)
 
 <CardGrid>
-  <IconLinkCard
+  <LinkCard
     icon="hashicorp-flight:terraform"
     title="Terraform"
     description="HashiCorp Terraform icon."
     href="https://f5xc-salesdemos.github.io/docs-icons/"
   />
-  <IconLinkCard
+  <LinkCard
     icon="hashicorp-flight:cloud"
     title="Cloud Infrastructure"
     description="HashiCorp cloud icon."
     href="https://f5xc-salesdemos.github.io/docs-icons/"
-  />
-</CardGrid>
-
-#### Without Icon
-
-Without the `icon` prop it renders identically to the standard `LinkCard`:
-
-<CardGrid>
-  <IconLinkCard
-    title="No Icon Example"
-    description="This card behaves like a standard LinkCard."
-    href="https://starlight.astro.build"
   />
 </CardGrid>
 
