@@ -58,84 +58,182 @@ export interface F5xcDocsConfigOptions {
 
 const defaultMegaMenuItems: MegaMenuItem[] = [
   {
-    label: 'Products',
+    label: 'Home',
+    href: 'https://f5xc-salesdemos.github.io/docs/',
+  },
+  {
+    label: 'Security',
     content: {
       layout: 'grid',
       columns: 2,
       categories: [
         {
-          title: 'App Security',
+          title: 'App & API Security',
           items: [
             {
-              label: 'Web App & API Protection',
-              description: 'Comprehensive app and API security',
-              href: '/products/waap/',
+              label: 'Web App Firewall',
+              description: 'Firewall policies and configuration',
+              href: 'https://f5xc-salesdemos.github.io/waf/',
             },
             {
-              label: 'Bot Defense',
-              description: 'AI-driven bot mitigation',
-              href: '/products/bot-defense/',
+              label: 'API Security',
+              description: 'API discovery and protection',
+              href: 'https://f5xc-salesdemos.github.io/api/',
+            },
+            {
+              label: 'Client-Side Defense',
+              description: 'Browser-based threat protection',
+              href: 'https://f5xc-salesdemos.github.io/csd/',
+            },
+            {
+              label: 'Web App Scanning',
+              description: 'Vulnerability assessment and scanning',
+              href: 'https://f5xc-salesdemos.github.io/was/',
             },
           ],
         },
         {
-          title: 'Networking',
+          title: 'Threat Defense',
           items: [
             {
-              label: 'Multi-Cloud Networking',
-              description: 'Connect apps across clouds',
-              href: '/products/mcn/',
+              label: 'Bot Defense Advanced',
+              description: 'Behavioral analysis and AI detection',
+              href: 'https://f5xc-salesdemos.github.io/bot-advanced/',
             },
             {
-              label: 'DNS & DNS Load Balancing',
-              description: 'Intelligent DNS services',
-              href: '/products/dns/',
+              label: 'Bot Defense Standard',
+              description: 'Signature-based bot detection',
+              href: 'https://f5xc-salesdemos.github.io/bot-standard/',
+            },
+            {
+              label: 'DDoS Protection',
+              description: 'Distributed denial-of-service mitigation',
+              href: 'https://f5xc-salesdemos.github.io/ddos/',
             },
           ],
         },
       ],
       footer: {
-        label: 'View all products',
-        href: '/products/',
-        description: 'Explore the full F5 Distributed Cloud suite',
+        label: 'F5 Distributed Cloud Console',
+        href: 'https://console.ves.volterra.io',
+        description: 'Open the XC management portal',
       },
     },
   },
   {
-    label: 'Solutions',
+    label: 'Networking',
+    content: {
+      layout: 'grid',
+      columns: 2,
+      categories: [
+        {
+          title: 'Connectivity & Delivery',
+          items: [
+            {
+              label: 'Multi-Cloud Networking',
+              description: 'Site connectivity across clouds',
+              href: 'https://f5xc-salesdemos.github.io/mcn/',
+            },
+            {
+              label: 'Content Delivery',
+              description: 'Edge caching and distribution',
+              href: 'https://f5xc-salesdemos.github.io/cdn/',
+            },
+            {
+              label: 'DNS Load Balancing',
+              description: 'DNS management and zones',
+              href: 'https://f5xc-salesdemos.github.io/dns/',
+            },
+            {
+              label: 'NGINX Management',
+              description: 'NGINX integration and configuration',
+              href: 'https://f5xc-salesdemos.github.io/nginx/',
+            },
+          ],
+        },
+        {
+          title: 'Manage & Monitor',
+          items: [
+            {
+              label: 'Observability',
+              description: 'Monitoring, metrics, and insights',
+              href: 'https://f5xc-salesdemos.github.io/observability/',
+            },
+            {
+              label: 'Administration',
+              description: 'Tenant management and RBAC',
+              href: 'https://f5xc-salesdemos.github.io/administration/',
+            },
+          ],
+        },
+      ],
+      footer: {
+        label: 'F5 Cloud Documentation',
+        href: 'https://docs.cloud.f5.com',
+        description: 'Official product documentation',
+      },
+    },
+  },
+  {
+    label: 'Platform',
     content: {
       layout: 'list',
       categories: [
         {
-          title: 'By Use Case',
+          title: 'Documentation Tools',
           items: [
             {
-              label: 'API Security',
-              description: 'Protect APIs across multi-cloud environments',
-              href: '/solutions/api-security/',
+              label: 'Docs Builder',
+              description: 'Containerized Astro build system',
+              href: 'https://f5xc-salesdemos.github.io/docs-builder/',
             },
             {
-              label: 'Multi-Cloud Networking',
-              description: 'Secure connectivity across any cloud',
-              href: '/solutions/multi-cloud/',
+              label: 'Docs Theme',
+              description: 'Shared branding and styling',
+              href: 'https://f5xc-salesdemos.github.io/docs-theme/',
             },
             {
-              label: 'Edge Computing',
-              description: 'Deploy apps at the edge with F5 XC AppStack',
-              href: '/solutions/edge/',
+              label: 'Icon Packages',
+              description: 'NPM icon component library',
+              href: 'https://f5xc-salesdemos.github.io/docs-icons/',
+            },
+          ],
+        },
+      ],
+      footer: {
+        label: 'GitHub Organization',
+        href: 'https://github.com/f5xc-salesdemos',
+        description: 'View all repositories',
+      },
+    },
+  },
+  {
+    label: 'Resources',
+    content: {
+      layout: 'list',
+      categories: [
+        {
+          title: 'F5 Ecosystem',
+          items: [
+            {
+              label: 'F5 XC Console',
+              description: 'Distributed Cloud management portal',
+              href: 'https://console.ves.volterra.io',
+            },
+            {
+              label: 'F5 Cloud Docs',
+              description: 'Official product documentation',
+              href: 'https://docs.cloud.f5.com',
+            },
+            {
+              label: 'MyF5 Support',
+              description: 'Technical support portal',
+              href: 'https://my.f5.com/manage/s/',
             },
           ],
         },
       ],
     },
-  },
-  {
-    label: 'Docs',
-    href: '/',
-  },
-  {
-    label: 'Support',
-    href: 'https://my.f5.com/manage/s/',
   },
 ];
 
