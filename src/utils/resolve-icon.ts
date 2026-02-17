@@ -35,12 +35,15 @@ export function resolveIcon(name: string): string {
     case 'f5-brand':
       iconData = require('@robinmordasiewicz/icons-f5-brand/icons.json');
       break;
+    case 'f5xc':
+      iconData = require('@robinmordasiewicz/icons-f5xc/icons.json');
+      break;
     case 'hashicorp-flight':
       iconData = require('@robinmordasiewicz/icons-hashicorp-flight/icons.json');
       break;
     default:
       throw new Error(
-        `Unknown icon prefix "${prefix}". Available: lucide, carbon, mdi, phosphor, tabler, f5-brand, hashicorp-flight`
+        `Unknown icon prefix "${prefix}". Available: lucide, carbon, mdi, phosphor, tabler, f5-brand, f5xc, hashicorp-flight`
       );
   }
 
@@ -51,5 +54,7 @@ export function resolveIcon(name: string): string {
 
   const w = icon.width ?? iconData.width ?? 24;
   const h = icon.height ?? iconData.height ?? 24;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 ${w} ${h}" fill="currentColor">${icon.body}</svg>`;
+  const isPalette = iconData.info?.palette === true;
+  const fillAttr = isPalette ? '' : ' fill="currentColor"';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 ${w} ${h}"${fillAttr}>${icon.body}</svg>`;
 }

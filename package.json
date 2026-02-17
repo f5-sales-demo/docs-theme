@@ -70,6 +70,7 @@
     "@iconify-json/ph": "*",
     "@iconify-json/tabler": "*",
     "@robinmordasiewicz/icons-f5-brand": "*",
+    "@robinmordasiewicz/icons-f5xc": "*",
     "@robinmordasiewicz/icons-hashicorp-flight": "*"
   },
   "peerDependenciesMeta": {
@@ -79,6 +80,7 @@
     "@iconify-json/ph": { "optional": true },
     "@iconify-json/tabler": { "optional": true },
     "@robinmordasiewicz/icons-f5-brand": { "optional": true },
+    "@robinmordasiewicz/icons-f5xc": { "optional": true },
     "@robinmordasiewicz/icons-hashicorp-flight": { "optional": true }
   },
   "dependencies": {

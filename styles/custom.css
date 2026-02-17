@@ -47,6 +47,26 @@
   --f5-black-4: #222222;
 }
 
+/* ===== F5 XC Multi-Color Icon Variables ===== */
+:root {
+  --color-N600: #0f1e57;
+  --color-brand: #e4002b;
+  --color-blue-light: #e5eaff;
+  --color-N200: #e6e9f3;
+}
+
+:root:not([data-theme='light']) {
+  --color-N600: #e5eaff;
+  --color-blue-light: #0e41aa;
+  --color-N200: #1a2a6c;
+}
+
+:root[data-theme='light'] {
+  --color-N600: #0f1e57;
+  --color-blue-light: #e5eaff;
+  --color-N200: #e6e9f3;
+}
+
 /* ===== Dark Mode (Starlight default) ===== */
 :root {
   --sl-color-white: var(--f5-white);
