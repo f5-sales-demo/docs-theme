@@ -59,10 +59,6 @@ export interface F5xcDocsConfigOptions {
 
 const defaultMegaMenuItems: MegaMenuItem[] = [
   {
-    label: 'Home',
-    href: 'https://f5xc-salesdemos.github.io/docs/',
-  },
-  {
     label: 'Security',
     content: {
       layout: 'grid',
