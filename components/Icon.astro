@@ -1,5 +1,6 @@
 ---
 import { Icon as StarlightIcon } from '@astrojs/starlight/components';
+import { hasExplicitColors } from '../src/utils/resolve-icon';
 
 interface Props {
   name: string;
@@ -63,7 +64,7 @@ if (isScoped) {
   viewBox = `0 0 ${w} ${h}`;
 }
 
-const isPalette = isScoped && iconData?.info?.palette === true;
+const isPalette = isScoped && (iconData?.info?.palette === true || hasExplicitColors(svgBody));
 
 const a11yAttrs = label
   ? { 'aria-label': label }
