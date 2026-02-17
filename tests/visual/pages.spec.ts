@@ -4,7 +4,6 @@ const pages = [
   { name: "home", path: "/" },
   { name: "components", path: "/09-components/" },
   { name: "colors", path: "/05-colors/" },
-  { name: "brand-icons", path: "/06-brand-icons/" },
   { name: "typography", path: "/07-typography/" },
   { name: "code-blocks", path: "/08-code-blocks/" },
   { name: "mermaid", path: "/10-mermaid/" },

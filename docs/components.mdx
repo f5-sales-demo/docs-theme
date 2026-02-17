@@ -1,6 +1,6 @@
 ---
 title: Components
-description: Starlight built-in components — asides, tabs, steps, cards, badges, tables, images, file tree, and icons.
+description: Starlight built-in components — asides, tabs, steps, cards, badges, tables, images, and file tree.
 sidebar:
   order: 9
   badge:
@@ -8,7 +8,7 @@ sidebar:
     variant: tip
 ---
 
-import { Aside, Tabs, TabItem, Steps, Card, CardGrid, LinkCard, Badge, FileTree, Icon } from '@astrojs/starlight/components';
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, LinkCard, Badge, FileTree } from '@astrojs/starlight/components';
 
 ## Asides
 
@@ -322,7 +322,6 @@ The image below tests the `starlight-image-zoom` plugin. Click to zoom.
       - 03-astro-config.mdx
       - 04-logo.mdx
       - 05-colors.mdx
-      - icons.mdx
       - 07-typography.mdx
       - 08-code-blocks.mdx
       - **09-components.mdx** This page
@@ -336,14 +335,6 @@ The image below tests the `starlight-image-zoom` plugin. Click to zoom.
 - astro.config.mjs
 - package.json
 </FileTree>
-
-## Icons
-
-Starlight provides over 200 built-in icons via the `<Icon>` component:
-
-<Icon name="star" size="1.5rem" /> <Icon name="rocket" size="1.5rem" /> <Icon name="heart" size="1.5rem" /> <Icon name="setting" size="1.5rem" /> <Icon name="pencil" size="1.5rem" /> <Icon name="document" size="1.5rem" /> <Icon name="open-book" size="1.5rem" /> <Icon name="laptop" size="1.5rem" />
-
-The theme also provides a unified Icon component supporting scoped names for additional icon sets (Lucide, Carbon, MDI, Phosphor, Tabler, F5 Brand, HashiCorp Flight). See the [Icons](/icons/) page for the full reference.
 
 ## Theme Checks
 
