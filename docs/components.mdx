@@ -241,8 +241,12 @@ These two tab groups share `syncKey="pkg"`. Selecting a tab in one group should 
 The theme provides a custom `LinkCard` component that supports an optional `icon` prop. Import it from the theme package:
 
 ```mdx
-import IconLinkCard from 'f5xc-docs-theme/components/LinkCard.astro';
+import LinkCard from 'f5xc-docs-theme/components/LinkCard.astro';
 ```
+
+All seven icon packs are supported via the `prefix:name` syntax. See the [Icon Packages](https://f5xc-salesdemos.github.io/docs-icons/) documentation for the full catalog.
+
+#### Lucide (`lucide:`)
 
 <CardGrid>
   <IconLinkCard
@@ -258,6 +262,110 @@ import IconLinkCard from 'f5xc-docs-theme/components/LinkCard.astro';
     href="https://f5xc-salesdemos.github.io/mcn/"
   />
 </CardGrid>
+
+#### Carbon (`carbon:`)
+
+<CardGrid>
+  <IconLinkCard
+    icon="carbon:security"
+    title="Security Services"
+    description="IBM Carbon security icon set."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <IconLinkCard
+    icon="carbon:cloud"
+    title="Cloud Services"
+    description="IBM Carbon cloud icon set."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+#### Material Design Icons (`mdi:`)
+
+<CardGrid>
+  <IconLinkCard
+    icon="mdi:shield-lock"
+    title="Access Control"
+    description="Material Design shield lock icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <IconLinkCard
+    icon="mdi:database"
+    title="Data Management"
+    description="Material Design database icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+#### Phosphor (`phosphor:`)
+
+<CardGrid>
+  <IconLinkCard
+    icon="phosphor:shield"
+    title="Threat Defense"
+    description="Phosphor shield icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <IconLinkCard
+    icon="phosphor:globe"
+    title="Global Network"
+    description="Phosphor globe icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+#### Tabler (`tabler:`)
+
+<CardGrid>
+  <IconLinkCard
+    icon="tabler:cloud"
+    title="Cloud Platform"
+    description="Tabler cloud icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <IconLinkCard
+    icon="tabler:rocket"
+    title="Deployment"
+    description="Tabler rocket icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+#### F5 Brand (`f5-brand:`)
+
+<CardGrid>
+  <IconLinkCard
+    icon="f5-brand:cloud-shield-checkmark"
+    title="Cloud Security"
+    description="F5 branded cloud shield icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <IconLinkCard
+    icon="f5-brand:security-firewall"
+    title="Firewall"
+    description="F5 branded firewall icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+#### HashiCorp Flight (`hashicorp-flight:`)
+
+<CardGrid>
+  <IconLinkCard
+    icon="hashicorp-flight:terraform"
+    title="Terraform"
+    description="HashiCorp Terraform icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <IconLinkCard
+    icon="hashicorp-flight:cloud"
+    title="Cloud Infrastructure"
+    description="HashiCorp cloud icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+#### Without Icon
 
 Without the `icon` prop it renders identically to the standard `LinkCard`:
 
