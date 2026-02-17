@@ -25,7 +25,8 @@
     "./assets/github-avatar.png": "./assets/github-avatar.png",
     "./config": "./config.ts",
     "./route-middleware": "./route-middleware.ts",
-    "./src/plugins/remark-mermaid.mjs": "./src/plugins/remark-mermaid.mjs"
+    "./src/plugins/remark-mermaid.mjs": "./src/plugins/remark-mermaid.mjs",
+    "./components/Icon.astro": "./components/Icon.astro"
   },
   "files": [
     "index.ts",
@@ -60,7 +61,23 @@
     "test:visual:update": "playwright test --update-snapshots"
   },
   "peerDependencies": {
-    "@astrojs/starlight": ">=0.34.0"
+    "@astrojs/starlight": ">=0.34.0",
+    "@iconify-json/lucide": "*",
+    "@iconify-json/carbon": "*",
+    "@iconify-json/mdi": "*",
+    "@iconify-json/ph": "*",
+    "@iconify-json/tabler": "*",
+    "@robinmordasiewicz/icons-f5-brand": "*",
+    "@robinmordasiewicz/icons-hashicorp-flight": "*"
+  },
+  "peerDependenciesMeta": {
+    "@iconify-json/lucide": { "optional": true },
+    "@iconify-json/carbon": { "optional": true },
+    "@iconify-json/mdi": { "optional": true },
+    "@iconify-json/ph": { "optional": true },
+    "@iconify-json/tabler": { "optional": true },
+    "@robinmordasiewicz/icons-f5-brand": { "optional": true },
+    "@robinmordasiewicz/icons-hashicorp-flight": { "optional": true }
   },
   "dependencies": {
     "@astrojs/react": "^4.0.0",
