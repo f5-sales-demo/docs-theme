@@ -247,6 +247,22 @@ h4, h5, h6 {
   box-shadow: var(--f5-shadow-low);
 }
 
+/* Starlight Card — consistent shadow */
+.card {
+  box-shadow: var(--f5-shadow-low);
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+.card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+/* Badge — consistent shadow */
+.sl-badge {
+  box-shadow: var(--f5-shadow-low);
+}
+
 .expressive-code .frame {
   --header-border-radius: var(--f5-radius-md);
   border-radius: var(--f5-radius-md);

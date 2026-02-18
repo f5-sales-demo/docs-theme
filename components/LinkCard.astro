@@ -34,8 +34,10 @@ const { title, description, icon, ...attributes } = Astro.props;
 		border: 1px solid var(--sl-color-gray-5);
 		border-radius: 0.5rem;
 		padding: 1rem;
-		box-shadow: var(--sl-shadow-sm);
+		box-shadow: var(--f5-shadow-low);
 		position: relative;
+		transition: box-shadow var(--f5-transition-base),
+		            transform var(--f5-transition-base);
 	}
 
 	.sl-link-card.has-icon {
@@ -93,6 +95,8 @@ const { title, description, icon, ...attributes } = Astro.props;
 	.sl-link-card:hover {
 		background: var(--sl-color-gray-7, var(--sl-color-gray-6));
 		border-color: var(--sl-color-gray-2);
+		box-shadow: var(--f5-shadow-mid);
+		transform: translateY(-1px);
 	}
 
 	.sl-link-card:hover .icon {
