@@ -78,14 +78,17 @@ const { title, description, icon, ...attributes } = Astro.props;
 
 	.card-icon {
 		color: var(--sl-color-white);
-		display: flex;
-		align-items: center;
 		align-self: stretch;
+		position: relative;
+		aspect-ratio: 1;
+		max-height: 3rem;
 	}
 
 	.card-icon :global(svg) {
-		height: 1.5rem;
-		width: auto;
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
 	}
 
 	/* Hover state */
