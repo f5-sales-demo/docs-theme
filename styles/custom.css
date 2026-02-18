@@ -711,3 +711,8 @@ summary:focus-visible {
   transition: opacity var(--f5-transition-base),
               color var(--f5-transition-base);
 }
+
+/* Widen mega-menu flyout to prevent title word-wrap in two-column layouts */
+.smm-viewport {
+  max-width: min(90vw, 800px);
+}
