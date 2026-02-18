@@ -21,7 +21,8 @@ export default function f5xcDocsTheme(): StarlightPlugin {
             EditLink: 'f5xc-docs-theme/components/EditLink.astro',
             Footer: 'f5xc-docs-theme/components/Footer.astro',
             SiteTitle: 'f5xc-docs-theme/components/SiteTitle.astro',
-            MarkdownContent: 'f5xc-docs-theme/components/MarkdownContent.astro',
+            MarkdownContent: process.env.DOCS_MARKDOWN_CONTENT
+              || 'f5xc-docs-theme/components/MarkdownContent.astro',
           },
         });
         logger.info('F5 XC docs theme loaded');
