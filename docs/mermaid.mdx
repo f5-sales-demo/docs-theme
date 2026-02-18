@@ -115,6 +115,19 @@ Mermaid diagrams are wrapped in a styled container with rounded corners and a la
 }
 ```
 
+### Pre Element Reset
+
+Starlight's default `<pre>` styling is stripped from the mermaid wrapper so only the outer container border is visible:
+
+```css
+.mermaid-container pre.mermaid {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+```
+
 ### SVG Background Forcing
 
 The SVG inside is forced to a white background for dark mode compatibility:
