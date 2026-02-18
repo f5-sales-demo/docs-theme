@@ -236,12 +236,6 @@ h4, h5, h6 {
   border-radius: var(--f5-radius-md);
 }
 
-/* fill is a valid SVG presentation property (CSS Masking/SVG spec) */
-.mermaid-container svg rect,
-.mermaid-container svg polygon {
-  fill: white !important;
-}
-
 /* Strip Starlight's default <pre> styling from the mermaid wrapper to prevent double border */
 .mermaid-container pre.mermaid {
   border: none;
