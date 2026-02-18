@@ -712,7 +712,11 @@ summary:focus-visible {
               color var(--f5-transition-base);
 }
 
-/* Widen mega-menu flyout to prevent title word-wrap in two-column layouts */
+/* Widen mega-menu flyout to prevent title word-wrap in two-column layouts.
+   Radix JS sets --radix-navigation-menu-viewport-width based on intrinsic
+   content measurement (~320px), so max-width alone cannot force expansion.
+   We override min-width to ensure two-column grids have adequate room. */
 .smm-viewport {
+  min-width: min(90vw, 650px);
   max-width: min(90vw, 800px);
 }
