@@ -722,3 +722,10 @@ summary:focus-visible {
   min-width: min(90vw, 650px);
   max-width: min(90vw, 800px);
 }
+
+/* Scale mega-menu icons to match the height of the title + description text block */
+.smm-link-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 0;
+}
