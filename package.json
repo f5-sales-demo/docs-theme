@@ -23,6 +23,7 @@
     "./components/MarkdownContent.astro": "./components/MarkdownContent.astro",
     "./assets/f5-logo.svg": "./assets/f5-logo.svg",
     "./assets/github-avatar.png": "./assets/github-avatar.png",
+    "./assets/f5-distributed-cloud.svg": "./assets/f5-distributed-cloud.svg",
     "./config": "./config.ts",
     "./route-middleware": "./route-middleware.ts",
     "./src/plugins/remark-mermaid.mjs": "./src/plugins/remark-mermaid.mjs",
