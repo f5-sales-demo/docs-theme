@@ -21,7 +21,7 @@ The theme ships two logo files in the `assets/` directory:
 The default logo is set in the `createF5xcDocsConfig` factory in `config.ts`:
 
 ```ts
-const logo = options.logo || { src: 'f5xc-docs-theme/assets/github-avatar.png' };
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
 ```
 
 If no `logo` option is provided, the GitHub avatar PNG is used. The path is an npm package specifier resolved through the `exports` map in `package.json`.
@@ -33,10 +33,10 @@ If no `logo` option is provided, the GitHub avatar PNG is used. The path is an n
 Pass the `logo` option to `createF5xcDocsConfig`:
 
 ```ts
-import { createF5xcDocsConfig } from 'f5xc-docs-theme/config';
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
 
 export default createF5xcDocsConfig({
-  logo: { src: 'f5xc-docs-theme/assets/f5-logo.svg' },
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
 });
 ```
 
@@ -45,7 +45,7 @@ export default createF5xcDocsConfig({
 Place your logo file in the content repo and reference it:
 
 ```ts
-import { createF5xcDocsConfig } from 'f5xc-docs-theme/config';
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: { src: './src/assets/my-logo.svg' },
@@ -57,7 +57,7 @@ export default createF5xcDocsConfig({
 Starlight supports separate logos for light and dark mode:
 
 ```ts
-import { createF5xcDocsConfig } from 'f5xc-docs-theme/config';
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: {

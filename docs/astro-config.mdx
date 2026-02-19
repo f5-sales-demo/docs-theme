@@ -5,14 +5,14 @@ sidebar:
   order: 4
 ---
 
-Content repositories do not maintain their own `astro.config.mjs`. Instead, they import a configuration factory from the `f5xc-docs-theme` npm package that returns a complete Astro config with Starlight, eight bundled plugins, and all theme defaults.
+Content repositories do not maintain their own `astro.config.mjs`. Instead, they import a configuration factory from the `@f5xc-salesdemos/docs-theme` npm package that returns a complete Astro config with Starlight, eight bundled plugins, and all theme defaults.
 
 ## Consuming the Theme
 
 A content repo's `astro.config.mjs` (provided by the Docker builder) is a thin wrapper:
 
 ```js
-import { createF5xcDocsConfig } from 'f5xc-docs-theme/config';
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
 
 export default createF5xcDocsConfig();
 ```
@@ -51,7 +51,7 @@ interface F5xcDocsConfigOptions {
 | `additionalRemarkPlugins` | `[]` | Extra remark plugins added after remark-mermaid |
 | `megaMenuItems` | Built-in Products/Solutions/Docs/Support menu | Top-level mega menu entries |
 | `head` | Mermaid CDN `<script>` tag | Custom `<head>` entries |
-| `logo` | `f5xc-docs-theme/assets/github-avatar.png` | Sidebar logo (single src or light/dark pair) |
+| `logo` | `@f5xc-salesdemos/docs-theme/assets/github-avatar.png` | Sidebar logo (single src or light/dark pair) |
 
 ## Bundled Starlight Plugins
 
@@ -62,14 +62,14 @@ The factory wires up eight Starlight plugins automatically:
 | `starlight-mega-menu` | Top navigation mega menu with grid/list layouts |
 | `starlight-videos` | Embed videos in documentation pages |
 | `starlight-image-zoom` | Click-to-zoom on images |
-| `f5xc-docs-theme` (self) | CSS injection, component overrides, route middleware |
+| `@f5xc-salesdemos/docs-theme` (self) | CSS injection, component overrides, route middleware |
 | `starlight-scroll-to-top` | Scroll-to-top button with progress ring |
 | `starlight-heading-badges` | Badge annotations on headings |
 | `starlight-page-actions` | Page action buttons |
 | `starlight-plugin-icons` | Icon support in Starlight |
 | `starlight-llms-txt` | Generates `llms.txt` and `llms-full.txt` for LLM consumption |
 
-These are registered in order inside `config.ts`. The theme plugin (`f5xc-docs-theme`) is itself a Starlight plugin that runs in this list.
+These are registered in order inside `config.ts`. The theme plugin (`@f5xc-salesdemos/docs-theme`) is itself a Starlight plugin that runs in this list.
 
 ## Theme Plugin Hook
 
@@ -88,26 +88,26 @@ The theme plugin is defined in `index.ts` and registered among the bundled plugi
 // index.ts — Starlight plugin entry point
 export default function f5xcDocsTheme(): StarlightPlugin {
   return {
-    name: 'f5xc-docs-theme',
+    name: '@f5xc-salesdemos/docs-theme',
     hooks: {
       'config:setup'({ config, updateConfig, addRouteMiddleware }) {
         addRouteMiddleware({
-          entrypoint: 'f5xc-docs-theme/route-middleware',
+          entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
           order: 'pre',
         });
         updateConfig({
           customCss: [
             ...(config.customCss ?? []),
-            'f5xc-docs-theme/fonts/font-face.css',
-            'f5xc-docs-theme/styles/custom.css',
+            '@f5xc-salesdemos/docs-theme/fonts/font-face.css',
+            '@f5xc-salesdemos/docs-theme/styles/custom.css',
           ],
           components: {
             ...config.components,
-            Banner: 'f5xc-docs-theme/components/Banner.astro',
-            EditLink: 'f5xc-docs-theme/components/EditLink.astro',
-            Footer: 'f5xc-docs-theme/components/Footer.astro',
-            SiteTitle: 'f5xc-docs-theme/components/SiteTitle.astro',
-            MarkdownContent: 'f5xc-docs-theme/components/MarkdownContent.astro',
+            Banner: '@f5xc-salesdemos/docs-theme/components/Banner.astro',
+            EditLink: '@f5xc-salesdemos/docs-theme/components/EditLink.astro',
+            Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+            SiteTitle: '@f5xc-salesdemos/docs-theme/components/SiteTitle.astro',
+            MarkdownContent: '@f5xc-salesdemos/docs-theme/components/MarkdownContent.astro',
           },
         });
       },
@@ -116,7 +116,7 @@ export default function f5xcDocsTheme(): StarlightPlugin {
 }
 ```
 
-All paths use npm package specifiers (e.g., `f5xc-docs-theme/styles/custom.css`) which resolve through the `exports` map in `package.json`.
+All paths use npm package specifiers (e.g., `@f5xc-salesdemos/docs-theme/styles/custom.css`) which resolve through the `exports` map in `package.json`.
 
 ## Other Integrations
 

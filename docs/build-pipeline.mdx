@@ -5,7 +5,7 @@ sidebar:
   order: 3
 ---
 
-This page describes how content repositories consume the `f5xc-docs-theme` npm package to produce fully branded documentation sites.
+This page describes how content repositories consume the `@f5xc-salesdemos/docs-theme` npm package to produce fully branded documentation sites.
 
 ## Architecture
 
@@ -21,10 +21,10 @@ This page describes how content repositories consume the `f5xc-docs-theme` npm p
 │   (Docker image)          │
 │                           │
 │  npm install              │
-│  f5xc-docs-theme ─────┐  │
+│  @f5xc-salesdemos/docs-theme ─────┐  │
 │                        ▼  │
 │  node_modules/            │
-│    f5xc-docs-theme/       │
+│    @f5xc-salesdemos/docs-theme/       │
 │      ├── config.ts        │
 │      ├── index.ts         │
 │      ├── fonts/           │
@@ -55,9 +55,9 @@ This page describes how content repositories consume the `f5xc-docs-theme` npm p
        uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
 3. **Docker builder runs** — the `f5xc-docs-builder` Docker image already has the theme pre-installed via npm. At build time it:
-   - Copies `astro.config.mjs` and `content.config.ts` from `node_modules/f5xc-docs-theme/` into the Astro project root
+   - Copies `astro.config.mjs` and `content.config.ts` from `node_modules/@f5xc-salesdemos/docs-theme/` into the Astro project root
    - Copies the content repo's `docs/` files into `src/content/docs/`
-4. **Astro build** — Astro reads the config which calls `createF5xcDocsConfig()`. The factory resolves all theme assets through npm package specifiers (e.g., `f5xc-docs-theme/styles/custom.css`)
+4. **Astro build** — Astro reads the config which calls `createF5xcDocsConfig()`. The factory resolves all theme assets through npm package specifiers (e.g., `@f5xc-salesdemos/docs-theme/styles/custom.css`)
 5. **Deploy** — the built static site is deployed to GitHub Pages
 
 ## Content Repo Requirements
@@ -98,15 +98,15 @@ All paths in the theme use npm package specifiers, resolved through the `exports
 
 ```js
 // CSS — resolved from node_modules
-'f5xc-docs-theme/fonts/font-face.css'
-'f5xc-docs-theme/styles/custom.css'
+'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
+'@f5xc-salesdemos/docs-theme/styles/custom.css'
 
 // Components — resolved from node_modules
-'f5xc-docs-theme/components/Footer.astro'
-'f5xc-docs-theme/components/Banner.astro'
+'@f5xc-salesdemos/docs-theme/components/Footer.astro'
+'@f5xc-salesdemos/docs-theme/components/Banner.astro'
 
 // Assets — resolved from node_modules
-'f5xc-docs-theme/assets/github-avatar.png'
+'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
 ```
 
 There is no `./theme/` directory in the build workspace. The Docker builder installs the theme as a regular npm dependency and Astro resolves all specifiers through `node_modules`.
@@ -119,7 +119,7 @@ Font file paths inside `font-face.css` use `./` (e.g., `url("./neusaNextProWide-
 
 Theme changes propagate through npm package updates:
 
-1. A change is merged to `main` in `f5xc-docs-theme`
+1. A change is merged to `main` in `@f5xc-salesdemos/docs-theme`
 2. The Docker builder image is rebuilt with the updated package
 3. The next time any content repo's workflow runs, it uses the updated builder image
 4. The Astro build picks up the updated fonts, styles, logo, components, and plugins

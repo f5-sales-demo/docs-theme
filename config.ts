@@ -281,14 +281,14 @@ const defaultHead: HeadEntry[] = [
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
 
 mermaid.registerIconPacks([
-  { name: 'hashicorp-flight', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-hashicorp-flight/icons.json').then(r => r.json()) },
-  { name: 'f5-brand', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-f5-brand/icons.json').then(r => r.json()) },
-  { name: 'f5xc', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-f5xc/icons.json').then(r => r.json()) },
-  { name: 'carbon', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-carbon/icons.json').then(r => r.json()) },
-  { name: 'lucide', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-lucide/icons.json').then(r => r.json()) },
-  { name: 'mdi', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-mdi/icons.json').then(r => r.json()) },
-  { name: 'phosphor', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-phosphor/icons.json').then(r => r.json()) },
-  { name: 'tabler', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-tabler/icons.json').then(r => r.json()) },
+  { name: 'hashicorp-flight', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-hashicorp-flight/icons.json').then(r => r.json()) },
+  { name: 'f5-brand', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-f5-brand/icons.json').then(r => r.json()) },
+  { name: 'f5xc', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-f5xc/icons.json').then(r => r.json()) },
+  { name: 'carbon', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-carbon/icons.json').then(r => r.json()) },
+  { name: 'lucide', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-lucide/icons.json').then(r => r.json()) },
+  { name: 'mdi', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-mdi/icons.json').then(r => r.json()) },
+  { name: 'phosphor', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-phosphor/icons.json').then(r => r.json()) },
+  { name: 'tabler', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-tabler/icons.json').then(r => r.json()) },
 ]);
 
 mermaid.initialize({
@@ -325,7 +325,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
   const megaMenuItems = options.megaMenuItems || defaultMegaMenuItems;
   const head = options.head || defaultHead;
-  const logo = options.logo || { src: 'f5xc-docs-theme/assets/f5-distributed-cloud.svg' };
+  const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/f5-distributed-cloud.svg' };
   const additionalRemarkPlugins = options.additionalRemarkPlugins || [];
   const additionalIntegrations = options.additionalIntegrations || [];
 

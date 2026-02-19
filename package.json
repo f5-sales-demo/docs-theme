@@ -1,5 +1,5 @@
 {
-  "name": "f5xc-docs-theme",
+  "name": "@f5xc-salesdemos/docs-theme",
   "version": "0.1.0",
   "description": "F5 Distributed Cloud branded Starlight documentation theme",
   "type": "module",
@@ -70,9 +70,9 @@
     "@iconify-json/mdi": "*",
     "@iconify-json/ph": "*",
     "@iconify-json/tabler": "*",
-    "@robinmordasiewicz/icons-f5-brand": "*",
-    "@robinmordasiewicz/icons-f5xc": "*",
-    "@robinmordasiewicz/icons-hashicorp-flight": "*"
+    "@f5xc-salesdemos/icons-f5-brand": "*",
+    "@f5xc-salesdemos/icons-f5xc": "*",
+    "@f5xc-salesdemos/icons-hashicorp-flight": "*"
   },
   "peerDependenciesMeta": {
     "@iconify-json/lucide": { "optional": true },
@@ -80,9 +80,9 @@
     "@iconify-json/mdi": { "optional": true },
     "@iconify-json/ph": { "optional": true },
     "@iconify-json/tabler": { "optional": true },
-    "@robinmordasiewicz/icons-f5-brand": { "optional": true },
-    "@robinmordasiewicz/icons-f5xc": { "optional": true },
-    "@robinmordasiewicz/icons-hashicorp-flight": { "optional": true }
+    "@f5xc-salesdemos/icons-f5-brand": { "optional": true },
+    "@f5xc-salesdemos/icons-f5xc": { "optional": true },
+    "@f5xc-salesdemos/icons-hashicorp-flight": { "optional": true }
   },
   "dependencies": {
     "@astrojs/react": "^4.0.0",

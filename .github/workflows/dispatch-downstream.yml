@@ -20,9 +20,9 @@ jobs:
         run: |
           TAG="${{ github.event.release.tag_name }}"
           VERSION="${TAG#v}"
-          echo "Checking npm for f5xc-docs-theme@${VERSION}..."
+          echo "Checking npm for @f5xc-salesdemos/docs-theme@${VERSION}..."
           for i in 1 2 3 4 5; do
-            if npm view "f5xc-docs-theme@${VERSION}" version 2>/dev/null; then
+            if npm view "@f5xc-salesdemos/docs-theme@${VERSION}" version 2>/dev/null; then
               echo "Version ${VERSION} confirmed on npm"
               exit 0
             fi
