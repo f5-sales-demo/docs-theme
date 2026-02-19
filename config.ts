@@ -258,7 +258,41 @@ const defaultHead: HeadEntry[] = [
   {
     tag: 'script',
     attrs: { type: 'module' },
-    content: `import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'; mermaid.initialize({ startOnLoad: true, theme: 'neutral' });`,
+    content: `
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+mermaid.registerIconPacks([
+  { name: 'hashicorp-flight', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-hashicorp-flight/icons.json').then(r => r.json()) },
+  { name: 'f5-brand', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-f5-brand/icons.json').then(r => r.json()) },
+  { name: 'f5xc', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-f5xc/icons.json').then(r => r.json()) },
+  { name: 'carbon', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-carbon/icons.json').then(r => r.json()) },
+  { name: 'lucide', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-lucide/icons.json').then(r => r.json()) },
+  { name: 'mdi', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-mdi/icons.json').then(r => r.json()) },
+  { name: 'phosphor', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-phosphor/icons.json').then(r => r.json()) },
+  { name: 'tabler', loader: () => fetch('https://cdn.jsdelivr.net/npm/@robinmordasiewicz/icons-tabler/icons.json').then(r => r.json()) },
+]);
+
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    primaryColor: '#e8ecf4',
+    primaryTextColor: '#1a1a2e',
+    primaryBorderColor: '#0e41aa',
+    lineColor: '#0e41aa',
+    secondaryColor: '#fff5eb',
+    secondaryTextColor: '#1a1a2e',
+    secondaryBorderColor: '#f29a36',
+    tertiaryColor: '#f0e6f6',
+    tertiaryTextColor: '#1a1a2e',
+    tertiaryBorderColor: '#62228b',
+    noteBkgColor: '#ffe4c4',
+    noteTextColor: '#1a1a2e',
+    noteBorderColor: '#f29a36',
+    fontFamily: 'F5, system-ui, sans-serif',
+  },
+});
+`,
   },
 ];
 
