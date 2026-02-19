@@ -222,6 +222,25 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
     },
   },
   {
+    label: 'AI',
+    content: {
+      layout: 'list',
+      categories: [
+        {
+          title: 'AI Tools',
+          items: [
+            {
+              label: 'API MCP Server',
+              description: 'MCP server for F5 XC API',
+              href: 'https://f5xc-salesdemos.github.io/api-mcp/',
+              icon: resolveIcon('f5xc:ai_assistant_logo'),
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     label: 'Resources',
     content: {
       layout: 'list',
