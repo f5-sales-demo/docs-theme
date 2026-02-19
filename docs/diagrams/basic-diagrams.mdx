@@ -1,0 +1,99 @@
+---
+title: Basic Diagrams
+description: Fundamental Mermaid diagram types including flowchart, sequence, pie, class, state, and gantt charts.
+sidebar:
+  order: 3
+---
+
+Core Mermaid diagram types for general-purpose documentation. These work without any custom icon packs.
+
+## Flowchart
+
+```mermaid
+flowchart LR
+  A[User Request] --> B{WAF Check}
+  B -->|Pass| C[Origin Server]
+  B -->|Block| D[403 Forbidden]
+  C --> E[Response]
+```
+
+## Sequence Diagram
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant LB as Load Balancer
+  participant App as Application
+  participant DB as Database
+
+  Client->>LB: HTTPS Request
+  LB->>App: Forward Request
+  App->>DB: Query Data
+  DB-->>App: Return Results
+  App-->>LB: Response
+  LB-->>Client: HTTPS Response
+```
+
+## Pie Chart
+
+```mermaid
+pie title Traffic Distribution
+  "North America" : 45
+  "Europe" : 30
+  "Asia Pacific" : 20
+  "Other" : 5
+```
+
+## Class Diagram
+
+```mermaid
+classDiagram
+  class LoadBalancer {
+    +String name
+    +String domain
+    +addOriginPool()
+    +removeOriginPool()
+  }
+  class OriginPool {
+    +String name
+    +List~Origin~ origins
+    +healthCheck()
+  }
+  class Origin {
+    +String address
+    +int port
+    +boolean healthy
+  }
+  LoadBalancer --> OriginPool
+  OriginPool --> Origin
+```
+
+## State Diagram
+
+```mermaid
+stateDiagram-v2
+  [*] --> Pending
+  Pending --> Active : approve
+  Pending --> Rejected : reject
+  Active --> Suspended : suspend
+  Suspended --> Active : reactivate
+  Active --> [*] : delete
+  Rejected --> [*]
+```
+
+## Gantt Chart
+
+```mermaid
+gantt
+  title Deployment Timeline
+  dateFormat YYYY-MM-DD
+  section Planning
+    Requirements     :a1, 2025-01-01, 14d
+    Design           :a2, after a1, 10d
+  section Development
+    Implementation   :b1, after a2, 21d
+    Testing          :b2, after b1, 14d
+  section Release
+    Staging Deploy   :c1, after b2, 3d
+    Production Deploy :c2, after c1, 2d
+```

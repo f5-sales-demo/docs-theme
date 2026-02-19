@@ -1,0 +1,74 @@
+---
+title: WAF
+description: Web application firewall diagrams showing inspection pipelines, OWASP protection flows, and F5 XC WAAP architecture.
+sidebar:
+  order: 15
+---
+
+Web application firewall architecture diagrams covering security inspection chains, OWASP protection flows, and F5 Distributed Cloud WAAP capabilities.
+
+## Security Inspection Pipeline
+
+Multi-layer security inspection chain from CDN edge through WAF, bot defense, and load balancer to origin infrastructure.
+
+```mermaid
+architecture-beta
+  group edge(lucide:shield)[Security Edge]
+  group origin(carbon:cloud-services)[Origin Infrastructure]
+
+  service cdn(carbon:content-delivery-network)[CDN] in edge
+  service waf(carbon:firewall)[WAF] in edge
+  service bot(lucide:shield-check)[Bot Defense] in edge
+  service lb(carbon:load-balancer-application)[Load Balancer] in origin
+  service app(carbon:application)[App Server] in origin
+  service db(carbon:data-base)[Database] in origin
+
+  cdn:R --> L:waf
+  waf:R --> L:bot
+  bot:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## F5 XC WAAP Protection
+
+F5 Distributed Cloud Web Application and API Protection with integrated bot defense and client-side defense.
+
+```mermaid
+architecture-beta
+  group xcedge(lucide:cloud)[F5 XC Edge]
+  group cloud(carbon:cloud-services)[Cloud Origin]
+
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in xcedge
+  service botdef(f5xc:bot-defense)[Bot Defense] in xcedge
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in xcedge
+  service lb(carbon:load-balancer-application)[Load Balancer] in cloud
+  service app(carbon:application)[Application] in cloud
+  service api(carbon:api)[API Service] in cloud
+
+  waap:R --> L:botdef
+  botdef:R --> L:csd
+  csd:R --> L:lb
+  lb:R --> L:app
+  lb:B --> T:api
+```
+
+## OWASP Protection Flow
+
+WAF request processing pipeline showing inspection stages for OWASP Top 10 threat categories.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Request' }
+  tls@{ icon: 'lucide:lock', label: 'TLS Termination' }
+  rate@{ icon: 'carbon:load-balancer-vpc', label: 'Rate Limiting' }
+  waf@{ icon: 'carbon:firewall', label: 'WAF Rules' }
+  bot@{ icon: 'lucide:shield-check', label: 'Bot Check' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  req --> tls
+  tls --> rate
+  rate --> waf
+  waf --> bot
+  bot --> app
+```

@@ -1,0 +1,74 @@
+---
+title: DDoS
+description: DDoS mitigation architecture diagrams showing scrubbing centers, transit services, and F5 XC volumetric attack protection.
+sidebar:
+  order: 16
+---
+
+DDoS mitigation architecture diagrams covering scrubbing center design, transit service integration, and F5 Distributed Cloud volumetric attack protection.
+
+## DDoS Mitigation Architecture
+
+Multi-tier DDoS mitigation with network-layer scrubbing, application-layer inspection, and clean traffic delivery to origin.
+
+```mermaid
+architecture-beta
+  group scrub(lucide:shield)[Scrubbing Center]
+  group origin(carbon:cloud-services)[Origin DC]
+
+  service edge(carbon:edge-node)[Edge Router] in scrub
+  service filter(carbon:firewall)[Traffic Filter] in scrub
+  service clean(carbon:load-balancer-global)[Clean Pipe] in scrub
+  service lb(carbon:load-balancer-application)[Load Balancer] in origin
+  service app(carbon:application)[Application] in origin
+  service db(carbon:data-base)[Database] in origin
+
+  edge:R --> L:filter
+  filter:R --> L:clean
+  clean:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## F5 XC DDoS and Transit Services
+
+F5 Distributed Cloud providing DDoS protection and transit services with integrated CDN and application security.
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 Distributed Cloud]
+  group cloud(carbon:cloud-services)[Cloud Infrastructure]
+
+  service ddos(f5xc:ddos-and-transit-services)[DDoS Protection] in xc
+  service cdn(f5xc:content-delivery-network)[CDN] in xc
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in xc
+  service lb(carbon:load-balancer-application)[Load Balancer] in cloud
+  service app(carbon:application)[App Cluster] in cloud
+  service db(carbon:data-base)[Database] in cloud
+
+  ddos:R --> L:cdn
+  cdn:R --> L:waap
+  waap:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## Volumetric Attack Flow
+
+Attack traffic flow showing how volumetric DDoS attacks are absorbed and mitigated at the F5 XC edge before reaching origin infrastructure.
+
+```mermaid
+flowchart LR
+  attacker@{ icon: 'lucide:bug', label: 'Attack Traffic' }
+  legit@{ icon: 'lucide:user', label: 'Legitimate Users' }
+  edge@{ icon: 'f5xc:ddos-and-transit-services', label: 'XC Edge' }
+  scrub@{ icon: 'carbon:firewall', label: 'Scrubbing' }
+  drop@{ icon: 'lucide:shield', label: 'Drop Malicious' }
+  origin@{ icon: 'carbon:application', label: 'Origin' }
+
+  attacker --> edge
+  legit --> edge
+  edge --> scrub
+  scrub --> drop
+  scrub --> origin
+```

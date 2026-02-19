@@ -1,0 +1,73 @@
+---
+title: Zero Trust
+description: Zero trust network access diagrams showing ZTNA architecture, identity verification, policy engine, and micro-segmentation.
+sidebar:
+  order: 22
+---
+
+Zero trust architecture diagrams covering ZTNA access flows, identity verification, policy-based access control, and micro-segmentation with F5 XC integration.
+
+## Zero Trust Access Flow
+
+Zero trust access flow with device posture check, identity verification, policy evaluation, and proxied application access.
+
+```mermaid
+flowchart LR
+  user@{ icon: 'lucide:user', label: 'User' }
+  device@{ icon: 'lucide:laptop', label: 'Device Check' }
+  idp@{ icon: 'lucide:key', label: 'Identity Provider' }
+  policy@{ icon: 'lucide:shield-check', label: 'Policy Engine' }
+  proxy@{ icon: 'carbon:server-proxy', label: 'Access Proxy' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> device
+  device --> idp
+  idp --> policy
+  policy --> proxy
+  proxy --> app
+```
+
+## F5 XC Zero Trust Architecture
+
+F5 Distributed Cloud providing zero trust application access with WAAP, identity-aware proxy, and micro-segmentation across clouds.
+
+```mermaid
+flowchart TD
+  remote@{ icon: 'lucide:user', label: 'Remote Users' }
+  branch@{ icon: 'lucide:laptop', label: 'Branch Office' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  mcn@{ icon: 'f5xc:multi-cloud-network-connect', label: 'Network Connect' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Apps' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Apps' }
+  onprem@{ icon: 'lucide:server', label: 'On-Premises Apps' }
+
+  remote --> waap
+  branch --> waap
+  waap --> mcn
+  mcn --> aws
+  mcn --> azure
+  mcn --> onprem
+```
+
+## Micro-Segmentation Architecture
+
+Network micro-segmentation with identity-based policies controlling east-west traffic between application tiers.
+
+```mermaid
+architecture-beta
+  group trust(lucide:shield)[Zero Trust Fabric]
+  group apps(carbon:cloud-services)[Application Tiers]
+
+  service idp(lucide:key)[Identity Provider] in trust
+  service policy(carbon:gateway-security)[Policy Engine] in trust
+  service seg(carbon:subnet-acl-rules)[Segmentation] in trust
+  service web(carbon:application)[Web Tier] in apps
+  service api(carbon:api)[API Tier] in apps
+  service data(carbon:data-base)[Data Tier] in apps
+
+  idp:R --> L:policy
+  policy:R --> L:seg
+  seg:R --> L:web
+  web:R --> L:api
+  api:R --> L:data
+```

@@ -1,0 +1,73 @@
+---
+title: Bot Defense
+description: Bot detection pipeline diagrams showing credential stuffing defense, client-side protection, and F5 XC bot management.
+sidebar:
+  order: 18
+---
+
+Bot defense architecture diagrams covering detection pipelines, credential stuffing mitigation, client-side defense, and F5 Distributed Cloud bot management capabilities.
+
+## Bot Detection Pipeline
+
+Multi-stage bot detection pipeline with JavaScript challenge, behavioral analysis, and fingerprinting before allowing access.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Incoming Request' }
+  js@{ icon: 'lucide:bot', label: 'JS Challenge' }
+  fp@{ icon: 'lucide:shield-check', label: 'Fingerprinting' }
+  behavior@{ icon: 'carbon:application', label: 'Behavior Analysis' }
+  decision@{ icon: 'carbon:gateway-security', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'lucide:shield', label: 'Block/Challenge' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+## F5 XC Bot Defense and Client-Side Defense
+
+F5 Distributed Cloud integrated bot defense with client-side protection for credential stuffing and account takeover prevention.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'lucide:bot', label: 'Bot Attackers' }
+  csd@{ icon: 'f5xc:client-side-defense', label: 'Client-Side Defense' }
+  botdef@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> csd
+  attacker --> csd
+  csd --> botdef
+  botdef --> waap
+  waap --> app
+```
+
+## Credential Stuffing Defense Architecture
+
+Multi-layer defense against credential stuffing attacks with device fingerprinting, credential intelligence, and account protection.
+
+```mermaid
+architecture-beta
+  group defense(lucide:shield)[Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service edge(f5xc:bot-defense)[Bot Defense] in defense
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
+  service intel(f5xc:data-intelligence)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service acctsvc(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  edge:R --> L:csd
+  csd:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:acctsvc
+  acctsvc:B --> T:db
+```

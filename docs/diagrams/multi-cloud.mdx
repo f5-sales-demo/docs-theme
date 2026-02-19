@@ -1,0 +1,78 @@
+---
+title: Multi-Cloud
+description: Multi-cloud topology diagrams with global load balancing, F5 XC multi-cloud connect, and cross-cloud data replication.
+sidebar:
+  order: 13
+---
+
+Multi-cloud architecture diagrams showing cross-provider connectivity, global load balancing, and F5 Distributed Cloud network fabric.
+
+## Multi-Cloud Network Topology
+
+Global load balancer distributing traffic across AWS and Azure regions with database replication.
+
+```mermaid
+architecture-beta
+  group aws(hashicorp-flight:aws-color)[AWS Region]
+  group azure(hashicorp-flight:azure-color)[Azure Region]
+
+  service lb(carbon:load-balancer-global)[Global LB]
+  service web1(carbon:virtual-machine)[Web Tier] in aws
+  service db1(carbon:data-base)[Primary DB] in aws
+  service web2(carbon:virtual-machine)[Web Tier] in azure
+  service db2(carbon:data-base)[Replica DB] in azure
+
+  lb:R --> L:web1
+  lb:B --> T:web2
+  web1:R --> L:db1
+  web2:R --> L:db2
+  db1:B --> T:db2
+```
+
+## F5 XC Multi-Cloud Connect
+
+F5 Distributed Cloud providing secure connectivity between AWS, Azure, and GCP with unified observability.
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 Distributed Cloud]
+  group aws(hashicorp-flight:aws-color)[AWS]
+  group azure(hashicorp-flight:azure-color)[Azure]
+
+  service mcn(f5xc:multi-cloud-network-connect)[Network Connect] in xc
+  service mca(f5xc:multi-cloud-app-connect)[App Connect] in xc
+  service obs(f5xc:observability)[Observability] in xc
+  service eks(hashicorp-flight:kubernetes-color)[EKS] in aws
+  service rds(carbon:data-base)[RDS] in aws
+  service aks(hashicorp-flight:azure-aks-color)[AKS] in azure
+  service sql(carbon:data-base)[Azure SQL] in azure
+
+  mcn:R --> L:mca
+  mca:R --> L:obs
+  mcn:B --> T:eks
+  eks:R --> L:rds
+  mcn:B --> T:aks
+  aks:R --> L:sql
+```
+
+## Multi-Cloud App Delivery with F5 XC
+
+End-to-end application delivery across multiple clouds with F5 XC providing security and traffic management at the edge.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:globe', label: 'Global Users' }
+  cdn@{ icon: 'f5xc:content-delivery-network', label: 'XC CDN' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  appconn@{ icon: 'f5xc:multi-cloud-app-connect', label: 'App Connect' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Workloads' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Workloads' }
+  gcp@{ icon: 'hashicorp-flight:gcp-color', label: 'GCP Workloads' }
+
+  user --> cdn
+  cdn --> waap
+  waap --> appconn
+  appconn --> aws
+  appconn --> azure
+  appconn --> gcp
+```

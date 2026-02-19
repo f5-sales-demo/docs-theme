@@ -1,0 +1,91 @@
+---
+title: Instructions
+description: Mermaid diagram syntax reference, available icon packs, CSS styling, and theme compatibility details.
+sidebar:
+  order: 2
+---
+
+The theme includes a custom `remark-mermaid` plugin (`plugins/remark-mermaid.mjs`) that converts fenced ` ```mermaid ` code blocks into `<div class="mermaid-container">` wrappers. The Mermaid CDN script renders SVG diagrams on page load.
+
+## Icon Syntax
+
+### Flowcharts
+
+Use the `@\{\}` node syntax to add icons from any registered icon pack:
+
+```
+nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
+```
+
+### Architecture Diagrams
+
+The `architecture-beta` diagram type supports service and group definitions with icon-decorated nodes:
+
+```
+service myService(pack:icon-name)[Label]
+group myGroup(pack:icon-name)[Label]
+```
+
+## Available Icon Packs
+
+The following icon packs are registered and available in Mermaid diagrams. Icons are loaded lazily from CDN only when referenced.
+
+| Pack Name | npm Package | Key Icons |
+|-----------|-------------|-----------|
+| `hashicorp-flight` | `@robinmordasiewicz/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
+| `f5-brand` | `@robinmordasiewicz/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
+| `f5xc` | `@robinmordasiewicz/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
+| `carbon` | `@robinmordasiewicz/icons-carbon` | `cloud-services`, `data-base`, `gateway-api`, `virtual-machine`, `load-balancer-global`, `firewall`, `dns-services`, `virtual-private-cloud` |
+| `lucide` | `@robinmordasiewicz/icons-lucide` | `server`, `database`, `shield`, `shield-check`, `globe`, `lock`, `cloud`, `network`, `user` |
+| `mdi` | `@robinmordasiewicz/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `dns`, `vpn`, `router` |
+| `phosphor` | `@robinmordasiewicz/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock`, `network` |
+| `tabler` | `@robinmordasiewicz/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `route`, `router` |
+
+## CSS Reference
+
+### Container Styling
+
+Mermaid diagrams are wrapped in a styled container with rounded corners and a layered box shadow:
+
+```css
+.mermaid-container {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+  margin-block: 1.5rem;
+  background: #fff;
+}
+```
+
+### Pre Element Reset
+
+Starlight's default `<pre>` styling is stripped from the mermaid wrapper so only the outer container border is visible:
+
+```css
+.mermaid-container pre.mermaid {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+```
+
+### SVG Background Forcing
+
+The SVG inside is forced to a white background for dark mode compatibility:
+
+```css
+.mermaid-container svg {
+  background: white !important;
+  border-radius: 0.5rem;
+}
+```
+
+## Theme Checks
+
+- `.mermaid-container` has white SVG background in dark mode
+- Container border uses `--sl-color-gray-5`
+- Container has 0.75rem border radius and layered box shadow
+- Diagrams are readable in both light and dark themes
+- Mermaid CDN script loads and renders SVGs on page load
