@@ -77,7 +77,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             {
               label: 'API Security',
               description: 'API discovery and protection',
-              href: 'https://f5xc-salesdemos.github.io/api/',
+              href: 'https://f5xc-salesdemos.github.io/api-protection/',
               icon: resolveIcon('f5xc:application-traffic-insight'),
             },
             {
