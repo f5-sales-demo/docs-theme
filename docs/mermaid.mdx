@@ -104,10 +104,10 @@ Use the `@{ icon: 'pack:name' }` syntax to add icons from any registered icon pa
 
 ```mermaid
 flowchart LR
-  consul@{ icon: 'hashicorp-flight:consul', label: 'Consul' }
-  terraform@{ icon: 'hashicorp-flight:terraform', label: 'Terraform' }
-  vault@{ icon: 'hashicorp-flight:vault', label: 'Vault' }
-  nomad@{ icon: 'hashicorp-flight:nomad', label: 'Nomad' }
+  terraform@{ icon: 'hashicorp-flight:terraform-color', label: 'Terraform' }
+  consul@{ icon: 'hashicorp-flight:consul-color', label: 'Consul' }
+  vault@{ icon: 'hashicorp-flight:vault-color', label: 'Vault' }
+  nomad@{ icon: 'hashicorp-flight:nomad-color', label: 'Nomad' }
 
   terraform --> consul
   terraform --> vault
@@ -123,30 +123,30 @@ The `architecture-beta` diagram type supports service and group definitions with
 architecture-beta
   group cloud(carbon:cloud-services)[Cloud Infrastructure]
 
-  service gateway(carbon:gateway--api)[API Gateway] in cloud
+  service gateway(carbon:gateway-api)[API Gateway] in cloud
   service app(carbon:application)[App Server] in cloud
-  service db(carbon:data--base)[Database] in cloud
-  service cache(carbon:data--cache)[Cache] in cloud
+  service db(carbon:data-base)[Database] in cloud
+  service cache(carbon:datastore)[Cache] in cloud
 
   gateway:R --> L:app
   app:R --> L:db
   app:B --> T:cache
 ```
 
-## Network Topology
+## Multi-Cloud Network
 
-Multi-cloud network diagrams using architecture groups and cloud provider icons.
+Multi-cloud network topology with cloud provider icons and global load balancing.
 
 ```mermaid
 architecture-beta
-  group aws(carbon:logo--aws)[AWS Region]
-  group azure(carbon:logo--azure)[Azure Region]
+  group aws(hashicorp-flight:aws-color)[AWS Region]
+  group azure(hashicorp-flight:azure-color)[Azure Region]
 
-  service lb(carbon:load--balancer--global)[Global LB]
-  service web1(carbon:virtual--machine)[Web Tier] in aws
-  service db1(carbon:data--base)[Primary DB] in aws
-  service web2(carbon:virtual--machine)[Web Tier] in azure
-  service db2(carbon:data--base)[Replica DB] in azure
+  service lb(carbon:load-balancer-global)[Global LB]
+  service web1(carbon:virtual-machine)[Web Tier] in aws
+  service db1(carbon:data-base)[Primary DB] in aws
+  service web2(carbon:virtual-machine)[Web Tier] in azure
+  service db2(carbon:data-base)[Replica DB] in azure
 
   lb:R --> L:web1
   lb:B --> T:web2
@@ -155,20 +155,195 @@ architecture-beta
   db1:B --> T:db2
 ```
 
+## AWS VPC Architecture
+
+AWS VPC with public and private subnets, load balancer, EC2 instances, and RDS.
+
+```mermaid
+architecture-beta
+  group vpc(carbon:virtual-private-cloud)[AWS VPC]
+  group pubsub(carbon:ibm-cloud-subnets)[Public Subnet] in vpc
+  group privsub(carbon:ibm-cloud-subnets)[Private Subnet] in vpc
+
+  service igw(carbon:gateway)[Internet GW] in vpc
+  service alb(carbon:load-balancer-application)[ALB] in pubsub
+  service ec2a(hashicorp-flight:aws-ec2-color)[EC2] in privsub
+  service ec2b(hashicorp-flight:aws-ec2-color)[EC2] in privsub
+  service rds(carbon:data-base)[RDS] in privsub
+
+  igw:R --> L:alb
+  alb:R --> L:ec2a
+  alb:B --> T:ec2b
+  ec2a:R --> L:rds
+  ec2b:R --> L:rds
+```
+
+## Azure VNet Architecture
+
+Azure VNet with subnets, Application Gateway, VMs, and managed database.
+
+```mermaid
+architecture-beta
+  group vnet(carbon:virtual-private-cloud)[Azure VNet]
+  group gwsub(carbon:ibm-cloud-subnets)[Gateway Subnet] in vnet
+  group appsub(carbon:ibm-cloud-subnets)[App Subnet] in vnet
+  group datasub(carbon:ibm-cloud-subnets)[Data Subnet] in vnet
+
+  service appgw(carbon:gateway-security)[App Gateway] in gwsub
+  service vm1(hashicorp-flight:azure-vms-color)[VM Scale Set] in appsub
+  service vm2(hashicorp-flight:azure-vms-color)[VM Scale Set] in appsub
+  service sqldb(carbon:data-base)[Azure SQL] in datasub
+
+  appgw:R --> L:vm1
+  appgw:B --> T:vm2
+  vm1:R --> L:sqldb
+  vm2:R --> L:sqldb
+```
+
+## GCP Network Architecture
+
+Google Cloud network with regional load balancing and managed services.
+
+```mermaid
+architecture-beta
+  group gcp(hashicorp-flight:gcp-color)[GCP Project]
+  group frontend(carbon:ibm-cloud-subnets)[Frontend Tier] in gcp
+  group backend(carbon:ibm-cloud-subnets)[Backend Tier] in gcp
+
+  service glb(carbon:load-balancer-global)[Global LB]
+  service gke(hashicorp-flight:kubernetes-color)[GKE Cluster] in frontend
+  service func(hashicorp-flight:serverless)[Cloud Functions] in frontend
+  service sql(carbon:data-base)[Cloud SQL] in backend
+  service store(hashicorp-flight:database)[Firestore] in backend
+
+  glb:R --> L:gke
+  glb:B --> T:func
+  gke:R --> L:sql
+  func:R --> L:store
+  sql:B --> T:store
+```
+
+## DNS Resolution Flow
+
+DNS query resolution with GSLB, authoritative DNS, and caching layers.
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'Client' }
+  resolver@{ icon: 'carbon:dns-services', label: 'Recursive Resolver' }
+  root@{ icon: 'lucide:server', label: 'Root DNS' }
+  tld@{ icon: 'lucide:server', label: 'TLD Server' }
+  auth@{ icon: 'carbon:server-dns', label: 'Authoritative DNS' }
+  gslb@{ icon: 'carbon:load-balancer-global', label: 'GSLB' }
+
+  client --> resolver
+  resolver --> root
+  root --> resolver
+  resolver --> tld
+  tld --> resolver
+  resolver --> auth
+  auth --> gslb
+  gslb --> resolver
+  resolver --> client
+```
+
+## WAF and App Security
+
+Web application firewall and security inspection pipeline.
+
+```mermaid
+architecture-beta
+  group edge(lucide:shield)[Security Edge]
+  group origin(carbon:cloud-services)[Origin Infrastructure]
+
+  service cdn(carbon:content-delivery-network)[CDN] in edge
+  service waf(carbon:firewall)[WAF] in edge
+  service bot(lucide:shield-check)[Bot Defense] in edge
+  service lb(carbon:load-balancer-application)[Load Balancer] in origin
+  service app(carbon:application)[App Server] in origin
+  service db(carbon:data-base)[Database] in origin
+
+  cdn:R --> L:waf
+  waf:R --> L:bot
+  bot:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## App Delivery with F5 XC
+
+F5 Distributed Cloud application delivery with WAAP, bot defense, and multi-cloud connect.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:globe', label: 'Users' }
+  xclb@{ icon: 'f5xc:multi-cloud-app-connect', label: 'XC App Connect' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  bot@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Origin' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Origin' }
+
+  user --> xclb
+  xclb --> waap
+  waap --> bot
+  bot --> aws
+  bot --> azure
+```
+
+## Kubernetes Ingress
+
+Container-based application with ingress controller, services, and persistent storage.
+
+```mermaid
+architecture-beta
+  group cluster(hashicorp-flight:kubernetes-color)[Kubernetes Cluster]
+  group frontend(carbon:container-services)[Frontend Pods] in cluster
+  group backend(carbon:container-services)[Backend Pods] in cluster
+
+  service ingress(carbon:gateway)[Ingress Controller] in cluster
+  service web(hashicorp-flight:docker-color)[Web App] in frontend
+  service api(carbon:api)[API Service] in backend
+  service db(carbon:data-base)[StatefulSet DB] in backend
+
+  ingress:R --> L:web
+  ingress:B --> T:api
+  api:R --> L:db
+```
+
+## Zero Trust Network Access
+
+Zero trust architecture with identity verification, policy engine, and micro-segmentation.
+
+```mermaid
+flowchart LR
+  user@{ icon: 'lucide:user', label: 'User' }
+  device@{ icon: 'lucide:laptop', label: 'Device Check' }
+  idp@{ icon: 'hashicorp-flight:auth0-color', label: 'Identity Provider' }
+  policy@{ icon: 'hashicorp-flight:shield-check', label: 'Policy Engine' }
+  proxy@{ icon: 'carbon:server-proxy', label: 'Access Proxy' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> device
+  device --> idp
+  idp --> policy
+  policy --> proxy
+  proxy --> app
+```
+
 ## Icon Reference
 
 The following icon packs are registered and available in Mermaid diagrams. Icons are loaded lazily from CDN only when referenced.
 
-| Pack Name | npm Package | Example Icons |
-|-----------|-------------|---------------|
-| `hashicorp-flight` | `@robinmordasiewicz/icons-hashicorp-flight` | `terraform`, `consul`, `vault`, `nomad`, `waypoint`, `packer` |
-| `f5-brand` | `@robinmordasiewicz/icons-f5-brand` | F5 product and brand icons |
-| `f5xc` | `@robinmordasiewicz/icons-f5xc` | F5 Distributed Cloud service icons |
-| `carbon` | `@robinmordasiewicz/icons-carbon` | `cloud-services`, `data--base`, `application`, `gateway--api`, `security` |
-| `lucide` | `@robinmordasiewicz/icons-lucide` | `server`, `database`, `shield`, `globe`, `lock`, `cloud` |
-| `mdi` | `@robinmordasiewicz/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network` |
-| `phosphor` | `@robinmordasiewicz/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock` |
-| `tabler` | `@robinmordasiewicz/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network` |
+| Pack Name | npm Package | Key Icons |
+|-----------|-------------|-----------|
+| `hashicorp-flight` | `@robinmordasiewicz/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
+| `f5-brand` | `@robinmordasiewicz/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
+| `f5xc` | `@robinmordasiewicz/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
+| `carbon` | `@robinmordasiewicz/icons-carbon` | `cloud-services`, `data-base`, `gateway-api`, `virtual-machine`, `load-balancer-global`, `firewall`, `dns-services`, `virtual-private-cloud` |
+| `lucide` | `@robinmordasiewicz/icons-lucide` | `server`, `database`, `shield`, `shield-check`, `globe`, `lock`, `cloud`, `network`, `user` |
+| `mdi` | `@robinmordasiewicz/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `dns`, `vpn`, `router` |
+| `phosphor` | `@robinmordasiewicz/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock`, `network` |
+| `tabler` | `@robinmordasiewicz/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `route`, `router` |
 
 ### Usage Syntax
 
