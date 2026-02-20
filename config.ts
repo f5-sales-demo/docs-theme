@@ -1,18 +1,18 @@
-import { defineConfig } from 'astro/config';
-import type { AstroIntegration } from 'astro';
-import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
-import f5xcDocsTheme from './index.ts';
-import remarkMermaid from './src/plugins/remark-mermaid.mjs';
-import starlightScrollToTop from 'starlight-scroll-to-top';
-import starlightImageZoom from 'starlight-image-zoom';
+import starlight from '@astrojs/starlight';
+import type { StarlightPlugin } from '@astrojs/starlight/types';
+import type { AstroIntegration } from 'astro';
+import { defineConfig } from 'astro/config';
 import starlightHeadingBadges from 'starlight-heading-badges';
-import starlightVideosPlugin from 'starlight-videos';
-import starlightPageActions from 'starlight-page-actions';
-import { starlightIconsPlugin } from 'starlight-plugin-icons';
+import starlightImageZoom from 'starlight-image-zoom';
 import starlightLlmsTxt from 'starlight-llms-txt';
 import starlightMegaMenu from 'starlight-mega-menu';
-import type { StarlightPlugin } from '@astrojs/starlight/types';
+import starlightPageActions from 'starlight-page-actions';
+import { starlightIconsPlugin } from 'starlight-plugin-icons';
+import starlightScrollToTop from 'starlight-scroll-to-top';
+import starlightVideosPlugin from 'starlight-videos';
+import f5xcDocsTheme from './index.ts';
+import remarkMermaid from './src/plugins/remark-mermaid.mjs';
 import { resolveIcon } from './src/utils/resolve-icon.ts';
 
 interface MegaMenuItem {

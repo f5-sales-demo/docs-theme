@@ -1,5 +1,5 @@
-import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 import type { StarlightRouteData } from '@astrojs/starlight/route-data';
+import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 
 type SidebarEntry = StarlightRouteData['sidebar'][number];
 
