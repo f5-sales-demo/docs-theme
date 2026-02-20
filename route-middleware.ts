@@ -20,22 +20,14 @@ function hrefToSlug(href: string): string {
 
 // Discover all index pages at build time via Vite glob — no astro:content needed
 const indexPaths = Object.keys(
-  import.meta.glob(
-    ['/src/content/docs/**/index.md', '/src/content/docs/**/index.mdx'],
-    { eager: false }
-  )
+  import.meta.glob(['/src/content/docs/**/index.md', '/src/content/docs/**/index.mdx'], { eager: false }),
 );
 
 const indexSlugs = new Set<string>(
-  indexPaths.map((p) =>
-    p.replace(/^\/src\/content\/docs\//, '').replace(/\/?index\.mdx?$/, '')
-  )
+  indexPaths.map((p) => p.replace(/^\/src\/content\/docs\//, '').replace(/\/?index\.mdx?$/, '')),
 );
 
-function filterIndexPages(
-  entries: SidebarEntry[],
-  slugs: Set<string>
-): SidebarEntry[] {
+function filterIndexPages(entries: SidebarEntry[], slugs: Set<string>): SidebarEntry[] {
   return entries.reduce<SidebarEntry[]>((acc, entry) => {
     if (entry.type === 'link') {
       const slug = hrefToSlug(entry.href);

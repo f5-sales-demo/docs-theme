@@ -21,9 +21,7 @@ function findTrail(entries: typeof sidebar, trail: { label: string }[] = []): { 
 }
 
 const trail = findTrail(sidebar) || [];
-const fixedEditUrl = editUrl
-  ? editUrl.href.replace('/src/content/docs/', '/docs/')
-  : undefined;
+const fixedEditUrl = editUrl ? editUrl.href.replace('/src/content/docs/', '/docs/') : undefined;
 ---
 
 <Default {...Astro.props}><slot /></Default>

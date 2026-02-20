@@ -321,8 +321,8 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const title = options.title || process.env.DOCS_TITLE || 'Documentation';
   const description = options.description || process.env.DOCS_DESCRIPTION || '';
   const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
-  const llmsOptionalLinks = options.llmsOptionalLinks
-    || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+  const llmsOptionalLinks =
+    options.llmsOptionalLinks || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
   const megaMenuItems = options.megaMenuItems || defaultMegaMenuItems;
   const head = options.head || defaultHead;
   const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/f5-distributed-cloud.svg' };

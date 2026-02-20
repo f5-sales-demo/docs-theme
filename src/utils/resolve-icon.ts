@@ -8,7 +8,7 @@ const require = createRequire(import.meta.url);
  */
 export function hasExplicitColors(body: string): boolean {
   const fills = body.match(/fill="([^"]*)"/g) || [];
-  return fills.some(f => f !== 'fill="none"' && f !== 'fill="currentColor"');
+  return fills.some((f) => f !== 'fill="none"' && f !== 'fill="currentColor"');
 }
 
 /**
@@ -52,7 +52,7 @@ export function resolveIcon(name: string): string {
       break;
     default:
       throw new Error(
-        `Unknown icon prefix "${prefix}". Available: lucide, carbon, mdi, phosphor, tabler, f5-brand, f5xc, hashicorp-flight`
+        `Unknown icon prefix "${prefix}". Available: lucide, carbon, mdi, phosphor, tabler, f5-brand, f5xc, hashicorp-flight`,
       );
   }
 

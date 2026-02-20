@@ -49,7 +49,7 @@ if (isScoped) {
       break;
     default:
       throw new Error(
-        `Unknown icon prefix "${prefix}". Available: lucide, carbon, mdi, phosphor, tabler, f5-brand, f5xc, hashicorp-flight`
+        `Unknown icon prefix "${prefix}". Available: lucide, carbon, mdi, phosphor, tabler, f5-brand, f5xc, hashicorp-flight`,
       );
   }
 
@@ -66,9 +66,7 @@ if (isScoped) {
 
 const isPalette = isScoped && (iconData?.info?.palette === true || hasExplicitColors(svgBody));
 
-const a11yAttrs = label
-  ? { 'aria-label': label }
-  : { 'aria-hidden': 'true' };
+const a11yAttrs = label ? { 'aria-label': label } : { 'aria-hidden': 'true' };
 
 const styleParts: string[] = [];
 if (color) styleParts.push(`--sl-icon-color: ${color}`);

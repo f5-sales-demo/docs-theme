@@ -75,14 +75,30 @@
     "@f5xc-salesdemos/icons-hashicorp-flight": "*"
   },
   "peerDependenciesMeta": {
-    "@iconify-json/lucide": { "optional": true },
-    "@iconify-json/carbon": { "optional": true },
-    "@iconify-json/mdi": { "optional": true },
-    "@iconify-json/ph": { "optional": true },
-    "@iconify-json/tabler": { "optional": true },
-    "@f5xc-salesdemos/icons-f5-brand": { "optional": true },
-    "@f5xc-salesdemos/icons-f5xc": { "optional": true },
-    "@f5xc-salesdemos/icons-hashicorp-flight": { "optional": true }
+    "@iconify-json/lucide": {
+      "optional": true
+    },
+    "@iconify-json/carbon": {
+      "optional": true
+    },
+    "@iconify-json/mdi": {
+      "optional": true
+    },
+    "@iconify-json/ph": {
+      "optional": true
+    },
+    "@iconify-json/tabler": {
+      "optional": true
+    },
+    "@f5xc-salesdemos/icons-f5-brand": {
+      "optional": true
+    },
+    "@f5xc-salesdemos/icons-f5xc": {
+      "optional": true
+    },
+    "@f5xc-salesdemos/icons-hashicorp-flight": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@astrojs/react": "^4.0.0",

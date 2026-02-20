@@ -1,7 +1,7 @@
 # XC Docs Theme
 
 [![GitHub Pages Deploy](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/github-pages-deploy.yml/badge.svg)](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/github-pages-deploy.yml)
-[![Repo Settings](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/enforce-repo-settings.yml/badge.svg)](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/enforce-repo-settings.yml)
+[![Repository Settings](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/enforce-repo-settings.yml/badge.svg)](https://github.com/f5xc-salesdemos/docs-theme/actions/workflows/enforce-repo-settings.yml)
 [![License](https://img.shields.io/github/license/f5xc-salesdemos/docs-theme)](LICENSE)
 
 Shared branding and styling for F5 Distributed Cloud documentation sites
