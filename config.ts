@@ -289,6 +289,7 @@ mermaid.registerIconPacks([
   { name: 'mdi', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-mdi/icons.json').then(r => r.json()) },
   { name: 'phosphor', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-phosphor/icons.json').then(r => r.json()) },
   { name: 'tabler', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-tabler/icons.json').then(r => r.json()) },
+  { name: 'azure', loader: () => fetch('https://cdn.jsdelivr.net/npm/@f5xc-salesdemos/icons-azure/icons.json').then(r => r.json()) },
 ]);
 
 mermaid.initialize({
