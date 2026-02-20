@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "no-duplicate-selectors": null,
+    "custom-property-pattern": null,
+    "property-no-vendor-prefix": null,
+    "declaration-property-value-no-unknown": null,
+    "no-descending-specificity": null,
+    "custom-property-empty-line-before": null,
+    "declaration-empty-line-before": null
+  }
+}
