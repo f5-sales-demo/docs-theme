@@ -56,6 +56,7 @@ export interface F5xcDocsConfigOptions {
   megaMenuItems?: MegaMenuItem[];
   head?: HeadEntry[];
   logo?: { src: string } | { light: string; dark: string };
+  federatedSearch?: boolean;
 }
 
 const defaultMegaMenuItems: MegaMenuItem[] = [
@@ -316,6 +317,27 @@ mermaid.initialize({
   },
 ];
 
+const federatedSearchSites = [
+  { repo: 'docs-builder', label: 'Docs Builder' },
+  { repo: 'docs-theme', label: 'Docs Theme' },
+  { repo: 'docs', label: 'F5 XC Docs' },
+  { repo: 'administration', label: 'Administration' },
+  { repo: 'nginx', label: 'NGINX' },
+  { repo: 'observability', label: 'Observability' },
+  { repo: 'was', label: 'Web App Scanning' },
+  { repo: 'mcn', label: 'Multi-Cloud Networking' },
+  { repo: 'dns', label: 'DNS' },
+  { repo: 'cdn', label: 'CDN' },
+  { repo: 'bot-standard', label: 'Bot Standard' },
+  { repo: 'bot-advanced', label: 'Bot Advanced' },
+  { repo: 'ddos', label: 'DDoS' },
+  { repo: 'waf', label: 'WAF' },
+  { repo: 'api-protection', label: 'API Security' },
+  { repo: 'api-mcp', label: 'API MCP' },
+  { repo: 'csd', label: 'Client-Side Defense' },
+  { repo: 'docs-icons', label: 'Docs Icons' },
+];
+
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
   const base = options.base || process.env.DOCS_BASE || '/';
@@ -329,6 +351,16 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/f5-distributed-cloud.svg' };
   const additionalRemarkPlugins = options.additionalRemarkPlugins || [];
   const additionalIntegrations = options.additionalIntegrations || [];
+
+  const federatedSearch = options.federatedSearch !== false;
+  const normalizedBase = base.replace(/\/+$/, '');
+  const mergeIndex = federatedSearch
+    ? federatedSearchSites
+        .filter((s) => `/${s.repo}` !== normalizedBase)
+        .map((s) => ({
+          bundlePath: `${site}/${s.repo}/pagefind/`,
+        }))
+    : undefined;
 
   const starlightPlugins: StarlightPlugin[] = [
     starlightMegaMenu({ items: megaMenuItems as Parameters<typeof starlightMegaMenu>[0]['items'] }),
@@ -367,6 +399,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         plugins: starlightPlugins,
         head: head as Parameters<typeof starlight>[0]['head'],
         logo: logo as Parameters<typeof starlight>[0]['logo'],
+        ...(mergeIndex && mergeIndex.length > 0 ? { pagefind: { mergeIndex } } : {}),
         ...(githubRepository
           ? {
               editLink: {
