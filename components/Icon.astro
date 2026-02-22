@@ -87,8 +87,7 @@ const inlineStyle = styleParts.length ? styleParts.join('; ') : undefined;
     set:html={svgBody}
   /></>
 ) : (
-  {/* @ts-expect-error Custom icon wrapper passes through string name */}
-  <StarlightIcon name={name} label={label} color={color} size={size} class={className} />
+  <StarlightIcon name={name as any} label={label} color={color} size={size} class={className} />
 )}
 
 <style>
