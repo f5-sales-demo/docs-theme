@@ -214,6 +214,17 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
           ],
         },
+        {
+          title: 'Automation',
+          items: [
+            {
+              label: 'Terraform Provider',
+              description: 'F5 XC Terraform provider',
+              href: 'https://f5xc-salesdemos.github.io/terraform-provider-f5xc/',
+              icon: resolveIcon('hashicorp-flight:terraform-color'),
+            },
+          ],
+        },
       ],
       footer: {
         label: 'GitHub Organization',
