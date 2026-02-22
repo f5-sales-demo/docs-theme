@@ -1,4 +1,5 @@
 import { createRequire } from 'module';
+import type { IconSetData } from '../types/icon';
 
 const require = createRequire(import.meta.url);
 
@@ -24,7 +25,7 @@ export function resolveIcon(name: string): string {
   const prefix = name.slice(0, colonIndex);
   const iconName = name.slice(colonIndex + 1);
 
-  let iconData: any;
+  let iconData: IconSetData;
   switch (prefix) {
     case 'lucide':
       iconData = require('@iconify-json/lucide/icons.json');

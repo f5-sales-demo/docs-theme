@@ -1,6 +1,7 @@
 ---
 import { Icon as StarlightIcon } from '@astrojs/starlight/components';
 import { hasExplicitColors } from '../src/utils/resolve-icon';
+import type { IconSetData } from '../src/types/icon';
 
 interface Props {
   name: string;
@@ -15,7 +16,7 @@ const isScoped = name.includes(':');
 
 let svgBody = '';
 let viewBox = '0 0 24 24';
-let iconData: any;
+let iconData: IconSetData;
 
 if (isScoped) {
   const colonIndex = name.indexOf(':');
@@ -86,7 +87,8 @@ const inlineStyle = styleParts.length ? styleParts.join('; ') : undefined;
     set:html={svgBody}
   /></>
 ) : (
-  <StarlightIcon name={name as any} label={label} color={color} size={size} class={className} />
+  {/* @ts-expect-error Custom icon wrapper passes through string name */}
+  <StarlightIcon name={name} label={label} color={color} size={size} class={className} />
 )}
 
 <style>
