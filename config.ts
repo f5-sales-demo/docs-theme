@@ -212,6 +212,12 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               href: 'https://f5xc-salesdemos.github.io/docs-icons/',
               icon: resolveIcon('f5xc:distributed-apps'),
             },
+            {
+              label: 'Dev Container',
+              description: 'Isolated development environment',
+              href: 'https://f5xc-salesdemos.github.io/devcontainer/',
+              icon: resolveIcon('hashicorp-flight:docker-color'),
+            },
           ],
         },
         {
@@ -347,6 +353,7 @@ const federatedSearchSites = [
   { repo: 'api-mcp', label: 'API MCP' },
   { repo: 'csd', label: 'Client-Side Defense' },
   { repo: 'docs-icons', label: 'Docs Icons' },
+  { repo: 'devcontainer', label: 'Dev Container' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
