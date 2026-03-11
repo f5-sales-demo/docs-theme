@@ -240,8 +240,14 @@ html .mermaid-container svg {
 }
 
 /* ===== Content Image Styling (screenshots) ===== */
+/* starlight-image-zoom wraps <img> in a <starlight-image-zoom-zoomable>
+  custom element, so the actual DOM path from markdown ![](url) is:
+  .sl-markdown-content > p > starlight-image-zoom-zoomable > img
+  We target both wrapped and unwrapped images for resilience. */
 .sl-markdown-content > p > img,
-.sl-markdown-content > img {
+.sl-markdown-content > img,
+.sl-markdown-content > p > starlight-image-zoom-zoomable > img,
+.sl-markdown-content > starlight-image-zoom-zoomable > img {
   border: 1px solid var(--f5-border-default);
   border-radius: var(--f5-radius-lg);
   box-shadow: var(--f5-shadow-mid);
@@ -250,7 +256,9 @@ html .mermaid-container svg {
 }
 
 .sl-markdown-content > p > img:hover,
-.sl-markdown-content > img:hover {
+.sl-markdown-content > img:hover,
+.sl-markdown-content > p > starlight-image-zoom-zoomable > img:hover,
+.sl-markdown-content > starlight-image-zoom-zoomable > img:hover {
   box-shadow: var(--f5-shadow-high);
 }
 
