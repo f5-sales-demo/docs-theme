@@ -239,6 +239,21 @@ html .mermaid-container svg {
   background: transparent;
 }
 
+/* ===== Content Image Styling (screenshots) ===== */
+.sl-markdown-content > p > img,
+.sl-markdown-content > img {
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-lg);
+  box-shadow: var(--f5-shadow-mid);
+  margin-block: 0.5rem;
+  transition: box-shadow var(--f5-transition-base);
+}
+
+.sl-markdown-content > p > img:hover,
+.sl-markdown-content > img:hover {
+  box-shadow: var(--f5-shadow-high);
+}
+
 .starlight-aside {
   border-radius: var(--f5-radius-md);
   box-shadow: var(--f5-shadow-low);
