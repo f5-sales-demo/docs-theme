@@ -257,6 +257,44 @@ html .mermaid-container svg {
   box-shadow: var(--f5-shadow-high);
 }
 
+/* ===== Light/Dark Screenshot Component ===== */
+.screenshot-pair {
+  margin-block: 0.5rem;
+}
+
+.sl-markdown-content .screenshot-pair img,
+.sl-markdown-content .screenshot-pair starlight-image-zoom-zoomable > img {
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-lg);
+  box-shadow: var(--f5-shadow-mid);
+  margin-block: 0;
+  transition: box-shadow var(--f5-transition-base);
+}
+
+.sl-markdown-content .screenshot-pair img:hover,
+.sl-markdown-content
+  .screenshot-pair
+  starlight-image-zoom-zoomable
+  > img:hover {
+  box-shadow: var(--f5-shadow-high);
+}
+
+/* Dark mode (default): hide light variant */
+:root:not([data-theme="light"]) .screenshot-pair .screenshot-light,
+:root:not([data-theme="light"])
+  .screenshot-pair
+  starlight-image-zoom-zoomable:has(.screenshot-light) {
+  display: none;
+}
+
+/* Light mode: hide dark variant */
+:root[data-theme="light"] .screenshot-pair .screenshot-dark,
+:root[data-theme="light"]
+  .screenshot-pair
+  starlight-image-zoom-zoomable:has(.screenshot-dark) {
+  display: none;
+}
+
 .starlight-aside {
   border-radius: var(--f5-radius-md);
   box-shadow: var(--f5-shadow-low);

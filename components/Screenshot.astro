@@ -1,0 +1,23 @@
+---
+interface Props {
+  light?: string;
+  dark?: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
+
+const { light, dark, alt, width, height } = Astro.props;
+const hasBoth = light && dark;
+---
+
+{hasBoth ? (
+  <div class="screenshot-pair">
+    <img src={light} alt={alt} width={width} height={height} class="screenshot-light" />
+    <img src={dark} alt={alt} width={width} height={height} class="screenshot-dark" />
+  </div>
+) : (
+  <div class="screenshot-pair">
+    <img src={light || dark} alt={alt} width={width} height={height} />
+  </div>
+)}

@@ -29,6 +29,7 @@
     "./src/plugins/remark-mermaid.mjs": "./src/plugins/remark-mermaid.mjs",
     "./components/Icon.astro": "./components/Icon.astro",
     "./components/LinkCard.astro": "./components/LinkCard.astro",
+    "./components/Screenshot.astro": "./components/Screenshot.astro",
     "./src/utils/resolve-icon.ts": "./src/utils/resolve-icon.ts"
   },
   "files": [
