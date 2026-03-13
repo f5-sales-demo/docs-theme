@@ -1,4 +1,6 @@
 ---
+import Zoom from 'starlight-image-zoom/components/Zoom.astro';
+
 interface Props {
   light?: string;
   dark?: string;
@@ -19,11 +21,11 @@ const hasBoth = lightSrc && darkSrc;
 
 {hasBoth ? (
   <div class="screenshot-pair">
-    <img src={lightSrc} alt={alt} width={width} height={height} class="screenshot-light" />
-    <img src={darkSrc} alt={alt} width={width} height={height} class="screenshot-dark" />
+    <Zoom label={alt}><img src={lightSrc} alt={alt} width={width} height={height} class="screenshot-light" /></Zoom>
+    <Zoom label={alt}><img src={darkSrc} alt={alt} width={width} height={height} class="screenshot-dark" /></Zoom>
   </div>
 ) : (
   <div class="screenshot-pair">
-    <img src={lightSrc || darkSrc} alt={alt} width={width} height={height} />
+    <Zoom label={alt}><img src={lightSrc || darkSrc} alt={alt} width={width} height={height} /></Zoom>
   </div>
 )}
