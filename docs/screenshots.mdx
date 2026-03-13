@@ -1,0 +1,126 @@
+---
+title: Screenshots
+description: Screenshot component for theme-aware light and dark mode image pairs.
+sidebar:
+  order: 10
+  badge:
+    text: New
+    variant: tip
+---
+
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+The `Screenshot` component renders theme-aware images that automatically switch
+between light and dark variants when the user toggles the site theme. Use it
+whenever you need to show UI screenshots that should match the reader's
+current color scheme.
+
+## Props Reference
+
+| Prop | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| `light` | `string` | No | Path to the light-mode image |
+| `dark` | `string` | No | Path to the dark-mode image |
+| `alt` | `string` | Yes | Alt text for accessibility |
+| `width` | `number` | No | Image width in pixels |
+| `height` | `number` | No | Image height in pixels |
+
+:::note
+At least one of `light` or `dark` must be provided.
+When both are supplied, the component swaps between them based on the active theme.
+:::
+
+## Dual Mode (Light + Dark)
+
+Provide both `light` and `dark` props to show the correct variant for each theme.
+Toggle the theme selector in the top-right corner to see the image switch.
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+
+```mdx
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+```
+
+:::tip
+Always capture both light and dark screenshots when documenting UI.
+This gives readers an accurate representation regardless of their theme preference.
+:::
+
+## Single Image
+
+When only one variant is available, pass just `light` or `dark`.
+The image renders in both themes without swapping.
+
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+
+```mdx
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+```
+
+## With Dimensions
+
+Use `width` and `height` to control the rendered size and prevent layout shift.
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+
+```mdx
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+```
+
+## How It Works
+
+The component renders one or two `<img>` elements inside a `.screenshot-pair`
+wrapper. CSS rules toggle visibility based on the active theme:
+
+- **Dark mode** (default) — the `.screenshot-light` image is hidden via
+  `:root:not([data-theme="light"]) .screenshot-light \{ display: none \}`
+- **Light mode** — the `.screenshot-dark` image is hidden via
+  `:root[data-theme="light"] .screenshot-dark \{ display: none \}`
+
+Additional selectors handle the `starlight-image-zoom` wrapper using `:has()`
+so zoom functionality works correctly with both variants.
+
+All screenshot images receive consistent styling: a subtle border, rounded
+corners, and a drop shadow that intensifies on hover.
+
+## Comparison with Markdown Images
+
+| Feature | `Screenshot` component | Markdown `![](url)` |
+| ------- | ---------------------- | -------------------- |
+| Theme-aware swapping | Yes | No |
+| Styled border and shadow | Automatic | No |
+| Hover shadow effect | Yes | No |
+| Zoom support | Works with image zoom plugin | Works with image zoom plugin |
+| Alt text | `alt` prop | `![alt text]()` |
+
+Use the `Screenshot` component when you have theme-specific image variants or
+want the styled screenshot appearance. Use standard Markdown images for inline
+graphics, diagrams, or images that look the same in both themes.
