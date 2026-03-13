@@ -8,16 +8,22 @@ interface Props {
 }
 
 const { light, dark, alt, width, height } = Astro.props;
-const hasBoth = light && dark;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const resolve = (src?: string) => (src?.startsWith('/') ? `${base}${src}` : src);
+
+const lightSrc = resolve(light);
+const darkSrc = resolve(dark);
+const hasBoth = lightSrc && darkSrc;
 ---
 
 {hasBoth ? (
   <div class="screenshot-pair">
-    <img src={light} alt={alt} width={width} height={height} class="screenshot-light" />
-    <img src={dark} alt={alt} width={width} height={height} class="screenshot-dark" />
+    <img src={lightSrc} alt={alt} width={width} height={height} class="screenshot-light" />
+    <img src={darkSrc} alt={alt} width={width} height={height} class="screenshot-dark" />
   </div>
 ) : (
   <div class="screenshot-pair">
-    <img src={light || dark} alt={alt} width={width} height={height} />
+    <img src={lightSrc || darkSrc} alt={alt} width={width} height={height} />
   </div>
 )}
