@@ -253,6 +253,12 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               href: 'https://f5xc-salesdemos.github.io/api-mcp/',
               icon: resolveIcon('f5xc:ai_assistant_logo'),
             },
+            {
+              label: 'Marketplace',
+              description: 'AI-powered marketplace for F5 XC',
+              href: 'https://f5xc-salesdemos.github.io/marketplace/',
+              icon: resolveIcon('f5xc:ai_assistant_logo'),
+            },
           ],
         },
       ],
@@ -354,6 +360,7 @@ const federatedSearchSites = [
   { repo: 'csd', label: 'Client-Side Defense' },
   { repo: 'docs-icons', label: 'Docs Icons' },
   { repo: 'devcontainer', label: 'Dev Container' },
+  { repo: 'marketplace', label: 'Marketplace' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
