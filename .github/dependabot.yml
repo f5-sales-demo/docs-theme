@@ -34,10 +34,3 @@ updates:
         update-types:
           - "minor"
           - "patch"
-        exclude-patterns:
-          - "astro"
-          - "@astrojs/*"
-      astro-ecosystem:
-        patterns:
-          - "astro"
-          - "@astrojs/*"
