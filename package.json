@@ -65,7 +65,8 @@
     "test:visual:update": "playwright test --update-snapshots"
   },
   "peerDependencies": {
-    "@astrojs/starlight": ">=0.34.0",
+    "astro": ">=6.0.0",
+    "@astrojs/starlight": ">=0.38.0",
     "@iconify-json/lucide": "*",
     "@iconify-json/carbon": "*",
     "@iconify-json/mdi": "*",
