@@ -102,7 +102,7 @@
     }
   },
   "dependencies": {
-    "@astrojs/react": "^4.0.0",
+    "@astrojs/react": "^5.0.0",
     "unist-util-visit": "^5.0.0",
     "starlight-heading-badges": "^0.7.0",
     "starlight-image-zoom": "^0.14.1",
