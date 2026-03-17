@@ -259,12 +259,6 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               href: 'https://f5xc-salesdemos.github.io/marketplace/',
               icon: resolveIcon('f5xc:ai_assistant_logo'),
             },
-            {
-              label: 'Claude Code Proxy',
-              description: 'Claude API to OpenAI proxy',
-              href: 'https://f5xc-salesdemos.github.io/claude-code-proxy/',
-              icon: resolveIcon('f5xc:ai_assistant_logo'),
-            },
           ],
         },
       ],
@@ -367,7 +361,6 @@ const federatedSearchSites = [
   { repo: 'docs-icons', label: 'Docs Icons' },
   { repo: 'devcontainer', label: 'Dev Container' },
   { repo: 'marketplace', label: 'Marketplace' },
-  { repo: 'claude-code-proxy', label: 'Claude Code Proxy' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
