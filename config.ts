@@ -229,6 +229,12 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               href: 'https://f5xc-salesdemos.github.io/terraform-provider-f5xc/',
               icon: resolveIcon('hashicorp-flight:terraform-color'),
             },
+            {
+              label: 'API Specs',
+              description: 'OpenAPI spec validation and reconciliation',
+              href: 'https://f5xc-salesdemos.github.io/api-specs/',
+              icon: resolveIcon('f5xc:data-intelligence'),
+            },
           ],
         },
       ],
@@ -361,6 +367,7 @@ const federatedSearchSites = [
   { repo: 'docs-icons', label: 'Docs Icons' },
   { repo: 'devcontainer', label: 'Dev Container' },
   { repo: 'marketplace', label: 'Marketplace' },
+  { repo: 'api-specs', label: 'API Specs' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
