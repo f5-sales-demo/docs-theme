@@ -235,6 +235,12 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               href: 'https://f5xc-salesdemos.github.io/api-specs/',
               icon: resolveIcon('f5xc:data-intelligence'),
             },
+            {
+              label: 'API Specs Enriched',
+              description: 'Enriched OpenAPI specifications',
+              href: 'https://f5xc-salesdemos.github.io/api-specs-enriched/',
+              icon: resolveIcon('f5xc:data-intelligence'),
+            },
           ],
         },
       ],
@@ -368,6 +374,7 @@ const federatedSearchSites = [
   { repo: 'devcontainer', label: 'Dev Container' },
   { repo: 'marketplace', label: 'Marketplace' },
   { repo: 'api-specs', label: 'API Specs' },
+  { repo: 'api-specs-enriched', label: 'API Specs Enriched' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
