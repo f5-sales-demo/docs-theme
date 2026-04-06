@@ -277,6 +277,12 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               href: 'https://f5xc-salesdemos.github.io/oh-my-xcsh/',
               icon: resolveIcon('f5xc:ai_assistant_logo'),
             },
+            {
+              label: 'XCSh',
+              description: 'AI-powered development CLI',
+              href: 'https://f5xc-salesdemos.github.io/xcsh/',
+              icon: resolveIcon('f5xc:ai_assistant_logo'),
+            },
           ],
         },
       ],
@@ -382,6 +388,7 @@ const federatedSearchSites = [
   { repo: 'api-specs', label: 'API Specs' },
   { repo: 'api-specs-enriched', label: 'API Specs Enriched' },
   { repo: 'oh-my-xcsh', label: 'Oh My XCSh' },
+  { repo: 'xcsh', label: 'XCSh' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
