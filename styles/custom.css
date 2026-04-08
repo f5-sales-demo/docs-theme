@@ -438,7 +438,7 @@ html:root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
   text-decoration: none;
 }
 
-.edit-link svg {
+a.edit-link svg {
   flex-shrink: 0;
 }
 
@@ -516,7 +516,7 @@ html:root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
   background: var(--sl-color-gray-6);
 }
 
-.icon-card-image img {
+.icon-card .icon-card-image img {
   display: block;
   width: 100%;
   height: auto;
