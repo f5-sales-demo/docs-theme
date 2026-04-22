@@ -1,11 +1,11 @@
 import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import type { StarlightPlugin } from '@astrojs/starlight/types';
+import starlightLlmsTxt from '@f5xc-salesdemos/starlight-llms-txt';
 import type { AstroIntegration } from 'astro';
 import { defineConfig } from 'astro/config';
 import starlightHeadingBadges from 'starlight-heading-badges';
 import starlightImageZoom from 'starlight-image-zoom';
-import starlightLlmsTxt from 'starlight-llms-txt';
 import starlightMegaMenu from 'starlight-mega-menu';
 import starlightPageActions from 'starlight-page-actions';
 import { starlightIconsPlugin } from 'starlight-plugin-icons';
@@ -399,6 +399,8 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
   const llmsOptionalLinks =
     options.llmsOptionalLinks || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+  const llmsConfig = process.env.LLMS_CONFIG ? JSON.parse(process.env.LLMS_CONFIG) : {};
+  const llmsFederatedSites = process.env.LLMS_FEDERATED_SITES ? JSON.parse(process.env.LLMS_FEDERATED_SITES) : [];
   const megaMenuItems = options.megaMenuItems || defaultMegaMenuItems;
   const head = options.head || defaultHead;
   const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/f5-distributed-cloud.svg' };
@@ -437,6 +439,15 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       description,
       rawContent: true,
       optionalLinks: llmsOptionalLinks,
+      sidebarNav: true,
+      customSets: llmsConfig.customSets || [],
+      promote: llmsConfig.promote || ['index*', 'overview*'],
+      demote: llmsConfig.demote || ['references*'],
+      perPageMarkdown: {
+        extensionStrategy: 'append',
+        excludePages: ['index*'],
+      },
+      ...(llmsFederatedSites.length > 0 ? { federatedSites: llmsFederatedSites } : {}),
     }),
   ];
 
