@@ -397,10 +397,30 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const title = options.title || process.env.DOCS_TITLE || 'Documentation';
   const description = options.description || process.env.DOCS_DESCRIPTION || '';
   const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
-  const llmsOptionalLinks =
-    options.llmsOptionalLinks || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
-  const llmsConfig = process.env.LLMS_CONFIG ? JSON.parse(process.env.LLMS_CONFIG) : {};
-  const llmsFederatedSites = process.env.LLMS_FEDERATED_SITES ? JSON.parse(process.env.LLMS_FEDERATED_SITES) : [];
+  let llmsOptionalLinks: Array<{ title: string; url: string }> = options.llmsOptionalLinks || [];
+  if (!options.llmsOptionalLinks && process.env.LLMS_OPTIONAL_LINKS) {
+    try {
+      llmsOptionalLinks = JSON.parse(process.env.LLMS_OPTIONAL_LINKS);
+    } catch (e) {
+      console.warn('[docs-theme] LLMS_OPTIONAL_LINKS contains invalid JSON; using defaults.', e);
+    }
+  }
+  let llmsConfig: Record<string, unknown> = {};
+  if (process.env.LLMS_CONFIG) {
+    try {
+      llmsConfig = JSON.parse(process.env.LLMS_CONFIG);
+    } catch (e) {
+      console.warn('[docs-theme] LLMS_CONFIG contains invalid JSON; using defaults.', e);
+    }
+  }
+  let llmsFederatedSites: unknown[] = [];
+  if (process.env.LLMS_FEDERATED_SITES) {
+    try {
+      llmsFederatedSites = JSON.parse(process.env.LLMS_FEDERATED_SITES);
+    } catch (e) {
+      console.warn('[docs-theme] LLMS_FEDERATED_SITES contains invalid JSON; using defaults.', e);
+    }
+  }
   const megaMenuItems = options.megaMenuItems || defaultMegaMenuItems;
   const head = options.head || defaultHead;
   const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/f5-distributed-cloud.svg' };

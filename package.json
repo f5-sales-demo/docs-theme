@@ -65,16 +65,16 @@
     "test:visual:update": "playwright test --update-snapshots"
   },
   "peerDependencies": {
-    "astro": ">=6.0.0",
     "@astrojs/starlight": ">=0.38.0",
-    "@iconify-json/lucide": "*",
+    "@f5xc-salesdemos/icons-f5-brand": "*",
+    "@f5xc-salesdemos/icons-f5xc": "*",
+    "@f5xc-salesdemos/icons-hashicorp-flight": "*",
     "@iconify-json/carbon": "*",
+    "@iconify-json/lucide": "*",
     "@iconify-json/mdi": "*",
     "@iconify-json/ph": "*",
     "@iconify-json/tabler": "*",
-    "@f5xc-salesdemos/icons-f5-brand": "*",
-    "@f5xc-salesdemos/icons-f5xc": "*",
-    "@f5xc-salesdemos/icons-hashicorp-flight": "*"
+    "astro": "^6.1.9"
   },
   "peerDependenciesMeta": {
     "@iconify-json/lucide": {
@@ -104,14 +104,14 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.0",
-    "unist-util-visit": "^5.0.0",
+    "@f5xc-salesdemos/starlight-llms-txt": "^1.0.0",
     "starlight-heading-badges": "^0.7.0",
     "starlight-image-zoom": "^0.14.1",
-    "@f5xc-salesdemos/starlight-llms-txt": "^1.0.0",
     "starlight-mega-menu": "^1.0.1",
     "starlight-page-actions": "^0.5.0",
     "starlight-plugin-icons": "^1.1.3",
     "starlight-scroll-to-top": "^1.0.1",
-    "starlight-videos": "^0.4.0"
+    "starlight-videos": "^0.4.0",
+    "unist-util-visit": "^5.0.0"
   }
 }
