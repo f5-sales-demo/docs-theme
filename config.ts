@@ -267,12 +267,6 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           title: 'AI Tools',
           items: [
             {
-              label: 'API MCP Server',
-              description: 'MCP server for F5 XC API',
-              href: 'https://f5xc-salesdemos.github.io/api-mcp/',
-              icon: resolveIcon('f5xc:ai_assistant_logo'),
-            },
-            {
               label: 'Marketplace',
               description: 'AI-powered marketplace for F5 XC',
               href: 'https://f5xc-salesdemos.github.io/marketplace/',
@@ -381,7 +375,6 @@ const federatedSearchSites = [
   { repo: 'ddos', label: 'DDoS' },
   { repo: 'waf', label: 'WAF' },
   { repo: 'api-protection', label: 'API Security' },
-  { repo: 'api-mcp', label: 'API MCP' },
   { repo: 'xcsh', label: 'XCSh' },
   { repo: 'csd', label: 'Client-Side Defense' },
   { repo: 'docs-icons', label: 'Docs Icons' },
