@@ -387,7 +387,7 @@ const federatedSearchSites = [
   { repo: 'ddos', label: 'DDoS' },
   { repo: 'waf', label: 'WAF' },
   { repo: 'api-protection', label: 'API Security' },
-  { repo: 'xcsh', label: 'XCSh' },
+  { repo: 'xcsh', label: 'xcsh' },
   { repo: 'csd', label: 'Client-Side Defense' },
   { repo: 'docs-icons', label: 'Docs Icons' },
   { repo: 'devcontainer', label: 'Dev Container' },
