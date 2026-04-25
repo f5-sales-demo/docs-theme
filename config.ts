@@ -148,6 +148,12 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               icon: resolveIcon('f5xc:content-delivery-network'),
             },
             {
+              label: 'CDN Simulator',
+              description: 'NGINX-based CDN edge node for labs',
+              href: 'https://f5xc-salesdemos.github.io/cdn-simulator/',
+              icon: resolveIcon('f5xc:content-delivery-network'),
+            },
+            {
               label: 'DNS Load Balancing',
               description: 'DNS management and zones',
               href: 'https://f5xc-salesdemos.github.io/dns/',
@@ -382,6 +388,7 @@ const federatedSearchSites = [
   { repo: 'marketplace', label: 'Marketplace' },
   { repo: 'api-specs', label: 'API Specs' },
   { repo: 'api-specs-enriched', label: 'API Specs Enriched' },
+  { repo: 'cdn-simulator', label: 'CDN Simulator' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
