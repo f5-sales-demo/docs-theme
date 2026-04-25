@@ -154,6 +154,12 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               icon: resolveIcon('f5xc:content-delivery-network'),
             },
             {
+              label: 'Origin Server',
+              description: 'Vulnerable web apps origin for labs',
+              href: 'https://f5xc-salesdemos.github.io/origin-server/',
+              icon: resolveIcon('f5xc:distributed-apps'),
+            },
+            {
               label: 'DNS Load Balancing',
               description: 'DNS management and zones',
               href: 'https://f5xc-salesdemos.github.io/dns/',
@@ -389,6 +395,7 @@ const federatedSearchSites = [
   { repo: 'api-specs', label: 'API Specs' },
   { repo: 'api-specs-enriched', label: 'API Specs Enriched' },
   { repo: 'cdn-simulator', label: 'CDN Simulator' },
+  { repo: 'origin-server', label: 'Origin Server' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
