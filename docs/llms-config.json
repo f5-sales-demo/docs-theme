@@ -1,0 +1,16 @@
+{
+  "customSets": [
+    {
+      "label": "Diagrams",
+      "description": "Mermaid diagram templates for F5 XC architecture, cloud, and security topics",
+      "paths": ["diagrams/**"]
+    },
+    {
+      "label": "Configuration",
+      "description": "Astro config, environment variables, and build pipeline setup",
+      "paths": ["astro-config*", "environment-variables*", "build-pipeline*"]
+    }
+  ],
+  "promote": ["index*", "components*", "astro-config*"],
+  "demote": ["icons*"]
+}
