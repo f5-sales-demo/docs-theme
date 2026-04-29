@@ -4,6 +4,7 @@ import type { StarlightPlugin } from '@astrojs/starlight/types';
 import starlightLlmsTxt from '@f5xc-salesdemos/starlight-llms-txt';
 import type { AstroIntegration } from 'astro';
 import { defineConfig } from 'astro/config';
+import codeImport from 'remark-code-import';
 import starlightHeadingBadges from 'starlight-heading-badges';
 import starlightImageZoom from 'starlight-image-zoom';
 import starlightMegaMenu from 'starlight-mega-menu';
@@ -482,7 +483,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     site,
     base,
     markdown: {
-      remarkPlugins: [remarkMermaid, ...additionalRemarkPlugins],
+      remarkPlugins: [remarkMermaid, [codeImport, { allowImportingFromOutside: true }], ...additionalRemarkPlugins],
     },
     integrations: [
       starlight({

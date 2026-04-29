@@ -105,6 +105,7 @@
   "dependencies": {
     "@astrojs/react": "^5.0.0",
     "@f5xc-salesdemos/starlight-llms-txt": "^1.0.0",
+    "remark-code-import": "^1.2.0",
     "starlight-heading-badges": "^0.7.0",
     "starlight-image-zoom": "^0.14.1",
     "starlight-mega-menu": "^1.0.1",
