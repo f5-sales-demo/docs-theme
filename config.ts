@@ -436,6 +436,14 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       console.warn('[docs-theme] LLMS_FEDERATED_SITES contains invalid JSON; using defaults.', e);
     }
   }
+  let llmsFederatedSiteCategories: unknown[] = [];
+  if (process.env.LLMS_FEDERATED_SITE_CATEGORIES) {
+    try {
+      llmsFederatedSiteCategories = JSON.parse(process.env.LLMS_FEDERATED_SITE_CATEGORIES);
+    } catch (e) {
+      console.warn('[docs-theme] LLMS_FEDERATED_SITE_CATEGORIES contains invalid JSON; using defaults.', e);
+    }
+  }
   const megaMenuItems = options.megaMenuItems || defaultMegaMenuItems;
   const head = options.head || defaultHead;
   const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/f5-distributed-cloud.svg' };
@@ -483,6 +491,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         excludePages: ['index*'],
       },
       ...(llmsFederatedSites.length > 0 ? { federatedSites: llmsFederatedSites } : {}),
+      ...(llmsFederatedSiteCategories.length > 0 ? { federatedSiteCategories: llmsFederatedSiteCategories } : {}),
     }),
   ];
 
