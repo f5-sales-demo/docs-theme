@@ -465,7 +465,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     starlightLlmsTxt({
       projectName: title,
       description,
-      rawContent: true,
+      rawContent: false,
       optionalLinks: llmsOptionalLinks,
       sidebarNav: true,
       customSets: llmsConfig.customSets || [],
