@@ -149,24 +149,6 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               icon: resolveIcon('f5xc:content-delivery-network'),
             },
             {
-              label: 'CDN Simulator',
-              description: 'NGINX-based CDN edge node for labs',
-              href: 'https://f5xc-salesdemos.github.io/cdn-simulator/',
-              icon: resolveIcon('f5xc:content-delivery-network'),
-            },
-            {
-              label: 'Origin Server',
-              description: 'Vulnerable web apps origin for labs',
-              href: 'https://f5xc-salesdemos.github.io/origin-server/',
-              icon: resolveIcon('f5xc:distributed-apps'),
-            },
-            {
-              label: 'Traffic Generator',
-              description: 'Security testing tools for traffic generation',
-              href: 'https://f5xc-salesdemos.github.io/traffic-generator/',
-              icon: resolveIcon('f5xc:application-traffic-insight'),
-            },
-            {
               label: 'DNS Load Balancing',
               description: 'DNS management and zones',
               href: 'https://f5xc-salesdemos.github.io/dns/',
@@ -303,6 +285,42 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
     },
   },
   {
+    label: 'Demo Resources',
+    content: {
+      layout: 'list',
+      categories: [
+        {
+          title: 'Components',
+          items: [
+            {
+              label: 'Origin Server',
+              description: 'Vulnerable web applications for WAF and API testing',
+              href: 'https://f5xc-salesdemos.github.io/origin-server/',
+              icon: resolveIcon('f5xc:distributed-apps'),
+            },
+            {
+              label: 'Traffic Generator',
+              description: 'Security tools and attack suites for traffic generation',
+              href: 'https://f5xc-salesdemos.github.io/traffic-generator/',
+              icon: resolveIcon('f5xc:application-traffic-insight'),
+            },
+            {
+              label: 'CDN Simulator',
+              description: 'NGINX-based CDN edge node simulator',
+              href: 'https://f5xc-salesdemos.github.io/cdn-simulator/',
+              icon: resolveIcon('f5xc:content-delivery-network'),
+            },
+          ],
+        },
+      ],
+      footer: {
+        label: 'View All Components',
+        href: 'https://f5xc-salesdemos.github.io/demo-resources/',
+        description: 'Browse the full demo resource catalog',
+      },
+    },
+  },
+  {
     label: 'Resources',
     content: {
       layout: 'list',
@@ -404,6 +422,7 @@ const federatedSearchSites = [
   { repo: 'cdn-simulator', label: 'CDN Simulator' },
   { repo: 'origin-server', label: 'Origin Server' },
   { repo: 'traffic-generator', label: 'Traffic Generator' },
+  { repo: 'demo-resources', label: 'Demo Resources' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
