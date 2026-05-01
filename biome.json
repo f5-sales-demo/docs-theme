@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
   "formatter": {
     "indentStyle": "space",
     "indentWidth": 2,
@@ -32,6 +32,12 @@
         "enabled": false
       },
       "linter": {
+        "enabled": false
+      }
+    },
+    {
+      "includes": ["docs/specifications/api/**", "docs/api-reference/**"],
+      "formatter": {
         "enabled": false
       }
     },
