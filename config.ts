@@ -351,6 +351,31 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
       ],
     },
   },
+  {
+    label: 'Tools',
+    content: {
+      layout: 'list',
+      categories: [
+        {
+          title: 'Developer Tools',
+          items: [
+            {
+              label: 'VS Code Extension',
+              description: 'Manage F5 XC resources from VS Code',
+              href: 'https://f5xc-salesdemos.github.io/vscode-f5xc-tools/',
+              icon: resolveIcon('carbon:code'),
+            },
+            {
+              label: 'xcsh CLI',
+              description: 'AI-powered CLI for F5 XC',
+              href: 'https://f5xc-salesdemos.github.io/xcsh/',
+              icon: resolveIcon('carbon:terminal'),
+            },
+          ],
+        },
+      ],
+    },
+  },
 ];
 
 const defaultHead: HeadEntry[] = [
