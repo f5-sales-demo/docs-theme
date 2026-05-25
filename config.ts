@@ -15,6 +15,7 @@ import starlightVideosPlugin from 'starlight-videos';
 import f5xcDocsTheme from './index.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
 import { resolveIcon } from './src/utils/resolve-icon.ts';
+import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
 
 interface MegaMenuItem {
   label: string;
@@ -539,6 +540,9 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     }),
   ];
 
+  const contentDir = process.env.CONTENT_DIR || 'src/content/docs';
+  const subcategorySidebar = buildSubcategorySidebar(contentDir);
+
   return defineConfig({
     site,
     base,
@@ -551,6 +555,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         plugins: starlightPlugins,
         head: head as Parameters<typeof starlight>[0]['head'],
         logo: logo as Parameters<typeof starlight>[0]['logo'],
+        ...(subcategorySidebar ? { sidebar: subcategorySidebar } : {}),
         ...(mergeIndex && mergeIndex.length > 0 ? { pagefind: { mergeIndex } } : {}),
         ...(githubRepository
           ? {
