@@ -51,10 +51,19 @@ function collectMarkdownFiles(dir: string): string[] {
 }
 
 /**
- * Strip the provider suffix from a page_title to get a clean display title.
- * e.g. "f5xc_api_crawler Resource - volterratf5xc" → "f5xc_api_crawler"
+ * Clean a page_title to match Terraform Registry sidebar labels.
+ * Resources:    "f5xc_http_loadbalancer Resource - terraform-provider-f5xc" → "f5xc_http_loadbalancer"
+ * Data Sources: "f5xc_http_loadbalancer Data Source - terraform-provider-f5xc" → "f5xc_http_loadbalancer"
+ * Functions:    "blindfold function - terraform-provider-f5xc" → "blindfold"
+ * Guides:       "Guide: HTTP Load Balancer with Security Features" → "HTTP Load Balancer with Security Features"
  */
-function cleanPageTitle(pageTitle: string): string {
+function cleanPageTitle(pageTitle: string, docType: DocType): string {
+  if (docType === 'guide') {
+    return pageTitle.replace(/^Guide:\s*/i, '').trim();
+  }
+  if (docType === 'function') {
+    return pageTitle.replace(/\s+function\s*-\s*.*$/i, '').trim();
+  }
   return pageTitle.replace(/\s+(Resource|Data Source)\s*-\s*.*$/i, '').trim();
 }
 
@@ -119,16 +128,17 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       continue; // skip unparseable files
     }
 
-    // Determine title: prefer `title`, fall back to cleaned `page_title`
+    // Determine title from page_title (or title after entrypoint.sh renames it),
+    // then clean it to match Terraform Registry sidebar label format.
     let title = '';
     if (typeof frontmatter.title === 'string' && frontmatter.title.trim()) {
       title = frontmatter.title.trim();
     } else if (typeof frontmatter.page_title === 'string' && frontmatter.page_title.trim()) {
-      title = cleanPageTitle(frontmatter.page_title);
+      title = frontmatter.page_title.trim();
     } else {
-      // Last resort: derive from filename
       title = path.basename(filePath, path.extname(filePath)).replace(/[-_]/g, ' ');
     }
+    title = cleanPageTitle(title, docType);
 
     const subcategory =
       typeof frontmatter.subcategory === 'string' && frontmatter.subcategory.trim()
