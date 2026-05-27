@@ -8,6 +8,7 @@ import codeImport from 'remark-code-import';
 import starlightHeadingBadges from 'starlight-heading-badges';
 import starlightImageZoom from 'starlight-image-zoom';
 import starlightMegaMenu from 'starlight-mega-menu';
+import starlightOpenAPI from 'starlight-openapi';
 import starlightPageActions from 'starlight-page-actions';
 import { starlightIconsPlugin } from 'starlight-plugin-icons';
 import starlightScrollToTop from 'starlight-scroll-to-top';
@@ -489,6 +490,14 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       console.warn('[docs-theme] LLMS_FEDERATED_SITE_CATEGORIES contains invalid JSON; using defaults.', e);
     }
   }
+  let openAPISpecs: Array<{ base: string; schema: string; sidebar?: { label?: string; collapsed?: boolean } }> = [];
+  if (process.env.OPENAPI_SPECS_CONFIG) {
+    try {
+      openAPISpecs = JSON.parse(process.env.OPENAPI_SPECS_CONFIG);
+    } catch (e) {
+      console.warn('[docs-theme] OPENAPI_SPECS_CONFIG contains invalid JSON; skipping OpenAPI plugin.', e);
+    }
+  }
   const megaMenuItems = options.megaMenuItems || defaultMegaMenuItems;
   const head = options.head || defaultHead;
   const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/f5-distributed-cloud.svg' };
@@ -522,6 +531,20 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     starlightHeadingBadges(),
     starlightPageActions(),
     starlightIconsPlugin(),
+    ...(openAPISpecs.length > 0
+      ? [
+          starlightOpenAPI(
+            openAPISpecs.map((spec) => ({
+              base: spec.base,
+              schema: spec.schema,
+              sidebar: {
+                collapsed: spec.sidebar?.collapsed ?? true,
+                label: spec.sidebar?.label,
+              },
+            })),
+          ),
+        ]
+      : []),
     starlightLlmsTxt({
       projectName: title,
       description,
