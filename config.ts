@@ -8,7 +8,7 @@ import codeImport from 'remark-code-import';
 import starlightHeadingBadges from 'starlight-heading-badges';
 import starlightImageZoom from 'starlight-image-zoom';
 import starlightMegaMenu from 'starlight-mega-menu';
-import starlightOpenAPI from 'starlight-openapi';
+import starlightOpenAPI, { openAPISidebarGroups } from 'starlight-openapi';
 import starlightPageActions from 'starlight-page-actions';
 import { starlightIconsPlugin } from 'starlight-plugin-icons';
 import starlightScrollToTop from 'starlight-scroll-to-top';
@@ -578,7 +578,18 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         plugins: starlightPlugins,
         head: head as Parameters<typeof starlight>[0]['head'],
         logo: logo as Parameters<typeof starlight>[0]['logo'],
-        ...(subcategorySidebar ? { sidebar: subcategorySidebar } : {}),
+        ...(subcategorySidebar
+          ? { sidebar: [...subcategorySidebar, ...openAPISidebarGroups] }
+          : openAPISpecs.length > 0
+            ? {
+                sidebar: [
+                  {
+                    label: 'API Reference',
+                    items: [{ label: 'Overview', slug: 'api-reference' }, ...openAPISidebarGroups],
+                  },
+                ],
+              }
+            : {}),
         ...(mergeIndex && mergeIndex.length > 0 ? { pagefind: { mergeIndex } } : {}),
         ...(githubRepository
           ? {
