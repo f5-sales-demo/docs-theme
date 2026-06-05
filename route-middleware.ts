@@ -24,7 +24,11 @@ const indexPaths = Object.keys(
 );
 
 const indexSlugs = new Set<string>(
-  indexPaths.map((p) => p.replace(/^\/src\/content\/docs\//, '').replace(/\/?index\.mdx?$/, '')),
+  indexPaths.map((p) => {
+    const relative = p.replace(/^\/src\/content\/docs\//, '').replace(/\/?index\.mdx?$/, '');
+    // Strip locale prefix (e.g., "en/guides" → "guides")
+    return relative.replace(/^[a-z]{2}(-[a-z]{2,4})?\/?/, '');
+  }),
 );
 
 function filterIndexPages(entries: SidebarEntry[], slugs: Set<string>): SidebarEntry[] {
