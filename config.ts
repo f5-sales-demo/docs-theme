@@ -17,6 +17,10 @@ import f5xcDocsTheme from './index.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
 import { resolveIcon } from './src/utils/resolve-icon.ts';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
+import { f5xcDefaultLocales, defaultLocale as f5xcDefaultLocale } from './src/i18n/locales.ts';
+
+export { f5xcDefaultLocales } from './src/i18n/locales.ts';
+export type { LocaleConfig } from './src/i18n/locales.ts';
 
 interface MegaMenuItem {
   label: string;
@@ -60,6 +64,8 @@ export interface F5xcDocsConfigOptions {
   head?: HeadEntry[];
   logo?: { src: string } | { light: string; dark: string };
   federatedSearch?: boolean;
+  locales?: Record<string, { label: string; lang: string; dir?: 'rtl' }> | false;
+  defaultLocale?: string;
 }
 
 const defaultMegaMenuItems: MegaMenuItem[] = [
@@ -505,6 +511,8 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const additionalIntegrations = options.additionalIntegrations || [];
 
   const federatedSearch = options.federatedSearch !== false;
+  const resolvedLocales = options.locales === false ? undefined : (options.locales || f5xcDefaultLocales);
+  const resolvedDefaultLocale = options.defaultLocale || f5xcDefaultLocale;
   const normalizedBase = base.replace(/\/+$/, '');
   const mergeIndex = federatedSearch
     ? federatedSearchSites
@@ -574,6 +582,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         plugins: starlightPlugins,
         head: head as Parameters<typeof starlight>[0]['head'],
         logo: logo as Parameters<typeof starlight>[0]['logo'],
+        ...(resolvedLocales ? { locales: resolvedLocales, defaultLocale: resolvedDefaultLocale } : {}),
         ...(subcategorySidebar
           ? { sidebar: [...subcategorySidebar, ...openAPISidebarGroups] }
           : openAPISpecs.length > 0

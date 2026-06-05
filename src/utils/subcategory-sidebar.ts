@@ -97,13 +97,17 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
     return undefined;
   }
 
-  const files = collectMarkdownFiles(resolvedDir);
+  // If an "en" subdirectory exists, scan it instead (locale-aware content structure)
+  const enDir = path.join(resolvedDir, 'en');
+  const scanDir = fs.existsSync(enDir) ? enDir : resolvedDir;
+
+  const files = collectMarkdownFiles(scanDir);
   const docs: DocEntry[] = [];
   let hasAnySubcategory = false;
   let hasOverview = false;
 
   for (const filePath of files) {
-    const relativePath = path.relative(resolvedDir, filePath).replace(/\\/g, '/');
+    const relativePath = path.relative(scanDir, filePath).replace(/\\/g, '/');
     const slug = filePathToSlug(relativePath);
 
     // Track overview page separately
