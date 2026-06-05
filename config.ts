@@ -14,13 +14,13 @@ import { starlightIconsPlugin } from 'starlight-plugin-icons';
 import starlightScrollToTop from 'starlight-scroll-to-top';
 import starlightVideosPlugin from 'starlight-videos';
 import f5xcDocsTheme from './index.ts';
+import { defaultLocale as f5xcDefaultLocale, f5xcDefaultLocales } from './src/i18n/locales.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
 import { resolveIcon } from './src/utils/resolve-icon.ts';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
-import { f5xcDefaultLocales, defaultLocale as f5xcDefaultLocale } from './src/i18n/locales.ts';
 
-export { f5xcDefaultLocales } from './src/i18n/locales.ts';
 export type { LocaleConfig } from './src/i18n/locales.ts';
+export { f5xcDefaultLocales } from './src/i18n/locales.ts';
 
 interface MegaMenuItem {
   label: string;
@@ -511,7 +511,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const additionalIntegrations = options.additionalIntegrations || [];
 
   const federatedSearch = options.federatedSearch !== false;
-  const resolvedLocales = options.locales === false ? undefined : (options.locales || f5xcDefaultLocales);
+  const resolvedLocales = options.locales === false ? undefined : options.locales || f5xcDefaultLocales;
   const resolvedDefaultLocale = options.defaultLocale || f5xcDefaultLocale;
   const normalizedBase = base.replace(/\/+$/, '');
   const mergeIndex = federatedSearch

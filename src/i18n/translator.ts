@@ -14,16 +14,13 @@ export function computeSourceHash(content: string): string {
   return createHash('sha256').update(content).digest('hex').slice(0, 12);
 }
 
-export function needsTranslation(
-  englishContent: string,
-  targetPath: string,
-): boolean {
+export function needsTranslation(englishContent: string, targetPath: string): boolean {
   if (!fs.existsSync(targetPath)) return true;
 
   const targetRaw = fs.readFileSync(targetPath, 'utf-8');
   const { data: targetFrontmatter } = matter(targetRaw);
 
-  if (!targetFrontmatter.i18n || targetFrontmatter.i18n.translator !== 'machine') {
+  if (targetFrontmatter.i18n?.translator !== 'machine') {
     return false;
   }
 
@@ -40,10 +37,7 @@ export async function translateFile(
   const englishRaw = fs.readFileSync(englishPath, 'utf-8');
   const { data: frontmatter } = matter(englishRaw);
 
-  const relativePath = path.relative(
-    path.join(options.contentDir, 'en'),
-    englishPath,
-  );
+  const relativePath = path.relative(path.join(options.contentDir, 'en'), englishPath);
   const targetPath = path.join(options.contentDir, localeCode, relativePath);
 
   if (!needsTranslation(englishRaw, targetPath)) {
@@ -71,7 +65,7 @@ export async function translateFile(
       });
 
       const textBlock = response.content.find((b) => b.type === 'text');
-      if (!textBlock || textBlock.type !== 'text') {
+      if (textBlock?.type !== 'text') {
         throw new Error('No text block in API response');
       }
       translated = textBlock.text;
@@ -79,13 +73,11 @@ export async function translateFile(
     } catch (err: unknown) {
       const error = err as Error & { status?: number };
       if (error.status === 429 && attempts < maxAttempts) {
-        const delay = Math.pow(2, attempts) * 1000;
+        const delay = 2 ** attempts * 1000;
         await new Promise((r) => setTimeout(r, delay));
         continue;
       }
-      console.warn(
-        `[translate] Failed to translate ${relativePath} to ${localeCode}: ${error.message}`,
-      );
+      console.warn(`[translate] Failed to translate ${relativePath} to ${localeCode}: ${error.message}`);
       return null;
     }
   }
