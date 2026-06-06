@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import type { StarlightPlugin } from '@astrojs/starlight/types';
@@ -511,8 +513,6 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const additionalIntegrations = options.additionalIntegrations || [];
 
   const federatedSearch = options.federatedSearch !== false;
-  const resolvedLocales = options.locales === false ? undefined : options.locales || f5xcDefaultLocales;
-  const resolvedDefaultLocale = options.defaultLocale || f5xcDefaultLocale;
   const normalizedBase = base.replace(/\/+$/, '');
   const mergeIndex = federatedSearch
     ? federatedSearchSites
@@ -569,6 +569,13 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
 
   const contentDir = process.env.CONTENT_DIR || 'src/content/docs';
   const subcategorySidebar = buildSubcategorySidebar(contentDir);
+
+  // Auto-detect i18n: enable locales only when content has an en/ subdirectory.
+  // Repos that haven't migrated to docs/en/ won't get a broken language selector.
+  const hasEnSubdir = fs.existsSync(path.resolve(contentDir, 'en'));
+  const resolvedLocales =
+    options.locales === false ? undefined : options.locales || (hasEnSubdir ? f5xcDefaultLocales : undefined);
+  const resolvedDefaultLocale = options.defaultLocale || f5xcDefaultLocale;
 
   return defineConfig({
     site,
