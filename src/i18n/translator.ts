@@ -57,12 +57,13 @@ export async function translateFile(
   while (true) {
     attempts++;
     try {
-      const response = await client.messages.create({
-        model: options.model || 'claude-sonnet-4-20250514',
+      const stream = client.messages.stream({
+        model: options.model || process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
         max_tokens: Math.max(4096, Math.ceil(sourceLength * 2.5)),
         system: systemPrompt,
         messages: [{ role: 'user', content: englishRaw }],
       });
+      const response = await stream.finalMessage();
 
       const textBlock = response.content.find((b) => b.type === 'text');
       if (textBlock?.type !== 'text') {
