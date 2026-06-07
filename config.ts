@@ -580,7 +580,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   return defineConfig({
     site,
     base,
-    ...(resolvedLocales ? { redirects: { '/': `/${resolvedDefaultLocale}` } } : {}),
+    ...(resolvedLocales ? { redirects: { '/': `${normalizedBase}/${resolvedDefaultLocale}/` } } : {}),
     markdown: {
       remarkPlugins: [remarkMermaid, [codeImport, { allowImportingFromOutside: true }], ...additionalRemarkPlugins],
     },
