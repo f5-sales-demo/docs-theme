@@ -17,6 +17,7 @@ import starlightScrollToTop from 'starlight-scroll-to-top';
 import starlightVideosPlugin from 'starlight-videos';
 import f5xcDocsTheme from './index.ts';
 import { defaultLocale as f5xcDefaultLocale, f5xcDefaultLocales } from './src/i18n/locales.ts';
+import { sidebarTranslations } from './src/i18n/translations.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
 import { resolveIcon } from './src/utils/resolve-icon.ts';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
@@ -529,7 +530,21 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     f5xcDocsTheme(),
     starlightScrollToTop({
       showTooltip: true,
-      tooltipText: 'Scroll to top',
+      tooltipText: {
+        en: 'Scroll to top',
+        fr: 'Retour en haut',
+        es: 'Volver arriba',
+        de: 'Nach oben',
+        'pt-BR': 'Voltar ao topo',
+        ja: 'トップに戻る',
+        ko: '맨 위로',
+        'zh-CN': '回到顶部',
+        'zh-TW': '回到頂部',
+        ar: 'العودة للأعلى',
+        it: 'Torna su',
+        hi: 'शीर्ष पर जाएँ',
+        th: 'กลับไปด้านบน',
+      },
       smoothScroll: true,
       threshold: 10,
       showProgressRing: true,
@@ -598,7 +613,11 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
                 sidebar: [
                   {
                     label: 'API Reference',
-                    items: [{ label: 'Overview', slug: 'api-reference' }, ...openAPISidebarGroups],
+                    translations: sidebarTranslations['API Reference'],
+                    items: [
+                      { label: 'Overview', translations: sidebarTranslations.Overview, slug: 'api-reference' },
+                      ...openAPISidebarGroups,
+                    ],
                   },
                 ],
               }
