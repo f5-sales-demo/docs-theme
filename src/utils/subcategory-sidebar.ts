@@ -1,12 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
+import { sidebarTranslations } from '../i18n/translations.ts';
 
 /**
  * Starlight sidebar config types (simplified).
  */
-type SidebarLink = { label: string; link: string };
-type SidebarGroup = { label: string; items: SidebarItem[]; collapsed?: boolean };
+type SidebarLink = { label: string; link: string; translations?: Record<string, string> };
+type SidebarGroup = { label: string; items: SidebarItem[]; collapsed?: boolean; translations?: Record<string, string> };
 type SidebarItem = SidebarLink | SidebarGroup;
 
 type DocType = 'resource' | 'data-source' | 'guide' | 'function';
@@ -171,7 +172,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
 
   // 1. Overview link
   if (hasOverview) {
-    sidebar.push({ label: 'Overview', link: '/' });
+    sidebar.push({ label: 'Overview', link: '/', translations: sidebarTranslations.Overview });
   }
 
   // 2. Guides group
@@ -179,6 +180,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
     sidebar.push({
       label: 'Guides',
       collapsed: true,
+      translations: sidebarTranslations.Guides,
       items: guides.sort(byTitle).map((g) => ({ label: g.title, link: g.slug })),
     });
   }
@@ -188,6 +190,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
     sidebar.push({
       label: 'Functions',
       collapsed: true,
+      translations: sidebarTranslations.Functions,
       items: functions.sort(byTitle).map((f) => ({ label: f.title, link: f.slug })),
     });
   }
@@ -196,7 +199,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
   const subcategoryMap = new Map<string, { resources: DocEntry[]; dataSources: DocEntry[] }>();
 
   for (const doc of [...resources, ...dataSources]) {
-    const cat = doc.subcategory || 'Uncategorized';
+    const cat = doc.subcategory ?? 'Uncategorized';
     let bucket = subcategoryMap.get(cat);
     if (!bucket) {
       bucket = { resources: [], dataSources: [] };
@@ -225,6 +228,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
     if (catResources.length > 0) {
       groupItems.push({
         label: 'Resources',
+        translations: sidebarTranslations.Resources,
         items: catResources.sort(byTitle).map((r) => ({ label: r.title, link: r.slug })),
       });
     }
@@ -232,6 +236,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
     if (catDataSources.length > 0) {
       groupItems.push({
         label: 'Data Sources',
+        translations: sidebarTranslations['Data Sources'],
         items: catDataSources.sort(byTitle).map((d) => ({ label: d.title, link: d.slug })),
       });
     }
@@ -240,6 +245,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       sidebar.push({
         label: category,
         collapsed: true,
+        ...(category === 'Uncategorized' ? { translations: sidebarTranslations.Uncategorized } : {}),
         items: groupItems,
       });
     }

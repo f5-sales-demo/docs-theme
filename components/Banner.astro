@@ -3,6 +3,7 @@ import Default from '@astrojs/starlight/components/Banner.astro';
 
 const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
 const { sidebar, entry, siteTitle, editUrl } = Astro.locals.starlightRoute;
+const t = Astro.locals.t;
 
 const isIndexPage = entry.filePath ? /(?:^|[\\/])index\.mdx?$/.test(entry.filePath) : false;
 const hideBreadcrumbs = isIndexPage;
@@ -28,7 +29,7 @@ const fixedEditUrl = editUrl ? editUrl.href.replace('/src/content/docs/', '/docs
 {!hideBreadcrumbs && (
   <nav class="breadcrumbs" aria-label="Breadcrumb">
     <ol>
-      <li><a href={docsHome}>Home</a></li>
+      <li><a href={docsHome}>{t('f5xc.breadcrumb.home')}</a></li>
       <li><a href={import.meta.env.BASE_URL}>{siteTitle}</a></li>
       {trail.map((crumb) => (
         <li><span>{crumb.label}</span></li>
@@ -43,7 +44,7 @@ const fixedEditUrl = editUrl ? editUrl.href.replace('/src/content/docs/', '/docs
           <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
           <path d="m15 5 4 4" />
         </svg>
-        <span>Edit</span>
+        <span>{t('f5xc.breadcrumb.edit')}</span>
       </a>
     )}
   </nav>

@@ -1,9 +1,13 @@
 import type { StarlightPlugin } from '@astrojs/starlight/types';
+import { translations } from './src/i18n/translations.ts';
 
 export default function f5xcDocsTheme(): StarlightPlugin {
   return {
     name: '@f5xc-salesdemos/docs-theme',
     hooks: {
+      'i18n:setup'({ injectTranslations }) {
+        injectTranslations(translations);
+      },
       'config:setup'({ config, updateConfig, addRouteMiddleware, logger }) {
         addRouteMiddleware({
           entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
