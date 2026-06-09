@@ -22,6 +22,7 @@ import {
   footerDescriptions,
   footerLabels,
   itemDescriptions,
+  itemLabels,
   menuLabels,
   mobileLabels,
 } from './src/i18n/mega-menu-translations.ts';
@@ -35,23 +36,29 @@ export { f5xcDefaultLocales } from './src/i18n/locales.ts';
 
 interface MegaMenuItem {
   label: string;
+  translations?: Record<string, string>;
   href?: string;
   content?: {
     layout?: string;
     columns?: number;
     categories?: Array<{
       title: string;
+      translations?: Record<string, string>;
       items: Array<{
         label: string;
+        translations?: Record<string, string>;
         description?: string;
+        descriptionTranslations?: Record<string, string>;
         href: string;
         icon?: string;
       }>;
     }>;
     footer?: {
       label: string;
+      translations?: Record<string, string>;
       href: string;
       description?: string;
+      descriptionTranslations?: Record<string, string>;
     };
   };
 }
@@ -93,6 +100,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'Web App Firewall',
+              translations: itemLabels['Web App Firewall'],
               description: 'Firewall policies and configuration',
               descriptionTranslations: itemDescriptions['Firewall policies and configuration'],
               href: 'https://f5xc-salesdemos.github.io/waf/',
@@ -100,6 +108,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'API Security',
+              translations: itemLabels['API Security'],
               description: 'API discovery and protection',
               descriptionTranslations: itemDescriptions['API discovery and protection'],
               href: 'https://f5xc-salesdemos.github.io/api-protection/',
@@ -107,6 +116,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'Client-Side Defense',
+              translations: itemLabels['Client-Side Defense'],
               description: 'Browser-based threat protection',
               descriptionTranslations: itemDescriptions['Browser-based threat protection'],
               href: 'https://f5xc-salesdemos.github.io/csd/',
@@ -114,6 +124,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'Web App Scanning',
+              translations: itemLabels['Web App Scanning'],
               description: 'Vulnerability assessment and scanning',
               descriptionTranslations: itemDescriptions['Vulnerability assessment and scanning'],
               href: 'https://f5xc-salesdemos.github.io/was/',
@@ -127,6 +138,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'Bot Defense Advanced',
+              translations: itemLabels['Bot Defense Advanced'],
               description: 'Behavioral analysis and AI detection',
               descriptionTranslations: itemDescriptions['Behavioral analysis and AI detection'],
               href: 'https://f5xc-salesdemos.github.io/bot-advanced/',
@@ -134,6 +146,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'Bot Defense Standard',
+              translations: itemLabels['Bot Defense Standard'],
               description: 'Signature-based bot detection',
               descriptionTranslations: itemDescriptions['Signature-based bot detection'],
               href: 'https://f5xc-salesdemos.github.io/bot-standard/',
@@ -141,6 +154,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'DDoS Protection',
+              translations: itemLabels['DDoS Protection'],
               description: 'Distributed denial-of-service mitigation',
               descriptionTranslations: itemDescriptions['Distributed denial-of-service mitigation'],
               href: 'https://f5xc-salesdemos.github.io/ddos/',
@@ -171,6 +185,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'Multi-Cloud Networking',
+              translations: itemLabels['Multi-Cloud Networking'],
               description: 'Site connectivity across clouds',
               descriptionTranslations: itemDescriptions['Site connectivity across clouds'],
               href: 'https://f5xc-salesdemos.github.io/mcn/',
@@ -178,6 +193,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'Content Delivery',
+              translations: itemLabels['Content Delivery'],
               description: 'Edge caching and distribution',
               descriptionTranslations: itemDescriptions['Edge caching and distribution'],
               href: 'https://f5xc-salesdemos.github.io/cdn/',
@@ -185,6 +201,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'DNS Load Balancing',
+              translations: itemLabels['DNS Load Balancing'],
               description: 'DNS management and zones',
               descriptionTranslations: itemDescriptions['DNS management and zones'],
               href: 'https://f5xc-salesdemos.github.io/dns/',
@@ -192,6 +209,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'NGINX Management',
+              translations: itemLabels['NGINX Management'],
               description: 'NGINX integration and configuration',
               descriptionTranslations: itemDescriptions['NGINX integration and configuration'],
               href: 'https://f5xc-salesdemos.github.io/nginx/',
@@ -205,6 +223,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'Observability',
+              translations: itemLabels.Observability,
               description: 'Monitoring, metrics, and insights',
               descriptionTranslations: itemDescriptions['Monitoring, metrics, and insights'],
               href: 'https://f5xc-salesdemos.github.io/observability/',
@@ -212,6 +231,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'Administration',
+              translations: itemLabels.Administration,
               description: 'Tenant management and RBAC',
               descriptionTranslations: itemDescriptions['Tenant management and RBAC'],
               href: 'https://f5xc-salesdemos.github.io/administration/',
@@ -241,6 +261,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'Docs Builder',
+              translations: itemLabels['Docs Builder'],
               description: 'Containerized Astro build system',
               descriptionTranslations: itemDescriptions['Containerized Astro build system'],
               href: 'https://f5xc-salesdemos.github.io/docs-builder/',
@@ -248,6 +269,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'Docs Theme',
+              translations: itemLabels['Docs Theme'],
               description: 'Shared branding and styling',
               descriptionTranslations: itemDescriptions['Shared branding and styling'],
               href: 'https://f5xc-salesdemos.github.io/docs-theme/',
@@ -255,6 +277,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'Icon Packages',
+              translations: itemLabels['Icon Packages'],
               description: 'NPM icon component library',
               descriptionTranslations: itemDescriptions['NPM icon component library'],
               href: 'https://f5xc-salesdemos.github.io/docs-icons/',
@@ -262,6 +285,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'Dev Container',
+              translations: itemLabels['Dev Container'],
               description: 'Isolated development environment',
               descriptionTranslations: itemDescriptions['Isolated development environment'],
               href: 'https://f5xc-salesdemos.github.io/devcontainer/',
@@ -269,6 +293,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'mvp',
+              translations: itemLabels.mvp,
               description:
                 'Capability program that amplifies F5 Distributed Cloud practitioners with an agentic subject matter expert',
               descriptionTranslations:
@@ -286,6 +311,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'Terraform Provider',
+              translations: itemLabels['Terraform Provider'],
               description: 'F5 XC Terraform provider',
               descriptionTranslations: itemDescriptions['F5 XC Terraform provider'],
               href: 'https://f5xc-salesdemos.github.io/terraform-provider-f5xc/',
@@ -293,6 +319,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'API Specs',
+              translations: itemLabels['API Specs'],
               description: 'OpenAPI spec validation and reconciliation',
               descriptionTranslations: itemDescriptions['OpenAPI spec validation and reconciliation'],
               href: 'https://f5xc-salesdemos.github.io/api-specs/',
@@ -300,6 +327,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'API Specs Enriched',
+              translations: itemLabels['API Specs Enriched'],
               description: 'Enriched OpenAPI specifications',
               descriptionTranslations: itemDescriptions['Enriched OpenAPI specifications'],
               href: 'https://f5xc-salesdemos.github.io/api-specs-enriched/',
@@ -329,6 +357,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'Marketplace',
+              translations: itemLabels.Marketplace,
               description: 'AI-powered marketplace for F5 XC',
               descriptionTranslations: itemDescriptions['AI-powered marketplace for F5 XC'],
               href: 'https://f5xc-salesdemos.github.io/marketplace/',
@@ -336,6 +365,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'xcsh',
+              translations: itemLabels.xcsh,
               description: 'AI-powered development CLI with persistent sessions and native Rust tooling',
               descriptionTranslations:
                 itemDescriptions['AI-powered development CLI with persistent sessions and native Rust tooling'],
@@ -359,6 +389,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'Origin Server',
+              translations: itemLabels['Origin Server'],
               description: 'Vulnerable web applications for WAF and API testing',
               descriptionTranslations: itemDescriptions['Vulnerable web applications for WAF and API testing'],
               href: 'https://f5xc-salesdemos.github.io/origin-server/',
@@ -366,6 +397,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'Traffic Generator',
+              translations: itemLabels['Traffic Generator'],
               description: 'Security tools and attack suites for traffic generation',
               descriptionTranslations: itemDescriptions['Security tools and attack suites for traffic generation'],
               href: 'https://f5xc-salesdemos.github.io/traffic-generator/',
@@ -373,6 +405,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'CDN Simulator',
+              translations: itemLabels['CDN Simulator'],
               description: 'NGINX-based CDN edge node simulator',
               descriptionTranslations: itemDescriptions['NGINX-based CDN edge node simulator'],
               href: 'https://f5xc-salesdemos.github.io/cdn-simulator/',
@@ -402,6 +435,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'F5 XC Console',
+              translations: itemLabels['F5 XC Console'],
               description: 'Distributed Cloud management portal',
               descriptionTranslations: itemDescriptions['Distributed Cloud management portal'],
               href: 'https://console.ves.volterra.io',
@@ -409,6 +443,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'F5 Cloud Docs',
+              translations: itemLabels['F5 Cloud Docs'],
               description: 'Official product documentation',
               descriptionTranslations: itemDescriptions['Official product documentation'],
               href: 'https://docs.cloud.f5.com',
@@ -416,6 +451,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'MyF5 Support',
+              translations: itemLabels['MyF5 Support'],
               description: 'Technical support portal',
               descriptionTranslations: itemDescriptions['Technical support portal'],
               href: 'https://my.f5.com/manage/s/',
@@ -438,6 +474,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           items: [
             {
               label: 'VS Code Extension',
+              translations: itemLabels['VS Code Extension'],
               description: 'Manage F5 XC resources from VS Code',
               descriptionTranslations: itemDescriptions['Manage F5 XC resources from VS Code'],
               href: 'https://f5xc-salesdemos.github.io/vscode-f5xc-tools/',
@@ -445,6 +482,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
             },
             {
               label: 'xcsh CLI',
+              translations: itemLabels['xcsh CLI'],
               description: 'AI-powered CLI for F5 XC',
               descriptionTranslations: itemDescriptions['AI-powered CLI for F5 XC'],
               href: 'https://f5xc-salesdemos.github.io/xcsh/',
