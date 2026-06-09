@@ -698,6 +698,50 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     options.locales === false ? undefined : options.locales || (hasEnSubdir ? f5xcDefaultLocales : undefined);
   const resolvedDefaultLocale = options.defaultLocale || f5xcDefaultLocale;
 
+  const localeHeadScripts: HeadEntry[] = [];
+  if (resolvedLocales) {
+    const langToSlugMap = Object.fromEntries(Object.entries(resolvedLocales).map(([slug, cfg]) => [cfg.lang, slug]));
+    const slugSet = JSON.stringify(Object.keys(resolvedLocales));
+
+    localeHeadScripts.push({
+      tag: 'script',
+      content: `
+(function(){
+  try {
+    var m = ${JSON.stringify(langToSlugMap)};
+    var lang = document.documentElement.lang || 'en';
+    var slug = m[lang] || lang.toLowerCase();
+    localStorage.setItem('f5xc-locale', slug);
+  } catch(e) {}
+})();
+`,
+    });
+
+    localeHeadScripts.push({
+      tag: 'script',
+      content: `
+(function(){
+  try {
+    var stored = localStorage.getItem('f5xc-locale');
+    if (!stored || stored === '${resolvedDefaultLocale}') return;
+    if (sessionStorage.getItem('f5xc-locale-redirected')) return;
+    var valid = new Set(${slugSet});
+    if (!valid.has(stored)) return;
+    var base = '${normalizedBase}';
+    var path = window.location.pathname;
+    var afterBase = path.slice(base.length).replace(/^\\/+/, '').replace(/\\/+$/, '');
+    var segments = afterBase ? afterBase.split('/') : [];
+    if (segments.length > 1) return;
+    if (segments[0] === '${resolvedDefaultLocale}') {
+      sessionStorage.setItem('f5xc-locale-redirected', '1');
+      window.location.replace(base + '/' + stored + '/');
+    }
+  } catch(e) {}
+})();
+`,
+    });
+  }
+
   return defineConfig({
     site,
     base,
@@ -709,7 +753,9 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       starlight({
         title,
         plugins: starlightPlugins,
-        head: head as Parameters<typeof starlight>[0]['head'],
+        head: [...((head as Parameters<typeof starlight>[0]['head']) || []), ...localeHeadScripts] as Parameters<
+          typeof starlight
+        >[0]['head'],
         logo: logo as Parameters<typeof starlight>[0]['logo'],
         ...(resolvedLocales ? { locales: resolvedLocales, defaultLocale: resolvedDefaultLocale } : {}),
         ...(subcategorySidebar

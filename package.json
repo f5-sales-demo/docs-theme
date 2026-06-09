@@ -36,7 +36,8 @@
     "./src/utils/resolve-icon.ts": "./src/utils/resolve-icon.ts",
     "./src/i18n/locales.ts": "./src/i18n/locales.ts",
     "./src/i18n/translator.ts": "./src/i18n/translator.ts",
-    "./src/i18n/prompt.ts": "./src/i18n/prompt.ts"
+    "./src/i18n/prompt.ts": "./src/i18n/prompt.ts",
+    "./src/utils/localize-ecosystem-href.ts": "./src/utils/localize-ecosystem-href.ts"
   },
   "files": [
     "index.ts",
