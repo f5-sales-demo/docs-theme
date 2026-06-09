@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
+import { localizeEcosystemHref } from '../src/utils/localize-ecosystem-href.ts';
 import Icon from './Icon.astro';
 
 interface Props extends Omit<HTMLAttributes<'a'>, 'title'> {
@@ -9,6 +10,10 @@ interface Props extends Omit<HTMLAttributes<'a'>, 'title'> {
 }
 
 const { title, description, icon, ...attributes } = Astro.props;
+const localeSlug = Astro.currentLocale || '';
+if (attributes.href && localeSlug) {
+  attributes.href = localizeEcosystemHref(String(attributes.href), localeSlug);
+}
 ---
 
 <div class:list={['sl-link-card', { 'has-icon': !!icon }]}>
