@@ -1,8 +1,19 @@
 const ECOSYSTEM_HOST = 'f5xc-salesdemos.github.io';
 
 const VALID_LOCALE_SLUGS = new Set([
-  'en', 'fr', 'es', 'de', 'pt-br', 'ja', 'ko',
-  'zh-cn', 'zh-tw', 'ar', 'it', 'hi', 'th',
+  'en',
+  'fr',
+  'es',
+  'de',
+  'pt-br',
+  'ja',
+  'ko',
+  'zh-cn',
+  'zh-tw',
+  'ar',
+  'it',
+  'hi',
+  'th',
 ]);
 
 const LANG_TO_SLUG: Record<string, string> = {

@@ -700,9 +700,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
 
   const localeHeadScripts: HeadEntry[] = [];
   if (resolvedLocales) {
-    const langToSlugMap = Object.fromEntries(
-      Object.entries(resolvedLocales).map(([slug, cfg]) => [cfg.lang, slug]),
-    );
+    const langToSlugMap = Object.fromEntries(Object.entries(resolvedLocales).map(([slug, cfg]) => [cfg.lang, slug]));
     const slugSet = JSON.stringify(Object.keys(resolvedLocales));
 
     localeHeadScripts.push({
@@ -755,7 +753,9 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       starlight({
         title,
         plugins: starlightPlugins,
-        head: [...(head as Parameters<typeof starlight>[0]['head'] || []), ...localeHeadScripts] as Parameters<typeof starlight>[0]['head'],
+        head: [...((head as Parameters<typeof starlight>[0]['head']) || []), ...localeHeadScripts] as Parameters<
+          typeof starlight
+        >[0]['head'],
         logo: logo as Parameters<typeof starlight>[0]['logo'],
         ...(resolvedLocales ? { locales: resolvedLocales, defaultLocale: resolvedDefaultLocale } : {}),
         ...(subcategorySidebar
