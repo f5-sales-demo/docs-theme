@@ -92,6 +92,19 @@ export async function translateFile(
   if (translatedFrontmatter.sidebar?.label) {
     mergedFrontmatter.sidebar = { ...mergedFrontmatter.sidebar, label: translatedFrontmatter.sidebar.label };
   }
+  if (translatedFrontmatter.hero) {
+    mergedFrontmatter.hero = { ...mergedFrontmatter.hero };
+    if (translatedFrontmatter.hero.tagline) mergedFrontmatter.hero.tagline = translatedFrontmatter.hero.tagline;
+    if (translatedFrontmatter.hero.title) mergedFrontmatter.hero.title = translatedFrontmatter.hero.title;
+    if (translatedFrontmatter.hero.actions) {
+      mergedFrontmatter.hero.actions = mergedFrontmatter.hero.actions?.map(
+        (action: Record<string, unknown>, i: number) => ({
+          ...action,
+          text: translatedFrontmatter.hero.actions?.[i]?.text || action.text,
+        }),
+      );
+    }
+  }
 
   mergedFrontmatter.i18n = { sourceHash, translator: 'machine' };
 
