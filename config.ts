@@ -708,20 +708,6 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       content: `
 (function(){
   try {
-    var m = ${JSON.stringify(langToSlugMap)};
-    var lang = document.documentElement.lang || 'en';
-    var slug = m[lang] || lang.toLowerCase();
-    localStorage.setItem('f5xc-locale', slug);
-  } catch(e) {}
-})();
-`,
-    });
-
-    localeHeadScripts.push({
-      tag: 'script',
-      content: `
-(function(){
-  try {
     var stored = localStorage.getItem('f5xc-locale');
     if (!stored || stored === '${resolvedDefaultLocale}') return;
     if (sessionStorage.getItem('f5xc-locale-redirected')) return;
@@ -736,6 +722,20 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       sessionStorage.setItem('f5xc-locale-redirected', '1');
       window.location.replace(base + '/' + stored + '/');
     }
+  } catch(e) {}
+})();
+`,
+    });
+
+    localeHeadScripts.push({
+      tag: 'script',
+      content: `
+(function(){
+  try {
+    var m = ${JSON.stringify(langToSlugMap)};
+    var lang = document.documentElement.lang || 'en';
+    var slug = m[lang] || lang.toLowerCase();
+    localStorage.setItem('f5xc-locale', slug);
   } catch(e) {}
 })();
 `,
