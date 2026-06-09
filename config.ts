@@ -4,12 +4,12 @@ import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import type { StarlightPlugin } from '@astrojs/starlight/types';
 import starlightLlmsTxt from '@f5xc-salesdemos/starlight-llms-txt';
+import starlightMegaMenu from '@f5xc-salesdemos/starlight-mega-menu';
 import type { AstroIntegration } from 'astro';
 import { defineConfig } from 'astro/config';
 import codeImport from 'remark-code-import';
 import starlightHeadingBadges from 'starlight-heading-badges';
 import starlightImageZoom from 'starlight-image-zoom';
-import starlightMegaMenu from 'starlight-mega-menu';
 import starlightOpenAPI, { openAPISidebarGroups } from 'starlight-openapi';
 import starlightPageActions from 'starlight-page-actions';
 import { starlightIconsPlugin } from 'starlight-plugin-icons';
@@ -17,6 +17,14 @@ import starlightScrollToTop from 'starlight-scroll-to-top';
 import starlightVideosPlugin from 'starlight-videos';
 import f5xcDocsTheme from './index.ts';
 import { defaultLocale as f5xcDefaultLocale, f5xcDefaultLocales } from './src/i18n/locales.ts';
+import {
+  categoryTitles,
+  footerDescriptions,
+  footerLabels,
+  itemDescriptions,
+  menuLabels,
+  mobileLabels,
+} from './src/i18n/mega-menu-translations.ts';
 import { sidebarTranslations } from './src/i18n/translations.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
 import { resolveIcon } from './src/utils/resolve-icon.ts';
@@ -74,34 +82,40 @@ export interface F5xcDocsConfigOptions {
 const defaultMegaMenuItems: MegaMenuItem[] = [
   {
     label: 'Security',
+    translations: menuLabels.Security,
     content: {
       layout: 'grid',
       columns: 2,
       categories: [
         {
           title: 'App & API Security',
+          translations: categoryTitles['App & API Security'],
           items: [
             {
               label: 'Web App Firewall',
               description: 'Firewall policies and configuration',
+              descriptionTranslations: itemDescriptions['Firewall policies and configuration'],
               href: 'https://f5xc-salesdemos.github.io/waf/',
               icon: resolveIcon('f5xc:web-app-and-api-protection'),
             },
             {
               label: 'API Security',
               description: 'API discovery and protection',
+              descriptionTranslations: itemDescriptions['API discovery and protection'],
               href: 'https://f5xc-salesdemos.github.io/api-protection/',
               icon: resolveIcon('f5xc:application-traffic-insight'),
             },
             {
               label: 'Client-Side Defense',
               description: 'Browser-based threat protection',
+              descriptionTranslations: itemDescriptions['Browser-based threat protection'],
               href: 'https://f5xc-salesdemos.github.io/csd/',
               icon: resolveIcon('f5xc:client-side-defense'),
             },
             {
               label: 'Web App Scanning',
               description: 'Vulnerability assessment and scanning',
+              descriptionTranslations: itemDescriptions['Vulnerability assessment and scanning'],
               href: 'https://f5xc-salesdemos.github.io/was/',
               icon: resolveIcon('f5xc:web-app-scanning'),
             },
@@ -109,22 +123,26 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
         },
         {
           title: 'Threat Defense',
+          translations: categoryTitles['Threat Defense'],
           items: [
             {
               label: 'Bot Defense Advanced',
               description: 'Behavioral analysis and AI detection',
+              descriptionTranslations: itemDescriptions['Behavioral analysis and AI detection'],
               href: 'https://f5xc-salesdemos.github.io/bot-advanced/',
               icon: resolveIcon('f5xc:bot-defense'),
             },
             {
               label: 'Bot Defense Standard',
               description: 'Signature-based bot detection',
+              descriptionTranslations: itemDescriptions['Signature-based bot detection'],
               href: 'https://f5xc-salesdemos.github.io/bot-standard/',
               icon: resolveIcon('f5xc:bot-defense'),
             },
             {
               label: 'DDoS Protection',
               description: 'Distributed denial-of-service mitigation',
+              descriptionTranslations: itemDescriptions['Distributed denial-of-service mitigation'],
               href: 'https://f5xc-salesdemos.github.io/ddos/',
               icon: resolveIcon('f5xc:ddos-and-transit-services'),
             },
@@ -133,41 +151,49 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
       ],
       footer: {
         label: 'F5 Distributed Cloud Console',
+        translations: footerLabels['F5 Distributed Cloud Console'],
         href: 'https://console.ves.volterra.io',
         description: 'Open the XC management portal',
+        descriptionTranslations: footerDescriptions['Open the XC management portal'],
       },
     },
   },
   {
     label: 'Networking',
+    translations: menuLabels.Networking,
     content: {
       layout: 'grid',
       columns: 2,
       categories: [
         {
           title: 'Connectivity & Delivery',
+          translations: categoryTitles['Connectivity & Delivery'],
           items: [
             {
               label: 'Multi-Cloud Networking',
               description: 'Site connectivity across clouds',
+              descriptionTranslations: itemDescriptions['Site connectivity across clouds'],
               href: 'https://f5xc-salesdemos.github.io/mcn/',
               icon: resolveIcon('f5xc:multi-cloud-network-connect'),
             },
             {
               label: 'Content Delivery',
               description: 'Edge caching and distribution',
+              descriptionTranslations: itemDescriptions['Edge caching and distribution'],
               href: 'https://f5xc-salesdemos.github.io/cdn/',
               icon: resolveIcon('f5xc:content-delivery-network'),
             },
             {
               label: 'DNS Load Balancing',
               description: 'DNS management and zones',
+              descriptionTranslations: itemDescriptions['DNS management and zones'],
               href: 'https://f5xc-salesdemos.github.io/dns/',
               icon: resolveIcon('f5xc:dns-management'),
             },
             {
               label: 'NGINX Management',
               description: 'NGINX integration and configuration',
+              descriptionTranslations: itemDescriptions['NGINX integration and configuration'],
               href: 'https://f5xc-salesdemos.github.io/nginx/',
               icon: resolveIcon('f5xc:nginx-one'),
             },
@@ -175,16 +201,19 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
         },
         {
           title: 'Manage & Monitor',
+          translations: categoryTitles['Manage & Monitor'],
           items: [
             {
               label: 'Observability',
               description: 'Monitoring, metrics, and insights',
+              descriptionTranslations: itemDescriptions['Monitoring, metrics, and insights'],
               href: 'https://f5xc-salesdemos.github.io/observability/',
               icon: resolveIcon('f5xc:observability'),
             },
             {
               label: 'Administration',
               description: 'Tenant management and RBAC',
+              descriptionTranslations: itemDescriptions['Tenant management and RBAC'],
               href: 'https://f5xc-salesdemos.github.io/administration/',
               icon: resolveIcon('f5xc:administration'),
             },
@@ -193,40 +222,48 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
       ],
       footer: {
         label: 'F5 Cloud Documentation',
+        translations: footerLabels['F5 Cloud Documentation'],
         href: 'https://docs.cloud.f5.com',
         description: 'Official product documentation',
+        descriptionTranslations: footerDescriptions['Official product documentation'],
       },
     },
   },
   {
     label: 'Platform',
+    translations: menuLabels.Platform,
     content: {
       layout: 'list',
       categories: [
         {
           title: 'Documentation Tools',
+          translations: categoryTitles['Documentation Tools'],
           items: [
             {
               label: 'Docs Builder',
               description: 'Containerized Astro build system',
+              descriptionTranslations: itemDescriptions['Containerized Astro build system'],
               href: 'https://f5xc-salesdemos.github.io/docs-builder/',
               icon: resolveIcon('f5xc:doc'),
             },
             {
               label: 'Docs Theme',
               description: 'Shared branding and styling',
+              descriptionTranslations: itemDescriptions['Shared branding and styling'],
               href: 'https://f5xc-salesdemos.github.io/docs-theme/',
               icon: resolveIcon('f5xc:shared-configuration'),
             },
             {
               label: 'Icon Packages',
               description: 'NPM icon component library',
+              descriptionTranslations: itemDescriptions['NPM icon component library'],
               href: 'https://f5xc-salesdemos.github.io/docs-icons/',
               icon: resolveIcon('f5xc:distributed-apps'),
             },
             {
               label: 'Dev Container',
               description: 'Isolated development environment',
+              descriptionTranslations: itemDescriptions['Isolated development environment'],
               href: 'https://f5xc-salesdemos.github.io/devcontainer/',
               icon: resolveIcon('hashicorp-flight:docker-color'),
             },
@@ -234,6 +271,10 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               label: 'mvp',
               description:
                 'Capability program that amplifies F5 Distributed Cloud practitioners with an agentic subject matter expert',
+              descriptionTranslations:
+                itemDescriptions[
+                  'Capability program that amplifies F5 Distributed Cloud practitioners with an agentic subject matter expert'
+                ],
               href: 'https://f5xc-salesdemos.github.io/mvp/',
               icon: resolveIcon('f5xc:ai_assistant_logo'),
             },
@@ -241,22 +282,26 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
         },
         {
           title: 'Automation',
+          translations: categoryTitles.Automation,
           items: [
             {
               label: 'Terraform Provider',
               description: 'F5 XC Terraform provider',
+              descriptionTranslations: itemDescriptions['F5 XC Terraform provider'],
               href: 'https://f5xc-salesdemos.github.io/terraform-provider-f5xc/',
               icon: resolveIcon('hashicorp-flight:terraform-color'),
             },
             {
               label: 'API Specs',
               description: 'OpenAPI spec validation and reconciliation',
+              descriptionTranslations: itemDescriptions['OpenAPI spec validation and reconciliation'],
               href: 'https://f5xc-salesdemos.github.io/api-specs/',
               icon: resolveIcon('f5xc:data-intelligence'),
             },
             {
               label: 'API Specs Enriched',
               description: 'Enriched OpenAPI specifications',
+              descriptionTranslations: itemDescriptions['Enriched OpenAPI specifications'],
               href: 'https://f5xc-salesdemos.github.io/api-specs-enriched/',
               icon: resolveIcon('f5xc:data-intelligence'),
             },
@@ -265,28 +310,35 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
       ],
       footer: {
         label: 'GitHub Organization',
+        translations: footerLabels['GitHub Organization'],
         href: 'https://github.com/f5xc-salesdemos',
         description: 'View all repositories',
+        descriptionTranslations: footerDescriptions['View all repositories'],
       },
     },
   },
   {
     label: 'AI',
+    translations: menuLabels.AI,
     content: {
       layout: 'list',
       categories: [
         {
           title: 'AI Tools',
+          translations: categoryTitles['AI Tools'],
           items: [
             {
               label: 'Marketplace',
               description: 'AI-powered marketplace for F5 XC',
+              descriptionTranslations: itemDescriptions['AI-powered marketplace for F5 XC'],
               href: 'https://f5xc-salesdemos.github.io/marketplace/',
               icon: resolveIcon('f5xc:ai_assistant_logo'),
             },
             {
               label: 'xcsh',
               description: 'AI-powered development CLI with persistent sessions and native Rust tooling',
+              descriptionTranslations:
+                itemDescriptions['AI-powered development CLI with persistent sessions and native Rust tooling'],
               href: 'https://f5xc-salesdemos.github.io/xcsh/',
               icon: resolveIcon('f5xc:ai_assistant_logo'),
             },
@@ -297,27 +349,32 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
   },
   {
     label: 'Demo Resources',
+    translations: menuLabels['Demo Resources'],
     content: {
       layout: 'list',
       categories: [
         {
           title: 'Components',
+          translations: categoryTitles.Components,
           items: [
             {
               label: 'Origin Server',
               description: 'Vulnerable web applications for WAF and API testing',
+              descriptionTranslations: itemDescriptions['Vulnerable web applications for WAF and API testing'],
               href: 'https://f5xc-salesdemos.github.io/origin-server/',
               icon: resolveIcon('f5xc:distributed-apps'),
             },
             {
               label: 'Traffic Generator',
               description: 'Security tools and attack suites for traffic generation',
+              descriptionTranslations: itemDescriptions['Security tools and attack suites for traffic generation'],
               href: 'https://f5xc-salesdemos.github.io/traffic-generator/',
               icon: resolveIcon('f5xc:application-traffic-insight'),
             },
             {
               label: 'CDN Simulator',
               description: 'NGINX-based CDN edge node simulator',
+              descriptionTranslations: itemDescriptions['NGINX-based CDN edge node simulator'],
               href: 'https://f5xc-salesdemos.github.io/cdn-simulator/',
               icon: resolveIcon('f5xc:content-delivery-network'),
             },
@@ -326,34 +383,41 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
       ],
       footer: {
         label: 'View All Components',
+        translations: footerLabels['View All Components'],
         href: 'https://f5xc-salesdemos.github.io/demo-resources/',
         description: 'Browse the full demo resource catalog',
+        descriptionTranslations: footerDescriptions['Browse the full demo resource catalog'],
       },
     },
   },
   {
     label: 'Resources',
+    translations: menuLabels.Resources,
     content: {
       layout: 'list',
       categories: [
         {
           title: 'F5 Ecosystem',
+          translations: categoryTitles['F5 Ecosystem'],
           items: [
             {
               label: 'F5 XC Console',
               description: 'Distributed Cloud management portal',
+              descriptionTranslations: itemDescriptions['Distributed Cloud management portal'],
               href: 'https://console.ves.volterra.io',
               icon: resolveIcon('f5xc:platform'),
             },
             {
               label: 'F5 Cloud Docs',
               description: 'Official product documentation',
+              descriptionTranslations: itemDescriptions['Official product documentation'],
               href: 'https://docs.cloud.f5.com',
               icon: resolveIcon('f5xc:doc'),
             },
             {
               label: 'MyF5 Support',
               description: 'Technical support portal',
+              descriptionTranslations: itemDescriptions['Technical support portal'],
               href: 'https://my.f5.com/manage/s/',
               icon: resolveIcon('f5xc:support'),
             },
@@ -364,21 +428,25 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
   },
   {
     label: 'Tools',
+    translations: menuLabels.Tools,
     content: {
       layout: 'list',
       categories: [
         {
           title: 'Developer Tools',
+          translations: categoryTitles['Developer Tools'],
           items: [
             {
               label: 'VS Code Extension',
               description: 'Manage F5 XC resources from VS Code',
+              descriptionTranslations: itemDescriptions['Manage F5 XC resources from VS Code'],
               href: 'https://f5xc-salesdemos.github.io/vscode-f5xc-tools/',
               icon: resolveIcon('carbon:code'),
             },
             {
               label: 'xcsh CLI',
               description: 'AI-powered CLI for F5 XC',
+              descriptionTranslations: itemDescriptions['AI-powered CLI for F5 XC'],
               href: 'https://f5xc-salesdemos.github.io/xcsh/',
               icon: resolveIcon('carbon:terminal'),
             },
@@ -524,7 +592,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     : undefined;
 
   const starlightPlugins: StarlightPlugin[] = [
-    starlightMegaMenu({ items: megaMenuItems as Parameters<typeof starlightMegaMenu>[0]['items'] }),
+    starlightMegaMenu({ items: megaMenuItems as Parameters<typeof starlightMegaMenu>[0]['items'], mobileLabels }),
     starlightVideosPlugin(),
     starlightImageZoom(),
     f5xcDocsTheme(),
