@@ -1,5 +1,8 @@
 import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
+import { itemLabels, menuLabels } from './src/i18n/mega-menu-translations.ts';
+
+const titleTranslations: Record<string, Record<string, string>> = { ...menuLabels, ...itemLabels };
 
 type SidebarEntry = StarlightRouteData['sidebar'][number];
 
@@ -59,6 +62,11 @@ export const onRequest = defineRouteMiddleware(async (context, next) => {
 
   if (indexSlugs.size > 0) {
     route.sidebar = filterIndexPages(route.sidebar, indexSlugs);
+  }
+
+  if (route.lang && route.lang !== 'en') {
+    const translated = titleTranslations[route.siteTitle]?.[route.lang];
+    if (translated) route.siteTitle = translated;
   }
 
   await next();
