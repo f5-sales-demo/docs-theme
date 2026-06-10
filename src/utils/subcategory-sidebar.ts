@@ -8,7 +8,13 @@ import { sidebarTranslations } from '../i18n/translations.ts';
  */
 type SidebarLink = { label: string; link: string; translations?: Record<string, string> };
 type SidebarGroup = { label: string; items: SidebarItem[]; collapsed?: boolean; translations?: Record<string, string> };
-type SidebarItem = SidebarLink | SidebarGroup;
+type SidebarAutogenerate = {
+  label: string;
+  autogenerate: { directory: string };
+  collapsed?: boolean;
+  translations?: Record<string, string>;
+};
+type SidebarItem = SidebarLink | SidebarGroup | SidebarAutogenerate;
 
 type DocType = 'resource' | 'data-source' | 'guide' | 'function';
 
@@ -66,6 +72,15 @@ function cleanPageTitle(pageTitle: string, docType: DocType): string {
     return pageTitle.replace(/\s+function\s*-\s*.*$/i, '').trim();
   }
   return pageTitle.replace(/\s+(Resource|Data Source)\s*-\s*.*$/i, '').trim();
+}
+
+const KNOWN_ACRONYMS = new Set(['api', 'faq', 'dns', 'cli', 'sdk', 'ui', 'ip']);
+
+function kebabToTitleCase(kebab: string): string {
+  return kebab
+    .split('-')
+    .map((word) => (KNOWN_ACRONYMS.has(word) ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1)))
+    .join(' ');
 }
 
 /**
@@ -155,8 +170,40 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
     docs.push({ title, subcategory, docType, slug });
   }
 
-  // If no files have subcategory, return undefined for auto-generation fallback
-  if (!hasAnySubcategory) return undefined;
+  // If no files have subcategory, generate autogenerate entries with translations
+  if (!hasAnySubcategory) {
+    const topLevelDirs: string[] = [];
+    try {
+      const dirEntries = fs.readdirSync(scanDir, { withFileTypes: true });
+      for (const entry of dirEntries) {
+        if (entry.isDirectory() && !entry.name.startsWith('.') && !entry.name.startsWith('_')) {
+          topLevelDirs.push(entry.name);
+        }
+      }
+    } catch {
+      return undefined;
+    }
+    if (topLevelDirs.length === 0) return undefined;
+
+    const sidebar: SidebarItem[] = [];
+
+    if (hasOverview) {
+      sidebar.push({ label: 'Overview', link: '/', translations: sidebarTranslations.Overview });
+    }
+
+    for (const dir of topLevelDirs.sort()) {
+      const label = kebabToTitleCase(dir);
+      const translations = sidebarTranslations[label as keyof typeof sidebarTranslations];
+      sidebar.push({
+        label,
+        autogenerate: { directory: dir },
+        collapsed: false,
+        ...(translations ? { translations } : {}),
+      });
+    }
+
+    return sidebar;
+  }
 
   // Partition docs by type
   const guides = docs.filter((d) => d.docType === 'guide');
@@ -245,7 +292,9 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       sidebar.push({
         label: category,
         collapsed: true,
-        ...(category === 'Uncategorized' ? { translations: sidebarTranslations.Uncategorized } : {}),
+        ...(sidebarTranslations[category as keyof typeof sidebarTranslations]
+          ? { translations: sidebarTranslations[category as keyof typeof sidebarTranslations] }
+          : {}),
         items: groupItems,
       });
     }
