@@ -196,9 +196,9 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       const translations = sidebarTranslations[label as keyof typeof sidebarTranslations];
       sidebar.push({
         label,
-        autogenerate: { directory: dir },
         collapsed: false,
         ...(translations ? { translations } : {}),
+        items: [{ autogenerate: { directory: dir } }],
       });
     }
 
