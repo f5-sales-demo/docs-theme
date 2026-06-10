@@ -8,13 +8,7 @@ import { sidebarTranslations } from '../i18n/translations.ts';
  */
 type SidebarLink = { label: string; link: string; translations?: Record<string, string> };
 type SidebarGroup = { label: string; items: SidebarItem[]; collapsed?: boolean; translations?: Record<string, string> };
-type SidebarAutogenerate = {
-  label: string;
-  autogenerate: { directory: string };
-  collapsed?: boolean;
-  translations?: Record<string, string>;
-};
-type SidebarItem = SidebarLink | SidebarGroup | SidebarAutogenerate;
+type SidebarItem = SidebarLink | SidebarGroup;
 
 type DocType = 'resource' | 'data-source' | 'guide' | 'function';
 
@@ -194,12 +188,40 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
     for (const dir of topLevelDirs.sort()) {
       const label = kebabToTitleCase(dir);
       const translations = sidebarTranslations[label as keyof typeof sidebarTranslations];
-      sidebar.push({
-        label,
-        collapsed: false,
-        ...(translations ? { translations } : {}),
-        items: [{ autogenerate: { directory: dir } }],
-      });
+      const dirPath = path.join(scanDir, dir);
+      const dirFiles = collectMarkdownFiles(dirPath);
+      const links: SidebarLink[] = dirFiles
+        .map((filePath) => {
+          const relativePath = path.relative(scanDir, filePath).replace(/\\/g, '/');
+          const slug = filePathToSlug(relativePath);
+          const baseName = path.basename(relativePath, path.extname(relativePath));
+          if (baseName === 'index') return null;
+          let title = '';
+          try {
+            const raw = fs.readFileSync(filePath, 'utf-8');
+            const parsed = matter(raw);
+            if (typeof parsed.data.title === 'string' && parsed.data.title.trim()) {
+              title = parsed.data.title.trim();
+            }
+          } catch {
+            /* skip */
+          }
+          if (!title) {
+            title = baseName.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+          }
+          return { label: title, link: slug } as SidebarLink;
+        })
+        .filter((item): item is SidebarLink => item !== null)
+        .sort((a, b) => a.label.localeCompare(b.label));
+
+      if (links.length > 0) {
+        sidebar.push({
+          label,
+          collapsed: false,
+          ...(translations ? { translations } : {}),
+          items: links,
+        });
+      }
     }
 
     return sidebar;
