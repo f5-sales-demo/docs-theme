@@ -50,7 +50,7 @@ export function localizeEcosystemHref(
   }
 
   segments.splice(1, 0, localeSlug);
-  url.pathname = '/' + segments.join('/') + '/';
+  url.pathname = `/${segments.join('/')}/`;
 
   return url.toString();
 }
