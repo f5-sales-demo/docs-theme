@@ -7,6 +7,7 @@ import path from 'node:path';
 async function main() {
   const args = process.argv.slice(2);
   const staged = args.includes('--staged');
+  const force = args.includes('--force');
   const localeFlag = args.indexOf('--locale');
   const singleLocale = localeFlag !== -1 ? args[localeFlag + 1] : null;
 
@@ -73,6 +74,7 @@ async function main() {
         const result = await translateFile(filePath, code, config.label, {
           apiKey,
           contentDir: resolvedContentDir,
+          force,
         });
         if (result) {
           translated.push(result);

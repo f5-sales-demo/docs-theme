@@ -2,12 +2,14 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
+import { getGlossary } from './glossary.ts';
 import { buildTranslationPrompt } from './prompt.ts';
 
 export interface TranslateOptions {
   apiKey: string;
   model?: string;
   contentDir: string;
+  force?: boolean;
 }
 
 export function computeSourceHash(content: string): string {
@@ -40,14 +42,15 @@ export async function translateFile(
   const relativePath = path.relative(path.join(options.contentDir, 'en'), englishPath);
   const targetPath = path.join(options.contentDir, localeCode, relativePath);
 
-  if (!needsTranslation(englishRaw, targetPath)) {
+  if (!options.force && !needsTranslation(englishRaw, targetPath)) {
     return null;
   }
 
   const { default: Anthropic } = await import('@anthropic-ai/sdk');
   const client = new Anthropic({ apiKey: options.apiKey });
 
-  const systemPrompt = buildTranslationPrompt(localeName, localeCode);
+  const glossary = getGlossary(localeCode);
+  const systemPrompt = buildTranslationPrompt(localeName, localeCode, glossary);
   const sourceLength = englishRaw.length;
 
   let translated: string;
