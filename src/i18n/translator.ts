@@ -61,7 +61,7 @@ export async function translateFile(
     attempts++;
     try {
       const stream = client.messages.stream({
-        model: options.model || process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
+        model: options.model || process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6',
         max_tokens: Math.max(4096, Math.ceil(sourceLength * 2.5)),
         system: systemPrompt,
         messages: [{ role: 'user', content: englishRaw }],
