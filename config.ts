@@ -3,6 +3,7 @@ import path from 'node:path';
 import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import type { StarlightPlugin } from '@astrojs/starlight/types';
+import { BCP47_TO_SLUG, SLUG_LIST } from '@f5xc-salesdemos/i18n-core';
 import starlightLlmsTxt from '@f5xc-salesdemos/starlight-llms-txt';
 import starlightMegaMenu from '@f5xc-salesdemos/starlight-mega-menu';
 import type { AstroIntegration } from 'astro';
@@ -700,8 +701,8 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
 
   const localeHeadScripts: HeadEntry[] = [];
   if (resolvedLocales) {
-    const langToSlugMap = Object.fromEntries(Object.entries(resolvedLocales).map(([slug, cfg]) => [cfg.lang, slug]));
-    const slugSet = JSON.stringify(Object.keys(resolvedLocales));
+    const langToSlugMap = BCP47_TO_SLUG;
+    const slugSet = JSON.stringify(SLUG_LIST);
 
     localeHeadScripts.push({
       tag: 'script',

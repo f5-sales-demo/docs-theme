@@ -1,37 +1,15 @@
+import { bcp47ToSlug, VALID_SLUGS } from '@f5xc-salesdemos/i18n-core';
+
 const ECOSYSTEM_HOST = 'f5xc-salesdemos.github.io';
 
-const VALID_LOCALE_SLUGS = new Set([
-  'en',
-  'fr',
-  'es',
-  'de',
-  'pt-br',
-  'ja',
-  'ko',
-  'zh-cn',
-  'zh-tw',
-  'ar',
-  'it',
-  'hi',
-  'th',
-]);
-
-const LANG_TO_SLUG: Record<string, string> = {
-  'pt-BR': 'pt-br',
-  'zh-CN': 'zh-cn',
-  'zh-TW': 'zh-tw',
-};
-
-export function langToSlug(lang: string): string {
-  return LANG_TO_SLUG[lang] || lang.toLowerCase();
-}
+export const langToSlug = bcp47ToSlug;
 
 export function localizeEcosystemHref(
   href: string,
   localeSlug: string,
   ecosystemHost: string = ECOSYSTEM_HOST,
 ): string {
-  if (!localeSlug || !VALID_LOCALE_SLUGS.has(localeSlug)) return href;
+  if (!localeSlug || !VALID_SLUGS.has(localeSlug)) return href;
 
   let url: URL;
   try {
@@ -45,7 +23,7 @@ export function localizeEcosystemHref(
   const segments = url.pathname.split('/').filter(Boolean);
   if (segments.length === 0) return href;
 
-  if (segments.length >= 2 && VALID_LOCALE_SLUGS.has(segments[1])) {
+  if (segments.length >= 2 && VALID_SLUGS.has(segments[1])) {
     return href;
   }
 
