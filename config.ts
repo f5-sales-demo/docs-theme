@@ -3,6 +3,7 @@ import path from 'node:path';
 import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import type { StarlightPlugin } from '@astrojs/starlight/types';
+import { BCP47_TO_SLUG, SLUG_LIST } from '@f5xc-salesdemos/i18n-core';
 import starlightLlmsTxt from '@f5xc-salesdemos/starlight-llms-txt';
 import starlightMegaMenu from '@f5xc-salesdemos/starlight-mega-menu';
 import type { AstroIntegration } from 'astro';
@@ -15,7 +16,6 @@ import starlightPageActions from 'starlight-page-actions';
 import { starlightIconsPlugin } from 'starlight-plugin-icons';
 import starlightScrollToTop from 'starlight-scroll-to-top';
 import starlightVideosPlugin from 'starlight-videos';
-import { BCP47_TO_SLUG, SLUG_LIST } from '@f5xc-salesdemos/i18n-core';
 import f5xcDocsTheme from './index.ts';
 import { defaultLocale as f5xcDefaultLocale, f5xcDefaultLocales } from './src/i18n/locales.ts';
 import {
