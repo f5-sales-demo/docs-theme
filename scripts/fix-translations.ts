@@ -69,6 +69,10 @@ function discoverJobs(repos: string[]): TranslationJob[] {
         const lS = (typeof lfm.sidebar?.label === 'string' ? lfm.sidebar.label.trim() : '');
         if (enS && lS && lS === enS && isLikelyEnglish(lS)) {
           jobs.push({ repo, enFile: ef, relPath: rel, locale: loc, reason: 'untranslated' });
+          continue;
+        }
+        if (lfm.i18n?.translator === 'machine' && lfm.i18n?.sourceHash !== computeSourceHash(enRaw)) {
+          jobs.push({ repo, enFile: ef, relPath: rel, locale: loc, reason: 'stale' as 'untranslated' });
         }
       }
     }
