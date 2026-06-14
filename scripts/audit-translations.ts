@@ -30,8 +30,18 @@ function collectFiles(dir: string, ext = /\.mdx?$/): string[] {
   return results;
 }
 
+const TECHNICAL_TERMS = new Set([
+  'sdk', 'api', 'cli', 'mcp', 'tui', 'hooks', 'rpc', 'repl', 'pty',
+  'f5xc-devcontainer', 'f5xc-firecrawl', 'osint framework', 'salesforce',
+  'configuration', 'extensions', 'plugins', 'installation', 'marketplace',
+  'secrets', 'compaction', 'architecture', 'theming', 'theme',
+]);
+
 function isLikelyEnglish(text: string): boolean {
   if (!text || text.length < 3) return false;
+  if (TECHNICAL_TERMS.has(text.toLowerCase())) return false;
+  if (/^[a-z0-9][-a-z0-9]*$/.test(text)) return false;
+  if (/^[A-Z0-9 _-]+$/.test(text) && text.length < 15) return false;
   const ascii = text.replace(/[^a-zA-Z]/g, '');
   return ascii.length / Math.max(text.replace(/\s/g, '').length, 1) > 0.85;
 }
@@ -68,9 +78,13 @@ function auditRepo(repoName: string): Issue[] {
         });
       }
 
+      const enDesc = typeof enFm.description === 'string' ? enFm.description.trim() : '';
+      const localeDesc = typeof localeFm.description === 'string' ? localeFm.description.trim() : '';
+      const descWasTranslated = enDesc && localeDesc && localeDesc !== enDesc;
+
       const enTitle = typeof enFm.title === 'string' ? enFm.title.trim() : '';
       const localeTitle = typeof localeFm.title === 'string' ? localeFm.title.trim() : '';
-      if (enTitle && localeTitle && localeTitle === enTitle && isLikelyEnglish(localeTitle)) {
+      if (enTitle && localeTitle && localeTitle === enTitle && isLikelyEnglish(localeTitle) && !descWasTranslated) {
         issues.push({
           repo: repoName, locale, file: relPath, type: 'untranslated-title',
           detail: `title="${localeTitle}"`,
@@ -79,7 +93,7 @@ function auditRepo(repoName: string): Issue[] {
 
       const enSidebarLabel = typeof enFm.sidebar?.label === 'string' ? enFm.sidebar.label.trim() : '';
       const localeSidebarLabel = typeof localeFm.sidebar?.label === 'string' ? localeFm.sidebar.label.trim() : '';
-      if (enSidebarLabel && localeSidebarLabel && localeSidebarLabel === enSidebarLabel && isLikelyEnglish(localeSidebarLabel)) {
+      if (enSidebarLabel && localeSidebarLabel && localeSidebarLabel === enSidebarLabel && isLikelyEnglish(localeSidebarLabel) && !descWasTranslated) {
         issues.push({
           repo: repoName, locale, file: relPath, type: 'untranslated-sidebar-label',
           detail: `sidebar.label="${localeSidebarLabel}"`,
