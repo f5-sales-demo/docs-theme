@@ -1,0 +1,253 @@
+---
+title: Azure
+description: >-
+  Azure 架構圖，展示 VNet、App Gateway、VM Scale Sets、AKS、Hub-Spoke 拓撲，以及搭配 F5 XC 整合的
+  NVA 高可用性模式。
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 97fde0a598a5
+  translator: machine
+---
+
+使用 HashiCorp Flight 和 Carbon 圖示包的 Azure 基礎架構圖，涵蓋 VNet 網路、運算及受管服務。
+
+## VNet 搭配 App Gateway
+
+Azure VNet 包含閘道、應用程式及資料子網路。Application Gateway 將流量分配至 VM Scale Sets。
+
+```mermaid
+architecture-beta
+  group vnet(carbon:virtual-private-cloud)[Azure VNet]
+  group gwsub(carbon:ibm-cloud-subnets)[Gateway Subnet] in vnet
+  group appsub(carbon:ibm-cloud-subnets)[App Subnet] in vnet
+  group datasub(carbon:ibm-cloud-subnets)[Data Subnet] in vnet
+
+  service appgw(carbon:gateway-security)[App Gateway] in gwsub
+  service vm1(hashicorp-flight:azure-vms-color)[VM Scale Set] in appsub
+  service vm2(hashicorp-flight:azure-vms-color)[VM Scale Set] in appsub
+  service sqldb(carbon:data-base)[Azure SQL] in datasub
+
+  appgw:R --> L:vm1
+  appgw:B --> T:vm2
+  vm1:R --> L:sqldb
+  vm2:R --> L:sqldb
+```
+
+## AKS 搭配 F5 XC 多雲連接
+
+Azure Kubernetes Service 由 F5 Distributed Cloud 作為前端，提供多雲應用程式連接與安全性。
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 XC]
+  group aks(hashicorp-flight:azure-aks-color)[AKS Cluster]
+
+  service mcn(f5xc:multi-cloud-network-connect)[Network Connect] in xc
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in xc
+  service ingress(carbon:gateway)[Ingress] in aks
+  service app(hashicorp-flight:docker-color)[App Pods] in aks
+  service cache(carbon:datastore)[Redis Cache] in aks
+  service blob(hashicorp-flight:azure-blob-storage-color)[Blob Storage]
+
+  mcn:R --> L:waap
+  waap:R --> L:ingress
+  ingress:R --> L:app
+  app:B --> T:cache
+  app:R --> L:blob
+```
+
+## Hub-Spoke 網路拓撲
+
+Azure Hub-Spoke 架構，透過集中式安全性與共用服務連接多個 Spoke VNet。
+
+```mermaid
+flowchart TD
+  hub@{ icon: 'carbon:virtual-private-cloud', label: 'Hub VNet' }
+  fw@{ icon: 'carbon:firewall', label: 'Azure Firewall' }
+  vpn@{ icon: 'carbon:gateway-vpn', label: 'VPN Gateway' }
+  spoke1@{ icon: 'carbon:ibm-cloud-subnets', label: 'Spoke 1 - Web' }
+  spoke2@{ icon: 'carbon:ibm-cloud-subnets', label: 'Spoke 2 - App' }
+  spoke3@{ icon: 'carbon:ibm-cloud-subnets', label: 'Spoke 3 - Data' }
+  onprem@{ icon: 'lucide:server', label: 'On-Premises DC' }
+
+  onprem --> vpn
+  vpn --> hub
+  hub --> fw
+  fw --> spoke1
+  fw --> spoke2
+  fw --> spoke3
+```
+
+## NVA 高可用性搭配負載平衡器 — 網際網路流量
+
+入站網際網路流量到達公用負載平衡器，再分配至 Hub 中的 NVA 執行個體。NVA 將檢查後的流量轉送至 Spoke 工作負載。Spoke 的回程流量透過內部負載平衡器路由回 NVA 進行出站。編號步驟顯示入站路徑（1-3）與回程路徑（4-6）。
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      intlb@{ icon: 'azure:load-balancers', label: 'Internal LB 10.0.0.36' }
+      nva@{ icon: 'azure:firewalls', label: 'NVA' }
+    end
+    publb@{ icon: 'azure:load-balancers', label: 'Public LB' }
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  onprem@{ icon: 'lucide:building', label: 'On-Premises 192.168.0.0/16' }
+
+  cloud -->|1| publb
+  publb -->|2| nva
+  nva -->|3| app2
+  app2 -->|4| intlb
+  intlb -->|5| nva
+  nva -->|6| cloud
+  onprem --> gw
+  gw --> intlb
+```
+
+## NVA 高可用性搭配負載平衡器 — 內部部署流量
+
+內部部署流量透過 VPN 或 ExpressRoute 閘道進入，並導向至作為多個 NVA 執行個體前端的內部負載平衡器。NVA 檢查並轉送流量至 Spoke 工作負載。回程流量經由相同的內部負載平衡器傳輸，以確保流量對稱，防止非對稱路由問題。
+
+```mermaid
+flowchart TD
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      intlb@{ icon: 'azure:load-balancers', label: 'Internal LB 10.0.0.36' }
+      nva1@{ icon: 'azure:firewalls', label: 'NVA' }
+      nva2@{ icon: 'azure:firewalls', label: 'NVA' }
+    end
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  onprem@{ icon: 'lucide:building', label: 'On-Premises 192.168.0.0/16' }
+
+  onprem -->|1| gw
+  gw -->|2| intlb
+  intlb -->|3| nva1
+  nva1 -->|4| app2
+  app2 -->|5| intlb
+  intlb -->|6| nva2
+  nva2 -->|7| gw
+  gw -->|8| onprem
+```
+
+## NVA 高可用性搭配公用 IP/UDR — 主動/備用模式
+
+主動/備用 NVA 配對，由主動執行個體（NVA1）持有公用 IP 位址。發生故障時，備用的 NVA2 呼叫 Azure API 重新指派公用 IP，並更新使用者定義路由以指向自身。此方式無需負載平衡器，但需要 API 層級的容錯移轉協調。
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    pip@{ icon: 'azure:public-ip-addresses', label: 'Public IP' }
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      nva1@{ icon: 'azure:firewalls', label: 'NVA1 Active 10.0.0.37' }
+      nva2@{ icon: 'azure:firewalls', label: 'NVA2 Standby 10.0.0.38' }
+    end
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  onprem@{ icon: 'lucide:building', label: 'On-Premises 192.168.0.0/16' }
+
+  cloud -->|1| pip
+  pip -->|2| nva1
+  nva1 -->|3| app2
+  app2 -->|4| nva1
+  nva1 -->|5| cloud
+  onprem --> gw
+```
+
+## NVA 高可用性搭配 Azure Route Server
+
+使用 Azure Route Server 的 BGP 高可用性方案。Route Server 與兩個 NVA 執行個體建立 eBGP 鄰居關係，並動態設定 Spoke 的有效路由。ECMP 在各 NVA 間進行負載平衡，無需使用者定義路由。Route Server 將兩個 NVA IP 的下一躍點項目注入所有對等 VNet。
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    publb@{ icon: 'azure:load-balancers', label: 'Public LB' }
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      nva1@{ icon: 'azure:firewalls', label: 'NVA1 10.0.0.37' }
+      nva2@{ icon: 'azure:firewalls', label: 'NVA2 10.0.0.38' }
+    end
+    subgraph rssub[Route Server Subnet 10.0.0.64/27]
+      rs@{ icon: 'azure:virtual-router', label: 'Route Server' }
+    end
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+
+  cloud -->|1| publb
+  publb -->|2| nva1
+  nva1 -->|3| app2
+  app2 -->|4| nva1
+  nva1 -->|5| cloud
+  rs <-.->|eBGP| nva1
+  rs <-.->|eBGP| nva2
+  gw --> rs
+```
+
+## NVA 高可用性搭配 Gateway Load Balancer
+
+使用 Azure Gateway Load Balancer 進行透明 NVA 插入。流量目的地為應用程式時，會從公用標準負載平衡器透明地導向至獨立 NVA VNet 中的 Gateway LB。NVA 檢查流量後將其返回 Gateway LB，再轉送回應用程式。NVA 與應用程式 VNet 之間無需 VNet 對等互連或使用者定義路由。
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph nvavnet[NVA VNet]
+    gwlb@{ icon: 'azure:load-balancers', label: 'Gateway LB' }
+    nva1@{ icon: 'azure:firewalls', label: 'NVA' }
+    nva2@{ icon: 'azure:firewalls', label: 'NVA' }
+  end
+  subgraph appvnet[App VNet]
+    publb@{ icon: 'azure:load-balancers', label: 'Public Std LB' }
+    web@{ icon: 'azure:virtual-machine', label: 'Web Server' }
+  end
+
+  cloud -->|1| publb
+  publb -->|2| gwlb
+  gwlb -->|3| nva1
+  nva1 -->|4| gwlb
+  gwlb -->|5| publb
+  publb -->|6| web
+  gwlb --> nva2
+```

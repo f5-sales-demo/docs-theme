@@ -1,0 +1,111 @@
+---
+title: 頁尾
+description: 自訂 Starlight 頁尾元件，包含社群媒體連結。
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+此主題以自訂的 `Footer.astro` 元件取代預設的 Starlight 頁尾，在標準頁尾內容下方新增社群媒體連結。
+
+## 元件模式
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+此模式**擴充**預設頁尾，而非完全取代。`<Default {...Astro.props}><slot /></Default>` 會渲染原始的 Starlight 頁尾（上一頁/下一頁導覽），接著在下方附加社群連結。
+
+## 註冊方式
+
+頁尾覆寫由 `index.ts` 中的 Starlight 外掛進行註冊。在 `config:setup` 鉤子期間，會設定 `Footer` 元件覆寫：
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+內容儲存庫無需手動註冊頁尾——當主題外掛載入時，頁尾將自動套用。
+
+## 社群連結
+
+| 平台 | URL | 圖示顏色 | 無障礙標籤 |
+|----------|-----|------------|------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2`（Facebook 藍） | Facebook |
+| X | `https://x.com/F5` | `currentColor`（繼承） | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2`（LinkedIn 藍） | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F`（Instagram 粉紅） | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000`（YouTube 紅） | YouTube |
+
+每個連結均會在新分頁中開啟（`target="_blank"`），並附加 `rel="noopener noreferrer"` 以確保安全性。
+
+## CSS 樣式
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+連結以彈性列靠右對齊，並在懸停時呈現細緻的不透明度效果。
+
+## 自訂設定
+
+### 變更 URL
+
+在 `@f5xc-salesdemos/docs-theme` 套件的 `components/Footer.astro` 中，編輯對應 `<a>` 標籤上的 `href` 屬性。
+
+### 新增連結
+
+在 `.social-links` div 內新增一個包含 24x24 SVG 圖示的 `<a>` 元素。請遵循現有模式：
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### 移除連結
+
+刪除您想移除的平台所對應的整個 `<a>...</a>` 區塊。
+
+### 變更圖示顏色
+
+修改 `<svg>` 元素上的 `fill` 屬性。使用 `currentColor` 可繼承文字顏色，或指定特定的十六進位值作為品牌顏色。
+
+### 變更版面配置
+
+修改 `<style>` 區塊中的 `.social-links` CSS：
+- **置中對齊**：將 `justify-content` 改為 `center`
+- **加大間距**：增加 `gap` 的值
+- **靠左對齊**：將 `justify-content` 改為 `flex-start`

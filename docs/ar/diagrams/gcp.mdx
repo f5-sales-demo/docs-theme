@@ -1,0 +1,79 @@
+---
+title: GCP
+description: >-
+  مخططات بنية GCP تُظهر VPC وGKE وCloud Functions وCloud SQL وموازنة التحميل
+  العالمية مع تكامل F5 XC.
+sidebar:
+  order: 12
+i18n:
+  sourceHash: 8e12a5d554be
+  translator: machine
+---
+
+مخططات بنية Google Cloud التحتية باستخدام حزمتَي أيقونات HashiCorp Flight وCarbon لشبكات VPC وGKE والخدمات المُدارة.
+
+## GCP VPC مع GKE
+
+مشروع Google Cloud مع موازن تحميل عالمي يوزّع حركة المرور على مجموعة GKE وCloud Functions.
+
+```mermaid
+architecture-beta
+  group gcp(hashicorp-flight:gcp-color)[GCP Project]
+  group frontend(carbon:ibm-cloud-subnets)[Frontend Tier] in gcp
+  group backend(carbon:ibm-cloud-subnets)[Backend Tier] in gcp
+
+  service glb(carbon:load-balancer-global)[Global LB]
+  service gke(hashicorp-flight:kubernetes-color)[GKE Cluster] in frontend
+  service func(carbon:application)[Cloud Functions] in frontend
+  service sql(carbon:data-base)[Cloud SQL] in backend
+  service store(carbon:data-base)[Firestore] in backend
+
+  glb:R --> L:gke
+  glb:B --> T:func
+  gke:R --> L:sql
+  func:R --> L:store
+  sql:B --> T:store
+```
+
+## GKE مع F5 XC App Connect
+
+مجموعة GKE مع F5 Distributed Cloud توفّر اتصال التطبيقات وقابلية المراقبة عبر بيئات السحابة.
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 XC]
+  group gke(hashicorp-flight:kubernetes-color)[GKE Cluster]
+
+  service appconn(f5xc:multi-cloud-app-connect)[App Connect] in xc
+  service obs(f5xc:observability)[Observability] in xc
+  service ingress(carbon:gateway)[Ingress] in gke
+  service web(hashicorp-flight:docker-color)[Web Pods] in gke
+  service api(carbon:api)[API Pods] in gke
+  service sql(carbon:data-base)[Cloud SQL]
+
+  appconn:R --> L:obs
+  obs:R --> L:ingress
+  ingress:R --> L:web
+  ingress:B --> T:api
+  api:R --> L:sql
+```
+
+## خط أنابيب البيانات بدون خوادم
+
+خط أنابيب معالجة البيانات بدون خوادم في GCP باستخدام Pub/Sub وCloud Functions وBigQuery.
+
+```mermaid
+flowchart LR
+  source@{ icon: 'lucide:globe', label: 'Data Sources' }
+  pubsub@{ icon: 'carbon:edge-service', label: 'Pub/Sub' }
+  func@{ icon: 'carbon:application', label: 'Cloud Function' }
+  bq@{ icon: 'carbon:data-base', label: 'BigQuery' }
+  storage@{ icon: 'carbon:cloud-services', label: 'Cloud Storage' }
+  dash@{ icon: 'carbon:application', label: 'Dashboard' }
+
+  source --> pubsub
+  pubsub --> func
+  func --> bq
+  func --> storage
+  bq --> dash
+```

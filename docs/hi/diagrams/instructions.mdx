@@ -1,0 +1,97 @@
+---
+title: निर्देश
+description: >-
+  Mermaid डायग्राम सिंटैक्स संदर्भ, उपलब्ध आइकन पैक, CSS स्टाइलिंग, और थीम
+  संगतता विवरण।
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 5ce5851823d9
+  translator: machine
+---
+
+थीम में एक कस्टम `remark-mermaid` प्लगइन (`plugins/remark-mermaid.mjs`) शामिल है जो fenced ` ```mermaid ` कोड ब्लॉक को `<div class="mermaid-container">` रैपर में परिवर्तित करता है। Mermaid CDN स्क्रिप्ट पेज लोड होने पर SVG डायग्राम रेंडर करती है।
+
+## आइकन सिंटैक्स
+
+### फ्लोचार्ट
+
+किसी भी पंजीकृत आइकन पैक से आइकन जोड़ने के लिए `@\{\}` नोड सिंटैक्स का उपयोग करें:
+
+```
+nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
+```
+
+### आर्किटेक्चर डायग्राम
+
+`architecture-beta` डायग्राम प्रकार आइकन-सजाए गए नोड्स के साथ सेवा और समूह परिभाषाओं का समर्थन करता है:
+
+```
+service myService(pack:icon-name)[Label]
+group myGroup(pack:icon-name)[Label]
+```
+
+## उपलब्ध आइकन पैकेज
+
+निम्नलिखित आइकन पैक पंजीकृत हैं और Mermaid डायग्राम में उपलब्ध हैं। आइकन केवल तब CDN से lazy लोड किए जाते हैं जब उन्हें संदर्भित किया जाता है।
+
+| पैक नाम | npm पैकेज | मुख्य आइकन |
+|-----------|-------------|-----------|
+| `hashicorp-flight` | `@f5xc-salesdemos/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
+| `f5-brand` | `@f5xc-salesdemos/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
+| `f5xc` | `@f5xc-salesdemos/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
+| `carbon` | `@f5xc-salesdemos/icons-carbon` | `cloud-services`, `data-base`, `gateway-api`, `virtual-machine`, `load-balancer-global`, `firewall`, `dns-services`, `virtual-private-cloud` |
+| `lucide` | `@f5xc-salesdemos/icons-lucide` | `server`, `database`, `shield`, `shield-check`, `globe`, `lock`, `cloud`, `network`, `user` |
+| `mdi` | `@f5xc-salesdemos/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `dns`, `vpn`, `router` |
+| `phosphor` | `@f5xc-salesdemos/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock`, `network` |
+| `tabler` | `@f5xc-salesdemos/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `route`, `router` |
+| `azure` | `@f5xc-salesdemos/icons-azure` | `virtual-networks`, `load-balancers`, `firewalls`, `virtual-network-gateways`, `virtual-machine`, `public-ip-addresses`, `route-tables`, `subnet` |
+
+## CSS संदर्भ
+
+### कंटेनर स्टाइलिंग
+
+Mermaid डायग्राम को गोल कोनों और स्तरित बॉक्स शैडो वाले एक स्टाइल्ड कंटेनर में लपेटा जाता है:
+
+```css
+.mermaid-container {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+  margin-block: 1.5rem;
+  background: #fff;
+}
+```
+
+### Pre एलिमेंट रीसेट
+
+Starlight की डिफ़ॉल्ट `<pre>` स्टाइलिंग mermaid रैपर से हटा दी जाती है ताकि केवल बाहरी कंटेनर बॉर्डर दिखाई दे:
+
+```css
+.mermaid-container pre.mermaid {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+```
+
+### SVG बैकग्राउंड फोर्सिंग
+
+डार्क मोड संगतता के लिए अंदर का SVG सफेद बैकग्राउंड पर बाध्य किया जाता है:
+
+```css
+.mermaid-container svg {
+  background: white !important;
+  border-radius: 0.5rem;
+}
+```
+
+## थीम जाँच
+
+- `.mermaid-container` में डार्क मोड में सफेद SVG बैकग्राउंड है
+- कंटेनर बॉर्डर `--sl-color-gray-5` का उपयोग करता है
+- कंटेनर में 0.75rem बॉर्डर रेडियस और स्तरित बॉक्स शैडो है
+- डायग्राम लाइट और डार्क दोनों थीम में पठनीय हैं
+- Mermaid CDN स्क्रिप्ट पेज लोड पर SVG लोड और रेंडर करती है

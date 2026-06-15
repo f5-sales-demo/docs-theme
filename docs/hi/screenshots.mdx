@@ -1,0 +1,129 @@
+---
+title: स्क्रीनशॉट
+description: थीम-अवेयर लाइट और डार्क मोड इमेज पेयर के लिए स्क्रीनशॉट घटक।
+sidebar:
+  order: 10
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: 0b677390b859
+  translator: machine
+---
+
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+`Screenshot` घटक थीम-अवेयर इमेज रेंडर करता है जो उपयोगकर्ता द्वारा साइट थीम
+टॉगल करने पर स्वचालित रूप से लाइट और डार्क वेरिएंट के बीच बदलती हैं। इसका
+उपयोग तब करें जब आपको UI स्क्रीनशॉट दिखाने हों जो पाठक की वर्तमान
+कलर स्कीम से मेल खाने चाहिए।
+
+## प्रॉप्स संदर्भ
+
+| प्रॉप | प्रकार | आवश्यक | विवरण |
+| ---- | ---- | -------- | ----------- |
+| `light` | `string` | नहीं | लाइट-मोड इमेज का पाथ |
+| `dark` | `string` | नहीं | डार्क-मोड इमेज का पाथ |
+| `alt` | `string` | हाँ | एक्सेसिबिलिटी के लिए ऑल्ट टेक्स्ट |
+| `width` | `number` | नहीं | पिक्सेल में इमेज की चौड़ाई |
+| `height` | `number` | नहीं | पिक्सेल में इमेज की ऊँचाई |
+
+:::note
+`light` या `dark` में से कम से कम एक प्रदान किया जाना चाहिए।
+जब दोनों दिए जाते हैं, तो घटक सक्रिय थीम के आधार पर उनके बीच स्विच करता है।
+:::
+
+## दोहरा मोड (लाइट + डार्क)
+
+प्रत्येक थीम के लिए सही वेरिएंट दिखाने हेतु `light` और `dark` दोनों प्रॉप्स प्रदान करें।
+इमेज को स्विच होते देखने के लिए ऊपर-दाईं ओर थीम सेलेक्टर टॉगल करें।
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+
+```mdx
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+```
+
+:::tip
+UI का दस्तावेज़ीकरण करते समय हमेशा लाइट और डार्क दोनों स्क्रीनशॉट कैप्चर करें।
+इससे पाठकों को उनकी थीम प्राथमिकता की परवाह किए बिना सटीक प्रतिनिधित्व मिलता है।
+:::
+
+## एकल इमेज
+
+जब केवल एक वेरिएंट उपलब्ध हो, तो केवल `light` या `dark` पास करें।
+इमेज बिना स्विच किए दोनों थीम में रेंडर होती है।
+
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+
+```mdx
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+```
+
+## आयामों के साथ
+
+रेंडर किए गए आकार को नियंत्रित करने और लेआउट शिफ्ट रोकने के लिए `width` और `height` का उपयोग करें।
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+
+```mdx
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+```
+
+## यह कैसे काम करता है
+
+घटक एक `.screenshot-pair` रैपर के अंदर एक या दो `<img>` एलिमेंट रेंडर करता है।
+CSS नियम सक्रिय थीम के आधार पर दृश्यता टॉगल करते हैं:
+
+- **डार्क मोड** (डिफ़ॉल्ट) — `.screenshot-light` इमेज को
+  `:root:not([data-theme="light"]) .screenshot-light \{ display: none \}` के माध्यम से छुपाया जाता है
+- **लाइट मोड** — `.screenshot-dark` इमेज को
+  `:root[data-theme="light"] .screenshot-dark \{ display: none \}` के माध्यम से छुपाया जाता है
+
+अतिरिक्त सेलेक्टर `starlight-image-zoom` रैपर को `:has()` का उपयोग करके हैंडल करते हैं
+ताकि ज़ूम कार्यक्षमता दोनों वेरिएंट के साथ सही ढंग से काम करे।
+
+सभी स्क्रीनशॉट इमेज को एकसमान स्टाइलिंग मिलती है: एक सूक्ष्म बॉर्डर, गोल
+कोने, और एक ड्रॉप शैडो जो होवर पर तीव्र हो जाती है।
+
+## Markdown इमेज के साथ तुलना
+
+| सुविधा | `Screenshot` घटक | Markdown `![](url)` |
+| ------- | ---------------------- | -------------------- |
+| थीम-अवेयर स्वैपिंग | हाँ | नहीं |
+| स्टाइल्ड बॉर्डर और शैडो | स्वचालित | नहीं |
+| होवर शैडो इफेक्ट | हाँ | नहीं |
+| ज़ूम सपोर्ट | इमेज ज़ूम प्लगइन के साथ काम करता है | इमेज ज़ूम प्लगइन के साथ काम करता है |
+| ऑल्ट टेक्स्ट | `alt` प्रॉप | `![alt text]()` |
+
+`Screenshot` घटक का उपयोग तब करें जब आपके पास थीम-विशिष्ट इमेज वेरिएंट हों या
+स्टाइल्ड स्क्रीनशॉट अपीयरेंस चाहते हों। इनलाइन ग्राफिक्स, डायग्राम, या ऐसी इमेज के लिए
+मानक Markdown इमेज का उपयोग करें जो दोनों थीम में एक जैसी दिखती हों।

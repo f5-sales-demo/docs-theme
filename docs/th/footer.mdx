@@ -1,0 +1,111 @@
+---
+title: ส่วนท้าย (Footer)
+description: ส่วนประกอบ Footer ของ Starlight แบบกำหนดเองพร้อมลิงก์โซเชียลมีเดีย
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+ธีมจะแทนที่ส่วนท้ายเริ่มต้นของ Starlight ด้วยส่วนประกอบ `Footer.astro` แบบกำหนดเอง ซึ่งเพิ่มลิงก์โซเชียลมีเดียไว้ด้านล่างของเนื้อหาส่วนท้ายมาตรฐาน
+
+## รูปแบบส่วนประกอบ
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+รูปแบบนี้ **ขยาย** ส่วนท้ายเริ่มต้นแทนที่จะแทนที่ทั้งหมด `<Default {...Astro.props}><slot /></Default>` จะแสดงผลส่วนท้าย Starlight ดั้งเดิม (การนำทางหน้าก่อนหน้า/ถัดไป) จากนั้นลิงก์โซเชียลจะถูกเพิ่มต่อท้ายด้านล่าง
+
+## วิธีการลงทะเบียน
+
+การแทนที่ส่วนท้ายจะถูกลงทะเบียนโดยปลั๊กอิน Starlight ใน `index.ts` ในระหว่าง hook `config:setup` จะกำหนดการแทนที่ส่วนประกอบ `Footer`:
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+ที่เก็บเนื้อหาไม่จำเป็นต้องลงทะเบียนส่วนท้ายด้วยตนเอง — ระบบจะนำไปใช้โดยอัตโนมัติเมื่อปลั๊กอินธีมโหลด
+
+## ลิงก์โซเชียล
+
+| แพลตฟอร์ม | URL | สีไอคอน | Aria Label |
+|----------|-----|------------|------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Facebook Blue) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (inherits) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (LinkedIn Blue) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Instagram Pink) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (YouTube Red) | YouTube |
+
+แต่ละลิงก์จะเปิดในแท็บใหม่ (`target="_blank"`) พร้อม `rel="noopener noreferrer"` เพื่อความปลอดภัย
+
+## การจัดรูปแบบ CSS
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+ลิงก์จะถูกจัดชิดขวาในแถว flex พร้อมเอฟเฟกต์ opacity เมื่อวางเมาส์อย่างละเอียดอ่อน
+
+## การปรับแต่ง
+
+### การเปลี่ยน URL
+
+แก้ไขแอตทริบิวต์ `href` บนแท็ก `<a>` ที่สอดคล้องกันใน `components/Footer.astro` ภายในแพ็กเกจ `@f5xc-salesdemos/docs-theme`
+
+### การเพิ่มลิงก์
+
+เพิ่มองค์ประกอบ `<a>` ใหม่ภายใน div `.social-links` พร้อมไอคอน SVG ขนาด 24x24 โดยทำตามรูปแบบที่มีอยู่:
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### การลบลิงก์
+
+ลบบล็อก `<a>...</a>` ทั้งหมดสำหรับแพลตฟอร์มที่ต้องการลบ
+
+### การเปลี่ยนสีไอคอน
+
+แก้ไขแอตทริบิวต์ `fill` บนองค์ประกอบ `<svg>` ใช้ `currentColor` เพื่อรับค่าสีข้อความ หรือค่า hex เฉพาะสำหรับสีของแบรนด์
+
+### การเปลี่ยนเลย์เอาต์
+
+แก้ไข CSS `.social-links` ในบล็อก `<style>`:
+- **การจัดกึ่งกลาง**: เปลี่ยน `justify-content` เป็น `center`
+- **ระยะห่างที่กว้างขึ้น**: เพิ่มค่า `gap`
+- **การจัดชิดซ้าย**: เปลี่ยน `justify-content` เป็น `flex-start`

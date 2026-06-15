@@ -1,0 +1,111 @@
+---
+title: تذييل الصفحة
+description: مكوّن تذييل Starlight مخصص مع روابط وسائل التواصل الاجتماعي.
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+تستبدل السمة تذييل Starlight الافتراضي بمكوّن `Footer.astro` مخصص يضيف روابط وسائل التواصل الاجتماعي أسفل محتوى التذييل القياسي.
+
+## نمط المكوّن
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+يـ**وسّع** هذا النمط التذييل الافتراضي بدلاً من استبداله كلياً. يُصيّر `<Default {...Astro.props}><slot /></Default>` تذييل Starlight الأصلي (التنقل بين الصفحات السابقة/التالية)، ثم تُضاف روابط التواصل الاجتماعي أدناه.
+
+## طريقة التسجيل
+
+يُسجَّل التذييل المخصص بواسطة إضافة Starlight في `index.ts`. خلال خطاف `config:setup`، يضبط تجاوز مكوّن `Footer`:
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+لا تحتاج مستودعات المحتوى إلى تسجيل التذييل يدوياً — فهو يُطبَّق تلقائياً عند تحميل إضافة السمة.
+
+## روابط التواصل الاجتماعي
+
+| المنصة | الرابط | لون الأيقونة | تسمية Aria |
+|----------|-----|------------|------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (أزرق Facebook) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (موروث) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (أزرق LinkedIn) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (وردي Instagram) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (أحمر YouTube) | YouTube |
+
+يُفتح كل رابط في علامة تبويب جديدة (`target="_blank"`) مع `rel="noopener noreferrer"` للأمان.
+
+## تنسيق CSS
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+تُحاذى الروابط إلى اليمين في صف مرن مع تأثير تعتيم خفيف عند التمرير.
+
+## التخصيص
+
+### تغيير رابط
+
+عدّل سمة `href` على وسم `<a>` المقابل في `components/Footer.astro` داخل حزمة `@f5xc-salesdemos/docs-theme`.
+
+### إضافة رابط
+
+أضف عنصر `<a>` جديداً داخل div الخاص بـ`.social-links` مع أيقونة SVG بأبعاد 24×24. اتبع النمط الموجود:
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### إزالة رابط
+
+احذف كتلة `<a>...</a>` بالكامل الخاصة بالمنصة التي تريد إزالتها.
+
+### تغيير ألوان الأيقونات
+
+عدّل سمة `fill` على عنصر `<svg>`. استخدم `currentColor` لوراثة لون النص، أو قيمة hex محددة لألوان العلامة التجارية.
+
+### تغيير التخطيط
+
+عدّل CSS الخاص بـ`.social-links` في كتلة `<style>`:
+- **المحاذاة الوسطى**: غيّر `justify-content` إلى `center`
+- **التباعد الأوسع**: زد قيمة `gap`
+- **المحاذاة إلى اليسار**: غيّر `justify-content` إلى `flex-start`

@@ -1,0 +1,79 @@
+---
+title: Protección de API
+description: >-
+  Diagramas de seguridad de API que muestran arquitectura de gateway,
+  descubrimiento de API ocultas, limitación de velocidad y validación de esquema
+  con F5 XC.
+sidebar:
+  order: 17
+i18n:
+  sourceHash: 575b193c6c8c
+  translator: machine
+---
+
+Diagramas de arquitectura de protección de API que cubren la seguridad del gateway de API, el descubrimiento de API ocultas, la limitación de velocidad y la validación de esquema con F5 Distributed Cloud.
+
+## Seguridad del Gateway de API
+
+Gateway de API con autenticación, autorización, limitación de velocidad y validación de esquema antes de llegar a los servicios backend.
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'API Client' }
+  gw@{ icon: 'carbon:gateway-api', label: 'API Gateway' }
+  auth@{ icon: 'lucide:key', label: 'Auth Service' }
+  rate@{ icon: 'carbon:load-balancer-vpc', label: 'Rate Limiter' }
+  api@{ icon: 'carbon:api', label: 'API Service' }
+  db@{ icon: 'carbon:data-base', label: 'Database' }
+
+  client --> gw
+  gw --> auth
+  auth --> gw
+  gw --> rate
+  rate --> api
+  api --> db
+```
+
+## Descubrimiento y Protección de API con F5 XC
+
+F5 Distributed Cloud proporciona descubrimiento de API, detección de API ocultas y seguridad integral de API con análisis de tráfico.
+
+```mermaid
+flowchart TD
+  traffic@{ icon: 'lucide:globe', label: 'API Traffic' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  discover@{ icon: 'f5xc:application-traffic-insight', label: 'API Discovery' }
+  scan@{ icon: 'f5xc:web-app-scanning', label: 'API Scanning' }
+  intel@{ icon: 'f5xc:data-intelligence', label: 'Data Intelligence' }
+  api@{ icon: 'carbon:api', label: 'API Endpoints' }
+
+  traffic --> waap
+  waap --> discover
+  waap --> scan
+  discover --> intel
+  scan --> intel
+  waap --> api
+```
+
+## Pipeline de Seguridad de API
+
+Pipeline de validación de solicitudes de API en múltiples etapas con TLS, verificación JWT, limitación de velocidad e inspección de carga útil.
+
+```mermaid
+architecture-beta
+  group security(lucide:shield)[API Security Layer]
+  group backend(carbon:cloud-services)[Backend Services]
+
+  service tls(lucide:lock)[TLS Termination] in security
+  service jwt(lucide:key)[JWT Validation] in security
+  service rate(carbon:load-balancer-vpc)[Rate Limiter] in security
+  service schema(carbon:gateway-security)[Schema Validation] in security
+  service api1(carbon:api)[Users API] in backend
+  service api2(carbon:api)[Orders API] in backend
+
+  tls:R --> L:jwt
+  jwt:R --> L:rate
+  rate:R --> L:schema
+  schema:R --> L:api1
+  schema:B --> T:api2
+```

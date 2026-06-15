@@ -1,0 +1,131 @@
+---
+title: 建置流程
+description: 內容儲存庫如何在建置時透過 Docker 建置器和 npm 套件使用佈景主題。
+sidebar:
+  order: 3
+i18n:
+  sourceHash: f305437613ca
+  translator: machine
+---
+
+本頁說明內容儲存庫如何使用 `@f5xc-salesdemos/docs-theme` npm 套件，以產生完整品牌化的文件網站。
+
+## 架構
+
+```
+┌─────────────────┐
+│  Content Repo   │
+│  (docs/ folder) │
+└────────┬────────┘
+         │
+         ▼
+┌───────────────────────────┐
+│   f5xc-docs-builder       │
+│   (Docker image)          │
+│                           │
+│  npm install              │
+│  @f5xc-salesdemos/docs-theme ─────┐  │
+│                        ▼  │
+│  node_modules/            │
+│    @f5xc-salesdemos/docs-theme/       │
+│      ├── config.ts        │
+│      ├── index.ts         │
+│      ├── fonts/           │
+│      ├── styles/          │
+│      ├── assets/          │
+│      └── components/      │
+│                           │
+│  Astro Build              │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   Astro Build Output      │
+│   (static HTML/CSS)       │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   GitHub Pages            │
+└───────────────────────────┘
+```
+
+## 建置流程逐步說明
+
+1. **內容儲存庫推送** — 推送至 `main`（或手動觸發）會啟動 GitHub Pages 部署工作流程
+2. **可重複使用的工作流程** — 內容儲存庫的工作流程呼叫建置器：
+   ```yaml
+   jobs:
+     docs:
+       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+   ```
+3. **Docker 建置器執行** — `f5xc-docs-builder` Docker 映像檔已透過 npm 預先安裝佈景主題。在建置時它會：
+   - 將 `astro.config.mjs` 和 `content.config.ts` 從 `node_modules/@f5xc-salesdemos/docs-theme/` 複製到 Astro 專案根目錄
+   - 將內容儲存庫的 `docs/` 檔案複製至 `src/content/docs/`
+4. **Astro 建置** — Astro 讀取設定檔，其中呼叫 `createF5xcDocsConfig()`。此工廠函式透過 npm 套件指定符（例如 `@f5xc-salesdemos/docs-theme/styles/custom.css`）解析所有佈景主題資源
+5. **部署** — 建置完成的靜態網站部署至 GitHub Pages
+
+## 內容儲存庫需求
+
+內容儲存庫僅需具備：
+
+- 包含 Markdown（`.md`）或 MDX（`.mdx`）檔案的 `docs/` 目錄
+- 呼叫建置器的 GitHub Actions 工作流程
+
+### 最簡工作流程
+
+```yaml
+name: GitHub Pages Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+```
+
+這與本佈景主題儲存庫本身用於建置您正在閱讀之文件的工作流程相同。
+
+## 路徑解析
+
+佈景主題中的所有路徑均使用 npm 套件指定符，透過 `package.json` 中的 `exports` 對應表進行解析：
+
+```js
+// CSS — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
+'@f5xc-salesdemos/docs-theme/styles/custom.css'
+
+// Components — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/components/Footer.astro'
+'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+
+// Assets — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+```
+
+建置工作區中不存在 `./theme/` 目錄。Docker 建置器將佈景主題作為一般 npm 相依套件安裝，Astro 透過 `node_modules` 解析所有指定符。
+
+:::note
+`font-face.css` 中的字型檔案路徑使用 `./`（例如 `url("./neusaNextProWide-300.woff2")`）。這些路徑相對於 CSS 檔案本身，因此無論套件如何安裝，它們都會解析至 `fonts/` 目錄中的其他檔案。
+:::
+
+## 變更傳遞
+
+佈景主題變更透過 npm 套件更新傳遞：
+
+1. 變更合併至 `@f5xc-salesdemos/docs-theme` 的 `main` 分支
+2. Docker 建置器映像檔以更新後的套件重新建置
+3. 下次任何內容儲存庫的工作流程執行時，將使用更新後的建置器映像檔
+4. Astro 建置取得更新後的字型、樣式、標誌、元件和插件
+5. 內容儲存庫的網站以新佈景主題部署
+
+內容儲存庫始終取得 Docker 映像檔中捆綁的最新佈景主題。這確保了所有網站的視覺一致性，但也意味著佈景主題變更在合併前應謹慎測試。

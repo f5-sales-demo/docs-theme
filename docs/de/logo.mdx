@@ -1,0 +1,78 @@
+---
+title: Logo
+description: Wie das Logo konfiguriert wird und wie es ersetzt werden kann.
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+Das Dokumentationsthema zeigt ein Logo in der Seitenkopfzeile jeder Dokumentationswebsite an.
+
+## Verfügbare Logo-Ressourcen
+
+Das Dokumentationsthema enthält zwei Logo-Dateien im Verzeichnis `assets/`:
+
+| Datei | Format | Beschreibung |
+|------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | F5-Logo in Cloud Red (`#e4002b`) |
+| `assets/github-avatar.png` | PNG | GitHub-Organisations-Avatar (Standard) |
+
+## Standardlogo
+
+Das Standardlogo wird in der Factory `createF5xcDocsConfig` in `config.ts` festgelegt:
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+Wenn keine `logo`-Option angegeben wird, wird der GitHub-Avatar als PNG verwendet. Der Pfad ist ein npm-Paketbezeichner, der über die `exports`-Zuordnung in `package.json` aufgelöst wird.
+
+## Logo ersetzen
+
+### Option 1: F5-SVG-Logo verwenden
+
+Übergeben Sie die `logo`-Option an `createF5xcDocsConfig`:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### Option 2: Benutzerdefiniertes Logo verwenden
+
+Platzieren Sie Ihre Logo-Datei im Inhalts-Repository und referenzieren Sie sie:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### Option 3: Separate Logos für helles und dunkles Design
+
+Starlight unterstützt separate Logos für den Hell- und Dunkelmodus:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## Richtlinien
+
+- **SVG-Format verwenden** — Rasterbilder (PNG, JPG) funktionieren zwar, skalieren jedoch nicht in allen Größen sauber
+- **Ein `viewBox`-Attribut einschließen** — stellt sicher, dass das Logo proportional skaliert (z. B. `viewBox="0 0 100 100"`)
+- **Dateigröße klein halten** — das Logo wird auf jeder Seite geladen; angestrebt werden sollten unter 10 KB
+- **In beiden Designs testen** — überprüfen Sie, ob das Logo sowohl im Hell- als auch im Dunkelmodus korrekt dargestellt wird

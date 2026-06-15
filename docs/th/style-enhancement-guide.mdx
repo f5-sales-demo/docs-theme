@@ -1,0 +1,598 @@
+---
+title: คู่มือการปรับแต่งสไตล์
+description: เอกสารอ้างอิง design system token สำหรับ @f5xc-salesdemos/docs-theme
+sidebar:
+  order: 12
+i18n:
+  sourceHash: f0fb4524cc1c
+  translator: machine
+---
+
+คู่มือนี้จัดทำเอกสารเกี่ยวกับ design system token และ component class ที่นำไปใช้งานใน `styles/custom.css` โดยเป็นเอกสารอ้างอิงสำหรับ token ด้าน border, surface, shadow, radius, button, gradient, transition, focus และ typography ที่ใช้ทั่วทั้งธีม
+
+> **สถานะ**: design token และ component class ทั้งหมดที่อธิบายไว้ด้านล่างได้รับการนำไปใช้งานแล้วและพร้อมใช้งาน
+
+## วิธีอ่านคู่มือนี้
+
+แต่ละส่วนจะจัดทำเอกสารสำหรับหมวดหมู่ token:
+
+1. **นิยาม token** — CSS custom properties พร้อมค่าโหมดสว่าง/มืด
+2. **การแมปกับ component** — component ธีมใดที่ใช้แต่ละ token
+3. **หมายเหตุการนำไปใช้** — แนวทางการใช้งานและข้อพิจารณาด้านการเข้าถึง
+
+ตาราง token แบ่งตาม **โหมดสว่าง** และ **โหมดมืด** ในกรณีที่ค่าต่างกัน
+
+---
+
+## 1. ระบบสี
+
+### Border แบบ Alpha-Transparent
+
+ธีมนี้ใช้ **border แบบ alpha-transparent** แทนการใช้สีเทาทึบ ซึ่งช่วยให้ border ปรับตัวได้ตามธรรมชาติกับพื้นหลังทุกประเภท
+
+```css
+/* Alpha-transparent border pattern */
+border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
+```
+
+#### Border Token
+
+```css
+/* Light mode */
+:root[data-theme='light'] {
+  --f5-border-faint: #3434341a;    /* --f5-black-3 at 10% */
+  --f5-border-default: #34343433;  /* --f5-black-3 at 20% */
+  --f5-border-strong: #22222266;   /* --f5-black-4 at 40% */
+}
+
+/* Dark mode */
+:root {
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 at 10% */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2 at 20% */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4 at 40% */
+}
+```
+
+#### กรณีการใช้งาน Border
+
+| Token | ความโปร่งใส | กรณีการใช้งาน |
+|---|---|---|
+| `--f5-border-faint` | 10% | ตัวแบ่งที่บางเบา, แถวตาราง |
+| `--f5-border-default` | 20% | border ทั่วไป, เส้นขอบการ์ด |
+| `--f5-border-strong` | 40% | border ที่เน้นย้ำ, สถานะที่ใช้งานอยู่ |
+
+> **สถานะ**: สมบูรณ์ — นำไปใช้งานใน `styles/custom.css` แล้ว
+
+### สี Surface แบบ Interactive
+
+Semantic surface token สำหรับสถานะ hover และ active
+
+#### Surface โหมดสว่าง
+
+| Token | ค่า | วัตถุประสงค์ |
+|---|---|---|
+| `--f5-white` | `#ffffff` | พื้นหลังหลัก |
+| `--f5-white-1` | `#faf9f7` | Sidebar, พื้นที่ที่ละเอียดอ่อน |
+| `--f5-white-2` | `#f5f5f5` | Surface ที่ยกขึ้น |
+| `--f5-surface-hover` | `var(--f5-white-2)` | สีเติมเมื่อ hover |
+| `--f5-surface-active` | `var(--f5-white-3)` | สีเติมเมื่อกด/active |
+
+#### Surface โหมดมืด
+
+| Token | ค่า | วัตถุประสงค์ |
+|---|---|---|
+| `--f5-black` | `#000000` | พื้นหลังหลัก |
+| `--f5-black-4` | `#222222` | Sidebar, พื้นที่ที่ละเอียดอ่อน |
+| `--f5-surface-hover` | `var(--f5-black-3)` | สีเติมเมื่อ hover |
+| `--f5-surface-active` | `var(--f5-black-2)` | สีเติมเมื่อกด/active |
+
+#### นิยาม Surface Token
+
+```css
+:root[data-theme='light'] {
+  --f5-surface-hover: var(--f5-white-2);     /* #f5f5f5 */
+  --f5-surface-active: var(--f5-white-3);    /* #e6e6e6 */
+}
+
+:root {
+  --f5-surface-hover: var(--f5-black-3);     /* #343434 */
+  --f5-surface-active: var(--f5-black-2);    /* #666666 */
+}
+```
+
+> **สถานะ**: สมบูรณ์ — นำไปใช้งานใน `styles/custom.css` แล้ว
+
+---
+
+## 2. ระบบ Elevation และ Shadow
+
+### ระดับ Shadow
+
+ธีมนี้ใช้ **shadow แบบ alpha ที่มีโทนกลาง** โดยมีค่าสองชั้นเพื่อให้ดูมีความลึกเป็นธรรมชาติ โหมดสว่างใช้ `--f5-black-3` (`#343434`) เป็นฐานโทนสี ส่วนโหมดมืดใช้ `#cccccc`
+
+#### Shadow โหมดสว่าง
+
+```css
+:root[data-theme='light'] {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #3434341a;
+  --f5-shadow-low:
+    0px 1px 1px 0px #3434340d,
+    0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #3434341a,
+    0px 8px 16px -10px #34343433;
+  --f5-shadow-high:
+    0px 2px 3px 0px #34343426,
+    0px 16px 16px -10px #34343433;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #3434341a,
+    0px 12px 28px 0px #34343440;
+}
+```
+
+#### Shadow โหมดมืด
+
+```css
+:root {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #cccccc0d;
+  --f5-shadow-low:
+    0px 1px 1px 0px #cccccc0a,
+    0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #cccccc0d,
+    0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high:
+    0px 2px 3px 0px #cccccc1a,
+    0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #cccccc0d,
+    0px 12px 28px 0px #cccccc26;
+}
+```
+
+### การแมป Shadow กับ Component
+
+| Component | ระดับ Shadow |
+|---|---|
+| `.swatch`, `.icon-card` | `--f5-shadow-low` (สถานะพักผ่อน) |
+| `.starlight-aside` | `--f5-shadow-low` |
+| `.expressive-code .frame` | `--f5-shadow-mid` |
+| `.mermaid-container` | `--f5-shadow-mid` |
+| การ์ดเมื่อ hover | `--f5-shadow-mid` |
+| Dropdown, popover | `--f5-shadow-high` |
+| Modal | `--f5-shadow-higher` |
+
+> **สถานะ**: สมบูรณ์ — ระดับ shadow ทั้งหมด (`inset`, `low`, `mid`, `high`, `higher`) นำไปใช้งานใน `styles/custom.css` แล้ว
+
+---
+
+## 3. ระดับ Border Radius
+
+### Radius Token
+
+```css
+:root {
+  --f5-radius-xs: 0.1875rem;   /* 3px — badges, tags */
+  --f5-radius-sm: 0.3125rem;   /* 5px — nav items, small controls */
+  --f5-radius-md: 0.375rem;    /* 6px — cards, code blocks */
+  --f5-radius-lg: 0.5rem;      /* 8px — modals, large containers */
+  --f5-radius-full: 999px;     /* pills, fully rounded */
+}
+```
+
+### การแมป Radius กับ Component
+
+| Component | Radius Token |
+|---|---|
+| `.swatch` | `--f5-radius-md` (6px) |
+| `.icon-card` | `--f5-radius-md` (6px) |
+| `.starlight-aside` | `--f5-radius-md` (6px) |
+| `.expressive-code .frame` | `--f5-radius-md` (6px) |
+| `.mermaid-container` | `--f5-radius-lg` (8px) |
+| `.edit-link` | `--f5-radius-full` (pill) |
+| รายการนำทาง Sidebar | `--f5-radius-sm` (5px) |
+| Badge | `--f5-radius-xs` (3px) |
+
+> **สถานะ**: สมบูรณ์ — ระดับ radius (`xs`, `sm`, `md`, `lg`, `full`) นำไปใช้งานใน `styles/custom.css` แล้ว
+
+---
+
+## 4. การจัดสไตล์การนำทาง Sidebar
+
+### สไตล์รายการ Sidebar
+
+```css
+/* Sidebar navigation items */
+nav.sidebar a {
+  border-radius: var(--f5-radius-sm);    /* 5px */
+  padding: 0.25rem 0.5rem;               /* 4px 8px */
+  min-height: 2.25rem;                    /* 36px */
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Light mode hover */
+:root[data-theme='light'] nav.sidebar a:hover {
+  background-color: var(--f5-white-2);   /* #f5f5f5 */
+}
+
+/* Dark mode hover */
+:root nav.sidebar a:hover {
+  background-color: var(--f5-black-3);   /* #343434 */
+}
+
+/* Active page indicator */
+nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-white-3);   /* #e6e6e6 light */
+  font-weight: 600;
+}
+
+:root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-black-2);   /* #666666 → adjust for readability */
+}
+```
+
+### ตัวบ่งชี้เน้นด้านซ้าย
+
+```css
+nav.sidebar a[aria-current="page"] {
+  border-left: 3px solid var(--sl-color-accent);
+  padding-left: calc(0.5rem - 3px);  /* compensate for border */
+}
+```
+
+> **สถานะ**: สมบูรณ์ — สถานะ hover, active และตัวบ่งชี้เน้นของ sidebar นำไปใช้งานใน `styles/custom.css` แล้ว
+
+---
+
+## 5. ระบบ Button
+
+### รูปแบบ Button
+
+```css
+/* Primary — using F5 Red as brand action */
+.btn-primary {
+  background: var(--f5-red);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover {
+  background: var(--f5-red-3);
+  box-shadow: var(--f5-shadow-low);
+}
+
+/* Secondary — outline style */
+.btn-secondary {
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover {
+  background: var(--f5-surface-hover);
+  border-color: var(--f5-border-strong);
+}
+
+/* Tertiary — ghost/text-only */
+.btn-tertiary {
+  background: transparent;
+  color: var(--sl-color-accent);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+}
+.btn-tertiary:hover {
+  background: var(--f5-surface-hover);
+}
+```
+
+### ระดับขนาด Button
+
+| ขนาด | Padding | ขนาดตัวอักษร | ความสูงขั้นต่ำ |
+|---|---|---|---|
+| เล็ก | `0.375rem 0.75rem` | `0.8125rem` (13px) | `32px` |
+| กลาง (ค่าเริ่มต้น) | `0.625rem 1rem` | `0.875rem` (14px) | `40px` |
+| ใหญ่ | `0.75rem 1.5rem` | `1rem` (16px) | `48px` |
+
+> **สถานะ**: สมบูรณ์ — รูปแบบ button ทั้งหมด (`primary`, `secondary`, `tertiary`, `critical`) และระดับขนาด (`sm`, ค่าเริ่มต้น, `lg`) นำไปใช้งานใน `styles/custom.css` แล้ว
+
+---
+
+## 6. พื้นหลัง Hero และ Header
+
+### Gradient สำหรับ Hero
+
+ใช้ชุดสีแบรนด์ F5:
+
+```css
+/* Primary hero gradient — River blue */
+.hero-gradient-primary {
+  background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
+  /* #6e8dcc → #0e41aa */
+}
+
+/* Faint page wash — subtle warm tone */
+:root[data-theme='light'] .hero-gradient-faint {
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
+}
+:root .hero-gradient-faint {
+  background: linear-gradient(180deg, #222222 0%, #000000 100%);
+}
+
+/* Eggplant variant for feature pages */
+.hero-gradient-eggplant {
+  background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
+  /* #9c59c9 → #62228b */
+}
+
+/* Red brand variant for announcements */
+.hero-gradient-red {
+  background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
+  /* #f06680 → #e4002b */
+}
+```
+
+### เทคนิค Gradient Overlay
+
+```css
+/* Radial vignette for depth */
+.hero-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* Bottom fade to page background */
+.hero-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+```
+
+> **สถานะ**: สมบูรณ์ — hero gradient (`primary`, `eggplant`, `red`, `faint`) และ overlay (`hero-fade`, `hero-vignette`) นำไปใช้งานใน `styles/custom.css` แล้ว
+
+---
+
+## 7. เอฟเฟกต์ Hover และ Transition
+
+### Transition Token
+
+```css
+:root {
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+```
+
+| Token | ระยะเวลา | Easing | กรณีการใช้งาน |
+|---|---|---|---|
+| `--f5-transition-fast` | `0.15s` | `ease` | สถานะ hover ส่วนใหญ่, การเปลี่ยนสี |
+| `--f5-transition-base` | `0.2s` | `ease` | การเติมพื้นหลัง, การเปลี่ยน border |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | Switch, toggle |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | ตัวบ่งชี้ tab, แผงเลื่อน |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | Tooltip, การแสดง popover |
+
+### สิ่งที่ควร Animate
+
+| Property | ปลอดภัยที่จะ Animate | หมายเหตุ |
+|---|---|---|
+| `background-color` | ใช่ | มาตรฐานสำหรับสีเติม hover |
+| `color` | ใช่ | การเปลี่ยนสีข้อความ |
+| `border-color` | ใช่ | การเน้น border เมื่อ hover |
+| `box-shadow` | ใช่ | การเปลี่ยน elevation (ใช้ `will-change` หากมีการกระตุก) |
+| `transform` | ใช่ | Scale, translate เพื่อให้ feedback |
+| `opacity` | ใช่ | Fade in/out |
+| `width`, `height` | หลีกเลี่ยง | ทำให้เกิด layout reflow |
+| `padding`, `margin` | หลีกเลี่ยง | ทำให้เกิด layout reflow |
+
+### การแมป Transition กับ Component
+
+```css
+/* Sidebar nav items */
+nav.sidebar a {
+  transition: background-color var(--f5-transition-fast),
+              color var(--f5-transition-fast);
+}
+
+/* Cards — shadow lift on hover */
+.swatch, .icon-card {
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+.swatch:hover, .icon-card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-tertiary {
+  transition: background-color var(--f5-transition-fast),
+              border-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+
+/* Links */
+a {
+  transition: color var(--f5-transition-fast);
+}
+```
+
+> **สถานะ**: สมบูรณ์ — transition token ทั้งห้า (`fast`, `base`, `bounce`, `decelerate`, `spring`) และ transition ของ component นำไปใช้งานใน `styles/custom.css` แล้ว
+
+---
+
+## 8. ระบบ Focus Ring
+
+### Focus Ring Token
+
+ธีมนี้ใช้รูปแบบ **วงแหวนคู่** โดยมี inner ring แบบ inset และ outer glow:
+
+```css
+/* Action focus — using F5 River blue */
+:root {
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
+
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+  /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
+}
+
+/* Apply to interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--f5-focus-action);
+}
+
+/* Critical variant for destructive buttons */
+.btn-critical:focus-visible {
+  box-shadow: var(--f5-focus-critical);
+}
+```
+
+### หมายเหตุด้านการเข้าถึง
+
+- รูปแบบวงแหวนคู่ตรงตามข้อกำหนด **WCAG 2.2 Focus Appearance** (เส้นขอบที่มีความคมชัดขั้นต่ำ 2px)
+- การใช้ `box-shadow` แทน `outline` ช่วยให้ border-radius ถูกนำไปใช้ได้อย่างถูกต้อง
+- `:focus-visible` ทำให้วงแหวนแสดงเฉพาะเมื่อนำทางด้วยแป้นพิมพ์ ไม่ใช่เมื่อคลิกด้วยเมาส์
+
+> **สถานะ**: สมบูรณ์ — รูปแบบ focus วงแหวนคู่ (`action`, `critical`) และสไตล์ `:focus-visible` นำไปใช้งานใน `styles/custom.css` แล้ว
+
+---
+
+## 9. Typography
+
+### ชุดฟอนต์
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-font-heading: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-line-height-headings: 1.1;
+}
+```
+
+### ระดับขนาดตัวอักษร
+
+| ระดับ | ขนาด | ความสูงบรรทัด | การใช้งาน |
+|---|---|---|---|
+| Display 500 | `1.875rem` (30px) | 1.267 | `--sl-text-h1` |
+| Display 400 | `1.5rem` (24px) | 1.333 | `--sl-text-h2` |
+| Display 300 | `1.125rem` (18px) | 1.333 | `--sl-text-h3` |
+| Display 200 | `1rem` (16px) | 1.5 | `--sl-text-h4` |
+| Display 100 | `0.8125rem` (13px) | 1.385 | ข้อความ Overline |
+| Body 300 | `1rem` (16px) | 1.5 | เนื้อหาหลัก |
+| Body 200 | `0.875rem` (14px) | 1.429 | ข้อความ sidebar, คำบรรยาย |
+| Body 100 | `0.8125rem` (13px) | 1.385 | ตัวอักษรขนาดเล็ก |
+
+### ลักษณะสำคัญ
+
+| ด้าน | ค่า | หมายเหตุ |
+|---|---|---|
+| ความสูงบรรทัดหัวข้อ | `1.1` | หัวข้อแบบแน่นเพื่อผลกระทบของแบรนด์; พิจารณา `1.2` เพื่อการอ่านง่าย |
+| ความสูงบรรทัดเนื้อหา | `1.5` (ค่าเริ่มต้น Starlight) | เหมาะสมสำหรับการอ่าน |
+| ชุดฟอนต์ | ฟอนต์แบรนด์ที่กำหนดเอง | proximaNova (เนื้อหา), neusaNextProWide (หัวข้อ) |
+| น้ำหนักหัวข้อ | `h1-h2: 700, h3: 500, h4-h6: 700 uppercase` | มีความคิดเห็นชัดเจนเพื่อความสอดคล้องของแบรนด์ |
+
+> **ลำดับความสำคัญ**: ไม่จำเป็นต้องเปลี่ยนแปลง typography ปัจจุบันกำหนดไว้ชัดเจนและเหมาะสมกับแบรนด์ การปรับความสูงบรรทัดหัวข้อเล็กน้อย (จาก `1.1` เป็น `1.2`) เป็นทางเลือก
+
+---
+
+## 10. บันทึกการเปลี่ยนแปลงการนำไปใช้
+
+design token ทั้งหมดถูกนำไปใช้งานใน 5 sprint:
+
+| Sprint | ขอบเขต | Token ที่เพิ่ม |
+|---|---|---|
+| 1. รากฐาน | Shadow + border radius | `--f5-shadow-*` (5 ระดับ), `--f5-radius-*` (5 ระดับ) |
+| 2. Sidebar + Surface | Navigation + interactive token | `--f5-surface-hover`, `--f5-surface-active`, `--f5-border-*` (3 ระดับ), `--f5-transition-fast` |
+| 3. Button | ระบบ component | `.btn-primary`, `.btn-secondary`, `.btn-tertiary`, `.btn-critical`, รูปแบบขนาด |
+| 4. Hero Gradient | Background utility | `.hero-gradient-primary`, `-eggplant`, `-red`, `-faint`, `.hero-vignette`, `.hero-fade` |
+| 5. Focus + Transition | การเข้าถึง + การขัดเกลา | `--f5-focus-action`, `--f5-focus-critical`, `--f5-transition-*` (5 token), เอฟเฟกต์ hover ของการ์ด |
+
+---
+
+## อ้างอิงด่วน: สรุป Token
+
+### Custom Property ทั้งหมด
+
+```css
+:root {
+  /* Border radius scale */
+  --f5-radius-xs: 0.1875rem;     /* 3px */
+  --f5-radius-sm: 0.3125rem;     /* 5px */
+  --f5-radius-md: 0.375rem;      /* 6px */
+  --f5-radius-lg: 0.5rem;        /* 8px */
+  --f5-radius-full: 999px;
+
+  /* Transition timing */
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+
+  /* Focus rings */
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+
+  /* Dark mode shadows (default) */
+  --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
+
+  /* Dark mode borders */
+  --f5-border-faint: #f5f5f51a;
+  --f5-border-default: #f5f5f533;
+  --f5-border-strong: #cccccc66;
+
+  /* Dark mode surfaces */
+  --f5-surface-hover: var(--f5-black-3);
+  --f5-surface-active: var(--f5-black-2);
+}
+
+:root[data-theme='light'] {
+  /* Light mode shadows */
+  --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
+  --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
+  --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
+
+  /* Light mode borders */
+  --f5-border-faint: #3434341a;
+  --f5-border-default: #34343433;
+  --f5-border-strong: #22222266;
+
+  /* Light mode surfaces */
+  --f5-surface-hover: var(--f5-white-2);
+  --f5-surface-active: var(--f5-white-3);
+}
+```

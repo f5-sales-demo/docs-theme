@@ -1,0 +1,80 @@
+---
+title: DDoS
+description: >-
+  Diagramas de arquitectura de mitigación DDoS que muestran centros de
+  depuración, servicios de tránsito y protección de ataques volumétricos de F5
+  XC.
+sidebar:
+  order: 16
+i18n:
+  sourceHash: 55f75357099d
+  translator: machine
+---
+
+Diagramas de arquitectura de mitigación DDoS que cubren el diseño de centros de depuración, la integración de servicios de tránsito y la protección de ataques volumétricos de F5 Distributed Cloud.
+
+## Arquitectura de Mitigación DDoS
+
+Mitigación DDoS de múltiples niveles con depuración en la capa de red, inspección en la capa de aplicación y entrega de tráfico limpio al origen.
+
+```mermaid
+architecture-beta
+  group scrub(lucide:shield)[Scrubbing Center]
+  group origin(carbon:cloud-services)[Origin DC]
+
+  service edge(carbon:edge-node)[Edge Router] in scrub
+  service filter(carbon:firewall)[Traffic Filter] in scrub
+  service clean(carbon:load-balancer-global)[Clean Pipe] in scrub
+  service lb(carbon:load-balancer-application)[Load Balancer] in origin
+  service app(carbon:application)[Application] in origin
+  service db(carbon:data-base)[Database] in origin
+
+  edge:R --> L:filter
+  filter:R --> L:clean
+  clean:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## F5 XC Protección DDoS y Servicios de Tránsito
+
+F5 Distributed Cloud proporciona Protección DDoS y servicios de tránsito con CDN integrada y seguridad de aplicaciones.
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 Distributed Cloud]
+  group cloud(carbon:cloud-services)[Cloud Infrastructure]
+
+  service ddos(f5xc:ddos-and-transit-services)[DDoS Protection] in xc
+  service cdn(f5xc:content-delivery-network)[CDN] in xc
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in xc
+  service lb(carbon:load-balancer-application)[Load Balancer] in cloud
+  service app(carbon:application)[App Cluster] in cloud
+  service db(carbon:data-base)[Database] in cloud
+
+  ddos:R --> L:cdn
+  cdn:R --> L:waap
+  waap:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## Flujo de Ataque Volumétrico
+
+Flujo de tráfico de ataque que muestra cómo los ataques DDoS volumétricos son absorbidos y mitigados en el borde de F5 XC antes de alcanzar la infraestructura de origen.
+
+```mermaid
+flowchart LR
+  attacker@{ icon: 'lucide:bug', label: 'Attack Traffic' }
+  legit@{ icon: 'lucide:user', label: 'Legitimate Users' }
+  edge@{ icon: 'f5xc:ddos-and-transit-services', label: 'XC Edge' }
+  scrub@{ icon: 'carbon:firewall', label: 'Scrubbing' }
+  drop@{ icon: 'lucide:shield', label: 'Drop Malicious' }
+  origin@{ icon: 'carbon:application', label: 'Origin' }
+
+  attacker --> edge
+  legit --> edge
+  edge --> scrub
+  scrub --> drop
+  scrub --> origin
+```

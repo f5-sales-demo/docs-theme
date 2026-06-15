@@ -1,0 +1,77 @@
+---
+title: AWS
+description: VPC、サブネット、ALB、EC2、EKS、Lambda、S3 トポロジーと F5 XC インテグレーションを示す AWS アーキテクチャ図。
+sidebar:
+  order: 10
+i18n:
+  sourceHash: aef389b55b03
+  translator: machine
+---
+
+VPC ネットワーク、コンピューティング、サーバーレスアーキテクチャ向けに HashiCorp Flight および Carbon アイコンパックを使用した AWS インフラストラクチャ図。
+
+## ALB および EC2 を使用した VPC
+
+RDS によってバックエンドされた EC2 インスタンスへトラフィックを分散するアプリケーションロードバランサーを備えたパブリックおよびプライベートサブネット。
+
+```mermaid
+architecture-beta
+  group vpc(carbon:virtual-private-cloud)[AWS VPC]
+  group pubsub(carbon:ibm-cloud-subnets)[Public Subnet] in vpc
+  group privsub(carbon:ibm-cloud-subnets)[Private Subnet] in vpc
+
+  service igw(carbon:gateway)[Internet GW] in vpc
+  service alb(carbon:load-balancer-application)[ALB] in pubsub
+  service ec2a(hashicorp-flight:aws-ec2-color)[EC2] in privsub
+  service ec2b(hashicorp-flight:aws-ec2-color)[EC2] in privsub
+  service rds(carbon:data-base)[RDS] in privsub
+
+  igw:R --> L:alb
+  alb:R --> L:ec2a
+  alb:B --> T:ec2b
+  ec2a:R --> L:rds
+  ec2b:R --> L:rds
+```
+
+## F5 XC WAAP を使用した EKS クラスター
+
+F5 Distributed Cloud がエッジで Web アプリケーションおよび API 保護を提供する Amazon EKS クラスター。
+
+```mermaid
+architecture-beta
+  group edge(lucide:shield)[F5 XC Edge]
+  group eks(hashicorp-flight:kubernetes-color)[EKS Cluster]
+
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in edge
+  service bot(f5xc:bot-defense)[Bot Defense] in edge
+  service ingress(carbon:gateway)[Ingress] in eks
+  service frontend(hashicorp-flight:docker-color)[Frontend] in eks
+  service api(carbon:api)[API Service] in eks
+  service db(carbon:data-base)[Aurora DB]
+
+  waap:R --> L:bot
+  bot:R --> L:ingress
+  ingress:R --> L:frontend
+  ingress:B --> T:api
+  api:R --> L:db
+```
+
+## サーバーレスイベントパイプライン
+
+F5 XC によって保護された API Gateway フロントエンドを使用して S3 からイベントを処理する AWS Lambda。
+
+```mermaid
+flowchart LR
+  user@{ icon: 'lucide:globe', label: 'Client' }
+  xc@{ icon: 'f5xc:web-app-and-api-protection', label: 'F5 XC WAAP' }
+  apigw@{ icon: 'carbon:gateway-api', label: 'API Gateway' }
+  lambda@{ icon: 'hashicorp-flight:aws-lambda-color', label: 'Lambda' }
+  s3@{ icon: 'hashicorp-flight:aws-s3-color', label: 'S3 Bucket' }
+  dynamo@{ icon: 'carbon:data-base', label: 'DynamoDB' }
+
+  user --> xc
+  xc --> apigw
+  apigw --> lambda
+  lambda --> s3
+  lambda --> dynamo
+```

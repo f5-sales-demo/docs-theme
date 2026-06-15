@@ -1,0 +1,598 @@
+---
+title: 樣式增強指南
+description: '@f5xc-salesdemos/docs-theme 的設計系統 Token 參考'
+sidebar:
+  order: 12
+i18n:
+  sourceHash: f0fb4524cc1c
+  translator: machine
+---
+
+本指南記錄了 `styles/custom.css` 中實作的設計系統 Token 與元件類別，作為主題中邊框、表面、陰影、圓角、按鈕、漸層、過渡、焦點及排版 Token 的參考依據。
+
+> **狀態**：以下所有設計 Token 與元件類別均已實作，可直接使用。
+
+## 如何閱讀本指南
+
+每個章節說明一個 Token 類別：
+
+1. **Token 定義** — 含亮色/暗色模式值的 CSS 自訂屬性
+2. **元件對應** — 哪些主題元件使用了各 Token
+3. **實作說明** — 使用指引與無障礙考量
+
+Token 表格在值有差異時，會依**亮色模式**與**暗色模式**分開呈現。
+
+---
+
+## 1. 色彩系統
+
+### 半透明邊框
+
+主題使用**半透明邊框**而非純灰色，讓邊框能自然適應任何背景色。
+
+```css
+/* 半透明邊框模式 */
+border: 1px solid var(--f5-border-default);  /* 中性色，20% 透明度 */
+```
+
+#### 邊框 Token
+
+```css
+/* 亮色模式 */
+:root[data-theme='light'] {
+  --f5-border-faint: #3434341a;    /* --f5-black-3，10% 透明度 */
+  --f5-border-default: #34343433;  /* --f5-black-3，20% 透明度 */
+  --f5-border-strong: #22222266;   /* --f5-black-4，40% 透明度 */
+}
+
+/* 暗色模式 */
+:root {
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2，10% 透明度 */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2，20% 透明度 */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4，40% 透明度 */
+}
+```
+
+#### 邊框使用情境
+
+| Token | 透明度 | 使用情境 |
+|---|---|---|
+| `--f5-border-faint` | 10% | 細緻分隔線、表格列 |
+| `--f5-border-default` | 20% | 預設邊框、卡片外框 |
+| `--f5-border-strong` | 40% | 強調邊框、啟用狀態 |
+
+> **狀態**：完成 — 已在 `styles/custom.css` 中實作。
+
+### 互動式表面色彩
+
+用於懸停與啟用狀態的語意化表面 Token。
+
+#### 亮色模式表面
+
+| Token | 值 | 用途 |
+|---|---|---|
+| `--f5-white` | `#ffffff` | 主要背景 |
+| `--f5-white-1` | `#faf9f7` | 側邊欄、細緻區域 |
+| `--f5-white-2` | `#f5f5f5` | 提升表面 |
+| `--f5-surface-hover` | `var(--f5-white-2)` | 懸停填色 |
+| `--f5-surface-active` | `var(--f5-white-3)` | 按下/啟用填色 |
+
+#### 暗色模式表面
+
+| Token | 值 | 用途 |
+|---|---|---|
+| `--f5-black` | `#000000` | 主要背景 |
+| `--f5-black-4` | `#222222` | 側邊欄、細緻區域 |
+| `--f5-surface-hover` | `var(--f5-black-3)` | 懸停填色 |
+| `--f5-surface-active` | `var(--f5-black-2)` | 按下/啟用填色 |
+
+#### 表面 Token 定義
+
+```css
+:root[data-theme='light'] {
+  --f5-surface-hover: var(--f5-white-2);     /* #f5f5f5 */
+  --f5-surface-active: var(--f5-white-3);    /* #e6e6e6 */
+}
+
+:root {
+  --f5-surface-hover: var(--f5-black-3);     /* #343434 */
+  --f5-surface-active: var(--f5-black-2);    /* #666666 */
+}
+```
+
+> **狀態**：完成 — 已在 `styles/custom.css` 中實作。
+
+---
+
+## 2. 高度與陰影系統
+
+### 陰影層級
+
+主題使用**中性色調半透明陰影**，搭配雙層數值以呈現自然深度。亮色模式以 `--f5-black-3`（`#343434`）為色調基底；暗色模式使用 `#cccccc`。
+
+#### 亮色模式陰影
+
+```css
+:root[data-theme='light'] {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #3434341a;
+  --f5-shadow-low:
+    0px 1px 1px 0px #3434340d,
+    0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #3434341a,
+    0px 8px 16px -10px #34343433;
+  --f5-shadow-high:
+    0px 2px 3px 0px #34343426,
+    0px 16px 16px -10px #34343433;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #3434341a,
+    0px 12px 28px 0px #34343440;
+}
+```
+
+#### 暗色模式陰影
+
+```css
+:root {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #cccccc0d;
+  --f5-shadow-low:
+    0px 1px 1px 0px #cccccc0a,
+    0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #cccccc0d,
+    0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high:
+    0px 2px 3px 0px #cccccc1a,
+    0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #cccccc0d,
+    0px 12px 28px 0px #cccccc26;
+}
+```
+
+### 元件陰影對應
+
+| 元件 | 陰影層級 |
+|---|---|
+| `.swatch`、`.icon-card` | `--f5-shadow-low`（靜止狀態） |
+| `.starlight-aside` | `--f5-shadow-low` |
+| `.expressive-code .frame` | `--f5-shadow-mid` |
+| `.mermaid-container` | `--f5-shadow-mid` |
+| 卡片懸停時 | `--f5-shadow-mid` |
+| 下拉選單、彈出視窗 | `--f5-shadow-high` |
+| 模態視窗 | `--f5-shadow-higher` |
+
+> **狀態**：完成 — 所有陰影層級（`inset`、`low`、`mid`、`high`、`higher`）均已在 `styles/custom.css` 中實作。
+
+---
+
+## 3. 圓角層級
+
+### 圓角 Token
+
+```css
+:root {
+  --f5-radius-xs: 0.1875rem;   /* 3px — 徽章、標籤 */
+  --f5-radius-sm: 0.3125rem;   /* 5px — 導覽項目、小型控制項 */
+  --f5-radius-md: 0.375rem;    /* 6px — 卡片、程式碼區塊 */
+  --f5-radius-lg: 0.5rem;      /* 8px — 模態視窗、大型容器 */
+  --f5-radius-full: 999px;     /* 膠囊形、完全圓角 */
+}
+```
+
+### 元件圓角對應
+
+| 元件 | 圓角 Token |
+|---|---|
+| `.swatch` | `--f5-radius-md`（6px） |
+| `.icon-card` | `--f5-radius-md`（6px） |
+| `.starlight-aside` | `--f5-radius-md`（6px） |
+| `.expressive-code .frame` | `--f5-radius-md`（6px） |
+| `.mermaid-container` | `--f5-radius-lg`（8px） |
+| `.edit-link` | `--f5-radius-full`（膠囊形） |
+| 側邊欄導覽項目 | `--f5-radius-sm`（5px） |
+| 徽章 | `--f5-radius-xs`（3px） |
+
+> **狀態**：完成 — 圓角層級（`xs`、`sm`、`md`、`lg`、`full`）均已在 `styles/custom.css` 中實作。
+
+---
+
+## 4. 側邊欄導覽樣式
+
+### 側邊欄項目樣式
+
+```css
+/* 側邊欄導覽項目 */
+nav.sidebar a {
+  border-radius: var(--f5-radius-sm);    /* 5px */
+  padding: 0.25rem 0.5rem;               /* 4px 8px */
+  min-height: 2.25rem;                    /* 36px */
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* 亮色模式懸停 */
+:root[data-theme='light'] nav.sidebar a:hover {
+  background-color: var(--f5-white-2);   /* #f5f5f5 */
+}
+
+/* 暗色模式懸停 */
+:root nav.sidebar a:hover {
+  background-color: var(--f5-black-3);   /* #343434 */
+}
+
+/* 目前頁面指示器 */
+nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-white-3);   /* #e6e6e6 亮色 */
+  font-weight: 600;
+}
+
+:root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-black-2);   /* #666666 → 依可讀性調整 */
+}
+```
+
+### 左側強調指示器
+
+```css
+nav.sidebar a[aria-current="page"] {
+  border-left: 3px solid var(--sl-color-accent);
+  padding-left: calc(0.5rem - 3px);  /* 補償邊框寬度 */
+}
+```
+
+> **狀態**：完成 — 側邊欄懸停、啟用及強調指示器均已在 `styles/custom.css` 中實作。
+
+---
+
+## 5. 按鈕系統
+
+### 按鈕變體
+
+```css
+/* 主要按鈕 — 使用 F5 紅色作為品牌動作色 */
+.btn-primary {
+  background: var(--f5-red);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover {
+  background: var(--f5-red-3);
+  box-shadow: var(--f5-shadow-low);
+}
+
+/* 次要按鈕 — 外框樣式 */
+.btn-secondary {
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover {
+  background: var(--f5-surface-hover);
+  border-color: var(--f5-border-strong);
+}
+
+/* 第三層按鈕 — 幽靈/純文字樣式 */
+.btn-tertiary {
+  background: transparent;
+  color: var(--sl-color-accent);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+}
+.btn-tertiary:hover {
+  background: var(--f5-surface-hover);
+}
+```
+
+### 按鈕尺寸層級
+
+| 尺寸 | 內距 | 字型大小 | 最小高度 |
+|---|---|---|---|
+| 小型 | `0.375rem 0.75rem` | `0.8125rem`（13px） | `32px` |
+| 中型（預設） | `0.625rem 1rem` | `0.875rem`（14px） | `40px` |
+| 大型 | `0.75rem 1.5rem` | `1rem`（16px） | `48px` |
+
+> **狀態**：完成 — 所有按鈕變體（`primary`、`secondary`、`tertiary`、`critical`）及尺寸層級（`sm`、預設、`lg`）均已在 `styles/custom.css` 中實作。
+
+---
+
+## 6. 主視覺與標題背景
+
+### 主視覺漸層
+
+使用 F5 品牌色調：
+
+```css
+/* 主要主視覺漸層 — River 藍色 */
+.hero-gradient-primary {
+  background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
+  /* #6e8dcc → #0e41aa */
+}
+
+/* 淡色頁面底色 — 細緻暖色調 */
+:root[data-theme='light'] .hero-gradient-faint {
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
+}
+:root .hero-gradient-faint {
+  background: linear-gradient(180deg, #222222 0%, #000000 100%);
+}
+
+/* 茄紫色變體，用於功能頁面 */
+.hero-gradient-eggplant {
+  background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
+  /* #9c59c9 → #62228b */
+}
+
+/* 紅色品牌變體，用於公告頁面 */
+.hero-gradient-red {
+  background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
+  /* #f06680 → #e4002b */
+}
+```
+
+### 漸層疊加技巧
+
+```css
+/* 放射狀暗角，增添深度 */
+.hero-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* 底部淡出至頁面背景色 */
+.hero-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+```
+
+> **狀態**：完成 — 主視覺漸層（`primary`、`eggplant`、`red`、`faint`）及疊加效果（`hero-fade`、`hero-vignette`）均已在 `styles/custom.css` 中實作。
+
+---
+
+## 7. 懸停效果與過渡
+
+### 過渡 Token
+
+```css
+:root {
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+```
+
+| Token | 持續時間 | 緩動函數 | 使用情境 |
+|---|---|---|---|
+| `--f5-transition-fast` | `0.15s` | `ease` | 大多數懸停狀態、色彩變化 |
+| `--f5-transition-base` | `0.2s` | `ease` | 背景填色、邊框變化 |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | 開關、切換器 |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | 頁籤指示器、滑動面板 |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | 工具提示、彈出視窗進場 |
+
+### 適合動畫的屬性
+
+| 屬性 | 適合動畫 | 備註 |
+|---|---|---|
+| `background-color` | 是 | 懸停填色的標準做法 |
+| `color` | 是 | 文字色彩變化 |
+| `border-color` | 是 | 懸停時的邊框強調 |
+| `box-shadow` | 是 | 高度變化（如有卡頓可加 `will-change`） |
+| `transform` | 是 | 縮放、位移以提供互動回饋 |
+| `opacity` | 是 | 淡入/淡出 |
+| `width`、`height` | 避免 | 會造成版面重排 |
+| `padding`、`margin` | 避免 | 會造成版面重排 |
+
+### 元件過渡對應
+
+```css
+/* 側邊欄導覽項目 */
+nav.sidebar a {
+  transition: background-color var(--f5-transition-fast),
+              color var(--f5-transition-fast);
+}
+
+/* 卡片 — 懸停時陰影上浮 */
+.swatch, .icon-card {
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+.swatch:hover, .icon-card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+/* 按鈕 */
+.btn-primary, .btn-secondary, .btn-tertiary {
+  transition: background-color var(--f5-transition-fast),
+              border-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+
+/* 連結 */
+a {
+  transition: color var(--f5-transition-fast);
+}
+```
+
+> **狀態**：完成 — 所有五個過渡 Token（`fast`、`base`、`bounce`、`decelerate`、`spring`）及元件過渡效果均已在 `styles/custom.css` 中實作。
+
+---
+
+## 8. 焦點環系統
+
+### 焦點環 Token
+
+主題採用**雙環**模式，結合內嵌內環與外部光暈：
+
+```css
+/* 動作焦點 — 使用 F5 River 藍色 */
+:root {
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
+
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+  /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
+}
+
+/* 套用至互動元素 */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--f5-focus-action);
+}
+
+/* 危險操作按鈕的嚴重變體 */
+.btn-critical:focus-visible {
+  box-shadow: var(--f5-focus-critical);
+}
+```
+
+### 無障礙說明
+
+- 雙環模式符合 **WCAG 2.2 焦點外觀**要求（最少 2px 對比外框）
+- 使用 `box-shadow` 取代 `outline`，可讓圓角設定正確生效
+- `:focus-visible` 確保焦點環僅在鍵盤導覽時顯示，滑鼠點擊時不顯示
+
+> **狀態**：完成 — 雙環焦點模式（`action`、`critical`）及 `:focus-visible` 樣式均已在 `styles/custom.css` 中實作。
+
+---
+
+## 9. 排版
+
+### 字型堆疊
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-font-heading: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-line-height-headings: 1.1;
+}
+```
+
+### 字型層級
+
+| 層級 | 大小 | 行高 | 用途 |
+|---|---|---|---|
+| Display 500 | `1.875rem`（30px） | 1.267 | `--sl-text-h1` |
+| Display 400 | `1.5rem`（24px） | 1.333 | `--sl-text-h2` |
+| Display 300 | `1.125rem`（18px） | 1.333 | `--sl-text-h3` |
+| Display 200 | `1rem`（16px） | 1.5 | `--sl-text-h4` |
+| Display 100 | `0.8125rem`（13px） | 1.385 | 上標文字 |
+| Body 300 | `1rem`（16px） | 1.5 | 主要內文 |
+| Body 200 | `0.875rem`（14px） | 1.429 | 側邊欄文字、說明文字 |
+| Body 100 | `0.8125rem`（13px） | 1.385 | 小字注記 |
+
+### 主要特性
+
+| 面向 | 值 | 備註 |
+|---|---|---|
+| 標題行高 | `1.1` | 緊湊標題以呈現品牌衝擊感；可考慮調整為 `1.2` 以提升可讀性 |
+| 內文行高 | `1.5`（Starlight 預設） | 適合閱讀 |
+| 字型家族 | 自訂品牌字型 | proximaNova（內文）、neusaNextProWide（標題） |
+| 標題字重 | `h1-h2：700，h3：500，h4-h6：700 全大寫` | 為品牌一致性刻意設定 |
+
+> **優先級**：無需變更。現有排版定義完善且符合品牌規範。標題行高微調（`1.1` 至 `1.2`）為選擇性調整。
+
+---
+
+## 10. 實作變更記錄
+
+所有設計 Token 已分五個衝刺完成實作：
+
+| 衝刺 | 範圍 | 新增 Token |
+|---|---|---|
+| 1. 基礎建設 | 陰影 + 圓角 | `--f5-shadow-*`（5 個層級）、`--f5-radius-*`（5 個層級） |
+| 2. 側邊欄 + 表面 | 導覽 + 互動 Token | `--f5-surface-hover`、`--f5-surface-active`、`--f5-border-*`（3 個層級）、`--f5-transition-fast` |
+| 3. 按鈕 | 元件系統 | `.btn-primary`、`.btn-secondary`、`.btn-tertiary`、`.btn-critical`、尺寸變體 |
+| 4. 主視覺漸層 | 背景工具類別 | `.hero-gradient-primary`、`-eggplant`、`-red`、`-faint`、`.hero-vignette`、`.hero-fade` |
+| 5. 焦點 + 過渡 | 無障礙 + 精修 | `--f5-focus-action`、`--f5-focus-critical`、`--f5-transition-*`（5 個 Token）、卡片懸停效果 |
+
+---
+
+## 快速參考：Token 總覽
+
+### 所有自訂屬性
+
+```css
+:root {
+  /* 圓角層級 */
+  --f5-radius-xs: 0.1875rem;     /* 3px */
+  --f5-radius-sm: 0.3125rem;     /* 5px */
+  --f5-radius-md: 0.375rem;      /* 6px */
+  --f5-radius-lg: 0.5rem;        /* 8px */
+  --f5-radius-full: 999px;
+
+  /* 過渡時間 */
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+
+  /* 焦點環 */
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+
+  /* 暗色模式陰影（預設） */
+  --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
+
+  /* 暗色模式邊框 */
+  --f5-border-faint: #f5f5f51a;
+  --f5-border-default: #f5f5f533;
+  --f5-border-strong: #cccccc66;
+
+  /* 暗色模式表面 */
+  --f5-surface-hover: var(--f5-black-3);
+  --f5-surface-active: var(--f5-black-2);
+}
+
+:root[data-theme='light'] {
+  /* 亮色模式陰影 */
+  --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
+  --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
+  --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
+
+  /* 亮色模式邊框 */
+  --f5-border-faint: #3434341a;
+  --f5-border-default: #34343433;
+  --f5-border-strong: #22222266;
+
+  /* 亮色模式表面 */
+  --f5-surface-hover: var(--f5-white-2);
+  --f5-surface-active: var(--f5-white-3);
+}
+```

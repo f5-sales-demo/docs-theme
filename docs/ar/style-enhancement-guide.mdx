@@ -1,0 +1,598 @@
+---
+title: دليل تحسين الأنماط
+description: مرجع رموز نظام التصميم لـ @f5xc-salesdemos/docs-theme
+sidebar:
+  order: 12
+i18n:
+  sourceHash: f0fb4524cc1c
+  translator: machine
+---
+
+يوثّق هذا الدليل رموز نظام التصميم وفئات المكونات المنفّذة في `styles/custom.css`. ويُشكّل مرجعًا للرموز المستخدمة عبر السمة، تشمل: الحدود، والأسطح، والظلال، ونصف القطر، والأزرار، والتدرجات، والانتقالات، والتركيز، ورموز الطباعة.
+
+> **الحالة**: جميع رموز التصميم وفئات المكونات الموضّحة أدناه منفّذة ومتاحة للاستخدام.
+
+## كيفية قراءة هذا الدليل
+
+يوثّق كل قسم فئة من فئات الرموز:
+
+1. **تعريفات الرموز** — خصائص CSS المخصصة مع قيم الوضع الفاتح/الداكن
+2. **ربط المكونات** — مكونات السمة التي تستخدم كل رمز
+3. **ملاحظات التنفيذ** — إرشادات الاستخدام واعتبارات إمكانية الوصول
+
+تُقسَّم جداول الرموز حسب **الوضع الفاتح** و**الوضع الداكن** عند اختلاف القيم.
+
+---
+
+## 1. نظام الألوان
+
+### الحدود شبه الشفافة
+
+تستخدم السمة **حدودًا شبه شفافة** بدلًا من الألوان الرمادية الصلبة. يتيح ذلك للحدود التكيّف بشكل طبيعي مع أي خلفية.
+
+```css
+/* نمط الحدود شبه الشفافة */
+border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
+```
+
+#### رموز الحدود
+
+```css
+/* Light mode */
+:root[data-theme='light'] {
+  --f5-border-faint: #3434341a;    /* --f5-black-3 at 10% */
+  --f5-border-default: #34343433;  /* --f5-black-3 at 20% */
+  --f5-border-strong: #22222266;   /* --f5-black-4 at 40% */
+}
+
+/* Dark mode */
+:root {
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 at 10% */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2 at 20% */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4 at 40% */
+}
+```
+
+#### حالات استخدام الحدود
+
+| الرمز | الشفافية | حالة الاستخدام |
+|---|---|---|
+| `--f5-border-faint` | 10% | فواصل خفية، صفوف الجداول |
+| `--f5-border-default` | 20% | الحدود الافتراضية، محيط البطاقات |
+| `--f5-border-strong` | 40% | حدود بارزة، حالات نشطة |
+
+> **الحالة**: مكتمل — منفّذ في `styles/custom.css`.
+
+### ألوان الأسطح التفاعلية
+
+رموز الأسطح الدلالية لحالات التحويم والنشاط.
+
+#### أسطح الوضع الفاتح
+
+| الرمز | القيمة | الغرض |
+|---|---|---|
+| `--f5-white` | `#ffffff` | الخلفيات الرئيسية |
+| `--f5-white-1` | `#faf9f7` | الشريط الجانبي، المناطق الخفية |
+| `--f5-white-2` | `#f5f5f5` | الأسطح المرتفعة |
+| `--f5-surface-hover` | `var(--f5-white-2)` | تعبئة التحويم |
+| `--f5-surface-active` | `var(--f5-white-3)` | تعبئة الضغط/النشاط |
+
+#### أسطح الوضع الداكن
+
+| الرمز | القيمة | الغرض |
+|---|---|---|
+| `--f5-black` | `#000000` | الخلفيات الرئيسية |
+| `--f5-black-4` | `#222222` | الشريط الجانبي، المناطق الخفية |
+| `--f5-surface-hover` | `var(--f5-black-3)` | تعبئة التحويم |
+| `--f5-surface-active` | `var(--f5-black-2)` | تعبئة الضغط/النشاط |
+
+#### تعريفات رموز الأسطح
+
+```css
+:root[data-theme='light'] {
+  --f5-surface-hover: var(--f5-white-2);     /* #f5f5f5 */
+  --f5-surface-active: var(--f5-white-3);    /* #e6e6e6 */
+}
+
+:root {
+  --f5-surface-hover: var(--f5-black-3);     /* #343434 */
+  --f5-surface-active: var(--f5-black-2);    /* #666666 */
+}
+```
+
+> **الحالة**: مكتمل — منفّذ في `styles/custom.css`.
+
+---
+
+## 2. نظام الارتفاع والظلال
+
+### مقياس الظلال
+
+تستخدم السمة **ظلالًا شبه شفافة ذات درجة محايدة** بقيم مزدوجة الطبقة للعمق الطبيعي. يستخدم الوضع الفاتح `--f5-black-3` (`#343434`) كقاعدة للدرجة اللونية؛ أما الوضع الداكن فيستخدم `#cccccc`.
+
+#### ظلال الوضع الفاتح
+
+```css
+:root[data-theme='light'] {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #3434341a;
+  --f5-shadow-low:
+    0px 1px 1px 0px #3434340d,
+    0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #3434341a,
+    0px 8px 16px -10px #34343433;
+  --f5-shadow-high:
+    0px 2px 3px 0px #34343426,
+    0px 16px 16px -10px #34343433;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #3434341a,
+    0px 12px 28px 0px #34343440;
+}
+```
+
+#### ظلال الوضع الداكن
+
+```css
+:root {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #cccccc0d;
+  --f5-shadow-low:
+    0px 1px 1px 0px #cccccc0a,
+    0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #cccccc0d,
+    0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high:
+    0px 2px 3px 0px #cccccc1a,
+    0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #cccccc0d,
+    0px 12px 28px 0px #cccccc26;
+}
+```
+
+### ربط ظلال المكونات
+
+| المكوّن | مستوى الظل |
+|---|---|
+| `.swatch`, `.icon-card` | `--f5-shadow-low` (في حالة الراحة) |
+| `.starlight-aside` | `--f5-shadow-low` |
+| `.expressive-code .frame` | `--f5-shadow-mid` |
+| `.mermaid-container` | `--f5-shadow-mid` |
+| البطاقات عند التحويم | `--f5-shadow-mid` |
+| القوائم المنسدلة، النوافذ المنبثقة | `--f5-shadow-high` |
+| النوافذ الحوارية | `--f5-shadow-higher` |
+
+> **الحالة**: مكتمل — جميع مستويات الظل (`inset`، `low`، `mid`، `high`، `higher`) منفّذة في `styles/custom.css`.
+
+---
+
+## 3. مقياس نصف قطر الحدود
+
+### رموز نصف القطر
+
+```css
+:root {
+  --f5-radius-xs: 0.1875rem;   /* 3px — badges, tags */
+  --f5-radius-sm: 0.3125rem;   /* 5px — nav items, small controls */
+  --f5-radius-md: 0.375rem;    /* 6px — cards, code blocks */
+  --f5-radius-lg: 0.5rem;      /* 8px — modals, large containers */
+  --f5-radius-full: 999px;     /* pills, fully rounded */
+}
+```
+
+### ربط نصف قطر المكونات
+
+| المكوّن | رمز نصف القطر |
+|---|---|
+| `.swatch` | `--f5-radius-md` (6px) |
+| `.icon-card` | `--f5-radius-md` (6px) |
+| `.starlight-aside` | `--f5-radius-md` (6px) |
+| `.expressive-code .frame` | `--f5-radius-md` (6px) |
+| `.mermaid-container` | `--f5-radius-lg` (8px) |
+| `.edit-link` | `--f5-radius-full` (pill) |
+| عناصر تنقل الشريط الجانبي | `--f5-radius-sm` (5px) |
+| الشارات | `--f5-radius-xs` (3px) |
+
+> **الحالة**: مكتمل — مقياس نصف القطر (`xs`، `sm`، `md`، `lg`، `full`) منفّذ في `styles/custom.css`.
+
+---
+
+## 4. تنسيق تنقل الشريط الجانبي
+
+### أنماط عناصر الشريط الجانبي
+
+```css
+/* Sidebar navigation items */
+nav.sidebar a {
+  border-radius: var(--f5-radius-sm);    /* 5px */
+  padding: 0.25rem 0.5rem;               /* 4px 8px */
+  min-height: 2.25rem;                    /* 36px */
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Light mode hover */
+:root[data-theme='light'] nav.sidebar a:hover {
+  background-color: var(--f5-white-2);   /* #f5f5f5 */
+}
+
+/* Dark mode hover */
+:root nav.sidebar a:hover {
+  background-color: var(--f5-black-3);   /* #343434 */
+}
+
+/* Active page indicator */
+nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-white-3);   /* #e6e6e6 light */
+  font-weight: 600;
+}
+
+:root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-black-2);   /* #666666 → adjust for readability */
+}
+```
+
+### مؤشر الحد الأيسر
+
+```css
+nav.sidebar a[aria-current="page"] {
+  border-left: 3px solid var(--sl-color-accent);
+  padding-left: calc(0.5rem - 3px);  /* compensate for border */
+}
+```
+
+> **الحالة**: مكتمل — تحويم الشريط الجانبي والحالة النشطة ومؤشر الحد البارز منفّذة في `styles/custom.css`.
+
+---
+
+## 5. نظام الأزرار
+
+### متغيرات الأزرار
+
+```css
+/* Primary — using F5 Red as brand action */
+.btn-primary {
+  background: var(--f5-red);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover {
+  background: var(--f5-red-3);
+  box-shadow: var(--f5-shadow-low);
+}
+
+/* Secondary — outline style */
+.btn-secondary {
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover {
+  background: var(--f5-surface-hover);
+  border-color: var(--f5-border-strong);
+}
+
+/* Tertiary — ghost/text-only */
+.btn-tertiary {
+  background: transparent;
+  color: var(--sl-color-accent);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+}
+.btn-tertiary:hover {
+  background: var(--f5-surface-hover);
+}
+```
+
+### مقياس أحجام الأزرار
+
+| الحجم | الحشو | حجم الخط | الحد الأدنى للارتفاع |
+|---|---|---|---|
+| صغير | `0.375rem 0.75rem` | `0.8125rem` (13px) | `32px` |
+| متوسط (افتراضي) | `0.625rem 1rem` | `0.875rem` (14px) | `40px` |
+| كبير | `0.75rem 1.5rem` | `1rem` (16px) | `48px` |
+
+> **الحالة**: مكتمل — جميع متغيرات الأزرار (`primary`، `secondary`، `tertiary`، `critical`) ومقياس الأحجام (`sm`، افتراضي، `lg`) منفّذة في `styles/custom.css`.
+
+---
+
+## 6. خلفيات البطل والترويسة
+
+### تدرجات البطل
+
+باستخدام لوحة ألوان علامة F5 التجارية:
+
+```css
+/* Primary hero gradient — River blue */
+.hero-gradient-primary {
+  background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
+  /* #6e8dcc → #0e41aa */
+}
+
+/* Faint page wash — subtle warm tone */
+:root[data-theme='light'] .hero-gradient-faint {
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
+}
+:root .hero-gradient-faint {
+  background: linear-gradient(180deg, #222222 0%, #000000 100%);
+}
+
+/* Eggplant variant for feature pages */
+.hero-gradient-eggplant {
+  background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
+  /* #9c59c9 → #62228b */
+}
+
+/* Red brand variant for announcements */
+.hero-gradient-red {
+  background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
+  /* #f06680 → #e4002b */
+}
+```
+
+### تقنيات طبقة التدرج
+
+```css
+/* Radial vignette for depth */
+.hero-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* Bottom fade to page background */
+.hero-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+```
+
+> **الحالة**: مكتمل — تدرجات البطل (`primary`، `eggplant`، `red`، `faint`) والطبقات الفوقية (`hero-fade`، `hero-vignette`) منفّذة في `styles/custom.css`.
+
+---
+
+## 7. تأثيرات التحويم والانتقالات
+
+### رموز الانتقالات
+
+```css
+:root {
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+```
+
+| الرمز | المدة | التوقيت | حالة الاستخدام |
+|---|---|---|---|
+| `--f5-transition-fast` | `0.15s` | `ease` | معظم حالات التحويم، تغييرات الألوان |
+| `--f5-transition-base` | `0.2s` | `ease` | تعبئة الخلفية، تغييرات الحدود |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | المفاتيح، عناصر التبديل |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | مؤشرات التبويب، اللوحات المنزلقة |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | تلميحات الأدوات، ظهور النوافذ المنبثقة |
+
+### ما الذي يمكن تحريكه
+
+| الخاصية | آمن للتحريك | ملاحظات |
+|---|---|---|
+| `background-color` | نعم | قياسي لتعبئة التحويم |
+| `color` | نعم | تغييرات لون النص |
+| `border-color` | نعم | إبراز الحدود عند التحويم |
+| `box-shadow` | نعم | تغييرات الارتفاع (استخدم `will-change` عند الاهتزاز) |
+| `transform` | نعم | التحجيم، الإزاحة للتغذية الراجعة |
+| `opacity` | نعم | الظهور/الاختفاء التدريجي |
+| `width`، `height` | تجنّب | يُسبّب إعادة تدفق التخطيط |
+| `padding`، `margin` | تجنّب | يُسبّب إعادة تدفق التخطيط |
+
+### ربط انتقالات المكونات
+
+```css
+/* Sidebar nav items */
+nav.sidebar a {
+  transition: background-color var(--f5-transition-fast),
+              color var(--f5-transition-fast);
+}
+
+/* Cards — shadow lift on hover */
+.swatch, .icon-card {
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+.swatch:hover, .icon-card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-tertiary {
+  transition: background-color var(--f5-transition-fast),
+              border-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+
+/* Links */
+a {
+  transition: color var(--f5-transition-fast);
+}
+```
+
+> **الحالة**: مكتمل — جميع رموز الانتقالات الخمسة (`fast`، `base`، `bounce`، `decelerate`، `spring`) وانتقالات المكونات منفّذة في `styles/custom.css`.
+
+---
+
+## 8. نظام حلقة التركيز
+
+### رموز حلقة التركيز
+
+تستخدم السمة نمط **الحلقة المزدوجة** مع حلقة داخلية منغمسة وتوهج خارجي:
+
+```css
+/* Action focus — using F5 River blue */
+:root {
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
+
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+  /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
+}
+
+/* Apply to interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--f5-focus-action);
+}
+
+/* Critical variant for destructive buttons */
+.btn-critical:focus-visible {
+  box-shadow: var(--f5-focus-critical);
+}
+```
+
+### ملاحظات إمكانية الوصول
+
+- يستوفي نمط الحلقة المزدوجة متطلبات **WCAG 2.2 لمظهر التركيز** (حد تباين أدنى 2 بكسل)
+- استخدام `box-shadow` بدلًا من `outline` يسمح باحترام نصف قطر الحدود
+- يضمن `:focus-visible` ظهور الحلقة للتنقل بلوحة المفاتيح فقط، دون نقرات الفأرة
+
+> **الحالة**: مكتمل — نمط التركيز المزدوج الحلقة (`action`، `critical`) وأنماط `:focus-visible` منفّذة في `styles/custom.css`.
+
+---
+
+## 9. الطباعة
+
+### مجموعة الخطوط
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-font-heading: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-line-height-headings: 1.1;
+}
+```
+
+### مقياس الأحجام النصية
+
+| المقياس | الحجم | ارتفاع السطر | الاستخدام |
+|---|---|---|---|
+| Display 500 | `1.875rem` (30px) | 1.267 | `--sl-text-h1` |
+| Display 400 | `1.5rem` (24px) | 1.333 | `--sl-text-h2` |
+| Display 300 | `1.125rem` (18px) | 1.333 | `--sl-text-h3` |
+| Display 200 | `1rem` (16px) | 1.5 | `--sl-text-h4` |
+| Display 100 | `0.8125rem` (13px) | 1.385 | نص العنوان الفوقي |
+| Body 300 | `1rem` (16px) | 1.5 | نص الجسم الرئيسي |
+| Body 200 | `0.875rem` (14px) | 1.429 | نص الشريط الجانبي، التعليقات التوضيحية |
+| Body 100 | `0.8125rem` (13px) | 1.385 | النص الدقيق |
+
+### الخصائص الرئيسية
+
+| الجانب | القيمة | ملاحظات |
+|---|---|---|
+| ارتفاع سطر العناوين | `1.1` | عناوين مضغوطة لتأثير العلامة التجارية؛ فكر في `1.2` لتحسين القراءة |
+| ارتفاع سطر النص | `1.5` (افتراضي Starlight) | مناسب جدًا للقراءة |
+| عائلة الخطوط | خطوط العلامة التجارية المخصصة | proximaNova (النص)، neusaNextProWide (العناوين) |
+| أوزان العناوين | `h1-h2: 700, h3: 500, h4-h6: 700 uppercase` | مُعتمَد لاتساق العلامة التجارية |
+
+> **الأولوية**: لا تغييرات مطلوبة. الطباعة الحالية محددة جيدًا ومناسبة للعلامة التجارية. التعديل الطفيف لارتفاع سطر العنوان (من `1.1` إلى `1.2`) اختياري.
+
+---
+
+## 10. سجل تغييرات التنفيذ
+
+نُفّذت جميع رموز التصميم عبر خمسة سرعات:
+
+| السرعة | النطاق | الرموز المضافة |
+|---|---|---|
+| 1. الأساس | الظلال + نصف قطر الحدود | `--f5-shadow-*` (5 مستويات)، `--f5-radius-*` (5 مستويات) |
+| 2. الشريط الجانبي + الأسطح | التنقل + الرموز التفاعلية | `--f5-surface-hover`، `--f5-surface-active`، `--f5-border-*` (3 مستويات)، `--f5-transition-fast` |
+| 3. الأزرار | نظام المكونات | `.btn-primary`، `.btn-secondary`، `.btn-tertiary`، `.btn-critical`، متغيرات الأحجام |
+| 4. تدرجات البطل | أدوات الخلفية | `.hero-gradient-primary`، `-eggplant`، `-red`، `-faint`، `.hero-vignette`، `.hero-fade` |
+| 5. التركيز + الانتقالات | إمكانية الوصول + الصقل | `--f5-focus-action`، `--f5-focus-critical`، `--f5-transition-*` (5 رموز)، تأثيرات تحويم البطاقات |
+
+---
+
+## مرجع سريع: ملخص الرموز
+
+### جميع الخصائص المخصصة
+
+```css
+:root {
+  /* Border radius scale */
+  --f5-radius-xs: 0.1875rem;     /* 3px */
+  --f5-radius-sm: 0.3125rem;     /* 5px */
+  --f5-radius-md: 0.375rem;      /* 6px */
+  --f5-radius-lg: 0.5rem;        /* 8px */
+  --f5-radius-full: 999px;
+
+  /* Transition timing */
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+
+  /* Focus rings */
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+
+  /* Dark mode shadows (default) */
+  --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
+
+  /* Dark mode borders */
+  --f5-border-faint: #f5f5f51a;
+  --f5-border-default: #f5f5f533;
+  --f5-border-strong: #cccccc66;
+
+  /* Dark mode surfaces */
+  --f5-surface-hover: var(--f5-black-3);
+  --f5-surface-active: var(--f5-black-2);
+}
+
+:root[data-theme='light'] {
+  /* Light mode shadows */
+  --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
+  --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
+  --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
+
+  /* Light mode borders */
+  --f5-border-faint: #3434341a;
+  --f5-border-default: #34343433;
+  --f5-border-strong: #22222266;
+
+  /* Light mode surfaces */
+  --f5-surface-hover: var(--f5-white-2);
+  --f5-surface-active: var(--f5-white-3);
+}
+```

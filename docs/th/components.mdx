@@ -1,0 +1,517 @@
+---
+title: ส่วนประกอบ
+description: >-
+  ส่วนประกอบในตัวของ Starlight — asides, tabs, steps, cards, badges, tables,
+  images และ file tree
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: aadd8fb32c48
+  translator: machine
+---
+
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+
+## Asides
+
+Aside แต่ละประเภทใช้ไวยากรณ์ fence `:::` พร้อมชื่อเริ่มต้น
+
+:::note
+นี่คือ aside แบบ **note** ใช้เพื่อดึงความสนใจไปยังข้อมูลเสริมที่ผู้อ่านควรทราบ
+:::
+
+:::tip
+นี่คือ aside แบบ **tip** ใช้เพื่อเน้นแนวทางปฏิบัติที่ดีที่สุดหรือทางลัดที่มีประโยชน์
+:::
+
+:::caution
+นี่คือ aside แบบ **caution** ใช้เพื่อเตือนเกี่ยวกับข้อผิดพลาดที่อาจเกิดขึ้นหรือพฤติกรรมที่ไม่ชัดเจน
+:::
+
+:::danger
+นี่คือ aside แบบ **danger** ใช้เพื่อแจ้งเตือนการดำเนินการที่ทำลายข้อมูลหรือไม่สามารถย้อนกลับได้
+:::
+
+### ชื่อที่กำหนดเอง
+
+<Aside type="note" title="Custom Note Title">
+Aside นี้ใช้คอมโพเนนต์ `<Aside>` พร้อมการกำหนดชื่อที่กำหนดเอง
+</Aside>
+
+<Aside type="tip" title="Pro Tip">
+คุณสามารถซ้อน **ตัวหนา**, *ตัวเอียง* และ `inline code` ภายในคอมโพเนนต์ aside ได้
+</Aside>
+
+<Aside type="caution" title="Watch Out">
+ระวังเมื่ออัปเกรด dependencies — ตรวจสอบ changelog ก่อนเสมอ
+</Aside>
+
+<Aside type="danger" title="Destructive Action">
+การรัน `git reset --hard` จะลบการเปลี่ยนแปลงที่ยังไม่ได้ commit อย่างถาวร
+</Aside>
+
+### เนื้อหาหลากหลายภายใน Asides
+
+:::tip[Aside ที่มีเนื้อหาผสม]
+นี่คือ code block ภายใน aside:
+
+```bash
+npm install @astrojs/starlight
+```
+
+รายการสิ่งที่ต้องทำ:
+
+- รายการแรกพร้อม**ข้อความตัวหนา**
+- รายการที่สองพร้อม `inline code`
+- รายการที่สามพร้อม [ลิงก์ไปยังเอกสาร Starlight](https://starlight.astro.build)
+:::
+
+### CSS ของ Aside
+
+คอมโพเนนต์ aside ในตัวของ Starlight มีมุมโค้งและเงาแบบหลายชั้น:
+
+```css
+.starlight-aside {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+## Tabs
+
+### Tabs พื้นฐาน
+
+<Tabs>
+  <TabItem label="Overview">
+    นี่คือเนื้อหาของแท็บ overview ประกอบด้วยข้อความธรรมดาเพื่อตรวจสอบการแสดงผลแท็บเบื้องต้น
+  </TabItem>
+  <TabItem label="Details">
+    นี่คือแท็บ details การสลับระหว่างแท็บควรเป็นไปอย่างทันทีโดยไม่ต้องโหลดหน้าใหม่
+  </TabItem>
+</Tabs>
+
+### Tabs ที่มีเนื้อหาผสม
+
+<Tabs>
+  <TabItem label="Text">
+    เนื้อหาย่อหน้าธรรมดาในแท็บแรก
+  </TabItem>
+  <TabItem label="Code">
+    ```javascript
+    const greeting = "Hello from a code block inside a tab!";
+    console.log(greeting);
+    ```
+  </TabItem>
+  <TabItem label="List">
+    - รายการที่หนึ่งภายในแท็บ
+    - รายการที่สองพร้อม**ข้อความตัวหนา**
+    - รายการที่สามพร้อม `inline code`
+  </TabItem>
+</Tabs>
+
+### Tabs ที่ซิงค์กัน
+
+กลุ่มแท็บสองกลุ่มนี้ใช้ `syncKey="pkg"` ร่วมกัน การเลือกแท็บในกลุ่มหนึ่งจะอัปเดตอีกกลุ่มด้วย
+
+**คำสั่งติดตั้ง:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+</Tabs>
+
+**คำสั่งรัน:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+
+## Steps
+
+<Steps>
+
+1. **โคลน repository**
+
+   ```bash
+   git clone https://github.com/example/repo.git
+   cd repo
+   ```
+
+2. **ติดตั้ง dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **เริ่มต้น dev server**
+
+   ```bash
+   npm run dev
+   ```
+
+   ไซต์จะพร้อมใช้งานที่ `http://localhost:4321`
+
+</Steps>
+
+## Cards
+
+### Card เดี่ยว
+
+<Card title="Single Card" icon="star">
+  นี่คือ card แบบ standalone พร้อมไอคอน Cards มีประโยชน์สำหรับการเน้นข้อมูลหรือฟีเจอร์สำคัญ
+</Card>
+
+### Card Grid
+
+<CardGrid>
+  <Card title="Performance" icon="rocket">
+    Astro ส่งมอบ zero-JS ตามค่าเริ่มต้นเพื่อการโหลดหน้าที่รวดเร็ว
+  </Card>
+  <Card title="Customizable" icon="pencil">
+    Starlight มีตัวเลือกธีมและปลั๊กอินที่หลากหลาย
+  </Card>
+  <Card title="Accessible" icon="heart">
+    ฟีเจอร์ accessibility ในตัวช่วยให้เนื้อหาเข้าถึงได้สำหรับทุกคน
+  </Card>
+  <Card title="Documented" icon="open-book">
+    เอกสารที่ครอบคลุมทำให้การเริ่มต้นใช้งานเป็นเรื่องง่าย
+  </Card>
+</CardGrid>
+
+### Stagger Layout
+
+<CardGrid stagger>
+  <Card title="Step One" icon="setting">
+    กำหนดค่าการตั้งค่าโปรเจกต์และ environment variables
+  </Card>
+  <Card title="Step Two" icon="document">
+    สร้างหน้าเนื้อหาโดยใช้รูปแบบ MDX
+  </Card>
+  <Card title="Step Three" icon="laptop">
+    ดูตัวอย่างในเครื่องด้วย development server
+  </Card>
+  <Card title="Step Four" icon="rocket">
+    Deploy ไปยังแพลตฟอร์มโฮสติ้งที่คุณเลือก
+  </Card>
+</CardGrid>
+
+### Link Cards
+
+ธีมมีคอมโพเนนต์ `LinkCard` ที่ทำงานได้ทั้งแบบมีและไม่มีไอคอน นำเข้าจากธีม:
+
+```mdx
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+```
+
+<CardGrid>
+  <LinkCard
+    title="Starlight Documentation"
+    description="เรียนรู้วิธีสร้างไซต์เอกสารด้วย Starlight"
+    href="https://starlight.astro.build"
+  />
+  <LinkCard
+    title="Astro Documentation"
+    description="สำรวจ Astro framework สำหรับเว็บไซต์ที่ขับเคลื่อนด้วยเนื้อหา"
+    href="https://docs.astro.build"
+  />
+</CardGrid>
+
+#### พร้อมไอคอน
+
+เพิ่ม prop `icon` โดยใช้ไวยากรณ์ `prefix:name` รองรับ icon pack ทั้งแปดชุด — ดูที่เอกสาร [แพ็กเกจไอคอน](https://f5xc-salesdemos.github.io/docs-icons/) สำหรับรายการทั้งหมด
+
+##### Lucide (`lucide:`)
+
+<CardGrid>
+  <LinkCard
+    icon="lucide:shield-check"
+    title="Web App Firewall"
+    description="นโยบายและการกำหนดค่าไฟร์วอลล์"
+    href="https://f5xc-salesdemos.github.io/waf/"
+  />
+  <LinkCard
+    icon="lucide:globe"
+    title="Multi-Cloud Networking"
+    description="การเชื่อมต่อไซต์ข้ามคลาวด์"
+    href="https://f5xc-salesdemos.github.io/mcn/"
+  />
+</CardGrid>
+
+##### Carbon (`carbon:`)
+
+<CardGrid>
+  <LinkCard
+    icon="carbon:security"
+    title="Security Services"
+    description="ชุดไอคอน security ของ IBM Carbon"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="carbon:cloud"
+    title="Cloud Services"
+    description="ชุดไอคอน cloud ของ IBM Carbon"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Material Design Icons (`mdi:`)
+
+<CardGrid>
+  <LinkCard
+    icon="mdi:shield-lock"
+    title="Access Control"
+    description="ไอคอน shield lock ของ Material Design"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="mdi:database"
+    title="Data Management"
+    description="ไอคอน database ของ Material Design"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Phosphor (`phosphor:`)
+
+<CardGrid>
+  <LinkCard
+    icon="phosphor:shield"
+    title="การป้องกันภัยคุกคาม"
+    description="ไอคอน shield ของ Phosphor"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="phosphor:globe"
+    title="Global Network"
+    description="ไอคอน globe ของ Phosphor"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Tabler (`tabler:`)
+
+<CardGrid>
+  <LinkCard
+    icon="tabler:cloud"
+    title="Cloud Platform"
+    description="ไอคอน cloud ของ Tabler"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="tabler:rocket"
+    title="Deployment"
+    description="ไอคอน rocket ของ Tabler"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Brand (`f5-brand:`)
+
+<CardGrid>
+  <LinkCard
+    icon="f5-brand:cloud-shield-checkmark"
+    title="Cloud Security"
+    description="ไอคอน cloud shield แบรนด์ F5"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5-brand:security-firewall"
+    title="Firewall"
+    description="ไอคอน firewall แบรนด์ F5"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Distributed Cloud (`f5xc:`)
+
+ไอคอนเหล่านี้เป็นแบบหลายสีและใช้ CSS custom properties สำหรับการปรับสีในโหมดสว่างและมืด
+
+<CardGrid>
+  <LinkCard
+    icon="f5xc:web-app-and-api-protection"
+    title="App & API Protection"
+    description="ไอคอน web app และ API protection ของ F5 XC"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5xc:bot-defense"
+    title="Bot Defense"
+    description="ไอคอน bot defense ของ F5 XC"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### HashiCorp Flight (`hashicorp-flight:`)
+
+<CardGrid>
+  <LinkCard
+    icon="hashicorp-flight:terraform-color"
+    title="Terraform"
+    description="ไอคอน Terraform ของ HashiCorp"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="hashicorp-flight:consul-color"
+    title="Consul"
+    description="ไอคอน Consul ของ HashiCorp"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+## Badges
+
+### Badge แบบ Inline ทุกตัวแปร
+
+Badge ทั้งหกตัวแปรแสดงผลแบบ inline:
+
+<Badge text="Default" /> <Badge text="Note" variant="note" /> <Badge text="Danger" variant="danger" /> <Badge text="Success" variant="success" /> <Badge text="Tip" variant="tip" /> <Badge text="Caution" variant="caution" />
+
+### ขนาด Badge
+
+<Badge text="Small" size="small" /> <Badge text="Medium" size="medium" /> <Badge text="Large" size="large" />
+
+แต่ละขนาดพร้อมตัวแปร:
+
+<Badge text="Small Tip" variant="tip" size="small" /> <Badge text="Medium Danger" variant="danger" size="medium" /> <Badge text="Large Success" variant="success" size="large" />
+
+### Heading Badges
+
+หัวข้อต่อไปนี้ใช้ไวยากรณ์ปลั๊กอิน `starlight-heading-badges`
+
+#### Feature Complete :badge[Stable]{variant=success}
+
+หัวข้อนี้มี badge แบบ success ที่ระบุว่าฟีเจอร์นี้มีความเสถียร
+
+#### Experimental API :badge[Beta]{variant=caution}
+
+หัวข้อนี้มี badge แบบ caution ที่ระบุว่า API นี้อยู่ในช่วงทดลอง
+
+#### Legacy System :badge[Deprecated]{variant=danger}
+
+หัวข้อนี้มี badge แบบ danger ที่ระบุว่าถูก deprecated แล้ว
+
+#### New Feature :badge[New]{variant=tip}
+
+หัวข้อนี้มี badge แบบ tip ที่ระบุว่าเป็นฟีเจอร์ใหม่
+
+#### Documentation :badge[Updated]{variant=note}
+
+หัวข้อนี้มี badge แบบ note ที่ระบุว่ามีการอัปเดตล่าสุด
+
+#### Default Badge :badge[Info]
+
+หัวข้อนี้มี badge แบบค่าเริ่มต้นโดยไม่ระบุตัวแปร
+
+### Sidebar Badge
+
+ดูที่แถบด้านข้าง: หน้านี้มี badge "New" พร้อมตัวแปร `tip` ที่กำหนดผ่าน frontmatter
+
+## Tables
+
+### ตารางพื้นฐาน
+
+| ฟีเจอร์ | สถานะ | ความสำคัญ |
+|---------|--------|----------|
+| Dark mode | รองรับ | สูง |
+| Image zoom | รองรับ | ปานกลาง |
+| Mermaid diagrams | รองรับ | ปานกลาง |
+| Heading badges | รองรับ | ต่ำ |
+
+### ตารางพร้อมการจัดตำแหน่งและโค้ด
+
+| Property | Type | Default | Description |
+|:---------|:----:|--------:|:------------|
+| `title` | `string` | — | ชื่อหน้าที่แสดงในส่วนหัว |
+| `description` | `string` | `""` | Meta description สำหรับ SEO |
+| `sidebar.order` | `number` | `0` | ลำดับการเรียงในแถบด้านข้าง |
+| `sidebar.badge` | `object` | `null` | Badge ที่แสดงถัดจากป้ายกำกับในแถบด้านข้าง |
+| `template` | `"doc" \| "splash"` | `"doc"` | เทมเพลตเลย์เอาต์ของหน้า |
+
+## Images
+
+ภาพด้านล่างนี้ทดสอบปลั๊กอิน `starlight-image-zoom` คลิกเพื่อซูม
+
+![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+
+## File Tree
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - index.mdx
+      - 01-environment-variables.mdx
+      - 02-build-pipeline.mdx
+      - 03-astro-config.mdx
+      - 04-logo.mdx
+      - 05-colors.mdx
+      - 07-typography.mdx
+      - 08-code-blocks.mdx
+      - **09-components.mdx** หน้านี้
+      - 10-mermaid.mdx
+      - 11-footer.mdx
+      - 12-style-enhancement-guide.mdx
+  - plugins/
+    - remark-mermaid.mjs
+- styles/
+  - custom.css
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## การตรวจสอบธีม
+
+- สีเส้นขอบด้านซ้ายแตกต่างกันตามประเภท aside (น้ำเงิน, ม่วง, เหลือง, แดง)
+- สีพื้นหลัง aside มองเห็นได้ทั้งในโหมดสว่างและมืด
+- Box-shadow บางเบาแต่มองเห็นได้รอบ aside แต่ละอัน
+- มุมโค้ง (0.75rem) บน aside ทั้งหมด
+- สีตัวบ่งชี้แท็บที่ใช้งานอยู่ใช้สี accent
+- เส้นเชื่อมต่อ step มองเห็นได้ระหว่างขั้นตอนที่มีตัวเลข
+- Tabs ที่ซิงค์กันคงสถานะซิงค์เมื่อสลับระหว่างกลุ่ม
+- Code blocks ภายใน tabs แสดงผลพร้อม syntax highlighting ที่ถูกต้อง
+- สีเส้นขอบ Card ปรับตัวระหว่างโหมดสว่างและมืด
+- เอฟเฟกต์พื้นหลังเมื่อ hover มองเห็นได้บน cards
+- สีไอคอนลูกศร LinkCard ตรงกับสี accent
+- Stagger layout เลื่อน cards สลับกันในแนวตั้ง
+- ไอคอนแสดงผลได้อย่างถูกต้องภายในส่วนหัว card
+- สีพื้นหลัง Badge ตามตัวแปรแตกต่างกันระหว่างโหมดมืดและสว่าง
+- Badge โหมดมืดใช้โทนสีเข้ม (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
+- Badge โหมดสว่างใช้โทนสีอ่อน (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
+- Heading badges จัดตำแหน่งแบบ inline กับข้อความหัวข้อ
+- Sidebar badge แสดงถัดจากป้ายกำกับหน้า
+- สีเส้นขอบตารางปรับตัวระหว่างโหมดสว่างและมืด
+- แถวหัวตารางมีพื้นหลังที่โดดเด่น
+- Image zoom overlay ทำงานเมื่อคลิก (starlight-image-zoom)
+- พื้นหลัง FileTree ใช้สีที่เหมาะสมกับธีม
+- ไอคอนรับค่าสีข้อความปัจจุบัน

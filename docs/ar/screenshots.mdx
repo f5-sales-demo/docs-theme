@@ -1,0 +1,129 @@
+---
+title: لقطات الشاشة
+description: مكوّن لقطات الشاشة للأزواج من الصور ذات الوعي بالسمة في وضعَي الفاتح والداكن.
+sidebar:
+  order: 10
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: 0b677390b859
+  translator: machine
+---
+
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+يعرض مكوّن `Screenshot` صوراً ذات وعي بالسمة تتبدّل تلقائياً بين المتغيرَين
+الفاتح والداكن عندما يقوم المستخدم بتبديل سمة الموقع. استخدمه في كل مرة
+تحتاج فيها إلى عرض لقطات شاشة لواجهة المستخدم يجب أن تتطابق مع نظام
+الألوان الحالي للقارئ.
+
+## مرجع الخصائص
+
+| الخاصية | النوع | مطلوبة | الوصف |
+| ------- | ----- | ------- | ----- |
+| `light` | `string` | لا | مسار صورة الوضع الفاتح |
+| `dark` | `string` | لا | مسار صورة الوضع الداكن |
+| `alt` | `string` | نعم | النص البديل لإمكانية الوصول |
+| `width` | `number` | لا | عرض الصورة بالبكسل |
+| `height` | `number` | لا | ارتفاع الصورة بالبكسل |
+
+:::note
+يجب توفير خاصية `light` أو `dark` على الأقل إحداهما.
+عند توفير كلتيهما، يتبادل المكوّن بينهما بناءً على السمة النشطة.
+:::
+
+## الوضع المزدوج (فاتح + داكن)
+
+وفّر كلاً من خاصيتَي `light` و`dark` لعرض المتغير الصحيح لكل سمة.
+قم بتبديل محدد السمة في الزاوية العلوية اليمنى لمشاهدة تبدّل الصورة.
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+
+```mdx
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+```
+
+:::tip
+احرص دائماً على التقاط لقطات الشاشة في كلا وضعَي الفاتح والداكن عند توثيق واجهة المستخدم.
+يمنح هذا القرّاء تمثيلاً دقيقاً بصرف النظر عن تفضيل السمة لديهم.
+:::
+
+## صورة واحدة
+
+عندما يكون متغير واحد فقط متاحاً، مرّر `light` أو `dark` فقط.
+تُعرض الصورة في كلا السمتين دون تبديل.
+
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+
+```mdx
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+```
+
+## مع الأبعاد
+
+استخدم `width` و`height` للتحكم في الحجم المُعروض ومنع اهتزاز التخطيط.
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+
+```mdx
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+```
+
+## آلية العمل
+
+يُصيّر المكوّن عنصر `<img>` واحداً أو اثنين داخل غلاف `.screenshot-pair`.
+تتحكم قواعد CSS في الرؤية بناءً على السمة النشطة:
+
+- **الوضع الداكن** (الافتراضي) — تُخفى صورة `.screenshot-light` عبر
+  `:root:not([data-theme="light"]) .screenshot-light \{ display: none \}`
+- **الوضع الفاتح** — تُخفى صورة `.screenshot-dark` عبر
+  `:root[data-theme="light"] .screenshot-dark \{ display: none \}`
+
+تتعامل محددات إضافية مع غلاف `starlight-image-zoom` باستخدام `:has()`
+لضمان عمل وظيفة التكبير بشكل صحيح مع كلا المتغيرَين.
+
+تحصل جميع صور لقطات الشاشة على تنسيق متسق: حد خفيف، وزوايا مستديرة،
+وظل يزداد كثافةً عند التمرير.
+
+## المقارنة مع صور Markdown
+
+| الميزة | مكوّن `Screenshot` | صورة Markdown `![](url)` |
+| ------- | ------------------- | ------------------------ |
+| التبديل بحسب السمة | نعم | لا |
+| حد وظل منسّقان | تلقائي | لا |
+| تأثير الظل عند التمرير | نعم | لا |
+| دعم التكبير | يعمل مع إضافة تكبير الصور | يعمل مع إضافة تكبير الصور |
+| النص البديل | خاصية `alt` | `![alt text]()` |
+
+استخدم مكوّن `Screenshot` عندما يكون لديك متغيرات صور خاصة بكل سمة أو
+عندما تريد المظهر المنسّق للقطات الشاشة. استخدم صور Markdown القياسية للرسوم
+المضمّنة، أو المخططات، أو الصور التي تبدو متشابهة في كلا السمتين.

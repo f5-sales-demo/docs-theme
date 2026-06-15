@@ -1,0 +1,133 @@
+---
+title: مسار البناء
+description: >-
+  كيفية استهلاك مستودعات المحتوى للسمة في وقت البناء من خلال مُنشئ Docker وحزمة
+  npm.
+sidebar:
+  order: 3
+i18n:
+  sourceHash: f305437613ca
+  translator: machine
+---
+
+تصف هذه الصفحة كيفية استهلاك مستودعات المحتوى لحزمة npm الخاصة بـ `@f5xc-salesdemos/docs-theme` لإنتاج مواقع توثيق ذات علامة تجارية كاملة.
+
+## البنية المعمارية
+
+```
+┌─────────────────┐
+│  Content Repo   │
+│  (docs/ folder) │
+└────────┬────────┘
+         │
+         ▼
+┌───────────────────────────┐
+│   f5xc-docs-builder       │
+│   (Docker image)          │
+│                           │
+│  npm install              │
+│  @f5xc-salesdemos/docs-theme ─────┐  │
+│                        ▼  │
+│  node_modules/            │
+│    @f5xc-salesdemos/docs-theme/       │
+│      ├── config.ts        │
+│      ├── index.ts         │
+│      ├── fonts/           │
+│      ├── styles/          │
+│      ├── assets/          │
+│      └── components/      │
+│                           │
+│  Astro Build              │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   Astro Build Output      │
+│   (static HTML/CSS)       │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   GitHub Pages            │
+└───────────────────────────┘
+```
+
+## عملية البناء خطوة بخطوة
+
+1. **دفع مستودع المحتوى** — يؤدي الدفع إلى `main` (أو الإرسال اليدوي) إلى تشغيل سير عمل نشر GitHub Pages
+2. **سير العمل القابل لإعادة الاستخدام** — يستدعي سير عمل مستودع المحتوى المُنشئ:
+   ```yaml
+   jobs:
+     docs:
+       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+   ```
+3. **تشغيل مُنشئ Docker** — تتضمن صورة Docker الخاصة بـ `f5xc-docs-builder` السمةَ مثبَّتةً مسبقًا عبر npm. في وقت البناء تقوم بما يلي:
+   - نسخ `astro.config.mjs` و`content.config.ts` من `node_modules/@f5xc-salesdemos/docs-theme/` إلى جذر مشروع Astro
+   - نسخ ملفات `docs/` الخاصة بمستودع المحتوى إلى `src/content/docs/`
+4. **بناء Astro** — يقرأ Astro التهيئة التي تستدعي `createF5xcDocsConfig()`. تحلّ هذه الدالة المصنع جميع أصول السمة من خلال محددات حزمة npm (مثلًا، `@f5xc-salesdemos/docs-theme/styles/custom.css`)
+5. **النشر** — يُنشر الموقع الثابت المبني إلى GitHub Pages
+
+## متطلبات مستودع المحتوى
+
+لا يحتاج مستودع المحتوى إلا إلى:
+
+- دليل `docs/` يحتوي على ملفات Markdown (`.md`) أو MDX (`.mdx`)
+- سير عمل GitHub Actions يستدعي المُنشئ
+
+### الحد الأدنى من سير العمل
+
+```yaml
+name: GitHub Pages Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+```
+
+هذا هو نفس سير العمل الذي يستخدمه مستودع السمة هذا لبناء التوثيق الذي تقرأه الآن.
+
+## تحليل المسارات
+
+تستخدم جميع المسارات في السمة محددات حزمة npm، يتم تحليلها من خلال خريطة `exports` في `package.json`:
+
+```js
+// CSS — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
+'@f5xc-salesdemos/docs-theme/styles/custom.css'
+
+// Components — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/components/Footer.astro'
+'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+
+// Assets — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+```
+
+لا يوجد دليل `./theme/` في مساحة عمل البناء. يُثبّت مُنشئ Docker السمةَ باعتبارها تبعية npm عادية ويحلّ Astro جميع المحددات من خلال `node_modules`.
+
+:::note
+تستخدم مسارات ملفات الخطوط داخل `font-face.css` النمط `./` (مثلًا، `url("./neusaNextProWide-300.woff2")`). وهذه مسارات نسبية إلى ملف CSS نفسه، لذا تُحلَّل إلى ملفات أخرى ضمن دليل `fonts/` بغض النظر عن كيفية تثبيت الحزمة.
+:::
+
+## انتشار التغييرات
+
+تنتشر تغييرات السمة من خلال تحديثات حزمة npm:
+
+1. يُدمج تغيير في `main` ضمن `@f5xc-salesdemos/docs-theme`
+2. تُعاد إعادة بناء صورة Docker للمُنشئ بالحزمة المحدَّثة
+3. في المرة التالية التي يعمل فيها سير عمل أي مستودع محتوى، يستخدم صورة المُنشئ المحدَّثة
+4. يلتقط بناء Astro الخطوطَ والأنماطَ والشعارَ والمكوناتِ والإضافاتِ المحدَّثة
+5. يُنشر موقع مستودع المحتوى بالسمة الجديدة
+
+تحصل مستودعات المحتوى دائمًا على أحدث نسخة من السمة المُضمَّنة في صورة Docker. يضمن ذلك التناسق البصري عبر جميع المواقع، غير أن ذلك يعني أن تغييرات السمة ينبغي اختبارها بعناية قبل دمجها.

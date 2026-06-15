@@ -1,0 +1,79 @@
+---
+title: WAF
+description: >-
+  Diagramas de firewall de aplicação web mostrando pipelines de inspeção, fluxos
+  de proteção OWASP e arquitetura F5 XC WAAP.
+sidebar:
+  order: 15
+i18n:
+  sourceHash: aedfc1ad5acb
+  translator: machine
+---
+
+Diagramas de arquitetura de firewall de aplicação web cobrindo cadeias de inspeção de segurança, fluxos de proteção OWASP e capacidades do F5 Distributed Cloud WAAP.
+
+## Pipeline de Inspeção de Segurança
+
+Cadeia de inspeção de segurança em múltiplas camadas, desde a borda CDN passando por WAF, defesa contra bots e balanceador de carga até a infraestrutura de origem.
+
+```mermaid
+architecture-beta
+  group edge(lucide:shield)[Security Edge]
+  group origin(carbon:cloud-services)[Origin Infrastructure]
+
+  service cdn(carbon:content-delivery-network)[CDN] in edge
+  service waf(carbon:firewall)[WAF] in edge
+  service bot(lucide:shield-check)[Bot Defense] in edge
+  service lb(carbon:load-balancer-application)[Load Balancer] in origin
+  service app(carbon:application)[App Server] in origin
+  service db(carbon:data-base)[Database] in origin
+
+  cdn:R --> L:waf
+  waf:R --> L:bot
+  bot:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## Proteção F5 XC WAAP
+
+F5 Distributed Cloud Web Application and API Protection com defesa integrada contra bots e defesa do lado do cliente.
+
+```mermaid
+architecture-beta
+  group xcedge(lucide:cloud)[F5 XC Edge]
+  group cloud(carbon:cloud-services)[Cloud Origin]
+
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in xcedge
+  service botdef(f5xc:bot-defense)[Bot Defense] in xcedge
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in xcedge
+  service lb(carbon:load-balancer-application)[Load Balancer] in cloud
+  service app(carbon:application)[Application] in cloud
+  service api(carbon:api)[API Service] in cloud
+
+  waap:R --> L:botdef
+  botdef:R --> L:csd
+  csd:R --> L:lb
+  lb:R --> L:app
+  lb:B --> T:api
+```
+
+## Fluxo de Proteção OWASP
+
+Pipeline de processamento de requisições do WAF mostrando os estágios de inspeção para as categorias de ameaças do OWASP Top 10.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Request' }
+  tls@{ icon: 'lucide:lock', label: 'TLS Termination' }
+  rate@{ icon: 'carbon:load-balancer-vpc', label: 'Rate Limiting' }
+  waf@{ icon: 'carbon:firewall', label: 'WAF Rules' }
+  bot@{ icon: 'lucide:shield-check', label: 'Bot Check' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  req --> tls
+  tls --> rate
+  rate --> waf
+  waf --> bot
+  bot --> app
+```

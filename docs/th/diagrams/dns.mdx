@@ -1,0 +1,84 @@
+---
+title: DNS
+description: >-
+  ไดอะแกรมการแก้ไข DNS รวมถึงการแก้ไขแบบเรียกซ้ำ, GSLB และการจัดการ DNS ของ F5
+  XC
+sidebar:
+  order: 14
+i18n:
+  sourceHash: 1ebe6a123211
+  translator: machine
+---
+
+ไดอะแกรมสถาปัตยกรรม DNS ที่ครอบคลุมกระบวนการแก้ไขแบบเรียกซ้ำ, การกระจายโหลดเซิร์ฟเวอร์ระดับโลก และการจัดการ DNS ของ F5 Distributed Cloud
+
+## กระบวนการแก้ไข DNS
+
+การแก้ไขคำค้นหา DNS มาตรฐานจากไคลเอนต์ผ่าน Recursive Resolver ไปยัง Authoritative Nameserver พร้อมการผสานรวม GSLB
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'Client' }
+  resolver@{ icon: 'carbon:dns-services', label: 'Recursive Resolver' }
+  root@{ icon: 'lucide:server', label: 'Root DNS' }
+  tld@{ icon: 'lucide:server', label: 'TLD Server' }
+  auth@{ icon: 'carbon:server-dns', label: 'Authoritative DNS' }
+  gslb@{ icon: 'carbon:load-balancer-global', label: 'GSLB' }
+
+  client --> resolver
+  resolver --> root
+  root --> resolver
+  resolver --> tld
+  tld --> resolver
+  resolver --> auth
+  auth --> gslb
+  gslb --> resolver
+  resolver --> client
+```
+
+## การจัดการ DNS ของ F5 XC
+
+การจัดการ DNS ของ F5 Distributed Cloud ที่ให้บริการ DNS Load Balancing อย่างชาญฉลาดข้าม Origin แบบมัลติคลาวด์
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:globe', label: 'End Users' }
+  xcdns@{ icon: 'f5xc:dns-management', label: 'XC DNS Management' }
+  health@{ icon: 'f5xc:observability', label: 'Health Monitoring' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Origin' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Origin' }
+  gcp@{ icon: 'hashicorp-flight:gcp-color', label: 'GCP Origin' }
+
+  user --> xcdns
+  xcdns --> health
+  health --> aws
+  health --> azure
+  health --> gcp
+  xcdns --> aws
+  xcdns --> azure
+  xcdns --> gcp
+```
+
+## สถาปัตยกรรม DNS Load Balancing
+
+DNS Load Balancing แบบหลายระดับพร้อมการกำหนดเส้นทางตามภูมิศาสตร์, การตรวจสอบสุขภาพ และการ Failover ระหว่างภูมิภาคคลาวด์
+
+```mermaid
+architecture-beta
+  group dns(carbon:dns-services)[DNS Infrastructure]
+  group region1(hashicorp-flight:aws-color)[US East]
+  group region2(hashicorp-flight:azure-color)[EU West]
+
+  service gslb(carbon:load-balancer-global)[GSLB] in dns
+  service health(carbon:application)[Health Check] in dns
+  service lb1(carbon:load-balancer-application)[Regional LB] in region1
+  service app1(carbon:virtual-machine)[App Servers] in region1
+  service lb2(carbon:load-balancer-application)[Regional LB] in region2
+  service app2(carbon:virtual-machine)[App Servers] in region2
+
+  gslb:R --> L:health
+  gslb:B --> T:lb1
+  lb1:R --> L:app1
+  gslb:B --> T:lb2
+  lb2:R --> L:app2
+```

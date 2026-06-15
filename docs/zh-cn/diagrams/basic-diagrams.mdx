@@ -1,0 +1,102 @@
+---
+title: 基础图表
+description: 基本 Mermaid 图表类型，包括流程图、时序图、饼图、类图、状态图和甘特图。
+sidebar:
+  order: 3
+i18n:
+  sourceHash: 98e8e087ae2f
+  translator: machine
+---
+
+用于通用文档的核心 Mermaid 图表类型。这些图表无需任何自定义图标包即可使用。
+
+## 流程图
+
+```mermaid
+flowchart LR
+  A[User Request] --> B{WAF Check}
+  B -->|Pass| C[Origin Server]
+  B -->|Block| D[403 Forbidden]
+  C --> E[Response]
+```
+
+## 时序图
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant LB as Load Balancer
+  participant App as Application
+  participant DB as Database
+
+  Client->>LB: HTTPS Request
+  LB->>App: Forward Request
+  App->>DB: Query Data
+  DB-->>App: Return Results
+  App-->>LB: Response
+  LB-->>Client: HTTPS Response
+```
+
+## 饼图
+
+```mermaid
+pie title Traffic Distribution
+  "North America" : 45
+  "Europe" : 30
+  "Asia Pacific" : 20
+  "Other" : 5
+```
+
+## 类图
+
+```mermaid
+classDiagram
+  class LoadBalancer {
+    +String name
+    +String domain
+    +addOriginPool()
+    +removeOriginPool()
+  }
+  class OriginPool {
+    +String name
+    +List~Origin~ origins
+    +healthCheck()
+  }
+  class Origin {
+    +String address
+    +int port
+    +boolean healthy
+  }
+  LoadBalancer --> OriginPool
+  OriginPool --> Origin
+```
+
+## 状态图
+
+```mermaid
+stateDiagram-v2
+  [*] --> Pending
+  Pending --> Active : approve
+  Pending --> Rejected : reject
+  Active --> Suspended : suspend
+  Suspended --> Active : reactivate
+  Active --> [*] : delete
+  Rejected --> [*]
+```
+
+## 甘特图
+
+```mermaid
+gantt
+  title Deployment Timeline
+  dateFormat YYYY-MM-DD
+  section Planning
+    Requirements     :a1, 2025-01-01, 14d
+    Design           :a2, after a1, 10d
+  section Development
+    Implementation   :b1, after a2, 21d
+    Testing          :b2, after b1, 14d
+  section Release
+    Staging Deploy   :c1, after b2, 3d
+    Production Deploy :c2, after c1, 2d
+```

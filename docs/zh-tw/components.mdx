@@ -1,0 +1,515 @@
+---
+title: 元件
+description: Starlight 內建元件 — 提示框、標籤頁、步驟、卡片、徽章、表格、圖片與檔案樹。
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: aadd8fb32c48
+  translator: machine
+---
+
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+
+## 提示框
+
+每種提示框類型均使用 `:::` 圍欄語法搭配其預設標題。
+
+:::note
+這是一個**備註**提示框。用於提醒讀者注意補充資訊。
+:::
+
+:::tip
+這是一個**提示**提示框。用於強調最佳實踐或實用捷徑。
+:::
+
+:::caution
+這是一個**警告**提示框。用於提醒可能的陷阱或非直觀行為。
+:::
+
+:::danger
+這是一個**危險**提示框。用於標示具有破壞性或不可逆的操作。
+:::
+
+### 自訂標題
+
+<Aside type="note" title="自訂備註標題">
+此提示框使用 `<Aside>` 元件並覆寫自訂標題。
+</Aside>
+
+<Aside type="tip" title="專業提示">
+您可以在提示框元件內嵌入 **粗體**、*斜體* 以及 `行內程式碼`。
+</Aside>
+
+<Aside type="caution" title="請注意">
+升級相依套件時請謹慎 — 請先確認變更日誌。
+</Aside>
+
+<Aside type="danger" title="破壞性操作">
+執行 `git reset --hard` 將永久捨棄未提交的變更。
+</Aside>
+
+### 提示框內的豐富內容
+
+:::tip[包含混合內容的提示框]
+以下是提示框內的程式碼區塊：
+
+```bash
+npm install @astrojs/starlight
+```
+
+項目清單：
+
+- 第一個項目，包含 **粗體文字**
+- 第二個項目，包含 `行內程式碼`
+- 第三個項目，包含 [Starlight 文件連結](https://starlight.astro.build)
+:::
+
+### 提示框 CSS
+
+Starlight 內建提示框元件具有圓角與多層陰影效果：
+
+```css
+.starlight-aside {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+## 標籤頁
+
+### 基本標籤頁
+
+<Tabs>
+  <TabItem label="概覽">
+    這是概覽標籤頁的內容。包含純文字以驗證基本標籤頁的渲染效果。
+  </TabItem>
+  <TabItem label="詳細資訊">
+    這是詳細資訊標籤頁。切換標籤頁應即時完成，無需重新載入頁面。
+  </TabItem>
+</Tabs>
+
+### 包含混合內容的標籤頁
+
+<Tabs>
+  <TabItem label="文字">
+    第一個標籤頁中的純段落內容。
+  </TabItem>
+  <TabItem label="程式碼">
+    ```javascript
+    const greeting = "Hello from a code block inside a tab!";
+    console.log(greeting);
+    ```
+  </TabItem>
+  <TabItem label="清單">
+    - 標籤頁內的第一個項目
+    - 第二個項目，包含 **粗體文字**
+    - 第三個項目，包含 `行內程式碼`
+  </TabItem>
+</Tabs>
+
+### 同步標籤頁
+
+以下兩個標籤頁群組共用 `syncKey="pkg"`。在其中一個群組選擇標籤頁時，另一個群組應同步更新。
+
+**安裝指令：**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+</Tabs>
+
+**執行指令：**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+
+## 步驟
+
+<Steps>
+
+1. **複製儲存庫**
+
+   ```bash
+   git clone https://github.com/example/repo.git
+   cd repo
+   ```
+
+2. **安裝相依套件**
+
+   ```bash
+   npm install
+   ```
+
+3. **啟動開發伺服器**
+
+   ```bash
+   npm run dev
+   ```
+
+   網站將在 `http://localhost:4321` 提供服務。
+
+</Steps>
+
+## 卡片
+
+### 單一卡片
+
+<Card title="單一卡片" icon="star">
+  這是一張帶有圖示的獨立卡片。卡片適用於突顯關鍵資訊或功能特色。
+</Card>
+
+### 卡片格線
+
+<CardGrid>
+  <Card title="效能" icon="rocket">
+    Astro 預設不輸出 JavaScript，實現快速頁面載入。
+  </Card>
+  <Card title="可自訂" icon="pencil">
+    Starlight 提供豐富的主題與外掛選項。
+  </Card>
+  <Card title="無障礙" icon="heart">
+    內建無障礙功能確保內容能觸及每位使用者。
+  </Card>
+  <Card title="有完整文件" icon="open-book">
+    完整的說明文件讓入門變得簡單直觀。
+  </Card>
+</CardGrid>
+
+### 交錯版面配置
+
+<CardGrid stagger>
+  <Card title="第一步" icon="setting">
+    設定專案配置與環境變數。
+  </Card>
+  <Card title="第二步" icon="document">
+    使用 MDX 格式建立內容頁面。
+  </Card>
+  <Card title="第三步" icon="laptop">
+    使用開發伺服器在本機預覽。
+  </Card>
+  <Card title="第四步" icon="rocket">
+    部署至您選擇的託管平台。
+  </Card>
+</CardGrid>
+
+### 連結卡片
+
+此主題提供一個 `LinkCard` 元件，可搭配或不搭配圖示使用。從主題匯入：
+
+```mdx
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+```
+
+<CardGrid>
+  <LinkCard
+    title="Starlight 說明文件"
+    description="了解如何使用 Starlight 建立說明文件網站。"
+    href="https://starlight.astro.build"
+  />
+  <LinkCard
+    title="Astro 說明文件"
+    description="探索專為內容驅動網站設計的 Astro 框架。"
+    href="https://docs.astro.build"
+  />
+</CardGrid>
+
+#### 搭配圖示
+
+使用 `prefix:name` 語法添加 `icon` 屬性。支援全部八個圖示套件 — 完整目錄請參閱 [圖示套件](https://f5xc-salesdemos.github.io/docs-icons/) 說明文件。
+
+##### Lucide (`lucide:`)
+
+<CardGrid>
+  <LinkCard
+    icon="lucide:shield-check"
+    title="Web 應用程式防火牆"
+    description="防火牆政策與設定。"
+    href="https://f5xc-salesdemos.github.io/waf/"
+  />
+  <LinkCard
+    icon="lucide:globe"
+    title="多雲網路"
+    description="跨雲端的站點連線。"
+    href="https://f5xc-salesdemos.github.io/mcn/"
+  />
+</CardGrid>
+
+##### Carbon (`carbon:`)
+
+<CardGrid>
+  <LinkCard
+    icon="carbon:security"
+    title="安全服務"
+    description="IBM Carbon 安全圖示集。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="carbon:cloud"
+    title="雲端服務"
+    description="IBM Carbon 雲端圖示集。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Material Design Icons (`mdi:`)
+
+<CardGrid>
+  <LinkCard
+    icon="mdi:shield-lock"
+    title="存取控制"
+    description="Material Design 盾牌鎖定圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="mdi:database"
+    title="資料管理"
+    description="Material Design 資料庫圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Phosphor (`phosphor:`)
+
+<CardGrid>
+  <LinkCard
+    icon="phosphor:shield"
+    title="威脅防禦"
+    description="Phosphor 盾牌圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="phosphor:globe"
+    title="全球網路"
+    description="Phosphor 地球圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Tabler (`tabler:`)
+
+<CardGrid>
+  <LinkCard
+    icon="tabler:cloud"
+    title="雲端平台"
+    description="Tabler 雲端圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="tabler:rocket"
+    title="部署"
+    description="Tabler 火箭圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 品牌 (`f5-brand:`)
+
+<CardGrid>
+  <LinkCard
+    icon="f5-brand:cloud-shield-checkmark"
+    title="雲端安全"
+    description="F5 品牌雲端盾牌圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5-brand:security-firewall"
+    title="防火牆"
+    description="F5 品牌防火牆圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Distributed Cloud (`f5xc:`)
+
+這些圖示為多色圖示，並使用 CSS 自訂屬性進行亮色／暗色模式的色彩適配。
+
+<CardGrid>
+  <LinkCard
+    icon="f5xc:web-app-and-api-protection"
+    title="應用程式與 API 保護"
+    description="F5 XC Web 應用程式與 API 保護圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5xc:bot-defense"
+    title="機器人防禦"
+    description="F5 XC 機器人防禦圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### HashiCorp Flight (`hashicorp-flight:`)
+
+<CardGrid>
+  <LinkCard
+    icon="hashicorp-flight:terraform-color"
+    title="Terraform"
+    description="HashiCorp Terraform 圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="hashicorp-flight:consul-color"
+    title="Consul"
+    description="HashiCorp Consul 圖示。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+## 徽章
+
+### 行內徽章變體
+
+以行內方式渲染的全部六種徽章變體：
+
+<Badge text="預設" /> <Badge text="備註" variant="note" /> <Badge text="危險" variant="danger" /> <Badge text="成功" variant="success" /> <Badge text="提示" variant="tip" /> <Badge text="警告" variant="caution" />
+
+### 徽章尺寸
+
+<Badge text="小型" size="small" /> <Badge text="中型" size="medium" /> <Badge text="大型" size="large" />
+
+各尺寸搭配變體：
+
+<Badge text="小型提示" variant="tip" size="small" /> <Badge text="中型危險" variant="danger" size="medium" /> <Badge text="大型成功" variant="success" size="large" />
+
+### 標題徽章
+
+以下標題使用 `starlight-heading-badges` 外掛語法。
+
+#### 功能完整 :badge[穩定]{variant=success}
+
+此標題帶有成功徽章，表示功能已穩定。
+
+#### 實驗性 API :badge[Beta]{variant=caution}
+
+此標題帶有警告徽章，表示 API 仍處於實驗階段。
+
+#### 舊版系統 :badge[已棄用]{variant=danger}
+
+此標題帶有危險徽章，表示已棄用。
+
+#### 新功能 :badge[新增]{variant=tip}
+
+此標題帶有提示徽章，表示這是新功能。
+
+#### 說明文件 :badge[已更新]{variant=note}
+
+此標題帶有備註徽章，表示近期已更新。
+
+#### 預設徽章 :badge[資訊]
+
+此標題帶有未指定變體的預設徽章。
+
+### 側邊欄徽章
+
+請查看側邊欄：此頁面已透過 frontmatter 套用 `tip` 變體的「新增」徽章。
+
+## 表格
+
+### 簡單表格
+
+| 功能 | 狀態 | 優先級 |
+|---------|--------|----------|
+| 暗色模式 | 已支援 | 高 |
+| 圖片縮放 | 已支援 | 中 |
+| Mermaid 圖表 | 已支援 | 中 |
+| 標題徽章 | 已支援 | 低 |
+
+### 含對齊與程式碼的表格
+
+| 屬性 | 類型 | 預設值 | 說明 |
+|:---------|:----:|--------:|:------------|
+| `title` | `string` | — | 顯示於標頭的頁面標題 |
+| `description` | `string` | `""` | 用於 SEO 的 meta 說明 |
+| `sidebar.order` | `number` | `0` | 側邊欄中的排序順序 |
+| `sidebar.badge` | `object` | `null` | 顯示於側邊欄標籤旁的徽章 |
+| `template` | `"doc" \| "splash"` | `"doc"` | 頁面版面範本 |
+
+## 圖片
+
+下方圖片用於測試 `starlight-image-zoom` 外掛。點擊可放大。
+
+![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+
+## 檔案樹
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - index.mdx
+      - 01-environment-variables.mdx
+      - 02-build-pipeline.mdx
+      - 03-astro-config.mdx
+      - 04-logo.mdx
+      - 05-colors.mdx
+      - 07-typography.mdx
+      - 08-code-blocks.mdx
+      - **09-components.mdx** 本頁面
+      - 10-mermaid.mdx
+      - 11-footer.mdx
+      - 12-style-enhancement-guide.mdx
+  - plugins/
+    - remark-mermaid.mjs
+- styles/
+  - custom.css
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## 主題檢查項目
+
+- 每種提示框變體的左側邊框顏色不同（藍色、紫色、黃色、紅色）
+- 提示框背景色調在亮色與暗色模式下均可見
+- 每個提示框周圍的陰影效果細緻但可見
+- 所有提示框均有圓角（0.75rem）
+- 標籤頁啟用指示器顏色使用強調色
+- 編號步驟之間的連接線清晰可見
+- 切換群組時同步標籤頁保持同步
+- 標籤頁內的程式碼區塊以正確的語法高亮渲染
+- 卡片邊框顏色在亮色與暗色模式間自適應
+- 卡片上的懸停背景效果清晰可見
+- LinkCard 箭頭圖示顏色與強調色一致
+- 交錯版面配置使交替卡片垂直偏移
+- 圖示在卡片標頭中正確渲染
+- 各變體的徽章背景顏色在暗色與亮色模式間有所不同
+- 暗色模式徽章使用深色調（red-4、jade-4、tangerine-4、eggplant-4、bay-4）
+- 亮色模式徽章使用淺色調（red-1、jade-1、tangerine-1、eggplant-1、bay-1）
+- 標題徽章與標題文字行內對齊
+- 側邊欄徽章顯示於頁面標籤旁
+- 表格邊框顏色在亮色與暗色模式間自適應
+- 表格標頭列具有明顯的背景色
+- 圖片縮放遮罩在點擊時正常運作（starlight-image-zoom）
+- 檔案樹背景使用符合主題的顏色
+- 圖示繼承當前文字顏色

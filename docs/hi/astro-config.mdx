@@ -1,0 +1,139 @@
+---
+title: Astro कॉन्फ़िगरेशन
+description: प्लगइन-आधारित Astro/Starlight कॉन्फ़िगरेशन फ़ैक्टरी का संदर्भ।
+sidebar:
+  order: 4
+i18n:
+  sourceHash: 48445fbc1ed7
+  translator: machine
+---
+
+कंटेंट रिपॉज़िटरी अपनी स्वयं की `astro.config.mjs` नहीं रखती हैं। इसके बजाय, वे `@f5xc-salesdemos/docs-theme` npm पैकेज से एक कॉन्फ़िगरेशन फ़ैक्टरी आयात करती हैं जो Starlight, आठ बंडल किए गए प्लगइन और सभी थीम डिफ़ॉल्ट के साथ एक संपूर्ण Astro कॉन्फ़िग लौटाती है।
+
+## थीम का उपयोग करना
+
+एक कंटेंट रेपो की `astro.config.mjs` (Docker बिल्डर द्वारा प्रदान की गई) एक पतला रैपर है:
+
+```js
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig();
+```
+
+सभी अनुकूलन विकल्प ऑब्जेक्ट या एनवायरनमेंट वेरिएबल के माध्यम से किए जाते हैं — प्लगइन वायरिंग, CSS इम्पोर्ट या घटक ओवरराइड को छूने की कोई आवश्यकता नहीं है।
+
+## कॉन्फ़िगरेशन विकल्प
+
+`createF5xcDocsConfig` एक `F5xcDocsConfigOptions` ऑब्जेक्ट स्वीकार करता है। प्रत्येक फ़ील्ड वैकल्पिक है; एनवायरनमेंट वेरिएबल और उचित डिफ़ॉल्ट मान अंतराल को भर देते हैं।
+
+```ts
+interface F5xcDocsConfigOptions {
+  site?: string;
+  base?: string;
+  title?: string;
+  description?: string;
+  githubRepository?: string;
+  llmsOptionalLinks?: Array<{ title: string; url: string }>;
+  additionalIntegrations?: AstroIntegration[];
+  additionalRemarkPlugins?: Array<unknown>;
+  megaMenuItems?: MegaMenuItem[];
+  head?: HeadEntry[];
+  logo?: { src: string } | { light: string; dark: string };
+}
+```
+
+| विकल्प | डिफ़ॉल्ट / Env फ़ॉलबैक | उद्देश्य |
+|--------|----------------------|---------|
+| `site` | `DOCS_SITE` या `https://f5xc-salesdemos.github.io` | कैनोनिकल बेस URL |
+| `base` | `DOCS_BASE` या `/` | प्रोजेक्ट साइटों के लिए URL बेस पाथ |
+| `title` | `DOCS_TITLE` या `Documentation` | हेडर और ब्राउज़र टैब में साइट शीर्षक |
+| `description` | `DOCS_DESCRIPTION` या खाली स्ट्रिंग | मेटाडेटा और llms.txt के लिए साइट विवरण |
+| `githubRepository` | `GITHUB_REPOSITORY` या खाली स्ट्रिंग | एडिट लिंक और GitHub सोशल आइकन सक्षम करता है |
+| `llmsOptionalLinks` | `LLMS_OPTIONAL_LINKS` (JSON) या `[]` | llms.txt प्लगइन के लिए अतिरिक्त लिंक |
+| `additionalIntegrations` | `[]` | जोड़ने के लिए अतिरिक्त Astro इंटीग्रेशन |
+| `additionalRemarkPlugins` | `[]` | remark-mermaid के बाद जोड़े गए अतिरिक्त remark प्लगइन |
+| `megaMenuItems` | बिल्ट-इन Products/Solutions/Docs/Support मेनू | शीर्ष-स्तरीय मेगा मेनू प्रविष्टियाँ |
+| `head` | Mermaid CDN `<script>` टैग | कस्टम `<head>` प्रविष्टियाँ |
+| `logo` | `@f5xc-salesdemos/docs-theme/assets/github-avatar.png` | साइडबार लोगो (एकल src या light/dark युगल) |
+
+## बंडल किए गए Starlight प्लगइन
+
+फ़ैक्टरी स्वचालित रूप से आठ Starlight प्लगइन को वायर करती है:
+
+| प्लगइन | उद्देश्य |
+|--------|---------|
+| `starlight-mega-menu` | ग्रिड/लिस्ट लेआउट के साथ शीर्ष नेविगेशन मेगा मेनू |
+| `starlight-videos` | दस्तावेज़ीकरण पृष्ठों में वीडियो एम्बेड करना |
+| `starlight-image-zoom` | छवियों पर क्लिक-टू-ज़ूम |
+| `@f5xc-salesdemos/docs-theme` (स्वयं) | CSS इंजेक्शन, घटक ओवरराइड, रूट मिडलवेयर |
+| `starlight-scroll-to-top` | प्रोग्रेस रिंग के साथ स्क्रॉल-टू-टॉप बटन |
+| `starlight-heading-badges` | हेडिंग पर बैज एनोटेशन |
+| `starlight-page-actions` | पेज एक्शन बटन |
+| `starlight-plugin-icons` | Starlight में आइकन समर्थन |
+| `starlight-llms-txt` | LLM उपभोग के लिए `llms.txt` और `llms-full.txt` उत्पन्न करता है |
+
+ये `config.ts` के अंदर क्रम में पंजीकृत हैं। थीम प्लगइन (`@f5xc-salesdemos/docs-theme`) स्वयं एक Starlight प्लगइन है जो इस सूची में चलता है।
+
+## थीम प्लगइन हुक
+
+थीम प्लगइन `index.ts` में परिभाषित है और ऊपर बंडल किए गए प्लगइन के बीच पंजीकृत है। इसका `config:setup` हुक तीन काम करता है:
+
+1. **CSS इंजेक्ट करता है** — Starlight के `customCss` एरे में `fonts/font-face.css` और `styles/custom.css` को प्रीपेंड करता है
+2. **घटकों को ओवरराइड करता है** — पाँच Starlight घटकों को प्रतिस्थापित करता है:
+   - `Banner` — एडिट लिंक के साथ ब्रेडक्रम्ब नेविगेशन
+   - `EditLink` — जानबूझकर खाली (एडिट लिंक Banner में रहता है)
+   - `Footer` — डिफ़ॉल्ट फुटर के नीचे सोशल मीडिया लिंक जोड़े गए
+   - `SiteTitle` — होम लिंक के साथ लोगो
+   - `MarkdownContent` — वीडियो और इमेज ज़ूम सक्षम करने वाला रैपर
+3. **रूट मिडलवेयर जोड़ता है** — `route-middleware.ts` पंजीकृत करता है जो साइडबार से इंडेक्स पेज फ़िल्टर करता है और इंडेक्स पेजों पर टेबल ऑफ़ कंटेंट्स को दबाता है
+
+```ts
+// index.ts — Starlight plugin entry point
+export default function f5xcDocsTheme(): StarlightPlugin {
+  return {
+    name: '@f5xc-salesdemos/docs-theme',
+    hooks: {
+      'config:setup'({ config, updateConfig, addRouteMiddleware }) {
+        addRouteMiddleware({
+          entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
+          order: 'pre',
+        });
+        updateConfig({
+          customCss: [
+            ...(config.customCss ?? []),
+            '@f5xc-salesdemos/docs-theme/fonts/font-face.css',
+            '@f5xc-salesdemos/docs-theme/styles/custom.css',
+          ],
+          components: {
+            ...config.components,
+            Banner: '@f5xc-salesdemos/docs-theme/components/Banner.astro',
+            EditLink: '@f5xc-salesdemos/docs-theme/components/EditLink.astro',
+            Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+            SiteTitle: '@f5xc-salesdemos/docs-theme/components/SiteTitle.astro',
+            MarkdownContent: '@f5xc-salesdemos/docs-theme/components/MarkdownContent.astro',
+          },
+        });
+      },
+    },
+  };
+}
+```
+
+सभी पाथ npm पैकेज स्पेसिफ़ायर उपयोग करते हैं (जैसे, `@f5xc-salesdemos/docs-theme/styles/custom.css`) जो `package.json` में `exports` मैप के माध्यम से रिज़ॉल्व होते हैं।
+
+## अन्य इंटीग्रेशन
+
+Starlight और उसके प्लगइन से परे, फ़ैक्टरी यह भी पंजीकृत करती है:
+
+- **`@astrojs/react`** — MDX पेजों में React घटक समर्थन सक्षम करता है
+- **`remark-mermaid`** — कस्टम remark प्लगइन जो ` ```mermaid ` कोड ब्लॉक को रेंडर किए गए डायग्राम में बदलता है
+
+`additionalIntegrations` और `additionalRemarkPlugins` विकल्पों के माध्यम से अतिरिक्त इंटीग्रेशन और remark प्लगइन जोड़े जा सकते हैं।
+
+## साइडबार
+
+कोई कस्टम साइडबार परिभाषित नहीं है। Starlight `docs/` में फ़ाइल संरचना से स्वचालित रूप से साइडबार उत्पन्न करता है, लिंक टेक्स्ट के रूप में प्रत्येक पेज के `title` फ्रंटमैटर और सॉर्टिंग के लिए `sidebar.order` का उपयोग करता है। रूट मिडलवेयर स्वचालित रूप से साइडबार से इंडेक्स पेजों को फ़िल्टर करता है।
+
+:::caution
+कॉन्फ़िगरेशन फ़ैक्टरी सभी दस्तावेज़ीकरण साइटों में साझा की जाती है। `config.ts` में कोई भी परिवर्तन हर उस कंटेंट रिपॉज़िटरी को प्रभावित करता है जो इस थीम के साथ बनाती है। परिवर्तनों का सावधानीपूर्वक परीक्षण करें।
+:::

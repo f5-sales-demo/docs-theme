@@ -1,0 +1,79 @@
+---
+title: GCP
+description: >-
+  Diagrammi di architettura GCP che mostrano VPC, GKE, Cloud Functions, Cloud
+  SQL e Global Load Balancing con integrazione F5 XC.
+sidebar:
+  order: 12
+i18n:
+  sourceHash: 8e12a5d554be
+  translator: machine
+---
+
+Diagrammi di infrastruttura Google Cloud che utilizzano i pacchetti di icone HashiCorp Flight e Carbon per la rete VPC, GKE e i servizi gestiti.
+
+## GCP VPC con GKE
+
+Progetto Google Cloud con load balancer globale che distribuisce il traffico a un cluster GKE e a Cloud Functions.
+
+```mermaid
+architecture-beta
+  group gcp(hashicorp-flight:gcp-color)[GCP Project]
+  group frontend(carbon:ibm-cloud-subnets)[Frontend Tier] in gcp
+  group backend(carbon:ibm-cloud-subnets)[Backend Tier] in gcp
+
+  service glb(carbon:load-balancer-global)[Global LB]
+  service gke(hashicorp-flight:kubernetes-color)[GKE Cluster] in frontend
+  service func(carbon:application)[Cloud Functions] in frontend
+  service sql(carbon:data-base)[Cloud SQL] in backend
+  service store(carbon:data-base)[Firestore] in backend
+
+  glb:R --> L:gke
+  glb:B --> T:func
+  gke:R --> L:sql
+  func:R --> L:store
+  sql:B --> T:store
+```
+
+## GKE con F5 XC App Connect
+
+Cluster GKE con F5 Distributed Cloud che fornisce connettività delle applicazioni e osservabilità in ambienti cloud.
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 XC]
+  group gke(hashicorp-flight:kubernetes-color)[GKE Cluster]
+
+  service appconn(f5xc:multi-cloud-app-connect)[App Connect] in xc
+  service obs(f5xc:observability)[Observability] in xc
+  service ingress(carbon:gateway)[Ingress] in gke
+  service web(hashicorp-flight:docker-color)[Web Pods] in gke
+  service api(carbon:api)[API Pods] in gke
+  service sql(carbon:data-base)[Cloud SQL]
+
+  appconn:R --> L:obs
+  obs:R --> L:ingress
+  ingress:R --> L:web
+  ingress:B --> T:api
+  api:R --> L:sql
+```
+
+## Pipeline di dati serverless
+
+Pipeline di elaborazione dati serverless GCP con Pub/Sub, Cloud Functions e BigQuery.
+
+```mermaid
+flowchart LR
+  source@{ icon: 'lucide:globe', label: 'Data Sources' }
+  pubsub@{ icon: 'carbon:edge-service', label: 'Pub/Sub' }
+  func@{ icon: 'carbon:application', label: 'Cloud Function' }
+  bq@{ icon: 'carbon:data-base', label: 'BigQuery' }
+  storage@{ icon: 'carbon:cloud-services', label: 'Cloud Storage' }
+  dash@{ icon: 'carbon:application', label: 'Dashboard' }
+
+  source --> pubsub
+  pubsub --> func
+  func --> bq
+  func --> storage
+  bq --> dash
+```

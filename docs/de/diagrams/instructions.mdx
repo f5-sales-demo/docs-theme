@@ -1,0 +1,97 @@
+---
+title: Anweisungen
+description: >-
+  Mermaid-Diagrammsyntaxreferenz, verfügbare Symbolpakete, CSS-Styling und
+  Details zur Themenkompatibilität.
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 5ce5851823d9
+  translator: machine
+---
+
+Das Thema enthält ein benutzerdefiniertes `remark-mermaid`-Plugin (`plugins/remark-mermaid.mjs`), das umgrenzte ` ```mermaid `-Codeblöcke in `<div class="mermaid-container">`-Wrapper konvertiert. Das Mermaid-CDN-Skript rendert SVG-Diagramme beim Laden der Seite.
+
+## Symbolsyntax
+
+### Flussdiagramme
+
+Verwenden Sie die `@\{\}`-Knotensyntax, um Symbole aus einem beliebigen registrierten Symbolpaket hinzuzufügen:
+
+```
+nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
+```
+
+### Architekturdiagramme
+
+Der Diagrammtyp `architecture-beta` unterstützt Dienst- und Gruppendefinitionen mit symbolverzierten Knoten:
+
+```
+service myService(pack:icon-name)[Label]
+group myGroup(pack:icon-name)[Label]
+```
+
+## Verfügbare Symbolpakete
+
+Die folgenden Symbolpakete sind registriert und in Mermaid-Diagrammen verfügbar. Symbole werden bei Verweis nur bei Bedarf vom CDN geladen.
+
+| Paketname | npm-Paket | Wichtige Symbole |
+|-----------|-------------|-----------|
+| `hashicorp-flight` | `@f5xc-salesdemos/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
+| `f5-brand` | `@f5xc-salesdemos/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
+| `f5xc` | `@f5xc-salesdemos/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
+| `carbon` | `@f5xc-salesdemos/icons-carbon` | `cloud-services`, `data-base`, `gateway-api`, `virtual-machine`, `load-balancer-global`, `firewall`, `dns-services`, `virtual-private-cloud` |
+| `lucide` | `@f5xc-salesdemos/icons-lucide` | `server`, `database`, `shield`, `shield-check`, `globe`, `lock`, `cloud`, `network`, `user` |
+| `mdi` | `@f5xc-salesdemos/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `dns`, `vpn`, `router` |
+| `phosphor` | `@f5xc-salesdemos/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock`, `network` |
+| `tabler` | `@f5xc-salesdemos/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `route`, `router` |
+| `azure` | `@f5xc-salesdemos/icons-azure` | `virtual-networks`, `load-balancers`, `firewalls`, `virtual-network-gateways`, `virtual-machine`, `public-ip-addresses`, `route-tables`, `subnet` |
+
+## CSS-Referenz
+
+### Container-Styling
+
+Mermaid-Diagramme werden in einem gestalteten Container mit abgerundeten Ecken und einem mehrschichtigen Boxschatten eingebettet:
+
+```css
+.mermaid-container {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+  margin-block: 1.5rem;
+  background: #fff;
+}
+```
+
+### Zurücksetzen des Pre-Elements
+
+Starlights standardmäßiges `<pre>`-Styling wird aus dem Mermaid-Wrapper entfernt, sodass nur der äußere Container-Rahmen sichtbar ist:
+
+```css
+.mermaid-container pre.mermaid {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+```
+
+### SVG-Hintergrunderzwingung
+
+Der SVG-Inhalt wird für die Kompatibilität mit dem Dunkelmodus auf einen weißen Hintergrund gezwungen:
+
+```css
+.mermaid-container svg {
+  background: white !important;
+  border-radius: 0.5rem;
+}
+```
+
+## Designprüfungen
+
+- `.mermaid-container` hat im Dunkelmodus einen weißen SVG-Hintergrund
+- Der Container-Rahmen verwendet `--sl-color-gray-5`
+- Der Container hat einen Rahmenradius von 0,75 rem und einen mehrschichtigen Boxschatten
+- Diagramme sind sowohl im hellen als auch im dunklen Design lesbar
+- Das Mermaid-CDN-Skript lädt und rendert SVGs beim Laden der Seite

@@ -1,0 +1,78 @@
+---
+title: ロゴ
+description: ロゴの設定方法と変更方法について説明します。
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+テーマは、すべてのドキュメントサイトのサイトヘッダーにロゴを表示します。
+
+## 利用可能なロゴアセット
+
+テーマには `assets/` ディレクトリに2つのロゴファイルが同梱されています：
+
+| ファイル | フォーマット | 説明 |
+|------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | Cloud Red（`#e4002b`）の F5 ロゴ |
+| `assets/github-avatar.png` | PNG | GitHub 組織のアバター（デフォルト） |
+
+## デフォルトロゴ
+
+デフォルトのロゴは `config.ts` 内の `createF5xcDocsConfig` ファクトリで設定されています：
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+`logo` オプションが指定されていない場合、GitHub アバターの PNG が使用されます。パスは `package.json` の `exports` マップを通じて解決される npm パッケージ指定子です。
+
+## ロゴの変更
+
+### オプション 1: F5 SVG ロゴを使用する
+
+`createF5xcDocsConfig` に `logo` オプションを渡します：
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### オプション 2: カスタムロゴを使用する
+
+ロゴファイルをコンテンツリポジトリに配置し、参照します：
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### オプション 3: ライトモードとダークモードで別々のロゴを使用する
+
+Starlight はライトモードとダークモードで別々のロゴをサポートしています：
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## ガイドライン
+
+- **SVG フォーマットを使用する** — ラスター画像（PNG、JPG）も使用できますが、すべてのサイズできれいにスケールされません
+- **`viewBox` を含める** — ロゴが比例してスケールされることを保証します（例：`viewBox="0 0 100 100"`）
+- **ファイルサイズを小さく保つ** — ロゴはすべてのページで読み込まれます。10 KB 以下を目標にしてください
+- **両方のテーマでテストする** — ライトモードとダークモードの両方でロゴが正しく表示されることを確認してください

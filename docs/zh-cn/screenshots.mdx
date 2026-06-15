@@ -1,0 +1,121 @@
+---
+title: 截图
+description: 支持主题感知的亮色和暗色模式图片对的截图组件。
+sidebar:
+  order: 10
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: 0b677390b859
+  translator: machine
+---
+
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+`Screenshot` 组件可渲染主题感知图片，当用户切换网站主题时，该组件会自动在亮色和暗色变体之间切换。每当您需要展示与读者当前配色方案相匹配的 UI 截图时，请使用此组件。
+
+## 属性参考
+
+| 属性 | 类型 | 是否必填 | 描述 |
+| ---- | ---- | -------- | ----------- |
+| `light` | `string` | 否 | 亮色模式图片的路径 |
+| `dark` | `string` | 否 | 暗色模式图片的路径 |
+| `alt` | `string` | 是 | 用于无障碍访问的替代文本 |
+| `width` | `number` | 否 | 图片宽度（像素） |
+| `height` | `number` | 否 | 图片高度（像素） |
+
+:::note
+`light` 和 `dark` 中至少需要提供一个。
+当两者都提供时，组件会根据当前激活的主题在二者之间切换。
+:::
+
+## 双模式（亮色 + 暗色）
+
+同时提供 `light` 和 `dark` 属性，以便为每种主题显示正确的变体。
+切换右上角的主题选择器，即可看到图片发生切换。
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+
+```mdx
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+```
+
+:::tip
+在编写 UI 文档时，请务必同时截取亮色和暗色两种截图。
+无论读者偏好哪种主题，这都能为其提供准确的界面呈现。
+:::
+
+## 单张图片
+
+当只有一种变体可用时，仅传入 `light` 或 `dark` 即可。
+图片将在两种主题下均以该变体渲染，不会发生切换。
+
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+
+```mdx
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+```
+
+## 指定尺寸
+
+使用 `width` 和 `height` 控制渲染尺寸，以防止布局偏移。
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+
+```mdx
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+```
+
+## 工作原理
+
+该组件在 `.screenshot-pair` 容器内渲染一个或两个 `<img>` 元素。CSS 规则根据当前激活的主题切换图片的可见性：
+
+- **暗色模式**（默认）——`.screenshot-light` 图片通过
+  `:root:not([data-theme="light"]) .screenshot-light \{ display: none \}` 隐藏
+- **亮色模式**——`.screenshot-dark` 图片通过
+  `:root[data-theme="light"] .screenshot-dark \{ display: none \}` 隐藏
+
+额外的选择器通过 `:has()` 处理 `starlight-image-zoom` 容器，以确保缩放功能在两种变体下均能正常工作。
+
+所有截图图片均采用统一样式：细微的边框、圆角，以及悬停时加深的投影效果。
+
+## 与 Markdown 图片的对比
+
+| 功能 | `Screenshot` 组件 | Markdown `![](url)` |
+| ------- | ---------------------- | -------------------- |
+| 主题感知切换 | 支持 | 不支持 |
+| 样式边框与阴影 | 自动应用 | 不支持 |
+| 悬停阴影效果 | 支持 | 不支持 |
+| 缩放支持 | 与图片缩放插件兼容 | 与图片缩放插件兼容 |
+| 替代文本 | `alt` 属性 | `![alt text]()` |
+
+当您拥有特定主题的图片变体，或希望呈现样式化的截图外观时，请使用 `Screenshot` 组件。对于内联图形、示意图，或在两种主题下显示效果相同的图片，请使用标准 Markdown 图片语法。

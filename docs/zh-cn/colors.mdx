@@ -1,0 +1,560 @@
+---
+title: 颜色
+description: 主题开发的调色板参考——主色、色调、阴影、CMYK、LESS 变量及 Starlight CSS 自定义属性映射。
+sidebar:
+  order: 6
+i18n:
+  sourceHash: 51cffb696709
+  translator: machine
+---
+
+我们完整的调色板用于图形和插图设计，探索独特而现代的色彩组合以及单色对比。它可用于突出特定主题或强调重点。
+
+F5 调色板使用七种主要品牌色加上黑色和白色，每种颜色有四种色调/阴影变体，共计 **45 种颜色**。本页是主题开发过程中将品牌色映射到 Starlight CSS 自定义属性的唯一权威来源。
+
+## 主色
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red);">#e4002b</div>
+    <div class="swatch-label">F5 红<code>--f5-red</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine);">#f29a36</div>
+    <div class="swatch-label">橘色<code>--f5-tangerine</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river);">#0e41aa</div>
+    <div class="swatch-label">河蓝<code>--f5-river</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry);">#ab2782</div>
+    <div class="swatch-label">覆盆子<code>--f5-raspberry</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade);">#009639</div>
+    <div class="swatch-label">翡翠绿<code>--f5-jade</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant);">#62228b</div>
+    <div class="swatch-label">茄紫<code>--f5-eggplant</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay);">#0072b0</div>
+    <div class="swatch-label">湾蓝<code>--f5-bay</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white);">#ffffff</div>
+    <div class="swatch-label">白色<code>--f5-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black);">#000000</div>
+    <div class="swatch-label">黑色<code>--f5-black</code></div>
+  </div>
+</div>
+
+| 名称 | HEX | RGB | CMYK | LESS | PMS | CSS 变量 |
+|------|-----|-----|------|------|-----|--------------|
+| F5 红 | `#e4002b` | 228, 0, 43 | 0, 100, 81, 11 | `monza` | 185 | `--f5-red` |
+| 橘色 | `#f29a36` | 242, 154, 54 | 0, 36, 78, 5 | `carrot-orange` | 1375 | `--f5-tangerine` |
+| 河蓝 | `#0e41aa` | 14, 65, 170 | 92, 62, 0, 33 | `tory-blue` | 293 | `--f5-river` |
+| 覆盆子 | `#ab2782` | 171, 39, 130 | 0, 77, 24, 33 | — | 241 | `--f5-raspberry` |
+| 翡翠绿 | `#009639` | 0, 150, 57 | 100, 0, 62, 41 | `fun-green` | 355 | `--f5-jade` |
+| 茄紫 | `#62228b` | 98, 34, 139 | 29, 76, 0, 45 | `honey-flower` | 2617 | `--f5-eggplant` |
+| 湾蓝 | `#0072b0` | 0, 114, 176 | 100, 35, 0, 31 | — | 7461 | `--f5-bay` |
+| 白色 | `#ffffff` | 255, 255, 255 | 0, 0, 0, 0 | `alabaster` | — | `--f5-white` |
+| 黑色 | `#000000` | 0, 0, 0 | 60, 50, 40, 100 | `black` | Black | `--f5-black` |
+
+> **关于 LESS 名称的说明**：品牌中心将覆盆子显示为 `tory-blue`，将湾蓝显示为 `honey-flower`——这些是从河蓝和茄紫条目复制粘贴时产生的错误。为避免传播不正确的值，上表中将其标记为 `—`。
+
+## 次色（色调与阴影）
+
+每种主色有四个变体，按从最浅（级别 1）到最深（级别 4）的顺序排列。
+
+品牌中心为次色分配了 LESS 变量名。Cloud Red 和橘色变体具有独特且有意义的名称。所有其他颜色组显示相同的占位符名称（`wewak`、`froly`、`carmine`、`venetian-red`）——这些是品牌平台的模板默认值，以下为完整性而列出，但不应将其视为规范标识符。
+
+### F5 红
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red);">#e4002b</div>
+    <div class="swatch-label">F5 红（基础色）<code>--f5-red</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-red-1);">#f7b2bf</div>
+    <div class="swatch-label">级别 1<code>--f5-red-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-2);">#f06680</div>
+    <div class="swatch-label">级别 2<code>--f5-red-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-3);">#a70020</div>
+    <div class="swatch-label">级别 3<code>--f5-red-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-4);">#720016</div>
+    <div class="swatch-label">级别 4<code>--f5-red-4</code></div>
+  </div>
+</div>
+
+| 级别 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1（最浅） | `#f7b2bf` | 247, 178, 191 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#f06680` | 240, 102, 128 | 0, 57, 47, 6 | `froly` |
+| 3 | `#a70020` | 167, 0, 32 | 0, 100, 81, 35 | `carmine` |
+| 4（最深） | `#720016` | 114, 0, 22 | 0, 100, 81, 55 | `venetian-red` |
+
+### 橘色
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine);">#f29a36</div>
+    <div class="swatch-label">橘色（基础色）<code>--f5-tangerine</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine-1);">#ffe4c4</div>
+    <div class="swatch-label">级别 1<code>--f5-tangerine-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine-2);">#ffbd61</div>
+    <div class="swatch-label">级别 2<code>--f5-tangerine-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-tangerine-3);">#a35700</div>
+    <div class="swatch-label">级别 3<code>--f5-tangerine-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-tangerine-4);">#7a4100</div>
+    <div class="swatch-label">级别 4<code>--f5-tangerine-4</code></div>
+  </div>
+</div>
+
+| 级别 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1（最浅） | `#ffe4c4` | 255, 228, 196 | 0, 11, 23, 0 | `tequila` |
+| 2 | `#ffbd61` | 255, 189, 97 | 0, 26, 62, 0 | `koromiko` |
+| 3 | `#a35700` | 163, 87, 0 | 0, 47, 100, 36 | `chelsea-gem` |
+| 4（最深） | `#7a4100` | 122, 65, 0 | 0, 47, 100, 52 | `cinnamon` |
+
+### 河蓝
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river);">#0e41aa</div>
+    <div class="swatch-label">河蓝（基础色）<code>--f5-river</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-river-1);">#b7c6e5</div>
+    <div class="swatch-label">级别 1<code>--f5-river-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-2);">#6e8dcc</div>
+    <div class="swatch-label">级别 2<code>--f5-river-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-3);">#0b3180</div>
+    <div class="swatch-label">级别 3<code>--f5-river-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-4);">#072155</div>
+    <div class="swatch-label">级别 4<code>--f5-river-4</code></div>
+  </div>
+</div>
+
+| 级别 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1（最浅） | `#b7c6e5` | 183, 198, 229 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#6e8dcc` | 110, 141, 204 | 0, 58, 47, 6 | `froly` |
+| 3 | `#0b3180` | 11, 49, 128 | 0, 100, 81, 35 | `carmine` |
+| 4（最深） | `#072155` | 7, 33, 85 | 0, 100, 81, 55 | `venetian-red` |
+
+### 覆盆子
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry);">#ab2782</div>
+    <div class="swatch-label">覆盆子（基础色）<code>--f5-raspberry</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-raspberry-1);">#e6bed9</div>
+    <div class="swatch-label">级别 1<code>--f5-raspberry-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-2);">#cd7db4</div>
+    <div class="swatch-label">级别 2<code>--f5-raspberry-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-3);">#801d62</div>
+    <div class="swatch-label">级别 3<code>--f5-raspberry-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-4);">#561441</div>
+    <div class="swatch-label">级别 4<code>--f5-raspberry-4</code></div>
+  </div>
+</div>
+
+| 级别 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1（最浅） | `#e6bed9` | 230, 190, 217 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#cd7db4` | 205, 125, 180 | 0, 58, 47, 6 | `froly` |
+| 3 | `#801d62` | 128, 29, 98 | 0, 100, 81, 35 | `carmine` |
+| 4（最深） | `#561441` | 86, 20, 65 | 0, 100, 81, 55 | `venetian-red` |
+
+### 翡翠绿
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade);">#009639</div>
+    <div class="swatch-label">翡翠绿（基础色）<code>--f5-jade</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-jade-1);">#b2dfc4</div>
+    <div class="swatch-label">级别 1<code>--f5-jade-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-jade-2);">#66c088</div>
+    <div class="swatch-label">级别 2<code>--f5-jade-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade-3);">#00712b</div>
+    <div class="swatch-label">级别 3<code>--f5-jade-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade-4);">#004b1d</div>
+    <div class="swatch-label">级别 4<code>--f5-jade-4</code></div>
+  </div>
+</div>
+
+| 级别 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1（最浅） | `#b2dfc4` | 178, 223, 196 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#66c088` | 102, 192, 136 | 0, 58, 47, 6 | `froly` |
+| 3 | `#00712b` | 0, 113, 43 | 0, 100, 81, 35 | `carmine` |
+| 4（最深） | `#004b1d` | 0, 75, 29 | 0, 100, 81, 55 | `venetian-red` |
+
+### 茄紫
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant);">#62228b</div>
+    <div class="swatch-label">茄紫（基础色）<code>--f5-eggplant</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-eggplant-1);">#cdabe3</div>
+    <div class="swatch-label">级别 1<code>--f5-eggplant-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-2);">#9c59c9</div>
+    <div class="swatch-label">级别 2<code>--f5-eggplant-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-3);">#822cb8</div>
+    <div class="swatch-label">级别 3<code>--f5-eggplant-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-4);">#41175d</div>
+    <div class="swatch-label">级别 4<code>--f5-eggplant-4</code></div>
+  </div>
+</div>
+
+| 级别 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1（最浅） | `#cdabe3` | 205, 171, 227 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#9c59c9` | 156, 89, 201 | 0, 58, 47, 6 | `froly` |
+| 3 | `#822cb8` | 130, 44, 184 | 0, 100, 81, 35 | `carmine` |
+| 4（最深） | `#41175d` | 65, 23, 93 | 0, 100, 81, 55 | `venetian-red` |
+
+### 湾蓝
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay);">#0072b0</div>
+    <div class="swatch-label">湾蓝（基础色）<code>--f5-bay</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-bay-1);">#b2d7eb</div>
+    <div class="swatch-label">级别 1<code>--f5-bay-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-2);">#66afd7</div>
+    <div class="swatch-label">级别 2<code>--f5-bay-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-3);">#005c8d</div>
+    <div class="swatch-label">级别 3<code>--f5-bay-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-4);">#003d5f</div>
+    <div class="swatch-label">级别 4<code>--f5-bay-4</code></div>
+  </div>
+</div>
+
+| 级别 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1（最浅） | `#b2d7eb` | 178, 215, 235 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#66afd7` | 102, 175, 215 | 0, 58, 47, 6 | `froly` |
+| 3 | `#005c8d` | 0, 92, 141 | 0, 100, 81, 35 | `carmine` |
+| 4（最深） | `#003d5f` | 0, 61, 95 | 0, 100, 81, 55 | `venetian-red` |
+
+### 白色（中性色）
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white);">#ffffff</div>
+    <div class="swatch-label">白色（基础色）<code>--f5-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-1);">#faf9f7</div>
+    <div class="swatch-label">级别 1<code>--f5-white-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-2);">#f5f5f5</div>
+    <div class="swatch-label">级别 2<code>--f5-white-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-3);">#e6e6e6</div>
+    <div class="swatch-label">级别 3<code>--f5-white-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-4);">#cccccc</div>
+    <div class="swatch-label">级别 4<code>--f5-white-4</code></div>
+  </div>
+</div>
+
+| 级别 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1（最浅） | `#faf9f7` | 250, 249, 247 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#f5f5f5` | 245, 245, 245 | 0, 58, 47, 6 | `froly` |
+| 3 | `#e6e6e6` | 230, 230, 230 | 0, 100, 81, 35 | `carmine` |
+| 4（最深） | `#cccccc` | 204, 204, 204 | 0, 100, 81, 55 | `venetian-red` |
+
+### 黑色（灰色系）
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black);">#000000</div>
+    <div class="swatch-label">黑色（基础色）<code>--f5-black</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-1);">#999999</div>
+    <div class="swatch-label">级别 1<code>--f5-black-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-2);">#666666</div>
+    <div class="swatch-label">级别 2<code>--f5-black-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-3);">#343434</div>
+    <div class="swatch-label">级别 3<code>--f5-black-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-4);">#222222</div>
+    <div class="swatch-label">级别 4<code>--f5-black-4</code></div>
+  </div>
+</div>
+
+| 级别 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1（最浅） | `#999999` | 153, 153, 153 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#666666` | 102, 102, 102 | 0, 58, 47, 6 | `froly` |
+| 3 | `#343434` | 52, 52, 52 | 0, 100, 81, 35 | `carmine` |
+| 4（最深） | `#222222` | 34, 34, 34 | 0, 100, 81, 55 | `venetian-red` |
+
+## 映射到 Starlight CSS 自定义属性
+
+Starlight 提供了用于主题定制的 `--sl-color-*` 变量。以下是 F5 调色板到 Starlight 语义颜色插槽的映射，在 `styles/custom.css` 中实现。
+
+> **Starlight 主题工作原理**：在 Starlight 中，**深色模式是裸 `:root` 默认值**——没有 `data-theme="dark"` 选择器。浅色模式使用 `:root[data-theme='light']`。灰度变量是*语义性的*，而非按亮度排序：`gray-1` 始终表示"主要文本"，`gray-6`/`gray-7` 始终表示"微妙背景"，无论模式如何。其实际亮度值会在不同模式间互换。同样，`accent-high` 始终是高可见度的强调文本颜色，`accent-low` 始终是微妙的强调背景——其亮度在不同模式间反转。
+
+```css
+/* 深色模式 — Starlight 默认 (:root) */
+:root {
+  --sl-color-white: #ffffff;      /* 标题文本（最亮） */
+  --sl-color-gray-1: #f5f5f5;    /* 主要文本 — 白色级别 2 */
+  --sl-color-gray-2: #cccccc;    /* 正文文本 — 白色级别 4 */
+  --sl-color-gray-3: #999999;    /* 暗淡/静音文本 — 黑色级别 1 */
+  --sl-color-gray-4: #666666;    /* 边框 — 黑色级别 2 */
+  --sl-color-gray-5: #343434;    /* 内联代码背景 — 黑色级别 3 */
+  --sl-color-gray-6: #222222;    /* 侧边栏背景 — 黑色级别 4 */
+  --sl-color-black: #000000;     /* 页面背景 */
+  --sl-color-accent-low: #720016;   /* 微妙强调背景 — F5 红级别 4 */
+  --sl-color-accent: #f06680;       /* 链接、激活状态 — F5 红级别 2 */
+  --sl-color-accent-high: #f7b2bf;  /* 强调文本 — F5 红级别 1 */
+}
+
+/* 浅色模式 — 反转的灰度和强调亮度 */
+:root[data-theme='light'] {
+  --sl-color-white: #222222;      /* 标题文本（最暗）— 黑色级别 4 */
+  --sl-color-gray-1: #222222;    /* 主要文本 — 黑色级别 4 */
+  --sl-color-gray-2: #343434;    /* 正文文本 — 黑色级别 3 */
+  --sl-color-gray-3: #666666;    /* 暗淡文本 — 黑色级别 2 */
+  --sl-color-gray-4: #999999;    /* 边框 — 黑色级别 1 */
+  --sl-color-gray-5: #cccccc;    /* 浅色边框 — 白色级别 4 */
+  --sl-color-gray-6: #f5f5f5;    /* 侧边栏背景 — 白色级别 2 */
+  --sl-color-gray-7: #faf9f7;    /* 导航背景 — 白色级别 1 */
+  --sl-color-black: #ffffff;     /* 页面背景 */
+  --sl-color-accent-low: #f7b2bf;   /* 微妙强调背景 — F5 红级别 1（反转） */
+  --sl-color-accent: #e4002b;       /* 链接、激活状态 — F5 红 */
+  --sl-color-accent-high: #720016;  /* 强调文本 — F5 红级别 4（反转） */
+}
+```
+
+### 视觉令牌预览
+
+切换主题开关，查看这些语义令牌在深色和浅色模式之间的变化。
+
+#### 灰度令牌
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-white);">white</div>
+    <div class="swatch-label">标题文本<code>--sl-color-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-gray-1);">gray-1</div>
+    <div class="swatch-label">主要文本<code>--sl-color-gray-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-gray-2);">gray-2</div>
+    <div class="swatch-label">正文文本<code>--sl-color-gray-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-3);">gray-3</div>
+    <div class="swatch-label">暗淡文本<code>--sl-color-gray-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-4);">gray-4</div>
+    <div class="swatch-label">边框<code>--sl-color-gray-4</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-5);">gray-5</div>
+    <div class="swatch-label">内联代码背景<code>--sl-color-gray-5</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-6);">gray-6</div>
+    <div class="swatch-label">侧边栏背景<code>--sl-color-gray-6</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-black);">black</div>
+    <div class="swatch-label">页面背景<code>--sl-color-black</code></div>
+  </div>
+</div>
+
+#### 强调令牌
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-accent-low);">accent-low</div>
+    <div class="swatch-label">微妙强调背景<code>--sl-color-accent-low</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-accent);">accent</div>
+    <div class="swatch-label">链接、激活状态<code>--sl-color-accent</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-accent-high);">accent-high</div>
+    <div class="swatch-label">强调文本<code>--sl-color-accent-high</code></div>
+  </div>
+</div>
+
+#### 徽章令牌
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-default);">default</div>
+    <div class="swatch-label">默认徽章<code>--sl-color-bg-badge-default</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-note);">note</div>
+    <div class="swatch-label">注释徽章<code>--sl-color-bg-badge-note</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-danger);">danger</div>
+    <div class="swatch-label">危险徽章<code>--sl-color-bg-badge-danger</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-success);">success</div>
+    <div class="swatch-label">成功徽章<code>--sl-color-bg-badge-success</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-caution);">caution</div>
+    <div class="swatch-label">警告徽章<code>--sl-color-bg-badge-caution</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-tip);">tip</div>
+    <div class="swatch-label">提示徽章<code>--sl-color-bg-badge-tip</code></div>
+  </div>
+</div>
+
+### 对比度验证（WCAG AA）
+
+**深色模式**（文本置于 `#000000` 页面背景上）：
+- 正文文本 `#cccccc` → **16.3:1**（AAA）
+- 暗淡文本 `#999999` → **10:1**（AAA）
+- 强调链接 `#f06680` → **5.6:1**（AA）
+
+**浅色模式**（文本置于 `#ffffff` 页面背景上）：
+- 正文文本 `#343434` → **11.6:1**（AAA）
+- 暗淡文本 `#666666` → **5.7:1**（AA）
+- 强调链接 `#e4002b` → **4.6:1**（AA）
+
+### 语义颜色建议
+
+| Starlight 变量 | F5 颜色 | 使用场景 |
+|--------------------|----------|----------|
+| `--sl-color-accent` | F5 红 `#e4002b` | 链接、按钮、激活状态 |
+| `--sl-color-text-accent` | F5 红级别 2 `#f06680` | 深色模式悬停状态 |
+| `--sl-color-bg-accent` | F5 红级别 4 `#720016` | 强调背景 |
+| 自定义：`--sl-color-info` | 湾蓝 `#0072b0` | 信息提示框 |
+| 自定义：`--sl-color-success` | 翡翠绿 `#009639` | 成功消息 |
+| 自定义：`--sl-color-warning` | 橘色 `#f29a36` | 警告提示框 |
+| 自定义：`--sl-color-danger` | F5 红 `#e4002b` | 错误/危险提示框 |
+
+## 颜色对比度
+
+为确保所有人都能访问和理解我们的内容，请使用满足无障碍标准的背景和文本颜色组合。选择对比度比至少为 3:1（大文本）和 4.5:1（常规文本）的颜色对。
+
+所有颜色配对必须满足 **WCAG AA** 对比度要求：
+
+- **常规文本**（小于 18pt / 14pt 粗体）：最低对比度比 **4.5:1**
+- **大文本**（大于等于 18pt / 14pt 粗体）：最低对比度比 **3:1**
+- **UI 组件和图形对象**：最低对比度比 **3:1**
+
+### 推荐的安全配色方案
+
+| 前景色 | 背景色 | 对比度比 | 是否通过 |
+|------------|------------|----------------|--------|
+| 白色 `#ffffff` | F5 红 `#e4002b` | 4.6:1 | AA |
+| 白色 `#ffffff` | 河蓝 `#0e41aa` | 6.4:1 | AA / AAA |
+| 白色 `#ffffff` | 湾蓝 `#0072b0` | 4.6:1 | AA |
+| 白色 `#ffffff` | 翡翠绿 `#009639` | 4.2:1 | AA（大文本） |
+| 白色 `#ffffff` | 茄紫 `#62228b` | 6.5:1 | AA / AAA |
+| 白色 `#ffffff` | 覆盆子 `#ab2782` | 4.7:1 | AA |
+| 黑色 `#000000` | 橘色 `#f29a36` | 7.8:1 | AA / AAA |
+| 黑色 `#000000` | F5 红级别 1 `#f7b2bf` | 10.1:1 | AA / AAA |
+| 黑色 `#222222` | 白色级别 1 `#faf9f7` | 15.8:1 | AA / AAA |
+
+> **提示**：在创建新的颜色组合时，请始终使用 [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) 等工具验证对比度比。
+
+## 使用指南
+
+| 颜色系列 | 角色 | 使用场景 |
+|--------------|------|-------------|
+| **F5 红** | 品牌标识、主要 CTA | 英雄区域、主要按钮、品牌标记、错误状态 |
+| **河蓝** | 信息性、可信赖 | 导航链接、信息横幅、数据可视化 |
+| **湾蓝** | 信息性、次要 | 次要链接、信息提示框、代码块强调 |
+| **翡翠绿** | 成功、积极 | 成功消息、确认状态、进度指示器 |
+| **橘色** | 警告、注意 | 警告提示框、需关注状态、高亮标记 |
+| **覆盆子** | 强调、装饰 | 标签、徽章、次要强调、分类标记 |
+| **茄紫** | 强调、高端 | 功能亮点、高端指示器、装饰性强调 |
+| **白色/中性色** | 背景、表面 | 页面背景、卡片表面、分隔线、微妙边框 |
+| **黑色/灰色** | 文本、结构 | 正文文本、标题、边框、阴影层 |
+
+## 主题检查
+
+- `.swatch` 边框使用 `--sl-color-gray-5`
+- `.swatch-label` 背景使用 `--sl-color-gray-6`
+- 所有 `--f5-*` 色板显示其实际颜色（CSS 自定义属性从 `custom.css` 解析）
+- 颜色色板在浅色和深色模式下均可见
+- 切换主题时徽章令牌色板会更新

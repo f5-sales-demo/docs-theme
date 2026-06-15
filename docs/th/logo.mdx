@@ -1,0 +1,78 @@
+---
+title: โลโก้
+description: วิธีการกำหนดค่าโลโก้และวิธีการเปลี่ยน
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+ธีมจะแสดงโลโก้ในส่วนหัวของเว็บไซต์เอกสารทุกแห่ง
+
+## ไฟล์โลโก้ที่มีให้
+
+ธีมมาพร้อมกับไฟล์โลโก้สองไฟล์ในไดเรกทอรี `assets/`:
+
+| ไฟล์ | รูปแบบ | คำอธิบาย |
+|------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | โลโก้ F5 ในสี Cloud Red (`#e4002b`) |
+| `assets/github-avatar.png` | PNG | อวตารองค์กร GitHub (ค่าเริ่มต้น) |
+
+## โลโก้เริ่มต้น
+
+โลโก้เริ่มต้นถูกกำหนดไว้ใน factory `createF5xcDocsConfig` ใน `config.ts`:
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+หากไม่มีการระบุตัวเลือก `logo` จะใช้ GitHub avatar PNG โดยเส้นทางนี้เป็น npm package specifier ที่ถูก resolve ผ่าน exports map ใน `package.json`
+
+## การเปลี่ยนโลโก้
+
+### ตัวเลือกที่ 1: ใช้โลโก้ SVG ของ F5
+
+ส่งตัวเลือก `logo` ไปยัง `createF5xcDocsConfig`:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### ตัวเลือกที่ 2: ใช้โลโก้แบบกำหนดเอง
+
+วางไฟล์โลโก้ของคุณในที่เก็บเนื้อหาและอ้างอิงดังนี้:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### ตัวเลือกที่ 3: แยกโลโก้สำหรับโหมดสว่างและโหมดมืด
+
+Starlight รองรับโลโก้แยกต่างหากสำหรับโหมดสว่างและโหมดมืด:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## แนวทางปฏิบัติ
+
+- **ใช้รูปแบบ SVG** — รูปภาพแบบ raster (PNG, JPG) สามารถใช้งานได้แต่จะไม่ปรับขนาดได้อย่างคมชัดในทุกขนาด
+- **ใส่ `viewBox`** — เพื่อให้โลโก้ปรับขนาดได้อย่างสมส่วน (เช่น `viewBox="0 0 100 100"`)
+- **รักษาขนาดไฟล์ให้เล็ก** — โลโก้จะโหลดในทุกหน้า ควรตั้งเป้าไว้ที่ไม่เกิน 10 KB
+- **ทดสอบในทั้งสองธีม** — ตรวจสอบให้แน่ใจว่าโลโก้แสดงผลได้อย่างถูกต้องทั้งในโหมดสว่างและโหมดมืด

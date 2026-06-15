@@ -1,0 +1,83 @@
+---
+title: มัลติคลาวด์
+description: >-
+  แผนภาพโทโพโลยีมัลติคลาวด์พร้อมการกระจายโหลดทั่วโลก การเชื่อมต่อมัลติคลาวด์ F5
+  XC และการจำลองข้อมูลข้ามคลาวด์
+sidebar:
+  order: 13
+i18n:
+  sourceHash: 747d511c1d86
+  translator: machine
+---
+
+แผนภาพสถาปัตยกรรมมัลติคลาวด์ที่แสดงการเชื่อมต่อข้ามผู้ให้บริการ การกระจายโหลดทั่วโลก และเครือข่าย F5 Distributed Cloud
+
+## โทโพโลยีเครือข่ายมัลติคลาวด์
+
+ตัวกระจายโหลดทั่วโลกที่กระจายทราฟฟิกไปยังภูมิภาค AWS และ Azure พร้อมการจำลองฐานข้อมูล
+
+```mermaid
+architecture-beta
+  group aws(hashicorp-flight:aws-color)[AWS Region]
+  group azure(hashicorp-flight:azure-color)[Azure Region]
+
+  service lb(carbon:load-balancer-global)[Global LB]
+  service web1(carbon:virtual-machine)[Web Tier] in aws
+  service db1(carbon:data-base)[Primary DB] in aws
+  service web2(carbon:virtual-machine)[Web Tier] in azure
+  service db2(carbon:data-base)[Replica DB] in azure
+
+  lb:R --> L:web1
+  lb:B --> T:web2
+  web1:R --> L:db1
+  web2:R --> L:db2
+  db1:B --> T:db2
+```
+
+## การเชื่อมต่อมัลติคลาวด์ F5 XC
+
+F5 Distributed Cloud ที่ให้การเชื่อมต่อที่ปลอดภัยระหว่าง AWS, Azure และ GCP พร้อมการสังเกตการณ์แบบรวมศูนย์
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 Distributed Cloud]
+  group aws(hashicorp-flight:aws-color)[AWS]
+  group azure(hashicorp-flight:azure-color)[Azure]
+
+  service mcn(f5xc:multi-cloud-network-connect)[Network Connect] in xc
+  service mca(f5xc:multi-cloud-app-connect)[App Connect] in xc
+  service obs(f5xc:observability)[Observability] in xc
+  service eks(hashicorp-flight:kubernetes-color)[EKS] in aws
+  service rds(carbon:data-base)[RDS] in aws
+  service aks(hashicorp-flight:azure-aks-color)[AKS] in azure
+  service sql(carbon:data-base)[Azure SQL] in azure
+
+  mcn:R --> L:mca
+  mca:R --> L:obs
+  mcn:B --> T:eks
+  eks:R --> L:rds
+  mcn:B --> T:aks
+  aks:R --> L:sql
+```
+
+## การส่งมอบแอปมัลติคลาวด์ด้วย F5 XC
+
+การส่งมอบแอปพลิเคชันแบบครบวงจรข้ามหลายคลาวด์ โดย F5 XC ให้บริการความปลอดภัยและการจัดการทราฟฟิกที่ edge
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:globe', label: 'Global Users' }
+  cdn@{ icon: 'f5xc:content-delivery-network', label: 'XC CDN' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  appconn@{ icon: 'f5xc:multi-cloud-app-connect', label: 'App Connect' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Workloads' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Workloads' }
+  gcp@{ icon: 'hashicorp-flight:gcp-color', label: 'GCP Workloads' }
+
+  user --> cdn
+  cdn --> waap
+  waap --> appconn
+  appconn --> aws
+  appconn --> azure
+  appconn --> gcp
+```

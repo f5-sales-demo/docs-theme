@@ -1,0 +1,79 @@
+---
+title: Protezione API
+description: >-
+  Diagrammi di sicurezza API che mostrano l'architettura del gateway, il
+  rilevamento delle API shadow, la limitazione della frequenza e la convalida
+  dello schema con F5 XC.
+sidebar:
+  order: 17
+i18n:
+  sourceHash: 575b193c6c8c
+  translator: machine
+---
+
+Diagrammi dell'architettura di protezione API che coprono la sicurezza del gateway API, il rilevamento delle API shadow, la limitazione della frequenza e la convalida dello schema con F5 Distributed Cloud.
+
+## Sicurezza del gateway API
+
+Gateway API con autenticazione, autorizzazione, limitazione della frequenza e convalida dello schema prima di raggiungere i servizi backend.
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'API Client' }
+  gw@{ icon: 'carbon:gateway-api', label: 'API Gateway' }
+  auth@{ icon: 'lucide:key', label: 'Auth Service' }
+  rate@{ icon: 'carbon:load-balancer-vpc', label: 'Rate Limiter' }
+  api@{ icon: 'carbon:api', label: 'API Service' }
+  db@{ icon: 'carbon:data-base', label: 'Database' }
+
+  client --> gw
+  gw --> auth
+  auth --> gw
+  gw --> rate
+  rate --> api
+  api --> db
+```
+
+## Rilevamento e protezione API F5 XC
+
+F5 Distributed Cloud fornisce il rilevamento delle API, il rilevamento delle API shadow e una sicurezza API completa con analisi del traffico.
+
+```mermaid
+flowchart TD
+  traffic@{ icon: 'lucide:globe', label: 'API Traffic' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  discover@{ icon: 'f5xc:application-traffic-insight', label: 'API Discovery' }
+  scan@{ icon: 'f5xc:web-app-scanning', label: 'API Scanning' }
+  intel@{ icon: 'f5xc:data-intelligence', label: 'Data Intelligence' }
+  api@{ icon: 'carbon:api', label: 'API Endpoints' }
+
+  traffic --> waap
+  waap --> discover
+  waap --> scan
+  discover --> intel
+  scan --> intel
+  waap --> api
+```
+
+## Pipeline di sicurezza API
+
+Pipeline di convalida delle richieste API a più fasi con TLS, verifica JWT, limitazione della frequenza e ispezione del payload.
+
+```mermaid
+architecture-beta
+  group security(lucide:shield)[API Security Layer]
+  group backend(carbon:cloud-services)[Backend Services]
+
+  service tls(lucide:lock)[TLS Termination] in security
+  service jwt(lucide:key)[JWT Validation] in security
+  service rate(carbon:load-balancer-vpc)[Rate Limiter] in security
+  service schema(carbon:gateway-security)[Schema Validation] in security
+  service api1(carbon:api)[Users API] in backend
+  service api2(carbon:api)[Orders API] in backend
+
+  tls:R --> L:jwt
+  jwt:R --> L:rate
+  rate:R --> L:schema
+  schema:R --> L:api1
+  schema:B --> T:api2
+```

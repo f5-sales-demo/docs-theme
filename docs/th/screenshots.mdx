@@ -1,0 +1,128 @@
+---
+title: ภาพหน้าจอ
+description: ส่วนประกอบภาพหน้าจอสำหรับคู่ภาพโหมดสว่างและโหมดมืดที่รองรับธีม
+sidebar:
+  order: 10
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: 0b677390b859
+  translator: machine
+---
+
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+ส่วนประกอบ `Screenshot` แสดงภาพที่รองรับธีม โดยจะสลับอัตโนมัติ
+ระหว่างตัวแปรโหมดสว่างและโหมดมืดเมื่อผู้ใช้สลับธีมของเว็บไซต์ ใช้งานเมื่อ
+ต้องการแสดงภาพหน้าจอ UI ที่ควรตรงกับรูปแบบสีปัจจุบันของผู้อ่าน
+
+## ข้อมูลอ้างอิง Props
+
+| Prop | Type | Required | Description |
+| ---- | ---- | -------- | ----------- |
+| `light` | `string` | No | เส้นทางไปยังภาพโหมดสว่าง |
+| `dark` | `string` | No | เส้นทางไปยังภาพโหมดมืด |
+| `alt` | `string` | Yes | ข้อความ Alt สำหรับการเข้าถึง |
+| `width` | `number` | No | ความกว้างของภาพเป็นพิกเซล |
+| `height` | `number` | No | ความสูงของภาพเป็นพิกเซล |
+
+:::note
+ต้องระบุอย่างน้อยหนึ่งรายการระหว่าง `light` หรือ `dark`
+เมื่อระบุทั้งคู่ ส่วนประกอบจะสลับระหว่างกันตามธีมที่ใช้งานอยู่
+:::
+
+## โหมดคู่ (สว่าง + มืด)
+
+ระบุทั้ง `light` และ `dark` props เพื่อแสดงตัวแปรที่ถูกต้องสำหรับแต่ละธีม
+สลับตัวเลือกธีมที่มุมขวาบนเพื่อดูการสลับภาพ
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+
+```mdx
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+```
+
+:::tip
+ควรถ่ายภาพหน้าจอทั้งโหมดสว่างและโหมดมืดเสมอเมื่อทำเอกสาร UI
+วิธีนี้ช่วยให้ผู้อ่านได้รับการแสดงผลที่ถูกต้องไม่ว่าจะใช้ธีมใด
+:::
+
+## ภาพเดียว
+
+เมื่อมีเพียงตัวแปรเดียว ให้ส่งเฉพาะ `light` หรือ `dark`
+ภาพจะแสดงในทั้งสองธีมโดยไม่มีการสลับ
+
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+
+```mdx
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+```
+
+## พร้อมขนาด
+
+ใช้ `width` และ `height` เพื่อควบคุมขนาดที่แสดงผลและป้องกันการเลื่อนเลย์เอาต์
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+
+```mdx
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+```
+
+## หลักการทำงาน
+
+ส่วนประกอบแสดงผลองค์ประกอบ `<img>` หนึ่งหรือสองรายการภายใน wrapper `.screenshot-pair`
+กฎ CSS สลับการมองเห็นตามธีมที่ใช้งานอยู่:
+
+- **โหมดมืด** (ค่าเริ่มต้น) — ภาพ `.screenshot-light` ถูกซ่อนโดย
+  `:root:not([data-theme="light"]) .screenshot-light \{ display: none \}`
+- **โหมดสว่าง** — ภาพ `.screenshot-dark` ถูกซ่อนโดย
+  `:root[data-theme="light"] .screenshot-dark \{ display: none \}`
+
+ตัวเลือกเพิ่มเติมจัดการ wrapper `starlight-image-zoom` โดยใช้ `:has()`
+เพื่อให้ฟังก์ชันการซูมทำงานได้อย่างถูกต้องกับทั้งสองตัวแปร
+
+ภาพหน้าจอทั้งหมดได้รับการจัดรูปแบบที่สม่ำเสมอ: เส้นขอบที่ละเอียดอ่อน มุมโค้งมน
+และเงาที่เข้มขึ้นเมื่อวางเมาส์ทับ
+
+## การเปรียบเทียบกับภาพ Markdown
+
+| คุณสมบัติ | ส่วนประกอบ `Screenshot` | Markdown `![](url)` |
+| ------- | ---------------------- | -------------------- |
+| การสลับตามธีม | ใช่ | ไม่ |
+| เส้นขอบและเงาที่จัดรูปแบบ | อัตโนมัติ | ไม่ |
+| เอฟเฟกต์เงาเมื่อวางเมาส์ | ใช่ | ไม่ |
+| รองรับการซูม | ทำงานร่วมกับปลั๊กอินซูมภาพ | ทำงานร่วมกับปลั๊กอินซูมภาพ |
+| ข้อความ Alt | `alt` prop | `![alt text]()` |
+
+ใช้ส่วนประกอบ `Screenshot` เมื่อคุณมีตัวแปรภาพที่เฉพาะเจาะจงตามธีม หรือ
+ต้องการลักษณะภาพหน้าจอที่จัดรูปแบบแล้ว ใช้ภาพ Markdown มาตรฐานสำหรับกราฟิกแบบอินไลน์
+ไดอะแกรม หรือภาพที่มีลักษณะเหมือนกันในทั้งสองธีม

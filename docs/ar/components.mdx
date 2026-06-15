@@ -1,0 +1,517 @@
+---
+title: المكونات
+description: >-
+  المكونات المدمجة في Starlight — الملاحظات الجانبية، والتبويبات، والخطوات،
+  والبطاقات، والشارات، والجداول، والصور، وشجرة الملفات.
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: aadd8fb32c48
+  translator: machine
+---
+
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+
+## الملاحظات الجانبية
+
+يستخدم كل نوع من أنواع الملاحظات الجانبية صيغة السياج `:::` مع عنوانه الافتراضي.
+
+:::note
+هذه ملاحظة جانبية من نوع **note**. تلفت الانتباه إلى معلومات تكميلية ينبغي للقارئ الاطلاع عليها.
+:::
+
+:::tip
+هذه ملاحظة جانبية من نوع **tip**. تُبرز أفضل الممارسات أو اختصارًا مفيدًا.
+:::
+
+:::caution
+هذه ملاحظة جانبية من نوع **caution**. تُحذّر من مشكلة محتملة أو سلوك غير واضح.
+:::
+
+:::danger
+هذه ملاحظة جانبية من نوع **danger**. تُشير إلى إجراء تدميري أو لا يمكن التراجع عنه.
+:::
+
+### عناوين مخصصة
+
+<Aside type="note" title="Custom Note Title">
+تستخدم هذه الملاحظة الجانبية مكوّن `<Aside>` مع تجاوز العنوان بعنوان مخصص.
+</Aside>
+
+<Aside type="tip" title="Pro Tip">
+يمكنك تضمين **نص عريض**، *نص مائل*، و`كود مضمّن` داخل مكوّنات الملاحظات الجانبية.
+</Aside>
+
+<Aside type="caution" title="Watch Out">
+كن حذرًا عند ترقية التبعيات — تحقق من سجل التغييرات أولًا.
+</Aside>
+
+<Aside type="danger" title="Destructive Action">
+تشغيل `git reset --hard` سيؤدي إلى تجاهل التغييرات غير المُودَعة بشكل دائم.
+</Aside>
+
+### محتوى غني داخل الملاحظات الجانبية
+
+:::tip[ملاحظة جانبية بمحتوى مختلط]
+فيما يلي كتلة كود داخل ملاحظة جانبية:
+
+```bash
+npm install @astrojs/starlight
+```
+
+قائمة من العناصر:
+
+- العنصر الأول بـ **نص عريض**
+- العنصر الثاني بـ `كود مضمّن`
+- العنصر الثالث برابط [إلى توثيق Starlight](https://starlight.astro.build)
+:::
+
+### CSS الخاص بالملاحظات الجانبية
+
+تحصل مكوّنات الملاحظات الجانبية المدمجة في Starlight على زوايا مدوّرة وظل متعدد الطبقات:
+
+```css
+.starlight-aside {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+## التبويبات
+
+### التبويبات الأساسية
+
+<Tabs>
+  <TabItem label="Overview">
+    هذا هو محتوى تبويب النظرة العامة. يحتوي على نص عادي للتحقق من عرض التبويبات الأساسي.
+  </TabItem>
+  <TabItem label="Details">
+    هذا هو تبويب التفاصيل. يجب أن يكون التبديل بين التبويبات فوريًا دون إعادة تحميل الصفحة.
+  </TabItem>
+</Tabs>
+
+### التبويبات بمحتوى مختلط
+
+<Tabs>
+  <TabItem label="Text">
+    محتوى فقرة عادية في التبويب الأول.
+  </TabItem>
+  <TabItem label="Code">
+    ```javascript
+    const greeting = "Hello from a code block inside a tab!";
+    console.log(greeting);
+    ```
+  </TabItem>
+  <TabItem label="List">
+    - عنصر واحد داخل التبويب
+    - عنصر ثانٍ بـ **نص عريض**
+    - عنصر ثالث بـ `كود مضمّن`
+  </TabItem>
+</Tabs>
+
+### التبويبات المتزامنة
+
+تتشارك مجموعتا التبويبات هاتان `syncKey="pkg"`. يجب أن يؤدي تحديد تبويب في إحدى المجموعتين إلى تحديث الأخرى.
+
+**أمر التثبيت:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+</Tabs>
+
+**أمر التشغيل:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+
+## الخطوات
+
+<Steps>
+
+1. **استنساخ المستودع**
+
+   ```bash
+   git clone https://github.com/example/repo.git
+   cd repo
+   ```
+
+2. **تثبيت التبعيات**
+
+   ```bash
+   npm install
+   ```
+
+3. **تشغيل خادم التطوير**
+
+   ```bash
+   npm run dev
+   ```
+
+   سيكون الموقع متاحًا على `http://localhost:4321`.
+
+</Steps>
+
+## البطاقات
+
+### بطاقة مفردة
+
+<Card title="Single Card" icon="star">
+  هذه بطاقة مستقلة مع أيقونة. تُفيد البطاقات في إبراز المعلومات أو الميزات الرئيسية.
+</Card>
+
+### شبكة البطاقات
+
+<CardGrid>
+  <Card title="Performance" icon="rocket">
+    يُقدّم Astro صفحات بدون JavaScript افتراضيًا لتحميل سريع للصفحات.
+  </Card>
+  <Card title="Customizable" icon="pencil">
+    يوفر Starlight خيارات واسعة للسمات والإضافات.
+  </Card>
+  <Card title="Accessible" icon="heart">
+    تضمن ميزات إمكانية الوصول المدمجة وصول المحتوى إلى الجميع.
+  </Card>
+  <Card title="Documented" icon="open-book">
+    التوثيق الشامل يجعل البدء أمرًا سهلًا ومباشرًا.
+  </Card>
+</CardGrid>
+
+### تخطيط متدرج
+
+<CardGrid stagger>
+  <Card title="Step One" icon="setting">
+    قم بتهيئة إعدادات مشروعك ومتغيرات البيئة.
+  </Card>
+  <Card title="Step Two" icon="document">
+    أنشئ صفحات المحتوى باستخدام صيغة MDX.
+  </Card>
+  <Card title="Step Three" icon="laptop">
+    معاينة محلية باستخدام خادم التطوير.
+  </Card>
+  <Card title="Step Four" icon="rocket">
+    انشر على منصة الاستضافة التي تختارها.
+  </Card>
+</CardGrid>
+
+### بطاقات الروابط
+
+توفر السمة مكوّن `LinkCard` الذي يعمل مع الأيقونات أو بدونها. استورده من السمة:
+
+```mdx
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+```
+
+<CardGrid>
+  <LinkCard
+    title="Starlight Documentation"
+    description="تعلم كيفية بناء مواقع التوثيق باستخدام Starlight."
+    href="https://starlight.astro.build"
+  />
+  <LinkCard
+    title="Astro Documentation"
+    description="استكشف إطار عمل Astro لمواقع الويب المدفوعة بالمحتوى."
+    href="https://docs.astro.build"
+  />
+</CardGrid>
+
+#### مع الأيقونات
+
+أضف خاصية `icon` باستخدام صيغة `prefix:name`. جميع حزم الأيقونات الثماني مدعومة — راجع توثيق [حزم الأيقونات](https://f5xc-salesdemos.github.io/docs-icons/) للاطلاع على الفهرس الكامل.
+
+##### Lucide (`lucide:`)
+
+<CardGrid>
+  <LinkCard
+    icon="lucide:shield-check"
+    title="Web App Firewall"
+    description="سياسات جدار الحماية والإعداد."
+    href="https://f5xc-salesdemos.github.io/waf/"
+  />
+  <LinkCard
+    icon="lucide:globe"
+    title="Multi-Cloud Networking"
+    description="اتصال الموقع عبر السحابات."
+    href="https://f5xc-salesdemos.github.io/mcn/"
+  />
+</CardGrid>
+
+##### Carbon (`carbon:`)
+
+<CardGrid>
+  <LinkCard
+    icon="carbon:security"
+    title="Security Services"
+    description="مجموعة أيقونات الأمان من IBM Carbon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="carbon:cloud"
+    title="Cloud Services"
+    description="مجموعة أيقونات السحابة من IBM Carbon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### أيقونات Material Design (`mdi:`)
+
+<CardGrid>
+  <LinkCard
+    icon="mdi:shield-lock"
+    title="Access Control"
+    description="أيقونة قفل الدرع من Material Design."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="mdi:database"
+    title="Data Management"
+    description="أيقونة قاعدة البيانات من Material Design."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Phosphor (`phosphor:`)
+
+<CardGrid>
+  <LinkCard
+    icon="phosphor:shield"
+    title="Threat Defense"
+    description="أيقونة الدرع من Phosphor."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="phosphor:globe"
+    title="Global Network"
+    description="أيقونة الكرة الأرضية من Phosphor."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Tabler (`tabler:`)
+
+<CardGrid>
+  <LinkCard
+    icon="tabler:cloud"
+    title="Cloud Platform"
+    description="أيقونة السحابة من Tabler."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="tabler:rocket"
+    title="Deployment"
+    description="أيقونة الصاروخ من Tabler."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### علامة F5 التجارية (`f5-brand:`)
+
+<CardGrid>
+  <LinkCard
+    icon="f5-brand:cloud-shield-checkmark"
+    title="Cloud Security"
+    description="أيقونة درع السحابة من علامة F5 التجارية."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5-brand:security-firewall"
+    title="Firewall"
+    description="أيقونة جدار الحماية من علامة F5 التجارية."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Distributed Cloud (`f5xc:`)
+
+هذه الأيقونات متعددة الألوان وتستخدم خصائص CSS المخصصة للتكيف مع ألوان الوضع الفاتح/الداكن.
+
+<CardGrid>
+  <LinkCard
+    icon="f5xc:web-app-and-api-protection"
+    title="App & API Protection"
+    description="أيقونة حماية تطبيقات الويب وAPI من F5 XC."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5xc:bot-defense"
+    title="Bot Defense"
+    description="أيقونة دفاع Bot من F5 XC."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### HashiCorp Flight (`hashicorp-flight:`)
+
+<CardGrid>
+  <LinkCard
+    icon="hashicorp-flight:terraform-color"
+    title="Terraform"
+    description="أيقونة HashiCorp Terraform."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="hashicorp-flight:consul-color"
+    title="Consul"
+    description="أيقونة HashiCorp Consul."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+## الشارات
+
+### متغيرات الشارة المضمّنة
+
+جميع متغيرات الشارات الست مُعرَضة بشكل مضمّن:
+
+<Badge text="Default" /> <Badge text="Note" variant="note" /> <Badge text="Danger" variant="danger" /> <Badge text="Success" variant="success" /> <Badge text="Tip" variant="tip" /> <Badge text="Caution" variant="caution" />
+
+### أحجام الشارات
+
+<Badge text="Small" size="small" /> <Badge text="Medium" size="medium" /> <Badge text="Large" size="large" />
+
+كل حجم مع متغير:
+
+<Badge text="Small Tip" variant="tip" size="small" /> <Badge text="Medium Danger" variant="danger" size="medium" /> <Badge text="Large Success" variant="success" size="large" />
+
+### شارات العناوين
+
+تستخدم العناوين التالية صيغة إضافة `starlight-heading-badges`.
+
+#### مكتمل الميزات :badge[Stable]{variant=success}
+
+يحمل هذا العنوان شارة نجاح تُشير إلى أن الميزة مستقرة.
+
+#### واجهة تجريبية :badge[Beta]{variant=caution}
+
+يحمل هذا العنوان شارة تحذير تُشير إلى أن الواجهة تجريبية.
+
+#### نظام قديم :badge[Deprecated]{variant=danger}
+
+يحمل هذا العنوان شارة خطر تُشير إلى التقادم.
+
+#### ميزة جديدة :badge[New]{variant=tip}
+
+يحمل هذا العنوان شارة تلميح تُشير إلى ميزة جديدة.
+
+#### التوثيق :badge[Updated]{variant=note}
+
+يحمل هذا العنوان شارة ملاحظة تُشير إلى تحديثات حديثة.
+
+#### شارة افتراضية :badge[Info]
+
+يحمل هذا العنوان شارة افتراضية دون تحديد متغير.
+
+### شارة الشريط الجانبي
+
+تحقق من الشريط الجانبي: تحمل هذه الصفحة شارة "جديد" بمتغير `tip` مُطبَّق عبر frontmatter.
+
+## الجداول
+
+### جدول بسيط
+
+| الميزة | الحالة | الأولوية |
+|---------|--------|----------|
+| الوضع الداكن | مدعوم | عالية |
+| تكبير الصور | مدعوم | متوسطة |
+| مخططات Mermaid | مدعوم | متوسطة |
+| شارات العناوين | مدعوم | منخفضة |
+
+### جدول مع المحاذاة والكود
+
+| الخاصية | النوع | الافتراضي | الوصف |
+|:---------|:----:|--------:|:------------|
+| `title` | `string` | — | عنوان الصفحة المعروض في الرأس |
+| `description` | `string` | `""` | وصف meta لتحسين محركات البحث |
+| `sidebar.order` | `number` | `0` | ترتيب الفرز في الشريط الجانبي |
+| `sidebar.badge` | `object` | `null` | الشارة المعروضة بجانب تسمية الشريط الجانبي |
+| `template` | `"doc" \| "splash"` | `"doc"` | قالب تخطيط الصفحة |
+
+## الصور
+
+تختبر الصورة أدناه إضافة `starlight-image-zoom`. انقر للتكبير.
+
+![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+
+## شجرة الملفات
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - index.mdx
+      - 01-environment-variables.mdx
+      - 02-build-pipeline.mdx
+      - 03-astro-config.mdx
+      - 04-logo.mdx
+      - 05-colors.mdx
+      - 07-typography.mdx
+      - 08-code-blocks.mdx
+      - **09-components.mdx** هذه الصفحة
+      - 10-mermaid.mdx
+      - 11-footer.mdx
+      - 12-style-enhancement-guide.mdx
+  - plugins/
+    - remark-mermaid.mjs
+- styles/
+  - custom.css
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## فحوصات السمة
+
+- يختلف لون الحد الأيسر لكل متغير من الملاحظات الجانبية (أزرق، بنفسجي، أصفر، أحمر)
+- صبغة خلفية الملاحظات الجانبية مرئية في الوضعين الفاتح والداكن
+- الظل مرئي بشكل خفي حول كل ملاحظة جانبية
+- زوايا مدوّرة (0.75rem) على جميع الملاحظات الجانبية
+- يستخدم مؤشر التبويب النشط لون اللهجة
+- خط اتصال الخطوات مرئي بين الخطوات المُرقَّمة
+- تبقى التبويبات المتزامنة منسجمة عند التبديل بين المجموعات
+- تُعرض كتل الكود داخل التبويبات مع تمييز بناء الجملة المناسب
+- يتكيف لون حدود البطاقة بين الوضعين الفاتح والداكن
+- تأثير خلفية التحويم مرئي على البطاقات
+- يطابق لون أيقونة السهم في LinkCard لون اللهجة
+- يُزيح تخطيط التدرج البطاقات المتناوبة عموديًا
+- تُعرض الأيقونات بشكل صحيح داخل رؤوس البطاقات
+- تختلف ألوان خلفية الشارة لكل متغير بين الوضعين الداكن والفاتح
+- تستخدم شارات الوضع الداكن ألوانًا عميقة (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
+- تستخدم شارات الوضع الفاتح ألوانًا فاتحة (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
+- تتمحور شارات العناوين بشكل مضمّن مع نص العنوان
+- تُعرض شارة الشريط الجانبي بجانب تسمية الصفحة
+- تتكيف ألوان حدود الجدول بين الوضعين الفاتح والداكن
+- يمتلك صف رأس الجدول خلفية مميزة
+- يعمل تراكب تكبير الصور عند النقر (starlight-image-zoom)
+- تستخدم خلفية FileTree الألوان المناسبة للسمة
+- ترث الأيقونات لون النص الحالي

@@ -1,0 +1,122 @@
+---
+title: 螢幕截圖
+description: 支援淺色與深色模式的主題感知圖片對元件。
+sidebar:
+  order: 10
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: 0b677390b859
+  translator: machine
+---
+
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+`Screenshot` 元件能渲染具主題感知能力的圖片，當使用者切換網站主題時，會自動在淺色與深色變體之間切換。每當您需要顯示 UI 截圖，且希望截圖符合讀者目前的配色方案時，請使用此元件。
+
+## 屬性參考
+
+| 屬性 | 類型 | 必填 | 說明 |
+| ---- | ---- | -------- | ----------- |
+| `light` | `string` | 否 | 淺色模式圖片路徑 |
+| `dark` | `string` | 否 | 深色模式圖片路徑 |
+| `alt` | `string` | 是 | 無障礙替代文字 |
+| `width` | `number` | 否 | 圖片寬度（像素） |
+| `height` | `number` | 否 | 圖片高度（像素） |
+
+:::note
+`light` 或 `dark` 至少須提供其中一個。
+若兩者皆提供，元件將依據目前啟用的主題在兩者之間切換。
+:::
+
+## 雙模式（淺色 + 深色）
+
+同時提供 `light` 與 `dark` 屬性，以在每種主題下顯示對應的變體。
+切換右上角的主題選擇器，即可觀察圖片切換效果。
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+
+```mdx
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+```
+
+:::tip
+在記錄 UI 文件時，請務必同時擷取淺色與深色截圖。
+這樣無論讀者偏好哪種主題，都能獲得準確的視覺呈現。
+:::
+
+## 單一圖片
+
+當只有一種變體可用時，僅傳入 `light` 或 `dark` 其中之一。
+該圖片將在兩種主題下均正常渲染，不會進行切換。
+
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+
+```mdx
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+```
+
+## 指定尺寸
+
+使用 `width` 與 `height` 控制渲染尺寸，並避免版面位移。
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+
+```mdx
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+```
+
+## 運作原理
+
+此元件會在 `.screenshot-pair` 包裝元素內渲染一個或兩個 `<img>` 元素。CSS 規則會依據目前啟用的主題切換可見性：
+
+- **深色模式**（預設）— `.screenshot-light` 圖片透過
+  `:root:not([data-theme="light"]) .screenshot-light \{ display: none \}` 隱藏
+- **淺色模式** — `.screenshot-dark` 圖片透過
+  `:root[data-theme="light"] .screenshot-dark \{ display: none \}` 隱藏
+
+額外的選擇器透過 `:has()` 處理 `starlight-image-zoom` 包裝元素，
+確保縮放功能在兩種變體下均能正常運作。
+
+所有截圖圖片皆套用一致的樣式：細緻的邊框、圓角，以及滑鼠懸停時加深的陰影效果。
+
+## 與 Markdown 圖片的比較
+
+| 功能 | `Screenshot` 元件 | Markdown `![](url)` |
+| ------- | ---------------------- | -------------------- |
+| 主題感知切換 | 支援 | 不支援 |
+| 樣式邊框與陰影 | 自動套用 | 不支援 |
+| 懸停陰影效果 | 支援 | 不支援 |
+| 縮放支援 | 與圖片縮放外掛相容 | 與圖片縮放外掛相容 |
+| 替代文字 | `alt` 屬性 | `![alt text]()` |
+
+當您擁有主題專屬的圖片變體，或希望呈現具樣式的截圖外觀時，請使用 `Screenshot` 元件。若為行內圖形、示意圖，或在兩種主題下外觀相同的圖片，則使用標準 Markdown 圖片語法即可。

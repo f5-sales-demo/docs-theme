@@ -1,0 +1,317 @@
+---
+title: 字体排印
+description: 字体系列、字型层级、字重用法、行高规范、大小写约定、实时示例及 Starlight 主题映射。
+sidebar:
+  order: 7
+i18n:
+  sourceHash: ba962925d620
+  translator: machine
+---
+
+字体排印系统融合了两种受瑞士设计启发的字体系列，在富有表现力的标题与功能性正文之间建立清晰的层级关系。
+
+## 设计理念
+
+字体排印通过比例、节奏与韵律——借助字型样式、字阶、字重、颜色、行高、水平间距和垂直间距——构建清晰的视觉层级。
+
+- **Neusa Next Wide** 的灵感来源于早期太空探索时代的字体处理方式，为标题和副标题赋予人性化与表现力
+- **Proxima Nova** 以其开放感和几何风格，适用于正文及辅助性文案等更为实用的场景
+
+层级通过递减的字号**以及**交替使用大小写处理来形成对比。签名语和行动号召（CTA）采用宽体粗字，以在较低层级位置中脱颖而出。
+
+## 字体系列
+
+### Neusa Next Wide
+
+**用途**：标题、副标题、引言、CTA、标签、数字统计
+
+品牌中心样本展示了五种样式：
+
+| 样式 | 字重值 | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Light（细体） | 300 | `300` | `normal` |
+| Regular（常规） | 400 | `400` | `normal` |
+| Italic（斜体） | 400 | `400` | `italic` |
+| Medium（中等） | 500 | `500` | `normal` |
+| Bold（粗体） | 700 | `700` | `normal` |
+
+### Proxima Nova
+
+**用途**：正文、辅助文字、章节标题、UI 元素
+
+品牌中心样本展示了四种样式：
+
+| 样式 | 字重值 | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Regular（常规） | 400 | `400` | `normal` |
+| Regular Italic（常规斜体） | 400 | `400` | `italic` |
+| Bold（粗体） | 700 | `700` | `normal` |
+| Bold Italic（粗斜体） | 700 | `700` | `italic` |
+
+Proxima Nova 需单独授权，**不**包含在品牌中心的字体下载包中。主题内置了字重 400、500、600 和 700 的常规样式。
+
+## 字型层级
+
+### 核心原则
+
+- 通过**递减字号**结合**交替大小写**处理来建立层级
+- 对活动主标题和副标题使用 **Neusa Wide Bold，句首大写**
+- 将标题行高设置为**字号的 1.1 倍**
+- 对章节标题使用 **Proxima Nova Bold，全大写**并添加字间距，与句首大写标题形成对比
+- 签名语和 CTA 使用 **Neusa Wide Bold**，并在数字体验中以云红色显示右向插入符（**›**）以指示操作
+
+### 层级表
+
+| 元素 | 字体 | 字重 | 大小写 | 备注 |
+|---------|------|--------|------|-------|
+| 主标题 | Neusa Wide | Bold（700） | 句首大写 | 行高 = 字号的 1.1 倍 |
+| 眉头文字 | Proxima Nova | Bold（700） | 全大写 | 小号，带字间距 |
+| 副标题 / 引言 | Neusa Wide | Medium（500） | 句首大写 | 若紧接正文则可改用 Proxima Nova |
+| 章节标题 | Proxima Nova | Bold（700） | 全大写 | 带字间距 |
+| 次级小标题 | Proxima Nova | Bold（700） | 句首大写 | |
+| 正文 | Proxima Nova | Regular（400） | 句首大写 | |
+| 项目符号 | Proxima Nova | Regular（400） | 句首大写 | |
+| 引言 | Neusa Wide | Bold（700） | 句首大写 | 云红色；大号红色引号，署名置于下方 |
+| 签名语 / CTA | Neusa Wide | Bold（700） | 句首大写 | 带云红色右向插入符（›） |
+
+### 专项处理
+
+| 场景 | 字体 | 字重 | 字号/行高 | 备注 |
+|---------|------|--------|-------------|-------|
+| 宣传物料引言 | Neusa Wide | Bold（700） | 9pt / 14pt | 句首大写 |
+| 电子书引言 | Neusa Wide | Regular（400） | 16pt / 19pt | 上方带横线 |
+| 信息图数字/数据摘要 | Neusa Wide | Light（300） | — | 用于大尺寸的视觉冲击效果 |
+| 图表/柱状图数字 | Neusa Wide | Regular（400） | — | 标准图表标注 |
+
+### 首字母大写的使用场景
+
+以下情况可使用词首大写（Title Case）：
+- 副标题
+- 引言
+- 数字统计
+- 标签
+
+其他所有元素默认使用句首大写。
+
+## 实时示例
+
+### 标题
+
+## 二级标题
+
+### 三级标题
+
+#### 四级标题
+
+##### 五级标题
+
+###### 六级标题
+
+### 文本样式
+
+这是**粗体文本**，用于强调。
+
+这是*斜体文本*，用于细微强调。
+
+这是 ~~删除线文本~~，用于已废弃的内容。
+
+这是 `内联代码`，用于技术引用。
+
+这是***粗斜体文本***，用于强烈强调。
+
+这是组合示例：**包含 `内联代码` 的粗体**以及*包含 `代码` 的斜体*。
+
+### 有序列表
+
+1. 有序列表的第一项
+2. 包含**粗体文本**的第二项
+3. 包含 `内联代码` 的第三项
+4. 包含[指向 Astro 的链接](https://astro.build)的第四项
+
+### 无序列表
+
+- 第一个项目符号
+- 包含**强调**的第二项
+- 包含 `代码引用` 的第三项
+- 包含[链接](https://starlight.astro.build)的第四项
+
+### 嵌套列表
+
+1. 顶层有序项
+   - 嵌套无序项 A
+   - 嵌套无序项 B
+     1. 深层嵌套有序项
+     2. 另一个深层嵌套项
+   - 返回第一层嵌套
+2. 第二个顶层项
+   - 另一个嵌套项
+
+### 块引用
+
+> 这是单行块引用。
+
+> 这是多行块引用。
+>
+> 它跨越多个段落，可包含**粗体**、*斜体*和 `代码` 格式。
+
+> 嵌套块引用：
+>
+> > 这是嵌套在外层块引用内的块引用。
+> >
+> > 它可以包含自己的格式。
+
+### 水平分割线
+
+分割线上方的内容。
+
+---
+
+分割线下方的内容。
+
+### 链接
+
+- 内部链接：[返回文档概览](/)
+- 外部链接：[Starlight 文档](https://starlight.astro.build)
+- 带标题的链接：[Astro](https://astro.build "Astro 框架主页")
+
+### 脚注
+
+这是一个带有脚注引用的句子[^1]。
+
+这是另一个带有不同脚注的句子[^2]。
+
+[^1]: 这是第一个脚注内容，显示在页面底部。
+
+[^2]: 这是第二个脚注，可包含**格式**和 `代码`。
+
+## 字体资源
+
+主题在 `fonts/` 目录中内置了 **10 个 woff2 文件**：
+
+### Neusa Next Pro Wide
+
+| 文件 | 字重 | 样式 | 大小 |
+|------|--------|-------|------|
+| `neusaNextProWide-300.woff2` | 300（Light） | 常规 | ~49 KB |
+| `neusaNextProWide-400.woff2` | 400（Regular） | 常规 | ~49 KB |
+| `neusaNextProWide-400i.woff2` | 400（Regular） | 斜体 | ~49 KB |
+| `neusaNextProWide-500.woff2` | 500（Medium） | 常规 | ~49 KB |
+| `neusaNextProWide-700.woff2` | 700（Bold） | 常规 | ~49 KB |
+| `neusaNextProWide-700i.woff2` | 700（Bold） | 斜体 | ~49 KB |
+
+### Proxima Nova
+
+| 文件 | 字重 | 样式 | 大小 |
+|------|--------|-------|------|
+| `proximaNova-400.woff2` | 400（Regular） | 常规 | ~18 KB |
+| `proximaNova-500.woff2` | 500（Medium） | 常规 | ~18 KB |
+| `proximaNova-600.woff2` | 600（Semi-Bold） | 常规 | ~18 KB |
+| `proximaNova-700.woff2` | 700（Bold） | 常规 | ~18 KB |
+
+### 命名约定
+
+字体文件遵循 `familyName-weight.woff2` 的命名规则，斜体变体添加 `i` 后缀（例如 `neusaNextProWide-400i.woff2`）。
+
+### 缺失的变体
+
+以下斜体变体在主题中尚不可用：
+
+| 缺失变体 | 原因 |
+|----------------|--------|
+| Proxima Nova 400 斜体 | 当前下载包中无源文件 |
+| Proxima Nova 500 斜体 | 当前下载包中无源文件 |
+| Proxima Nova 600 斜体（Semi-Bold） | 源文件不可用 |
+| Proxima Nova 700 斜体（Bold） | 源文件不可用 |
+
+如需添加 Proxima Nova 斜体变体，请从授权来源获取正版 woff2 文件，按照命名约定命名（例如 `proximaNova-400i.woff2`），并在 `font-face.css` 中添加相应的 `@font-face` 规则。
+
+## @font-face 声明
+
+所有字体注册均位于 `fonts/font-face.css` 中。每条声明使用：
+
+- **`font-display: swap`** — 先用回退字体立即渲染文本，待自定义字体加载完成后进行替换
+- **`format("woff2")`** — 所有现代浏览器均支持的压缩格式
+- **相对路径 URL** — `./` 路径相对于 CSS 文件位置解析
+
+如需添加新的字体变体，请在 `font-face.css` 中追加 `@font-face` 块：
+
+```css
+@font-face {
+  font-family: "familyName";
+  font-weight: 400;
+  font-style: italic;  /* or normal */
+  font-display: swap;
+  src: url("./familyName-400i.woff2") format("woff2");
+}
+```
+
+## CSS 集成
+
+主题插件（`index.ts`）通过 `config:setup` 钩子注入两个 CSS 文件：
+
+```
+index.ts → fonts/font-face.css → styles/custom.css → Starlight renders
+```
+
+### 字体分配
+
+在 `styles/custom.css` 中：
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+```
+
+- **`--sl-font`**（Starlight 正文字体变量）→ Proxima Nova，用于正文和 UI
+- **`--sl-font-heading`**（自定义令牌）→ Neusa Next Pro Wide，用于标题字体引用
+- **`h1`–`h6`** → 按照 Cloud 字型层级应用字体系列、字重和大小写
+- **回退字体栈**：`system-ui, "Segoe UI", Helvetica, Arial, sans-serif`，在自定义字体加载前保障快速初始渲染
+
+### Starlight 字体排印令牌
+
+主题覆盖了以下 Starlight CSS 自定义属性：
+
+| 令牌 | 值 | 用途 |
+|-------|-------|---------|
+| `--sl-font` | `"proximaNova", ...` | 正文、UI 元素 |
+| `--sl-font-heading` | `"neusaNextProWide", ...` | 标题字体的自定义令牌 |
+| `--sl-line-height-headings` | `1.1` | Cloud 品牌标题行高 |
+| `--sl-text-h1` | `var(--sl-text-5xl)` | 2.625rem 主标题 |
+| `--sl-text-h2` | `var(--sl-text-3xl)` | 1.8125rem 副标题 |
+| `--sl-text-h3` | `var(--sl-text-2xl)` | 1.5rem 章节引言 |
+| `--sl-text-h4` | `var(--sl-text-lg)` | 1.125rem 次级小节 |
+
+### 标题层级映射
+
+| HTML | 字体系列 | 字重 | 大小写 | 品牌用途 |
+|------|------------|--------|------|------------|
+| `h1` | Neusa Next Wide | 700（Bold） | 句首大写 | 主标题 |
+| `h2` | Neusa Next Wide | 700（Bold） | 句首大写 | 副标题 |
+| `h3` | Neusa Next Wide | 500（Medium） | 句首大写 | 引言 / 次级小标题 |
+| `h4` | Proxima Nova | 700（Bold） | 全大写 | 章节标题 |
+| `h5` | Proxima Nova | 700（Bold） | 全大写 | 次级章节标题 |
+| `h6` | Proxima Nova | 700（Bold） | 全大写 | 小节标题 |
+
+## 替换字体
+
+如需使用不同的字体系列：
+
+1. **将 woff2 文件添加**到 `fonts/` 目录，使用命名约定 `familyName-weight.woff2`（斜体添加 `i` 后缀）
+2. **更新 `fonts/font-face.css`**，添加与文件名、字重和样式匹配的新 `@font-face` 规则
+3. **更新 `styles/custom.css`**，将 `--sl-font` 和标题 `font-family` 设置为新的字体系列名称
+4. **保留回退字体栈**（`system-ui, "Segoe UI", Helvetica, Arial, sans-serif`），以确保自定义字体加载前的快速初始渲染
+
+## 主题检查
+
+- H2 和 H3 使用 `neusaNextProWide` 字体系列，字重分别为 700/500
+- H4、H5、H6 使用 `proximaNova` 字体，全大写，字间距为 0.05em
+- 链接强调色在深色模式下为 `#f06680`，在浅色模式下为 `#e4002b`
+- 内联代码带有来自 `--sl-color-gray-5` 的背景色调
+- 块引用的左边框在两种主题下均可见
+- 脚注引用以上标形式显示并带有链接
+- 水平分割线具有适当的对比度

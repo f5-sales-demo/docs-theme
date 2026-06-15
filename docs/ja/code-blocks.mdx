@@ -1,0 +1,226 @@
+---
+title: コードブロック
+description: Expressive Code スタイリングのシンタックスハイライト、ターミナルモード、行ハイライト、差分ブロック、CSS リファレンス。
+sidebar:
+  order: 8
+i18n:
+  sourceHash: b458d0378db1
+  translator: machine
+---
+
+すべてのコードブロックは、`styles/custom.css` で定義されたカスタムスタイルを持つ [Expressive Code](https://expressive-code.com/) を使用しています。
+
+## 言語の例
+
+### JavaScript
+
+```js
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log(fibonacci(10)); // 55
+```
+
+### Python
+
+```python
+def fibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print(fibonacci(10))  # 55
+```
+
+### Bash
+
+```bash
+#!/bin/bash
+for i in $(seq 1 5); do
+  echo "Iteration $i"
+done
+```
+
+### YAML
+
+```yaml
+site:
+  title: Documentation
+  base: /
+  integrations:
+    - starlight
+    - react
+```
+
+### JSON
+
+```json
+{
+  "name": "@f5xc-salesdemos/docs-theme",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js"
+}
+```
+
+### HTML
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Page</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+  </body>
+</html>
+```
+
+### CSS
+
+```css
+:root {
+  --sl-color-accent: #f06680;
+  --sl-font: "proximaNova", system-ui;
+}
+
+h1 {
+  font-family: var(--sl-font-heading);
+  font-weight: 700;
+}
+```
+
+### TypeScript
+
+```ts
+interface Config {
+  title: string;
+  base: string;
+  plugins: string[];
+}
+
+const config: Config = {
+  title: "Documentation",
+  base: "/",
+  plugins: ["starlight", "react"],
+};
+```
+
+## ターミナルモード
+
+ターミナルスタイルのコードブロック（` ```bash ` または ` ```sh ` でフェンスされたもの）は、macOS のトラフィックライトドット付きの iTerm にインスパイアされたウィンドウフレームを表示します。
+
+```bash title="Terminal"
+npm install @f5xc-salesdemos/docs-theme
+npx astro build
+npx astro preview
+```
+
+### ターミナル CSS リファレンス
+
+```css
+/* フレームのボーダー */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* トラフィックライト SVG ドット付きダークヘッダー */
+.expressive-code .frame.is-terminal .header {
+  background: #323232 !important;
+  color: #ccc !important;
+}
+
+/* ダークモードのターミナル本体 — Tokyo Night インスパイア */
+:root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
+  background: #1a1b26 !important;
+}
+
+/* ライトモードのボーダーオーバーライド */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## ファイル名タイトル
+
+```ts title="src/config.ts"
+export default {
+  site: "https://example.com",
+  title: "My Docs",
+};
+```
+
+## 行ハイライト
+
+```js {1,3-5}
+const name = "highlighted"; // 1行目をハイライト
+const other = "normal";
+const a = 1; // 3〜5行目をハイライト
+const b = 2;
+const c = 3;
+const d = "normal again";
+```
+
+## 挿入行と削除行
+
+```js ins={2} del={3}
+const config = {
+  theme: "dark", // 挿入
+  theme: "light", // 削除
+  lang: "en",
+};
+```
+
+## 差分ブロック
+
+```diff
+- const oldValue = "deprecated";
++ const newValue = "replacement";
+  const unchanged = "stays";
+- removeThis();
++ addThis();
+```
+
+## CSS リファレンス
+
+### フレームスタイリング
+
+すべてのコードブロックは角丸と多層シャドウを持ちます：
+
+```css
+.expressive-code .frame {
+  --header-border-radius: 0.75rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+### テーマ対応ボーダー
+
+```css
+/* ダークモード（デフォルト） */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ライトモード */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## テーマの確認事項
+
+- コードブロックの背景色はテーマに応じて変化します
+- ターミナルのヘッダー背景は macOS のトラフィックライトドット付きの `#323232` です
+- ターミナルのボーダーはダークモードで `rgba(255, 255, 255, 0.15)`、ライトモードで `rgba(0, 0, 0, 0.2)` を使用します
+- ダークモードのターミナル本体は `#1a1b26` を使用します
+- シンタックスカラーは両方のテーマで読みやすい状態を保ちます
+- 行ハイライトには視認可能な背景色が適用されます
+- 挿入行は緑色のティント、削除行は赤色のティントで表示されます
+- コードブロックは 0.75rem の角丸とボックスシャドウを持ちます

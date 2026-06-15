@@ -1,0 +1,515 @@
+---
+title: コンポーネント
+description: Starlight 組み込みコンポーネント — アサイド、タブ、ステップ、カード、バッジ、テーブル、画像、ファイルツリー。
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: aadd8fb32c48
+  translator: machine
+---
+
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+
+## アサイド
+
+各アサイドタイプは、デフォルトのタイトルとともに `:::` フェンス構文を使用します。
+
+:::note
+これは **note（注記）** アサイドです。読者が知っておくべき補足情報に注意を向けます。
+:::
+
+:::tip
+これは **tip（ヒント）** アサイドです。ベストプラクティスや便利なショートカットを強調します。
+:::
+
+:::caution
+これは **caution（注意）** アサイドです。潜在的な落とし穴や自明でない動作について警告します。
+:::
+
+:::danger
+これは **danger（危険）** アサイドです。破壊的または取り消し不可能な操作にフラグを立てます。
+:::
+
+### カスタムタイトル
+
+<Aside type="note" title="カスタム注記タイトル">
+このアサイドは、カスタムタイトルのオーバーライドを指定した `<Aside>` コンポーネントを使用しています。
+</Aside>
+
+<Aside type="tip" title="プロのヒント">
+アサイドコンポーネント内に **太字**、*イタリック*、`インラインコード` をネストできます。
+</Aside>
+
+<Aside type="caution" title="注意してください">
+依存関係をアップグレードする際は注意してください — 先にチェンジログを確認してください。
+</Aside>
+
+<Aside type="danger" title="破壊的な操作">
+`git reset --hard` を実行すると、コミットされていない変更が永久に破棄されます。
+</Aside>
+
+### アサイド内のリッチコンテンツ
+
+:::tip[混在コンテンツを持つアサイド]
+アサイド内のコードブロックです：
+
+```bash
+npm install @astrojs/starlight
+```
+
+項目のリスト：
+
+- **太字テキスト**を含む最初の項目
+- `インラインコード`を含む2番目の項目
+- [Starlight ドキュメントへのリンク](https://starlight.astro.build)を含む3番目の項目
+:::
+
+### アサイドの CSS
+
+Starlight の組み込みアサイドコンポーネントは、角丸と重ね合わせたシャドウが適用されます：
+
+```css
+.starlight-aside {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+## タブ
+
+### 基本タブ
+
+<Tabs>
+  <TabItem label="概要">
+    これは概要タブのコンテンツです。基本的なタブのレンダリングを確認するためのプレーンテキストを含んでいます。
+  </TabItem>
+  <TabItem label="詳細">
+    これは詳細タブです。タブを切り替えてもページのリロードは発生しません。
+  </TabItem>
+</Tabs>
+
+### 混在コンテンツを持つタブ
+
+<Tabs>
+  <TabItem label="テキスト">
+    最初のタブのプレーンな段落コンテンツです。
+  </TabItem>
+  <TabItem label="コード">
+    ```javascript
+    const greeting = "Hello from a code block inside a tab!";
+    console.log(greeting);
+    ```
+  </TabItem>
+  <TabItem label="リスト">
+    - タブ内の項目1
+    - **太字テキスト**を含む項目2
+    - `インラインコード`を含む項目3
+  </TabItem>
+</Tabs>
+
+### 同期タブ
+
+これらの2つのタブグループは `syncKey="pkg"` を共有しています。一方のグループでタブを選択すると、もう一方も更新されます。
+
+**インストールコマンド：**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+</Tabs>
+
+**実行コマンド：**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+
+## ステップ
+
+<Steps>
+
+1. **リポジトリをクローンする**
+
+   ```bash
+   git clone https://github.com/example/repo.git
+   cd repo
+   ```
+
+2. **依存関係をインストールする**
+
+   ```bash
+   npm install
+   ```
+
+3. **開発サーバーを起動する**
+
+   ```bash
+   npm run dev
+   ```
+
+   サイトは `http://localhost:4321` で利用可能になります。
+
+</Steps>
+
+## カード
+
+### シングルカード
+
+<Card title="シングルカード" icon="star">
+  これはアイコン付きのスタンドアロンカードです。カードは重要な情報や機能を強調表示するのに役立ちます。
+</Card>
+
+### カードグリッド
+
+<CardGrid>
+  <Card title="パフォーマンス" icon="rocket">
+    Astro はデフォルトでゼロJS を提供し、高速なページ読み込みを実現します。
+  </Card>
+  <Card title="カスタマイズ可能" icon="pencil">
+    Starlight は広範なテーマ設定とプラグインオプションを提供します。
+  </Card>
+  <Card title="アクセシブル" icon="heart">
+    組み込みのアクセシビリティ機能により、すべてのユーザーがコンテンツにアクセスできます。
+  </Card>
+  <Card title="ドキュメント化済み" icon="open-book">
+    充実したドキュメントにより、スムーズに始められます。
+  </Card>
+</CardGrid>
+
+### スタガーレイアウト
+
+<CardGrid stagger>
+  <Card title="ステップ1" icon="setting">
+    プロジェクトの設定と環境変数を構成します。
+  </Card>
+  <Card title="ステップ2" icon="document">
+    MDX 形式を使用してコンテンツページを作成します。
+  </Card>
+  <Card title="ステップ3" icon="laptop">
+    開発サーバーでローカルプレビューを確認します。
+  </Card>
+  <Card title="ステップ4" icon="rocket">
+    選択したホスティングプラットフォームにデプロイします。
+  </Card>
+</CardGrid>
+
+### リンクカード
+
+テーマはアイコンの有無にかかわらず動作する `LinkCard` コンポーネントを提供します。テーマからインポートしてください：
+
+```mdx
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+```
+
+<CardGrid>
+  <LinkCard
+    title="Starlight ドキュメント"
+    description="Starlight でドキュメントサイトを構築する方法を学びましょう。"
+    href="https://starlight.astro.build"
+  />
+  <LinkCard
+    title="Astro ドキュメント"
+    description="コンテンツ駆動型 Web サイトのための Astro フレームワークを探索しましょう。"
+    href="https://docs.astro.build"
+  />
+</CardGrid>
+
+#### アイコン付き
+
+`prefix:name` 構文を使用して `icon` プロップを追加します。8つのアイコンパックすべてがサポートされています — 完全なカタログは[アイコンパッケージ](https://f5xc-salesdemos.github.io/docs-icons/)のドキュメントを参照してください。
+
+##### Lucide (`lucide:`)
+
+<CardGrid>
+  <LinkCard
+    icon="lucide:shield-check"
+    title="Web アプリファイアウォール (WAF)"
+    description="ファイアウォールポリシーと設定。"
+    href="https://f5xc-salesdemos.github.io/waf/"
+  />
+  <LinkCard
+    icon="lucide:globe"
+    title="マルチクラウドネットワーク"
+    description="クラウド間のサイト接続。"
+    href="https://f5xc-salesdemos.github.io/mcn/"
+  />
+</CardGrid>
+
+##### Carbon (`carbon:`)
+
+<CardGrid>
+  <LinkCard
+    icon="carbon:security"
+    title="セキュリティサービス"
+    description="IBM Carbon セキュリティアイコンセット。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="carbon:cloud"
+    title="クラウドサービス"
+    description="IBM Carbon クラウドアイコンセット。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Material Design Icons (`mdi:`)
+
+<CardGrid>
+  <LinkCard
+    icon="mdi:shield-lock"
+    title="アクセス制御"
+    description="Material Design シールドロックアイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="mdi:database"
+    title="データ管理"
+    description="Material Design データベースアイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Phosphor (`phosphor:`)
+
+<CardGrid>
+  <LinkCard
+    icon="phosphor:shield"
+    title="脅威防御"
+    description="Phosphor シールドアイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="phosphor:globe"
+    title="グローバルネットワーク"
+    description="Phosphor グローブアイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Tabler (`tabler:`)
+
+<CardGrid>
+  <LinkCard
+    icon="tabler:cloud"
+    title="クラウドプラットフォーム"
+    description="Tabler クラウドアイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="tabler:rocket"
+    title="デプロイメント"
+    description="Tabler ロケットアイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 ブランド (`f5-brand:`)
+
+<CardGrid>
+  <LinkCard
+    icon="f5-brand:cloud-shield-checkmark"
+    title="クラウドセキュリティ"
+    description="F5 ブランドのクラウドシールドアイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5-brand:security-firewall"
+    title="ファイアウォール"
+    description="F5 ブランドのファイアウォールアイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Distributed Cloud (`f5xc:`)
+
+これらのアイコンはマルチカラーで、ライト/ダークモードの色適応に CSS カスタムプロパティを使用します。
+
+<CardGrid>
+  <LinkCard
+    icon="f5xc:web-app-and-api-protection"
+    title="アプリおよび API 保護"
+    description="F5 XC Web アプリおよび API 保護アイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5xc:bot-defense"
+    title="Bot 防御"
+    description="F5 XC Bot 防御アイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### HashiCorp Flight (`hashicorp-flight:`)
+
+<CardGrid>
+  <LinkCard
+    icon="hashicorp-flight:terraform-color"
+    title="Terraform"
+    description="HashiCorp Terraform アイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="hashicorp-flight:consul-color"
+    title="Consul"
+    description="HashiCorp Consul アイコン。"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+## バッジ
+
+### インラインバッジのバリアント
+
+6つのバッジバリアントをインラインでレンダリング：
+
+<Badge text="デフォルト" /> <Badge text="注記" variant="note" /> <Badge text="危険" variant="danger" /> <Badge text="成功" variant="success" /> <Badge text="ヒント" variant="tip" /> <Badge text="注意" variant="caution" />
+
+### バッジサイズ
+
+<Badge text="スモール" size="small" /> <Badge text="ミディアム" size="medium" /> <Badge text="ラージ" size="large" />
+
+バリアント付きの各サイズ：
+
+<Badge text="スモールヒント" variant="tip" size="small" /> <Badge text="ミディアム危険" variant="danger" size="medium" /> <Badge text="ラージ成功" variant="success" size="large" />
+
+### 見出しバッジ
+
+以下の見出しは `starlight-heading-badges` プラグイン構文を使用しています。
+
+#### 機能完成 :badge[安定版]{variant=success}
+
+この見出しには、機能が安定していることを示す成功バッジが付いています。
+
+#### 実験的 API :badge[ベータ]{variant=caution}
+
+この見出しには、API が実験的であることを示す注意バッジが付いています。
+
+#### レガシーシステム :badge[非推奨]{variant=danger}
+
+この見出しには、非推奨であることを示す危険バッジが付いています。
+
+#### 新機能 :badge[新機能]{variant=tip}
+
+この見出しには、新機能であることを示すヒントバッジが付いています。
+
+#### ドキュメント :badge[更新済み]{variant=note}
+
+この見出しには、最近更新されたことを示す注記バッジが付いています。
+
+#### デフォルトバッジ :badge[情報]
+
+この見出しには、バリアントが指定されていないデフォルトバッジが付いています。
+
+### サイドバーバッジ
+
+サイドバーを確認してください：このページには、フロントマター経由で `tip` バリアントが適用された「New」バッジがあります。
+
+## テーブル
+
+### シンプルなテーブル
+
+| 機能 | ステータス | 優先度 |
+|---------|--------|----------|
+| ダークモード | サポート済み | 高 |
+| 画像ズーム | サポート済み | 中 |
+| Mermaid ダイアグラム | サポート済み | 中 |
+| 見出しバッジ | サポート済み | 低 |
+
+### 配置とコードを含むテーブル
+
+| プロパティ | タイプ | デフォルト | 説明 |
+|:---------|:----:|--------:|:------------|
+| `title` | `string` | — | ヘッダーに表示されるページタイトル |
+| `description` | `string` | `""` | SEO 用のメタディスクリプション |
+| `sidebar.order` | `number` | `0` | サイドバーでの並び順 |
+| `sidebar.badge` | `object` | `null` | サイドバーラベルの横に表示されるバッジ |
+| `template` | `"doc" \| "splash"` | `"doc"` | ページレイアウトテンプレート |
+
+## 画像
+
+以下の画像は `starlight-image-zoom` プラグインをテストします。クリックしてズームしてください。
+
+![GitHub アバター](https://github.com/f5xc-salesdemos.png)
+
+## ファイルツリー
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - index.mdx
+      - 01-environment-variables.mdx
+      - 02-build-pipeline.mdx
+      - 03-astro-config.mdx
+      - 04-logo.mdx
+      - 05-colors.mdx
+      - 07-typography.mdx
+      - 08-code-blocks.mdx
+      - **09-components.mdx** このページ
+      - 10-mermaid.mdx
+      - 11-footer.mdx
+      - 12-style-enhancement-guide.mdx
+  - plugins/
+    - remark-mermaid.mjs
+- styles/
+  - custom.css
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## テーマチェック
+
+- ボーダー左の色はアサイドバリアントごとに異なる（青、紫、黄、赤）
+- アサイドの背景色はライトモードとダークモードの両方で視認可能
+- ボックスシャドウは各アサイドの周囲に微妙だが視認可能
+- すべてのアサイドに角丸（0.75rem）が適用されている
+- タブのアクティブインジケーターの色はアクセントカラーを使用
+- ステップコネクターラインは番号付きステップ間で視認可能
+- 同期タブはグループを切り替えても同期を維持する
+- タブ内のコードブロックは適切なシンタックスハイライトでレンダリングされる
+- カードのボーダー色はライトモードとダークモードで適応する
+- カードのホバー背景エフェクトが視認可能
+- LinkCard の矢印アイコンの色はアクセントカラーと一致する
+- スタガーレイアウトは交互のカードを垂直にオフセットする
+- アイコンはカードヘッダー内で正しくレンダリングされる
+- バッジの背景色はバリアントごとにダークモードとライトモードで異なる
+- ダークモードのバッジはディープトーンを使用（red-4、jade-4、tangerine-4、eggplant-4、bay-4）
+- ライトモードのバッジはライトトーンを使用（red-1、jade-1、tangerine-1、eggplant-1、bay-1）
+- 見出しバッジは見出しテキストとインラインで整列する
+- サイドバーバッジはページラベルの横にレンダリングされる
+- テーブルのボーダー色はライトモードとダークモードで適応する
+- テーブルのヘッダー行は明確な背景を持つ
+- 画像ズームオーバーレイはクリックで動作する（starlight-image-zoom）
+- FileTree の背景はテーマに適した色を使用する
+- アイコンは現在のテキストカラーを継承する

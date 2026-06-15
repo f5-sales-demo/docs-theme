@@ -1,0 +1,131 @@
+---
+title: ไปป์ไลน์การสร้าง
+description: วิธีที่ repository เนื้อหาใช้ธีมในขณะสร้างผ่าน Docker builder และแพ็กเกจ npm
+sidebar:
+  order: 3
+i18n:
+  sourceHash: f305437613ca
+  translator: machine
+---
+
+หน้านี้อธิบายวิธีที่ repository เนื้อหาใช้แพ็กเกจ npm `@f5xc-salesdemos/docs-theme` เพื่อสร้างไซต์เอกสารที่มีการสร้างแบรนด์อย่างสมบูรณ์
+
+## สถาปัตยกรรม
+
+```
+┌─────────────────┐
+│  Content Repo   │
+│  (docs/ folder) │
+└────────┬────────┘
+         │
+         ▼
+┌───────────────────────────┐
+│   f5xc-docs-builder       │
+│   (Docker image)          │
+│                           │
+│  npm install              │
+│  @f5xc-salesdemos/docs-theme ─────┐  │
+│                        ▼  │
+│  node_modules/            │
+│    @f5xc-salesdemos/docs-theme/       │
+│      ├── config.ts        │
+│      ├── index.ts         │
+│      ├── fonts/           │
+│      ├── styles/          │
+│      ├── assets/          │
+│      └── components/      │
+│                           │
+│  Astro Build              │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   Astro Build Output      │
+│   (static HTML/CSS)       │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   GitHub Pages            │
+└───────────────────────────┘
+```
+
+## กระบวนการสร้างทีละขั้นตอน
+
+1. **การ push ของ content repo** — การ push ไปยัง `main` (หรือการส่งคำสั่งด้วยตนเอง) จะเรียกใช้ workflow การปรับใช้ GitHub Pages
+2. **Reusable workflow** — workflow ของ content repo จะเรียกใช้ builder:
+   ```yaml
+   jobs:
+     docs:
+       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+   ```
+3. **Docker builder ทำงาน** — Docker image `f5xc-docs-builder` มีธีมที่ติดตั้งไว้ล่วงหน้าผ่าน npm เมื่อถึงเวลาสร้าง จะ:
+   - คัดลอก `astro.config.mjs` และ `content.config.ts` จาก `node_modules/@f5xc-salesdemos/docs-theme/` ไปยัง root ของโปรเจกต์ Astro
+   - คัดลอกไฟล์ `docs/` ของ content repo ไปยัง `src/content/docs/`
+4. **Astro build** — Astro อ่าน config ซึ่งเรียกใช้ `createF5xcDocsConfig()` factory จะแก้ไข asset ของธีมทั้งหมดผ่าน npm package specifier (เช่น `@f5xc-salesdemos/docs-theme/styles/custom.css`)
+5. **การปรับใช้** — ไซต์แบบ static ที่สร้างแล้วจะถูกปรับใช้บน GitHub Pages
+
+## ข้อกำหนดของ Content Repo
+
+content repository ต้องการเพียง:
+
+- ไดเรกทอรี `docs/` ที่มีไฟล์ Markdown (`.md`) หรือ MDX (`.mdx`)
+- GitHub Actions workflow ที่เรียกใช้ builder
+
+### Workflow ขั้นต่ำ
+
+```yaml
+name: GitHub Pages Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+```
+
+นี่คือ workflow เดียวกับที่ repository ธีมนี้ใช้เพื่อสร้างเอกสารที่คุณกำลังอ่านอยู่
+
+## การแก้ไข Path
+
+path ทั้งหมดในธีมใช้ npm package specifier ซึ่งแก้ไขผ่าน map `exports` ใน `package.json`:
+
+```js
+// CSS — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
+'@f5xc-salesdemos/docs-theme/styles/custom.css'
+
+// Components — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/components/Footer.astro'
+'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+
+// Assets — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+```
+
+ไม่มีไดเรกทอรี `./theme/` ใน build workspace Docker builder ติดตั้งธีมเป็น npm dependency ปกติ และ Astro แก้ไข specifier ทั้งหมดผ่าน `node_modules`
+
+:::note
+path ของไฟล์ฟอนต์ภายใน `font-face.css` ใช้ `./` (เช่น `url("./neusaNextProWide-300.woff2")`) path เหล่านี้สัมพัทธ์กับไฟล์ CSS เอง จึงแก้ไขไปยังไฟล์อื่นๆ ภายในไดเรกทอรี `fonts/` โดยไม่คำนึงถึงวิธีการติดตั้งแพ็กเกจ
+:::
+
+## การแพร่กระจายการเปลี่ยนแปลง
+
+การเปลี่ยนแปลงธีมจะแพร่กระจายผ่านการอัปเดตแพ็กเกจ npm:
+
+1. การเปลี่ยนแปลงถูก merge ไปยัง `main` ใน `@f5xc-salesdemos/docs-theme`
+2. Docker builder image ถูกสร้างใหม่พร้อมแพ็กเกจที่อัปเดต
+3. ครั้งถัดไปที่ workflow ของ content repo ใดๆ ทำงาน จะใช้ builder image ที่อัปเดตแล้ว
+4. Astro build รับฟอนต์ สไตล์ โลโก้ ส่วนประกอบ และปลั๊กอินที่อัปเดตแล้ว
+5. ไซต์ของ content repo ปรับใช้พร้อมธีมใหม่
+
+content repo จะได้รับธีมล่าสุดที่รวมอยู่ใน Docker image เสมอ ซึ่งช่วยให้มั่นใจในความสม่ำเสมอของรูปลักษณ์ในทุกไซต์ แต่หมายความว่าการเปลี่ยนแปลงธีมควรได้รับการทดสอบอย่างรอบคอบก่อน merge

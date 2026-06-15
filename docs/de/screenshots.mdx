@@ -1,0 +1,129 @@
+---
+title: Screenshots
+description: Screenshot-Komponente für themenabhängige Hell- und Dunkel-Modus-Bildpaare.
+sidebar:
+  order: 10
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: 0b677390b859
+  translator: machine
+---
+
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+Die `Screenshot`-Komponente rendert themenabhängige Bilder, die automatisch
+zwischen hellen und dunklen Varianten wechseln, wenn der Benutzer das Website-Thema
+umschaltet. Verwenden Sie sie, wenn Sie UI-Screenshots anzeigen möchten, die dem
+aktuellen Farbschema des Lesers entsprechen sollen.
+
+## Prop-Referenz
+
+| Prop | Typ | Erforderlich | Beschreibung |
+| ---- | ---- | -------- | ----------- |
+| `light` | `string` | Nein | Pfad zum Bild im Hell-Modus |
+| `dark` | `string` | Nein | Pfad zum Bild im Dunkel-Modus |
+| `alt` | `string` | Ja | Alt-Text für die Barrierefreiheit |
+| `width` | `number` | Nein | Bildbreite in Pixeln |
+| `height` | `number` | Nein | Bildhöhe in Pixeln |
+
+:::note
+Mindestens eines der Props `light` oder `dark` muss angegeben werden.
+Wenn beide angegeben werden, wechselt die Komponente basierend auf dem aktiven Thema zwischen ihnen.
+:::
+
+## Dualmodus (Hell + Dunkel)
+
+Geben Sie sowohl `light`- als auch `dark`-Props an, um die korrekte Variante für jedes Thema anzuzeigen.
+Schalten Sie den Thema-Selektor in der oberen rechten Ecke um, um den Bildwechsel zu sehen.
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+
+```mdx
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+```
+
+:::tip
+Erstellen Sie beim Dokumentieren von UIs stets sowohl helle als auch dunkle Screenshots.
+So erhalten die Leser unabhängig von ihrer Thema-Präferenz eine genaue Darstellung.
+:::
+
+## Einzelbild
+
+Wenn nur eine Variante verfügbar ist, übergeben Sie lediglich `light` oder `dark`.
+Das Bild wird in beiden Themen ohne Wechsel gerendert.
+
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+
+```mdx
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+```
+
+## Mit Abmessungen
+
+Verwenden Sie `width` und `height`, um die gerenderte Größe zu steuern und Layoutverschiebungen zu vermeiden.
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+
+```mdx
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+```
+
+## Funktionsweise
+
+Die Komponente rendert ein oder zwei `<img>`-Elemente innerhalb eines `.screenshot-pair`-
+Wrappers. CSS-Regeln schalten die Sichtbarkeit basierend auf dem aktiven Thema um:
+
+- **Dunkel-Modus** (Standard) — das `.screenshot-light`-Bild wird über
+  `:root:not([data-theme="light"]) .screenshot-light \{ display: none \}` ausgeblendet
+- **Hell-Modus** — das `.screenshot-dark`-Bild wird über
+  `:root[data-theme="light"] .screenshot-dark \{ display: none \}` ausgeblendet
+
+Zusätzliche Selektoren verarbeiten den `starlight-image-zoom`-Wrapper mithilfe von `:has()`,
+damit die Zoom-Funktionalität mit beiden Varianten korrekt funktioniert.
+
+Alle Screenshot-Bilder erhalten eine einheitliche Gestaltung: einen dezenten Rahmen, abgerundete
+Ecken und einen Schlagschatten, der beim Hover intensiver wird.
+
+## Vergleich mit Markdown-Bildern
+
+| Funktion | `Screenshot`-Komponente | Markdown `![](url)` |
+| ------- | ---------------------- | -------------------- |
+| Themenabhängiger Wechsel | Ja | Nein |
+| Stilisierter Rahmen und Schatten | Automatisch | Nein |
+| Hover-Schatteneffekt | Ja | Nein |
+| Zoom-Unterstützung | Funktioniert mit dem Image-Zoom-Plugin | Funktioniert mit dem Image-Zoom-Plugin |
+| Alt-Text | `alt`-Prop | `![alt text]()` |
+
+Verwenden Sie die `Screenshot`-Komponente, wenn Sie themenspezifische Bildvarianten haben oder
+das stilisierte Screenshot-Erscheinungsbild wünschen. Verwenden Sie Standard-Markdown-Bilder für
+eingebettete Grafiken, Diagramme oder Bilder, die in beiden Themen gleich aussehen.

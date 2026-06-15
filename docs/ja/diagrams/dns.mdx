@@ -1,0 +1,82 @@
+---
+title: DNS
+description: 再帰解決、GSLB、F5 XC DNS 管理を含む DNS 解決ダイアグラム。
+sidebar:
+  order: 14
+i18n:
+  sourceHash: 1ebe6a123211
+  translator: machine
+---
+
+再帰解決フロー、グローバルサーバーロードバランシング、F5 Distributed Cloud DNS 管理を網羅した DNS アーキテクチャダイアグラム。
+
+## DNS 解決フロー
+
+クライアントから再帰リゾルバーを経由して GSLB 統合を含む権威ネームサーバーまでの標準 DNS クエリ解決。
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'Client' }
+  resolver@{ icon: 'carbon:dns-services', label: 'Recursive Resolver' }
+  root@{ icon: 'lucide:server', label: 'Root DNS' }
+  tld@{ icon: 'lucide:server', label: 'TLD Server' }
+  auth@{ icon: 'carbon:server-dns', label: 'Authoritative DNS' }
+  gslb@{ icon: 'carbon:load-balancer-global', label: 'GSLB' }
+
+  client --> resolver
+  resolver --> root
+  root --> resolver
+  resolver --> tld
+  tld --> resolver
+  resolver --> auth
+  auth --> gslb
+  gslb --> resolver
+  resolver --> client
+```
+
+## F5 XC DNS 管理
+
+マルチクラウドオリジン全体でインテリジェントな DNS ロードバランシングを提供する F5 Distributed Cloud DNS 管理。
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:globe', label: 'End Users' }
+  xcdns@{ icon: 'f5xc:dns-management', label: 'XC DNS Management' }
+  health@{ icon: 'f5xc:observability', label: 'Health Monitoring' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Origin' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Origin' }
+  gcp@{ icon: 'hashicorp-flight:gcp-color', label: 'GCP Origin' }
+
+  user --> xcdns
+  xcdns --> health
+  health --> aws
+  health --> azure
+  health --> gcp
+  xcdns --> aws
+  xcdns --> azure
+  xcdns --> gcp
+```
+
+## DNS ロードバランシングアーキテクチャ
+
+地理的ルーティング、ヘルスチェック、クラウドリージョン間のフェイルオーバーを備えたマルチティア DNS ロードバランシング。
+
+```mermaid
+architecture-beta
+  group dns(carbon:dns-services)[DNS Infrastructure]
+  group region1(hashicorp-flight:aws-color)[US East]
+  group region2(hashicorp-flight:azure-color)[EU West]
+
+  service gslb(carbon:load-balancer-global)[GSLB] in dns
+  service health(carbon:application)[Health Check] in dns
+  service lb1(carbon:load-balancer-application)[Regional LB] in region1
+  service app1(carbon:virtual-machine)[App Servers] in region1
+  service lb2(carbon:load-balancer-application)[Regional LB] in region2
+  service app2(carbon:virtual-machine)[App Servers] in region2
+
+  gslb:R --> L:health
+  gslb:B --> T:lb1
+  lb1:R --> L:app1
+  gslb:B --> T:lb2
+  lb2:R --> L:app2
+```

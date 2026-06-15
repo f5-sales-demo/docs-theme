@@ -1,0 +1,78 @@
+---
+title: Logo
+description: Como o logo é configurado e como substituí-lo.
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+O tema exibe um logo no cabeçalho de todos os sites de documentação.
+
+## Arquivos de Logo Disponíveis
+
+O tema inclui dois arquivos de logo no diretório `assets/`:
+
+| Arquivo | Formato | Descrição |
+|---------|---------|-----------|
+| `assets/f5-logo.svg` | SVG | Logo F5 em Cloud Red (`#e4002b`) |
+| `assets/github-avatar.png` | PNG | Avatar da organização no GitHub (padrão) |
+
+## Logo Padrão
+
+O logo padrão é definido na factory `createF5xcDocsConfig` em `config.ts`:
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+Se nenhuma opção `logo` for fornecida, o PNG do avatar do GitHub será utilizado. O caminho é um especificador de pacote npm resolvido por meio do mapa `exports` no `package.json`.
+
+## Substituindo o Logo
+
+### Opção 1: Usar o logo SVG do F5
+
+Passe a opção `logo` para `createF5xcDocsConfig`:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### Opção 2: Usar um logo personalizado
+
+Coloque o arquivo de logo no repositório de conteúdo e referencie-o:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### Opção 3: Logos separados para modo claro e escuro
+
+O Starlight suporta logos separados para os modos claro e escuro:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## Diretrizes
+
+- **Use o formato SVG** — imagens rasterizadas (PNG, JPG) funcionarão, mas não escalarão com qualidade em todos os tamanhos
+- **Inclua um `viewBox`** — garante que o logo seja dimensionado proporcionalmente (ex.: `viewBox="0 0 100 100"`)
+- **Mantenha o tamanho do arquivo pequeno** — o logo é carregado em todas as páginas; procure manter abaixo de 10 KB
+- **Teste em ambos os temas** — verifique se o logo está correto nos modos claro e escuro

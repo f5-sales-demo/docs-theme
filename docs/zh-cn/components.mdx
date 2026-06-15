@@ -1,0 +1,515 @@
+---
+title: 组件
+description: Starlight 内置组件——提示框、标签页、步骤、卡片、徽章、表格、图片和文件树。
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: aadd8fb32c48
+  translator: machine
+---
+
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+
+## 提示框
+
+每种提示框类型使用 `:::` 围栏语法及其默认标题。
+
+:::note
+这是一个**注意**提示框。它用于提醒读者注意相关补充信息。
+:::
+
+:::tip
+这是一个**提示**提示框。它用于突出显示最佳实践或实用的快捷方式。
+:::
+
+:::caution
+这是一个**警告**提示框。它用于提示潜在的陷阱或不明显的行为。
+:::
+
+:::danger
+这是一个**危险**提示框。它标记破坏性或不可逆的操作。
+:::
+
+### 自定义标题
+
+<Aside type="note" title="Custom Note Title">
+此提示框使用 `<Aside>` 组件并覆盖了自定义标题。
+</Aside>
+
+<Aside type="tip" title="Pro Tip">
+您可以在提示框组件中嵌套 **粗体**、*斜体* 和 `内联代码`。
+</Aside>
+
+<Aside type="caution" title="Watch Out">
+升级依赖项时请小心——请先查阅更新日志。
+</Aside>
+
+<Aside type="danger" title="Destructive Action">
+执行 `git reset --hard` 将永久丢弃未提交的更改。
+</Aside>
+
+### 提示框中的富内容
+
+:::tip[包含混合内容的提示框]
+以下是提示框内的代码块：
+
+```bash
+npm install @astrojs/starlight
+```
+
+列表项：
+
+- 第一项包含**粗体文本**
+- 第二项包含 `内联代码`
+- 第三项包含[指向 Starlight 文档的链接](https://starlight.astro.build)
+:::
+
+### 提示框 CSS
+
+Starlight 内置的提示框组件具有圆角和分层阴影：
+
+```css
+.starlight-aside {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+## 标签页
+
+### 基本标签页
+
+<Tabs>
+  <TabItem label="Overview">
+    这是概览标签页的内容。包含纯文本，用于验证基本标签页的渲染效果。
+  </TabItem>
+  <TabItem label="Details">
+    这是详情标签页。切换标签页应即时响应，无需重新加载页面。
+  </TabItem>
+</Tabs>
+
+### 包含混合内容的标签页
+
+<Tabs>
+  <TabItem label="Text">
+    第一个标签页中的纯段落内容。
+  </TabItem>
+  <TabItem label="Code">
+    ```javascript
+    const greeting = "Hello from a code block inside a tab!";
+    console.log(greeting);
+    ```
+  </TabItem>
+  <TabItem label="List">
+    - 标签页内的第一项
+    - 第二项包含**粗体文本**
+    - 第三项包含 `内联代码`
+  </TabItem>
+</Tabs>
+
+### 同步标签页
+
+以下两个标签页组共享 `syncKey="pkg"`。在一个组中选择标签页，另一个组也会同步更新。
+
+**安装命令：**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+</Tabs>
+
+**运行命令：**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+
+## 步骤
+
+<Steps>
+
+1. **克隆仓库**
+
+   ```bash
+   git clone https://github.com/example/repo.git
+   cd repo
+   ```
+
+2. **安装依赖项**
+
+   ```bash
+   npm install
+   ```
+
+3. **启动开发服务器**
+
+   ```bash
+   npm run dev
+   ```
+
+   站点将在 `http://localhost:4321` 上可访问。
+
+</Steps>
+
+## 卡片
+
+### 单张卡片
+
+<Card title="Single Card" icon="star">
+  这是一张带有图标的独立卡片。卡片适用于突出显示关键信息或功能特性。
+</Card>
+
+### 卡片网格
+
+<CardGrid>
+  <Card title="Performance" icon="rocket">
+    Astro 默认零 JS，实现快速页面加载。
+  </Card>
+  <Card title="Customizable" icon="pencil">
+    Starlight 提供丰富的主题定制和插件选项。
+  </Card>
+  <Card title="Accessible" icon="heart">
+    内置无障碍功能，确保内容面向所有人。
+  </Card>
+  <Card title="Documented" icon="open-book">
+    全面的文档让入门过程更加简便。
+  </Card>
+</CardGrid>
+
+### 交错布局
+
+<CardGrid stagger>
+  <Card title="Step One" icon="setting">
+    配置您的项目设置和环境变量。
+  </Card>
+  <Card title="Step Two" icon="document">
+    使用 MDX 格式创建内容页面。
+  </Card>
+  <Card title="Step Three" icon="laptop">
+    通过开发服务器在本地预览效果。
+  </Card>
+  <Card title="Step Four" icon="rocket">
+    部署到您选择的托管平台。
+  </Card>
+</CardGrid>
+
+### 链接卡片
+
+该主题提供了一个 `LinkCard` 组件，支持带图标或不带图标两种形式。从主题中导入：
+
+```mdx
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+```
+
+<CardGrid>
+  <LinkCard
+    title="Starlight Documentation"
+    description="Learn how to build documentation sites with Starlight."
+    href="https://starlight.astro.build"
+  />
+  <LinkCard
+    title="Astro Documentation"
+    description="Explore the Astro framework for content-driven websites."
+    href="https://docs.astro.build"
+  />
+</CardGrid>
+
+#### 带图标
+
+使用 `prefix:name` 语法添加 `icon` 属性。支持全部八个图标包——完整目录请参阅 [图标包](https://f5xc-salesdemos.github.io/docs-icons/) 文档。
+
+##### Lucide（`lucide:`）
+
+<CardGrid>
+  <LinkCard
+    icon="lucide:shield-check"
+    title="Web App Firewall"
+    description="Firewall policies and configuration."
+    href="https://f5xc-salesdemos.github.io/waf/"
+  />
+  <LinkCard
+    icon="lucide:globe"
+    title="Multi-Cloud Networking"
+    description="Site connectivity across clouds."
+    href="https://f5xc-salesdemos.github.io/mcn/"
+  />
+</CardGrid>
+
+##### Carbon（`carbon:`）
+
+<CardGrid>
+  <LinkCard
+    icon="carbon:security"
+    title="Security Services"
+    description="IBM Carbon security icon set."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="carbon:cloud"
+    title="Cloud Services"
+    description="IBM Carbon cloud icon set."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Material Design Icons（`mdi:`）
+
+<CardGrid>
+  <LinkCard
+    icon="mdi:shield-lock"
+    title="Access Control"
+    description="Material Design shield lock icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="mdi:database"
+    title="Data Management"
+    description="Material Design database icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Phosphor（`phosphor:`）
+
+<CardGrid>
+  <LinkCard
+    icon="phosphor:shield"
+    title="Threat Defense"
+    description="Phosphor shield icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="phosphor:globe"
+    title="Global Network"
+    description="Phosphor globe icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Tabler（`tabler:`）
+
+<CardGrid>
+  <LinkCard
+    icon="tabler:cloud"
+    title="Cloud Platform"
+    description="Tabler cloud icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="tabler:rocket"
+    title="Deployment"
+    description="Tabler rocket icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 品牌（`f5-brand:`）
+
+<CardGrid>
+  <LinkCard
+    icon="f5-brand:cloud-shield-checkmark"
+    title="Cloud Security"
+    description="F5 branded cloud shield icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5-brand:security-firewall"
+    title="Firewall"
+    description="F5 branded firewall icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 分布式云（`f5xc:`）
+
+这些图标为多色图标，使用 CSS 自定义属性实现亮色/暗色模式下的颜色适配。
+
+<CardGrid>
+  <LinkCard
+    icon="f5xc:web-app-and-api-protection"
+    title="App & API Protection"
+    description="F5 XC web app and API protection icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5xc:bot-defense"
+    title="Bot Defense"
+    description="F5 XC bot defense icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### HashiCorp Flight（`hashicorp-flight:`）
+
+<CardGrid>
+  <LinkCard
+    icon="hashicorp-flight:terraform-color"
+    title="Terraform"
+    description="HashiCorp Terraform icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="hashicorp-flight:consul-color"
+    title="Consul"
+    description="HashiCorp Consul icon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+## 徽章
+
+### 内联徽章变体
+
+所有六种徽章变体的内联渲染效果：
+
+<Badge text="Default" /> <Badge text="Note" variant="note" /> <Badge text="Danger" variant="danger" /> <Badge text="Success" variant="success" /> <Badge text="Tip" variant="tip" /> <Badge text="Caution" variant="caution" />
+
+### 徽章尺寸
+
+<Badge text="Small" size="small" /> <Badge text="Medium" size="medium" /> <Badge text="Large" size="large" />
+
+各尺寸与变体的组合效果：
+
+<Badge text="Small Tip" variant="tip" size="small" /> <Badge text="Medium Danger" variant="danger" size="medium" /> <Badge text="Large Success" variant="success" size="large" />
+
+### 标题徽章
+
+以下标题使用 `starlight-heading-badges` 插件语法。
+
+#### 功能完整 :badge[Stable]{variant=success}
+
+此标题带有成功徽章，表示该功能已稳定。
+
+#### 实验性 API :badge[Beta]{variant=caution}
+
+此标题带有警告徽章，表示该 API 处于实验阶段。
+
+#### 旧版系统 :badge[Deprecated]{variant=danger}
+
+此标题带有危险徽章，表示已弃用。
+
+#### 新功能 :badge[New]{variant=tip}
+
+此标题带有提示徽章，表示这是一项新功能。
+
+#### 文档 :badge[Updated]{variant=note}
+
+此标题带有注意徽章，表示近期已更新。
+
+#### 默认徽章 :badge[Info]
+
+此标题带有未指定变体的默认徽章。
+
+### 侧边栏徽章
+
+查看侧边栏：此页面已通过 frontmatter 应用了带有 `tip` 变体的"新增"徽章。
+
+## 表格
+
+### 简单表格
+
+| 功能 | 状态 | 优先级 |
+|---------|--------|----------|
+| 暗色模式 | 已支持 | 高 |
+| 图片缩放 | 已支持 | 中 |
+| Mermaid 图表 | 已支持 | 中 |
+| 标题徽章 | 已支持 | 低 |
+
+### 带对齐和代码的表格
+
+| 属性 | 类型 | 默认值 | 描述 |
+|:---------|:----:|--------:|:------------|
+| `title` | `string` | — | 显示在页眉中的页面标题 |
+| `description` | `string` | `""` | 用于 SEO 的 meta 描述 |
+| `sidebar.order` | `number` | `0` | 侧边栏中的排序顺序 |
+| `sidebar.badge` | `object` | `null` | 显示在侧边栏标签旁的徽章 |
+| `template` | `"doc" \| "splash"` | `"doc"` | 页面布局模板 |
+
+## 图片
+
+下方图片用于测试 `starlight-image-zoom` 插件。点击可放大查看。
+
+![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+
+## 文件树
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - index.mdx
+      - 01-environment-variables.mdx
+      - 02-build-pipeline.mdx
+      - 03-astro-config.mdx
+      - 04-logo.mdx
+      - 05-colors.mdx
+      - 07-typography.mdx
+      - 08-code-blocks.mdx
+      - **09-components.mdx** 本页
+      - 10-mermaid.mdx
+      - 11-footer.mdx
+      - 12-style-enhancement-guide.mdx
+  - plugins/
+    - remark-mermaid.mjs
+- styles/
+  - custom.css
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## 主题检查项
+
+- 各提示框变体的左边框颜色不同（蓝色、紫色、黄色、红色）
+- 提示框背景色调在亮色和暗色模式下均清晰可见
+- 每个提示框周围的阴影效果细腻但可见
+- 所有提示框具有圆角（0.75rem）
+- 标签页激活指示器颜色使用强调色
+- 步骤编号之间的连接线清晰可见
+- 切换标签页组时同步标签页保持同步
+- 标签页内的代码块渲染时具有正确的语法高亮
+- 卡片边框颜色在亮色和暗色模式之间自适应
+- 卡片上的悬停背景效果清晰可见
+- 链接卡片箭头图标颜色与强调色一致
+- 交错布局在垂直方向上交替偏移卡片
+- 图标在卡片标题中正确渲染
+- 各徽章变体的背景颜色在暗色和亮色模式下有所不同
+- 暗色模式徽章使用深色调（red-4、jade-4、tangerine-4、eggplant-4、bay-4）
+- 亮色模式徽章使用浅色调（red-1、jade-1、tangerine-1、eggplant-1、bay-1）
+- 标题徽章与标题文本内联对齐
+- 侧边栏徽章显示在页面标签旁边
+- 表格边框颜色在亮色和暗色模式之间自适应
+- 表格标题行具有明显区分的背景
+- 图片缩放遮罩层在点击时正常工作（starlight-image-zoom）
+- 文件树背景使用符合主题的颜色
+- 图标继承当前文本颜色

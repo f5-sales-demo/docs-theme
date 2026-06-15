@@ -1,0 +1,317 @@
+---
+title: 타이포그래피
+description: '폰트 패밀리, 타입 계층 구조, 굵기 사용법, 행간 사양, 대소문자 규칙, 라이브 예제, Starlight 테마 매핑.'
+sidebar:
+  order: 7
+i18n:
+  sourceHash: ba962925d620
+  translator: machine
+---
+
+타입 시스템은 스위스 디자인에서 영감을 받은 두 가지 폰트 패밀리를 혼합하여, 표현력 있는 헤드라인과 기능적인 본문 텍스트 사이에 명확한 계층 구조를 형성합니다.
+
+## 디자인 철학
+
+폰트 타이포그래피는 타입 스타일, 스케일, 굵기, 색상, 행간, 수평 공간, 수직 공간을 통해 비율, 리듬, 템포를 활용하여 명확한 시각적 계층 구조를 만들어냅니다.
+
+- **Neusa Next Wide**는 초기 우주 탐사 시대의 타입 처리 방식에서 영감을 받아, 헤드라인과 서브헤드에 인간적이고 표현적인 성격을 부여합니다
+- **Proxima Nova**는 본문 및 유틸리티 텍스트와 같이 더 많은 작업이 요구되는 순간에 개방감과 기하학적 스타일을 제공합니다
+
+계층 구조는 내림차순 타입 크기 **및** 소문자/대문자 처리를 교대로 적용한 대비를 통해 형성됩니다. 사인오프와 CTA는 하위 계층 위치에서도 눈에 띌 수 있도록 와이드 볼드 서체를 사용합니다.
+
+## 폰트 패밀리
+
+### Neusa Next Wide
+
+**역할**: 헤드라인, 서브헤드, 풀 인용구, CTA, 레이블, 숫자 통계
+
+브랜드 센터 스펙시먼은 다섯 가지 스타일을 보여줍니다:
+
+| 스타일 | 굵기 값 | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Light | 300 | `300` | `normal` |
+| Regular | 400 | `400` | `normal` |
+| Italic | 400 | `400` | `italic` |
+| Medium | 500 | `500` | `normal` |
+| Bold | 700 | `700` | `normal` |
+
+### Proxima Nova
+
+**역할**: 본문 텍스트, 유틸리티 텍스트, 섹션 헤더, UI 요소
+
+브랜드 센터 스펙시먼은 네 가지 스타일을 보여줍니다:
+
+| 스타일 | 굵기 값 | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Regular | 400 | `400` | `normal` |
+| Regular Italic | 400 | `400` | `italic` |
+| Bold | 700 | `700` | `normal` |
+| Bold Italic | 700 | `700` | `italic` |
+
+Proxima Nova는 별도의 라이선스가 필요하며, 브랜드 센터 폰트 다운로드에 **포함되지 않습니다**. 테마는 일반 스타일로 굵기 400, 500, 600, 700을 제공합니다.
+
+## 타입 계층 구조
+
+### 핵심 원칙
+
+- **내림차순 타입 크기**와 **대소문자 교대** 처리를 결합하여 계층 구조를 형성합니다
+- 캠페인 헤드라인과 서브헤드에는 **Neusa Wide Bold, 문장형 대소문자**를 사용합니다
+- 헤드라인 행간은 **타입 크기의 1.1배**로 설정합니다
+- 섹션 헤더에는 **Proxima Nova Bold, 대문자**와 자간을 사용하여 문장형 대소문자 헤딩과 대비를 만듭니다
+- 사인오프와 CTA는 **Neusa Wide Bold**를 사용하며, 디지털 환경에서 행동을 나타내기 위해 Cloud Red의 오른쪽 방향 캐럿(**›**)을 사용합니다
+
+### 계층 구조 표
+
+| 요소 | 폰트 | 굵기 | 대소문자 | 비고 |
+|---------|------|--------|------|-------|
+| 헤드라인 | Neusa Wide | Bold (700) | 문장형 | 행간 = 타입 크기의 1.1배 |
+| 아이브로우 | Proxima Nova | Bold (700) | 대문자 | 소형, 자간 적용 |
+| 서브헤드 / 인트로 | Neusa Wide | Medium (500) | 문장형 | 본문 텍스트가 바로 이어질 경우 Proxima Nova 사용 |
+| 섹션 헤더 | Proxima Nova | Bold (700) | 대문자 | 자간 적용 |
+| 서브-서브헤드 | Proxima Nova | Bold (700) | 문장형 | |
+| 본문 텍스트 | Proxima Nova | Regular (400) | 문장형 | |
+| 불릿 포인트 | Proxima Nova | Regular (400) | 문장형 | |
+| 풀 인용구 | Neusa Wide | Bold (700) | 문장형 | Cloud Red 색상; 아래에 출처와 함께 대형 빨간 인용 부호 사용 |
+| 사인오프 / CTA | Neusa Wide | Bold (700) | 문장형 | Cloud Red의 오른쪽 방향 캐럿(›) 포함 |
+
+### 특수 처리
+
+| 맥락 | 폰트 | 굵기 | 크기/행간 | 비고 |
+|---------|------|--------|-------------|-------|
+| 콜래터럴 풀 인용구 | Neusa Wide | Bold (700) | 9pt / 14pt | 문장형 대소문자 |
+| eBook 풀 인용구 | Neusa Wide | Regular (400) | 16pt / 19pt | 위에 선 규칙 포함 |
+| 인포그래픽 숫자/팩토이드 | Neusa Wide | Light (300) | — | 대형 크기에서 시각적 임팩트를 위해 |
+| 차트/바 숫자 | Neusa Wide | Regular (400) | — | 표준 차트 레이블링 |
+
+### 타이틀 케이스 사용
+
+타이틀 케이스는 다음 항목에 사용할 수 있습니다:
+- 서브헤드
+- 풀 인용구
+- 숫자 통계
+- 레이블
+
+그 외 모든 요소는 기본적으로 문장형 대소문자를 사용합니다.
+
+## 라이브 예제
+
+### 헤딩
+
+## Heading Level 2
+
+### Heading Level 3
+
+#### Heading Level 4
+
+##### Heading Level 5
+
+###### Heading Level 6
+
+### 텍스트 스타일
+
+다음은 강조를 위한 **볼드 텍스트**입니다.
+
+다음은 미묘한 강조를 위한 *이탤릭 텍스트*입니다.
+
+다음은 더 이상 사용되지 않는 콘텐츠를 위한 ~~취소선 텍스트~~입니다.
+
+다음은 기술적 참조를 위한 `인라인 코드`입니다.
+
+다음은 강한 강조를 위한 ***볼드 이탤릭 텍스트***입니다.
+
+다음은 조합 예시입니다: **볼드 안에 `인라인 코드`가 있는 경우** 및 *이탤릭 안에 `코드`가 있는 경우*.
+
+### 순서 있는 목록
+
+1. 순서 있는 목록의 첫 번째 항목
+2. **볼드 텍스트**가 포함된 두 번째 항목
+3. `인라인 코드`가 포함된 세 번째 항목
+4. [Astro 링크](https://astro.build)가 포함된 네 번째 항목
+
+### 순서 없는 목록
+
+- 첫 번째 불릿 포인트
+- **강조**가 포함된 두 번째 불릿
+- `코드 참조`가 포함된 세 번째 불릿
+- [링크](https://starlight.astro.build)가 포함된 네 번째 불릿
+
+### 중첩 목록
+
+1. 최상위 순서 있는 항목
+   - 중첩된 순서 없는 항목 A
+   - 중첩된 순서 없는 항목 B
+     1. 깊이 중첩된 순서 있는 항목
+     2. 또 다른 깊이 중첩된 항목
+   - 첫 번째 중첩 수준으로 돌아가기
+2. 두 번째 최상위 항목
+   - 또 다른 중첩 항목
+
+### 블록인용
+
+> 이것은 한 줄짜리 블록인용입니다.
+
+> 이것은 여러 줄에 걸친 블록인용입니다.
+>
+> 여러 단락에 걸쳐 있으며 **볼드**, *이탤릭*, `코드` 형식을 포함할 수 있습니다.
+
+> 중첩 블록인용:
+>
+> > 이것은 외부 블록인용 안에 중첩된 블록인용입니다.
+> >
+> > 자체적인 형식을 포함할 수 있습니다.
+
+### 수평선
+
+수평선 위의 내용.
+
+---
+
+수평선 아래의 내용.
+
+### 링크
+
+- 내부 링크: [문서 개요로 돌아가기](/)
+- 외부 링크: [Starlight 문서](https://starlight.astro.build)
+- 제목이 있는 링크: [Astro](https://astro.build "Astro Framework Homepage")
+
+### 각주
+
+각주 참조가 있는 문장입니다[^1].
+
+다른 각주가 있는 또 다른 문장입니다[^2].
+
+[^1]: 이것은 첫 번째 각주 내용입니다. 페이지 하단에 표시됩니다.
+
+[^2]: 이것은 두 번째 각주입니다. **형식 지정**과 `코드`를 포함할 수 있습니다.
+
+## 폰트 에셋
+
+테마는 `fonts/` 디렉터리에 **10개의 woff2 파일**을 제공합니다:
+
+### Neusa Next Pro Wide
+
+| 파일 | 굵기 | 스타일 | 크기 |
+|------|--------|-------|------|
+| `neusaNextProWide-300.woff2` | 300 (Light) | Normal | ~49 KB |
+| `neusaNextProWide-400.woff2` | 400 (Regular) | Normal | ~49 KB |
+| `neusaNextProWide-400i.woff2` | 400 (Regular) | Italic | ~49 KB |
+| `neusaNextProWide-500.woff2` | 500 (Medium) | Normal | ~49 KB |
+| `neusaNextProWide-700.woff2` | 700 (Bold) | Normal | ~49 KB |
+| `neusaNextProWide-700i.woff2` | 700 (Bold) | Italic | ~49 KB |
+
+### Proxima Nova
+
+| 파일 | 굵기 | 스타일 | 크기 |
+|------|--------|-------|------|
+| `proximaNova-400.woff2` | 400 (Regular) | Normal | ~18 KB |
+| `proximaNova-500.woff2` | 500 (Medium) | Normal | ~18 KB |
+| `proximaNova-600.woff2` | 600 (Semi-Bold) | Normal | ~18 KB |
+| `proximaNova-700.woff2` | 700 (Bold) | Normal | ~18 KB |
+
+### 명명 규칙
+
+폰트 파일은 `familyName-weight.woff2` 패턴을 따르며, 이탤릭 변형에는 `i` 접미사를 붙입니다(예: `neusaNextProWide-400i.woff2`).
+
+### 누락된 변형
+
+다음 이탤릭 변형은 아직 테마에서 사용할 수 없습니다:
+
+| 누락된 변형 | 이유 |
+|----------------|--------|
+| Proxima Nova 400 italic | 현재 다운로드에서 소스 파일을 사용할 수 없음 |
+| Proxima Nova 500 italic | 현재 다운로드에서 소스 파일을 사용할 수 없음 |
+| Proxima Nova 600 italic (Semi-Bold) | 소스 파일을 사용할 수 없음 |
+| Proxima Nova 700 italic (Bold) | 소스 파일을 사용할 수 없음 |
+
+Proxima Nova 이탤릭 변형을 추가하려면, 라이선스 소스에서 정품 woff2 파일을 구하고, 명명 규칙에 따라 이름을 지정한 뒤(예: `proximaNova-400i.woff2`), `font-face.css`에 해당 `@font-face` 규칙을 추가하십시오.
+
+## @font-face 선언
+
+모든 폰트 등록은 `fonts/font-face.css`에 있습니다. 각 선언은 다음을 사용합니다:
+
+- **`font-display: swap`** — 텍스트는 대체 폰트로 즉시 렌더링되며, 커스텀 폰트가 로드되면 교체됩니다
+- **`format("woff2")`** — 현재 모든 브라우저에서 지원되는 최신 압축 형식
+- **상대 URL** — `./` 경로는 CSS 파일 위치를 기준으로 해석됩니다
+
+새 폰트 변형을 추가하려면, `font-face.css`에 `@font-face` 블록을 추가하십시오:
+
+```css
+@font-face {
+  font-family: "familyName";
+  font-weight: 400;
+  font-style: italic;  /* or normal */
+  font-display: swap;
+  src: url("./familyName-400i.woff2") format("woff2");
+}
+```
+
+## CSS 통합
+
+테마 플러그인(`index.ts`)은 `config:setup` 훅을 통해 두 CSS 파일을 모두 주입합니다:
+
+```
+index.ts → fonts/font-face.css → styles/custom.css → Starlight renders
+```
+
+### 폰트 할당
+
+`styles/custom.css`에서:
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+```
+
+- **`--sl-font`** (Starlight 본문 폰트 변수) → 본문 텍스트 및 UI에 Proxima Nova 적용
+- **`--sl-font-heading`** (커스텀 토큰) → 헤딩 폰트 참조를 위한 Neusa Next Pro Wide
+- **`h1`–`h6`** → Cloud 타입 계층 구조에 따라 폰트 패밀리, 굵기, 대소문자 적용
+- **폴백 스택**: 커스텀 폰트가 로드되기 전 빠른 초기 렌더링을 위한 `system-ui, "Segoe UI", Helvetica, Arial, sans-serif`
+
+### Starlight 타이포그래피 토큰
+
+테마는 다음 Starlight CSS 커스텀 속성을 재정의합니다:
+
+| 토큰 | 값 | 목적 |
+|-------|-------|---------|
+| `--sl-font` | `"proximaNova", ...` | 본문 텍스트, UI 요소 |
+| `--sl-font-heading` | `"neusaNextProWide", ...` | 헤딩 폰트를 위한 커스텀 토큰 |
+| `--sl-line-height-headings` | `1.1` | Cloud 브랜드 헤드라인 행간 |
+| `--sl-text-h1` | `var(--sl-text-5xl)` | 2.625rem 헤드라인 |
+| `--sl-text-h2` | `var(--sl-text-3xl)` | 1.8125rem 서브헤드 |
+| `--sl-text-h3` | `var(--sl-text-2xl)` | 1.5rem 섹션 인트로 |
+| `--sl-text-h4` | `var(--sl-text-lg)` | 1.125rem 서브 섹션 |
+
+### 헤딩 계층 구조 매핑
+
+| HTML | 폰트 패밀리 | 굵기 | 대소문자 | 브랜드 역할 |
+|------|------------|--------|------|------------|
+| `h1` | Neusa Next Wide | 700 (Bold) | 문장형 | 헤드라인 |
+| `h2` | Neusa Next Wide | 700 (Bold) | 문장형 | 서브헤드 |
+| `h3` | Neusa Next Wide | 500 (Medium) | 문장형 | 인트로 / 서브-서브헤드 |
+| `h4` | Proxima Nova | 700 (Bold) | 대문자 | 섹션 헤더 |
+| `h5` | Proxima Nova | 700 (Bold) | 대문자 | 서브 섹션 헤더 |
+| `h6` | Proxima Nova | 700 (Bold) | 대문자 | 소규모 섹션 헤더 |
+
+## 폰트 교체
+
+다른 폰트 패밀리를 사용하려면:
+
+1. **woff2 파일을 `fonts/`에 추가**하되 `familyName-weight.woff2` 명명 규칙을 따르십시오(이탤릭에는 `i` 접미사 추가)
+2. **`fonts/font-face.css`를 업데이트**하여 파일 이름, 굵기, 스타일에 맞는 새 `@font-face` 규칙을 추가하십시오
+3. **`styles/custom.css`를 업데이트**하여 `--sl-font`와 헤딩 `font-family`를 새 패밀리 이름으로 설정하십시오
+4. **폴백 스택** (`system-ui, "Segoe UI", Helvetica, Arial, sans-serif`)을 유지하여 커스텀 폰트가 로드되기 전 빠른 초기 렌더링을 보장하십시오
+
+## 테마 확인 사항
+
+- H2와 H3은 `neusaNextProWide` 폰트 패밀리, 굵기 700/500을 사용합니다
+- H4, H5, H6은 `proximaNova` 폰트, 대문자, 자간 0.05em을 사용합니다
+- 링크 강조 색상은 다크 모드에서 `#f06680`, 라이트 모드에서 `#e4002b`입니다
+- 인라인 코드는 `--sl-color-gray-5`에서 가져온 배경 색조를 사용합니다
+- 블록인용 왼쪽 테두리는 두 테마 모두에서 표시됩니다
+- 각주 참조는 위첨자로 표시되고 링크가 연결됩니다
+- 수평선은 적절한 대비를 가집니다

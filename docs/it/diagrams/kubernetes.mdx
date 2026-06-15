@@ -1,0 +1,76 @@
+---
+title: Kubernetes
+description: >-
+  Diagrammi di architettura Kubernetes che mostrano ingress controller, service
+  mesh, rete dei pod e sicurezza dei container con NGINX.
+sidebar:
+  order: 19
+i18n:
+  sourceHash: 4d56bd6f1b35
+  translator: machine
+---
+
+Diagrammi di architettura Kubernetes che coprono ingress controller, pattern di service mesh, rete dei pod e sicurezza dei container con NGINX e l'integrazione F5 XC.
+
+## Kubernetes Ingress con NGINX
+
+Applicazione basata su container con ingress controller NGINX che distribuisce il traffico ai pod frontend e backend.
+
+```mermaid
+architecture-beta
+  group cluster(hashicorp-flight:kubernetes-color)[Kubernetes Cluster]
+  group frontend(carbon:container-services)[Frontend Pods] in cluster
+  group backend(carbon:container-services)[Backend Pods] in cluster
+
+  service ingress(carbon:gateway)[Ingress Controller] in cluster
+  service web(hashicorp-flight:docker-color)[Web App] in frontend
+  service api(carbon:api)[API Service] in backend
+  service db(carbon:data-base)[StatefulSet DB] in backend
+
+  ingress:R --> L:web
+  ingress:B --> T:api
+  api:R --> L:db
+```
+
+## Service Mesh con F5 XC
+
+Service mesh Kubernetes con F5 XC che fornisce bilanciamento del carico esterno, osservabilità e connettività multi-cluster.
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 XC]
+  group mesh(hashicorp-flight:kubernetes-color)[Service Mesh]
+
+  service nginx(f5xc:nginx-one)[NGINX One] in xc
+  service obs(f5xc:observability)[Observability] in xc
+  service proxy1(carbon:server-proxy)[Sidecar Proxy] in mesh
+  service svc1(hashicorp-flight:docker-color)[Service A] in mesh
+  service proxy2(carbon:server-proxy)[Sidecar Proxy] in mesh
+  service svc2(hashicorp-flight:docker-color)[Service B] in mesh
+
+  nginx:R --> L:obs
+  obs:R --> L:proxy1
+  proxy1:R --> L:svc1
+  svc1:B --> T:proxy2
+  proxy2:R --> L:svc2
+```
+
+## Pipeline di Distribuzione Container
+
+Pipeline CI/CD per i deployment Kubernetes che utilizza Helm chart, registro container e rollout automatizzati.
+
+```mermaid
+flowchart LR
+  dev@{ icon: 'lucide:user', label: 'Developer' }
+  repo@{ icon: 'carbon:application', label: 'Git Repo' }
+  ci@{ icon: 'carbon:cloud-services', label: 'CI Pipeline' }
+  registry@{ icon: 'hashicorp-flight:docker-color', label: 'Container Registry' }
+  helm@{ icon: 'hashicorp-flight:helm-color', label: 'Helm Deploy' }
+  k8s@{ icon: 'hashicorp-flight:kubernetes-color', label: 'K8s Cluster' }
+
+  dev --> repo
+  repo --> ci
+  ci --> registry
+  registry --> helm
+  helm --> k8s
+```

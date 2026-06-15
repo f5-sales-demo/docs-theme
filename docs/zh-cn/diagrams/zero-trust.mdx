@@ -1,0 +1,76 @@
+---
+title: 零信任
+description: 零信任网络访问图，展示 ZTNA 架构、身份验证、策略引擎和微分段。
+sidebar:
+  order: 22
+i18n:
+  sourceHash: ff6ae43b8b88
+  translator: machine
+---
+
+零信任架构图，涵盖 ZTNA 访问流程、身份验证、基于策略的访问控制，以及与 F5 XC 集成的微分段。
+
+## 零信任访问流程
+
+包含设备状态检查、身份验证、策略评估和代理应用访问的零信任访问流程。
+
+```mermaid
+flowchart LR
+  user@{ icon: 'lucide:user', label: 'User' }
+  device@{ icon: 'lucide:laptop', label: 'Device Check' }
+  idp@{ icon: 'lucide:key', label: 'Identity Provider' }
+  policy@{ icon: 'lucide:shield-check', label: 'Policy Engine' }
+  proxy@{ icon: 'carbon:server-proxy', label: 'Access Proxy' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> device
+  device --> idp
+  idp --> policy
+  policy --> proxy
+  proxy --> app
+```
+
+## F5 XC 零信任架构
+
+F5 分布式云通过 WAAP、身份感知代理和跨云微分段提供零信任应用访问。
+
+```mermaid
+flowchart TD
+  remote@{ icon: 'lucide:user', label: 'Remote Users' }
+  branch@{ icon: 'lucide:laptop', label: 'Branch Office' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  mcn@{ icon: 'f5xc:multi-cloud-network-connect', label: 'Network Connect' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Apps' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Apps' }
+  onprem@{ icon: 'lucide:server', label: 'On-Premises Apps' }
+
+  remote --> waap
+  branch --> waap
+  waap --> mcn
+  mcn --> aws
+  mcn --> azure
+  mcn --> onprem
+```
+
+## 微分段架构
+
+基于身份策略的网络微分段，控制应用层级之间的东西向流量。
+
+```mermaid
+architecture-beta
+  group trust(lucide:shield)[Zero Trust Fabric]
+  group apps(carbon:cloud-services)[Application Tiers]
+
+  service idp(lucide:key)[Identity Provider] in trust
+  service policy(carbon:gateway-security)[Policy Engine] in trust
+  service seg(carbon:subnet-acl-rules)[Segmentation] in trust
+  service web(carbon:application)[Web Tier] in apps
+  service api(carbon:api)[API Tier] in apps
+  service data(carbon:data-base)[Data Tier] in apps
+
+  idp:R --> L:policy
+  policy:R --> L:seg
+  seg:R --> L:web
+  web:R --> L:api
+  api:R --> L:data
+```

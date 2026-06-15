@@ -1,0 +1,78 @@
+---
+title: Logo
+description: Logo 的配置方式及替换方法。
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+主题会在每个文档站点的页面顶部导航栏中显示 Logo。
+
+## 可用的 Logo 资源
+
+主题在 `assets/` 目录中附带了两个 Logo 文件：
+
+| 文件 | 格式 | 描述 |
+|------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | F5 Logo，颜色为 Cloud Red（`#e4002b`） |
+| `assets/github-avatar.png` | PNG | GitHub 组织头像（默认） |
+
+## 默认 Logo
+
+默认 Logo 在 `config.ts` 的 `createF5xcDocsConfig` 工厂函数中设置：
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+如果未提供 `logo` 选项，则使用 GitHub 头像 PNG 文件。该路径为 npm 包说明符，通过 `package.json` 中的 `exports` 映射进行解析。
+
+## 替换 Logo
+
+### 方式一：使用 F5 SVG Logo
+
+将 `logo` 选项传入 `createF5xcDocsConfig`：
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### 方式二：使用自定义 Logo
+
+将 Logo 文件放置在内容仓库中并引用：
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### 方式三：分别设置亮色和暗色 Logo
+
+Starlight 支持为亮色模式和暗色模式分别设置 Logo：
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## 使用规范
+
+- **使用 SVG 格式** — 位图格式（PNG、JPG）虽然可用，但在不同尺寸下无法清晰缩放
+- **包含 `viewBox` 属性** — 确保 Logo 按比例缩放（例如 `viewBox="0 0 100 100"`）
+- **保持文件体积小** — Logo 会在每个页面加载，建议控制在 10 KB 以内
+- **在两种主题下测试** — 验证 Logo 在亮色模式和暗色模式下均显示正确

@@ -1,0 +1,133 @@
+---
+title: Pipeline de Build
+description: >-
+  Como os repositórios de conteúdo consomem o tema em tempo de build por meio do
+  Docker builder e do pacote npm.
+sidebar:
+  order: 3
+i18n:
+  sourceHash: f305437613ca
+  translator: machine
+---
+
+Esta página descreve como os repositórios de conteúdo consomem o pacote npm `@f5xc-salesdemos/docs-theme` para produzir sites de documentação totalmente personalizados com a identidade visual da marca.
+
+## Arquitetura
+
+```
+┌─────────────────┐
+│  Content Repo   │
+│  (docs/ folder) │
+└────────┬────────┘
+         │
+         ▼
+┌───────────────────────────┐
+│   f5xc-docs-builder       │
+│   (Docker image)          │
+│                           │
+│  npm install              │
+│  @f5xc-salesdemos/docs-theme ─────┐  │
+│                        ▼  │
+│  node_modules/            │
+│    @f5xc-salesdemos/docs-theme/       │
+│      ├── config.ts        │
+│      ├── index.ts         │
+│      ├── fonts/           │
+│      ├── styles/          │
+│      ├── assets/          │
+│      └── components/      │
+│                           │
+│  Astro Build              │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   Astro Build Output      │
+│   (static HTML/CSS)       │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   GitHub Pages            │
+└───────────────────────────┘
+```
+
+## Processo de Build Passo a Passo
+
+1. **Push no repositório de conteúdo** — um push para `main` (ou acionamento manual) dispara o workflow de deploy para o GitHub Pages
+2. **Workflow reutilizável** — o workflow do repositório de conteúdo chama o builder:
+   ```yaml
+   jobs:
+     docs:
+       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+   ```
+3. **Execução do Docker builder** — a imagem Docker `f5xc-docs-builder` já possui o tema pré-instalado via npm. Em tempo de build, ela:
+   - Copia `astro.config.mjs` e `content.config.ts` de `node_modules/@f5xc-salesdemos/docs-theme/` para a raiz do projeto Astro
+   - Copia os arquivos `docs/` do repositório de conteúdo para `src/content/docs/`
+4. **Build do Astro** — o Astro lê a configuração que chama `createF5xcDocsConfig()`. A factory resolve todos os assets do tema por meio de especificadores de pacotes npm (ex.: `@f5xc-salesdemos/docs-theme/styles/custom.css`)
+5. **Deploy** — o site estático gerado é publicado no GitHub Pages
+
+## Requisitos do Repositório de Conteúdo
+
+Um repositório de conteúdo precisa apenas de:
+
+- Um diretório `docs/` contendo arquivos Markdown (`.md`) ou MDX (`.mdx`)
+- Um workflow do GitHub Actions que chame o builder
+
+### Workflow Mínimo
+
+```yaml
+name: GitHub Pages Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+```
+
+Este é o mesmo workflow utilizado pelo próprio repositório do tema para gerar a documentação que você está lendo.
+
+## Resolução de Caminhos
+
+Todos os caminhos no tema utilizam especificadores de pacotes npm, resolvidos por meio do mapa `exports` no `package.json`:
+
+```js
+// CSS — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
+'@f5xc-salesdemos/docs-theme/styles/custom.css'
+
+// Components — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/components/Footer.astro'
+'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+
+// Assets — resolved from node_modules
+'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+```
+
+Não existe um diretório `./theme/` no workspace de build. O Docker builder instala o tema como uma dependência npm regular e o Astro resolve todos os especificadores por meio de `node_modules`.
+
+:::note
+Os caminhos dos arquivos de fonte dentro de `font-face.css` utilizam `./` (ex.: `url("./neusaNextProWide-300.woff2")`). Estes são relativos ao próprio arquivo CSS, portanto resolvem para outros arquivos dentro do diretório `fonts/`, independentemente de como o pacote está instalado.
+:::
+
+## Propagação de Mudanças
+
+As alterações no tema se propagam por meio de atualizações do pacote npm:
+
+1. Uma alteração é mesclada em `main` no `@f5xc-salesdemos/docs-theme`
+2. A imagem Docker do builder é reconstruída com o pacote atualizado
+3. Na próxima vez que o workflow de qualquer repositório de conteúdo for executado, ele utilizará a imagem do builder atualizada
+4. O build do Astro incorpora as fontes, estilos, logotipo, componentes e plugins atualizados
+5. O site do repositório de conteúdo é publicado com o novo tema
+
+Os repositórios de conteúdo sempre recebem o tema mais recente incluído na imagem Docker. Isso garante consistência visual em todos os sites, mas significa que as alterações no tema devem ser testadas cuidadosamente antes de serem mescladas.

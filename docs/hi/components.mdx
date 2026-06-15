@@ -1,0 +1,517 @@
+---
+title: घटक
+description: >-
+  Starlight के अंतर्निहित घटक — asides, tabs, steps, cards, badges, tables,
+  images, और file tree।
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: aadd8fb32c48
+  translator: machine
+---
+
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+
+## Asides
+
+प्रत्येक aside प्रकार अपने डिफ़ॉल्ट शीर्षक के साथ `:::` fence सिंटैक्स का उपयोग करता है।
+
+:::note
+यह एक **note** aside है। यह पाठक को पूरक जानकारी की ओर ध्यान आकर्षित करता है जिसके बारे में उन्हें जागरूक होना चाहिए।
+:::
+
+:::tip
+यह एक **tip** aside है। यह किसी सर्वोत्तम अभ्यास या उपयोगी शॉर्टकट को उजागर करता है।
+:::
+
+:::caution
+यह एक **caution** aside है। यह किसी संभावित समस्या या अस्पष्ट व्यवहार के बारे में चेतावनी देता है।
+:::
+
+:::danger
+यह एक **danger** aside है। यह किसी विनाशकारी या अपरिवर्तनीय क्रिया को चिह्नित करता है।
+:::
+
+### कस्टम शीर्षक
+
+<Aside type="note" title="Custom Note Title">
+यह aside कस्टम शीर्षक ओवरराइड के साथ `<Aside>` घटक का उपयोग करता है।
+</Aside>
+
+<Aside type="tip" title="Pro Tip">
+आप aside घटकों के अंदर **bold**, *italic*, और `inline code` नेस्ट कर सकते हैं।
+</Aside>
+
+<Aside type="caution" title="Watch Out">
+निर्भरताओं को अपग्रेड करते समय सावधान रहें — पहले changelog जांचें।
+</Aside>
+
+<Aside type="danger" title="Destructive Action">
+`git reset --hard` चलाने से uncommitted परिवर्तन स्थायी रूप से हट जाएंगे।
+</Aside>
+
+### Asides के अंदर समृद्ध सामग्री
+
+:::tip[मिश्रित सामग्री के साथ Aside]
+यहाँ एक aside के अंदर एक code block है:
+
+```bash
+npm install @astrojs/starlight
+```
+
+आइटम्स की एक सूची:
+
+- **बोल्ड टेक्स्ट** के साथ पहला आइटम
+- `inline code` के साथ दूसरा आइटम
+- [Starlight docs के लिए लिंक](https://starlight.astro.build) के साथ तीसरा आइटम
+:::
+
+### Aside CSS
+
+Starlight के अंतर्निहित aside घटकों में गोल कोने और एक स्तरित छाया मिलती है:
+
+```css
+.starlight-aside {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+## Tabs
+
+### बुनियादी Tabs
+
+<Tabs>
+  <TabItem label="Overview">
+    यह overview tab की सामग्री है। इसमें बुनियादी tab रेंडरिंग सत्यापित करने के लिए सादा टेक्स्ट है।
+  </TabItem>
+  <TabItem label="Details">
+    यह details tab है। Tabs के बीच स्विच करना बिना पेज रीलोड के तत्काल होना चाहिए।
+  </TabItem>
+</Tabs>
+
+### मिश्रित सामग्री के साथ Tabs
+
+<Tabs>
+  <TabItem label="Text">
+    पहले tab में सादा पैराग्राफ सामग्री।
+  </TabItem>
+  <TabItem label="Code">
+    ```javascript
+    const greeting = "Hello from a code block inside a tab!";
+    console.log(greeting);
+    ```
+  </TabItem>
+  <TabItem label="List">
+    - एक tab के अंदर आइटम एक
+    - **बोल्ड टेक्स्ट** के साथ आइटम दो
+    - `inline code` के साथ आइटम तीन
+  </TabItem>
+</Tabs>
+
+### सिंक्रोनाइज़्ड Tabs
+
+ये दो tab समूह `syncKey="pkg"` साझा करते हैं। एक समूह में tab चुनने से दूसरा भी अपडेट होना चाहिए।
+
+**इंस्टॉल कमांड:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+</Tabs>
+
+**रन कमांड:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+
+## Steps
+
+<Steps>
+
+1. **रिपॉज़िटरी क्लोन करें**
+
+   ```bash
+   git clone https://github.com/example/repo.git
+   cd repo
+   ```
+
+2. **निर्भरताएं इंस्टॉल करें**
+
+   ```bash
+   npm install
+   ```
+
+3. **dev सर्वर शुरू करें**
+
+   ```bash
+   npm run dev
+   ```
+
+   साइट `http://localhost:4321` पर उपलब्ध होगी।
+
+</Steps>
+
+## Cards
+
+### एकल Card
+
+<Card title="Single Card" icon="star">
+  यह एक आइकन के साथ एक स्वतंत्र card है। Cards मुख्य जानकारी या फ़ीचर को उजागर करने के लिए उपयोगी होते हैं।
+</Card>
+
+### Card Grid
+
+<CardGrid>
+  <Card title="Performance" icon="rocket">
+    Astro तेज़ पेज लोड के लिए डिफ़ॉल्ट रूप से zero-JS डिलीवर करता है।
+  </Card>
+  <Card title="Customizable" icon="pencil">
+    Starlight व्यापक थीमिंग और प्लगइन विकल्प प्रदान करता है।
+  </Card>
+  <Card title="Accessible" icon="heart">
+    अंतर्निहित accessibility फ़ीचर यह सुनिश्चित करते हैं कि सामग्री सभी तक पहुंचे।
+  </Card>
+  <Card title="Documented" icon="open-book">
+    व्यापक दस्तावेज़ीकरण शुरुआत को सीधा बनाता है।
+  </Card>
+</CardGrid>
+
+### Stagger लेआउट
+
+<CardGrid stagger>
+  <Card title="Step One" icon="setting">
+    अपने प्रोजेक्ट सेटिंग्स और एनवायरनमेंट वेरिएबल्स कॉन्फ़िगर करें।
+  </Card>
+  <Card title="Step Two" icon="document">
+    MDX फ़ॉर्मेट का उपयोग करके अपने कंटेंट पेज बनाएं।
+  </Card>
+  <Card title="Step Three" icon="laptop">
+    डेवलपमेंट सर्वर के साथ लोकली प्रीव्यू करें।
+  </Card>
+  <Card title="Step Four" icon="rocket">
+    अपनी पसंद के होस्टिंग प्लेटफ़ॉर्म पर डिप्लॉय करें।
+  </Card>
+</CardGrid>
+
+### Link Cards
+
+थीम एक `LinkCard` घटक प्रदान करता है जो आइकन के साथ या बिना काम करता है। इसे थीम से इम्पोर्ट करें:
+
+```mdx
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+```
+
+<CardGrid>
+  <LinkCard
+    title="Starlight Documentation"
+    description="Starlight के साथ दस्तावेज़ीकरण साइट बनाना सीखें।"
+    href="https://starlight.astro.build"
+  />
+  <LinkCard
+    title="Astro Documentation"
+    description="कंटेंट-संचालित वेबसाइटों के लिए Astro फ्रेमवर्क एक्सप्लोर करें।"
+    href="https://docs.astro.build"
+  />
+</CardGrid>
+
+#### आइकन के साथ
+
+`prefix:name` सिंटैक्स का उपयोग करके `icon` prop जोड़ें। सभी आठ आइकन पैक समर्थित हैं — पूर्ण कैटलॉग के लिए [आइकन पैकेज](https://f5xc-salesdemos.github.io/docs-icons/) दस्तावेज़ीकरण देखें।
+
+##### Lucide (`lucide:`)
+
+<CardGrid>
+  <LinkCard
+    icon="lucide:shield-check"
+    title="Web App Firewall"
+    description="फ़ायरवॉल नीतियाँ और कॉन्फ़िगरेशन।"
+    href="https://f5xc-salesdemos.github.io/waf/"
+  />
+  <LinkCard
+    icon="lucide:globe"
+    title="Multi-Cloud Networking"
+    description="क्लाउड के पार साइट कनेक्टिविटी।"
+    href="https://f5xc-salesdemos.github.io/mcn/"
+  />
+</CardGrid>
+
+##### Carbon (`carbon:`)
+
+<CardGrid>
+  <LinkCard
+    icon="carbon:security"
+    title="Security Services"
+    description="IBM Carbon सुरक्षा आइकन सेट।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="carbon:cloud"
+    title="Cloud Services"
+    description="IBM Carbon क्लाउड आइकन सेट।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Material Design Icons (`mdi:`)
+
+<CardGrid>
+  <LinkCard
+    icon="mdi:shield-lock"
+    title="Access Control"
+    description="Material Design shield lock आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="mdi:database"
+    title="Data Management"
+    description="Material Design database आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Phosphor (`phosphor:`)
+
+<CardGrid>
+  <LinkCard
+    icon="phosphor:shield"
+    title="Threat Defense"
+    description="Phosphor shield आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="phosphor:globe"
+    title="Global Network"
+    description="Phosphor globe आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Tabler (`tabler:`)
+
+<CardGrid>
+  <LinkCard
+    icon="tabler:cloud"
+    title="Cloud Platform"
+    description="Tabler cloud आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="tabler:rocket"
+    title="Deployment"
+    description="Tabler rocket आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Brand (`f5-brand:`)
+
+<CardGrid>
+  <LinkCard
+    icon="f5-brand:cloud-shield-checkmark"
+    title="Cloud Security"
+    description="F5 ब्रांडेड cloud shield आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5-brand:security-firewall"
+    title="Firewall"
+    description="F5 ब्रांडेड firewall आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Distributed Cloud (`f5xc:`)
+
+ये आइकन मल्टी-कलर हैं और लाइट/डार्क मोड रंग अनुकूलन के लिए CSS कस्टम प्रॉपर्टीज़ का उपयोग करते हैं।
+
+<CardGrid>
+  <LinkCard
+    icon="f5xc:web-app-and-api-protection"
+    title="App & API Protection"
+    description="F5 XC web app और API सुरक्षा आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5xc:bot-defense"
+    title="Bot Defense"
+    description="F5 XC bot defense आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### HashiCorp Flight (`hashicorp-flight:`)
+
+<CardGrid>
+  <LinkCard
+    icon="hashicorp-flight:terraform-color"
+    title="Terraform"
+    description="HashiCorp Terraform आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="hashicorp-flight:consul-color"
+    title="Consul"
+    description="HashiCorp Consul आइकन।"
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+## Badges
+
+### इनलाइन Badge वेरिएंट
+
+सभी छह badge वेरिएंट इनलाइन रेंडर किए गए:
+
+<Badge text="Default" /> <Badge text="Note" variant="note" /> <Badge text="Danger" variant="danger" /> <Badge text="Success" variant="success" /> <Badge text="Tip" variant="tip" /> <Badge text="Caution" variant="caution" />
+
+### Badge आकार
+
+<Badge text="Small" size="small" /> <Badge text="Medium" size="medium" /> <Badge text="Large" size="large" />
+
+एक वेरिएंट के साथ प्रत्येक आकार:
+
+<Badge text="Small Tip" variant="tip" size="small" /> <Badge text="Medium Danger" variant="danger" size="medium" /> <Badge text="Large Success" variant="success" size="large" />
+
+### Heading Badges
+
+निम्नलिखित headings `starlight-heading-badges` प्लगइन सिंटैक्स का उपयोग करती हैं।
+
+#### Feature Complete :badge[Stable]{variant=success}
+
+इस heading में एक success badge है जो दर्शाता है कि फ़ीचर स्थिर है।
+
+#### Experimental API :badge[Beta]{variant=caution}
+
+इस heading में एक caution badge है जो दर्शाता है कि API प्रयोगात्मक है।
+
+#### Legacy System :badge[Deprecated]{variant=danger}
+
+इस heading में एक danger badge है जो deprecation दर्शाता है।
+
+#### New Feature :badge[New]{variant=tip}
+
+इस heading में एक tip badge है जो नए फ़ीचर को दर्शाता है।
+
+#### Documentation :badge[Updated]{variant=note}
+
+इस heading में एक note badge है जो हाल के अपडेट दर्शाता है।
+
+#### Default Badge :badge[Info]
+
+इस heading में कोई वेरिएंट निर्दिष्ट किए बिना एक डिफ़ॉल्ट badge है।
+
+### Sidebar Badge
+
+साइडबार देखें: इस पेज में frontmatter के माध्यम से `tip` वेरिएंट के साथ "New" badge लगाया गया है।
+
+## Tables
+
+### सरल Table
+
+| फ़ीचर | स्थिति | प्राथमिकता |
+|---------|--------|----------|
+| Dark mode | समर्थित | उच्च |
+| Image zoom | समर्थित | मध्यम |
+| Mermaid diagrams | समर्थित | मध्यम |
+| Heading badges | समर्थित | निम्न |
+
+### संरेखण और Code के साथ Table
+
+| प्रॉपर्टी | प्रकार | डिफ़ॉल्ट | विवरण |
+|:---------|:----:|--------:|:------------|
+| `title` | `string` | — | हेडर में प्रदर्शित पेज शीर्षक |
+| `description` | `string` | `""` | SEO के लिए मेटा विवरण |
+| `sidebar.order` | `number` | `0` | साइडबार में क्रम संख्या |
+| `sidebar.badge` | `object` | `null` | साइडबार लेबल के बगल में badge |
+| `template` | `"doc" \| "splash"` | `"doc"` | पेज लेआउट टेम्पलेट |
+
+## Images
+
+नीचे दी गई छवि `starlight-image-zoom` प्लगइन का परीक्षण करती है। ज़ूम करने के लिए क्लिक करें।
+
+![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+
+## File Tree
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - index.mdx
+      - 01-environment-variables.mdx
+      - 02-build-pipeline.mdx
+      - 03-astro-config.mdx
+      - 04-logo.mdx
+      - 05-colors.mdx
+      - 07-typography.mdx
+      - 08-code-blocks.mdx
+      - **09-components.mdx** यह पेज
+      - 10-mermaid.mdx
+      - 11-footer.mdx
+      - 12-style-enhancement-guide.mdx
+  - plugins/
+    - remark-mermaid.mjs
+- styles/
+  - custom.css
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## थीम जांच
+
+- प्रत्येक aside वेरिएंट के लिए border-left रंग अलग-अलग होता है (नीला, बैंगनी, पीला, लाल)
+- Aside पृष्ठभूमि टिंट लाइट और डार्क दोनों मोड में दिखाई देती है
+- Box-shadow प्रत्येक aside के चारों ओर सूक्ष्म लेकिन दृश्यमान है
+- सभी asides पर गोल कोने (0.75rem)
+- Tab सक्रिय संकेतक रंग accent रंग का उपयोग करता है
+- Step connector रेखा क्रमांकित steps के बीच दृश्यमान है
+- Groups के बीच स्विच करते समय सिंक्रोनाइज़्ड tabs सिंक में रहते हैं
+- Tabs के अंदर code blocks उचित syntax highlighting के साथ रेंडर होते हैं
+- Card border रंग लाइट और डार्क मोड के बीच अनुकूलित होता है
+- Cards पर hover background प्रभाव दृश्यमान है
+- LinkCard arrow आइकन रंग accent रंग से मेल खाता है
+- Stagger लेआउट वैकल्पिक cards को लंबवत ऑफ़सेट करता है
+- Card headers के अंदर आइकन सही तरह से रेंडर होते हैं
+- वेरिएंट के अनुसार Badge पृष्ठभूमि रंग डार्क और लाइट मोड के बीच भिन्न होते हैं
+- डार्क मोड badges गहरे टोन का उपयोग करते हैं (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
+- लाइट मोड badges हल्के टोन का उपयोग करते हैं (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
+- Heading badges heading टेक्स्ट के साथ इनलाइन संरेखित होते हैं
+- Sidebar badge पेज लेबल के बगल में रेंडर होता है
+- Table border रंग लाइट और डार्क मोड के बीच अनुकूलित होते हैं
+- Table header पंक्ति में एक अलग पृष्ठभूमि होती है
+- Image zoom overlay क्लिक पर काम करता है (starlight-image-zoom)
+- FileTree पृष्ठभूमि थीम-उपयुक्त रंगों का उपयोग करती है
+- आइकन वर्तमान टेक्स्ट रंग इनहेरिट करते हैं

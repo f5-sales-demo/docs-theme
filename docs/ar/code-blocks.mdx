@@ -1,0 +1,228 @@
+---
+title: كتل الكود
+description: >-
+  تمييز بناء الجملة، وضع الطرفية، تمييز الأسطر، كتل الفروق، ومرجع CSS لتنسيق
+  Expressive Code.
+sidebar:
+  order: 8
+i18n:
+  sourceHash: b458d0378db1
+  translator: machine
+---
+
+تستخدم جميع كتل الكود [Expressive Code](https://expressive-code.com/) مع تنسيق مخصص معرَّف في `styles/custom.css`.
+
+## أمثلة على اللغات
+
+### JavaScript
+
+```js
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log(fibonacci(10)); // 55
+```
+
+### Python
+
+```python
+def fibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print(fibonacci(10))  # 55
+```
+
+### Bash
+
+```bash
+#!/bin/bash
+for i in $(seq 1 5); do
+  echo "Iteration $i"
+done
+```
+
+### YAML
+
+```yaml
+site:
+  title: Documentation
+  base: /
+  integrations:
+    - starlight
+    - react
+```
+
+### JSON
+
+```json
+{
+  "name": "@f5xc-salesdemos/docs-theme",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js"
+}
+```
+
+### HTML
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Page</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+  </body>
+</html>
+```
+
+### CSS
+
+```css
+:root {
+  --sl-color-accent: #f06680;
+  --sl-font: "proximaNova", system-ui;
+}
+
+h1 {
+  font-family: var(--sl-font-heading);
+  font-weight: 700;
+}
+```
+
+### TypeScript
+
+```ts
+interface Config {
+  title: string;
+  base: string;
+  plugins: string[];
+}
+
+const config: Config = {
+  title: "Documentation",
+  base: "/",
+  plugins: ["starlight", "react"],
+};
+```
+
+## وضع الطرفية
+
+تحصل كتل الكود بأسلوب الطرفية (المسوَّرة بـ ` ```bash ` أو ` ```sh `) على إطار نافذة مستوحى من iTerm مع نقاط إشارات المرور الخاصة بنظام macOS.
+
+```bash title="Terminal"
+npm install @f5xc-salesdemos/docs-theme
+npx astro build
+npx astro preview
+```
+
+### مرجع CSS للطرفية
+
+```css
+/* Frame border */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Dark header with traffic light SVG dots */
+.expressive-code .frame.is-terminal .header {
+  background: #323232 !important;
+  color: #ccc !important;
+}
+
+/* Dark mode terminal body — Tokyo Night-inspired */
+:root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
+  background: #1a1b26 !important;
+}
+
+/* Light mode border override */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## عناوين أسماء الملفات
+
+```ts title="src/config.ts"
+export default {
+  site: "https://example.com",
+  title: "My Docs",
+};
+```
+
+## تمييز الأسطر
+
+```js {1,3-5}
+const name = "highlighted"; // line 1 highlighted
+const other = "normal";
+const a = 1; // lines 3-5 highlighted
+const b = 2;
+const c = 3;
+const d = "normal again";
+```
+
+## الأسطر المُدرجة والمحذوفة
+
+```js ins={2} del={3}
+const config = {
+  theme: "dark", // inserted
+  theme: "light", // deleted
+  lang: "en",
+};
+```
+
+## كتل الفروق
+
+```diff
+- const oldValue = "deprecated";
++ const newValue = "replacement";
+  const unchanged = "stays";
+- removeThis();
++ addThis();
+```
+
+## مرجع CSS
+
+### تنسيق الإطار
+
+تحصل جميع كتل الكود على زوايا مدوَّرة وظل متعدد الطبقات:
+
+```css
+.expressive-code .frame {
+  --header-border-radius: 0.75rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+### حدود مدركة للسمة
+
+```css
+/* Dark mode (default) */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Light mode */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## فحوصات السمة
+
+- يتكيف لون خلفية كتلة الكود مع السمة
+- خلفية رأس الطرفية هي `#323232` مع نقاط إشارات المرور الخاصة بنظام macOS
+- تستخدم حدود الطرفية `rgba(255, 255, 255, 0.15)` في الوضع الداكن، و`rgba(0, 0, 0, 0.2)` في الوضع الفاتح
+- يستخدم جسم الطرفية في الوضع الداكن `#1a1b26`
+- تبقى ألوان بناء الجملة مقروءة في كلا السمتين
+- يمتلك تمييز الأسطر صبغة خلفية مرئية
+- تُظهر الأسطر المُدرجة صبغة خضراء، وتُظهر الأسطر المحذوفة صبغة حمراء
+- تمتلك كتل الكود نصف قطر حدود مقداره 0.75rem وظل للصندوق

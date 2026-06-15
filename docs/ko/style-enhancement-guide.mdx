@@ -1,0 +1,598 @@
+---
+title: 스타일 개선 가이드
+description: '@f5xc-salesdemos/docs-theme의 디자인 시스템 토큰 참조'
+sidebar:
+  order: 12
+i18n:
+  sourceHash: f0fb4524cc1c
+  translator: machine
+---
+
+이 가이드는 `styles/custom.css`에 구현된 디자인 시스템 토큰과 컴포넌트 클래스를 문서화합니다. 테마 전반에 걸쳐 사용되는 테두리, 표면, 그림자, 반경, 버튼, 그라데이션, 전환, 포커스, 타이포그래피 토큰의 참조 자료로 활용됩니다.
+
+> **상태**: 아래에 설명된 모든 디자인 토큰과 컴포넌트 클래스가 구현되어 사용 가능합니다.
+
+## 이 가이드 읽는 방법
+
+각 섹션은 토큰 카테고리를 문서화합니다:
+
+1. **토큰 정의** — 라이트/다크 모드 값이 적용된 CSS 커스텀 프로퍼티
+2. **컴포넌트 매핑** — 각 토큰을 사용하는 테마 컴포넌트
+3. **구현 참고사항** — 사용 지침 및 접근성 고려사항
+
+값이 다를 경우 토큰 표는 **라이트 모드**와 **다크 모드**로 구분됩니다.
+
+---
+
+## 1. 색상 시스템
+
+### 알파 투명 테두리
+
+테마는 단색 회색 대신 **알파 투명 테두리**를 사용합니다. 이를 통해 테두리가 어떤 배경에도 자연스럽게 적응합니다.
+
+```css
+/* 알파 투명 테두리 패턴 */
+border: 1px solid var(--f5-border-default);  /* 20% 알파의 중립색 */
+```
+
+#### 테두리 토큰
+
+```css
+/* 라이트 모드 */
+:root[data-theme='light'] {
+  --f5-border-faint: #3434341a;    /* --f5-black-3, 10% */
+  --f5-border-default: #34343433;  /* --f5-black-3, 20% */
+  --f5-border-strong: #22222266;   /* --f5-black-4, 40% */
+}
+
+/* 다크 모드 */
+:root {
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2, 10% */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2, 20% */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4, 40% */
+}
+```
+
+#### 테두리 사용 사례
+
+| 토큰 | 불투명도 | 사용 사례 |
+|---|---|---|
+| `--f5-border-faint` | 10% | 미묘한 구분선, 테이블 행 |
+| `--f5-border-default` | 20% | 기본 테두리, 카드 외곽선 |
+| `--f5-border-strong` | 40% | 강조 테두리, 활성 상태 |
+
+> **상태**: 완료 — `styles/custom.css`에 구현됨.
+
+### 인터랙티브 표면 색상
+
+호버 및 활성 상태를 위한 시맨틱 표면 토큰입니다.
+
+#### 라이트 모드 표면
+
+| 토큰 | 값 | 목적 |
+|---|---|---|
+| `--f5-white` | `#ffffff` | 메인 배경 |
+| `--f5-white-1` | `#faf9f7` | 사이드바, 미묘한 영역 |
+| `--f5-white-2` | `#f5f5f5` | 높인 표면 |
+| `--f5-surface-hover` | `var(--f5-white-2)` | 호버 채우기 |
+| `--f5-surface-active` | `var(--f5-white-3)` | 눌림/활성 채우기 |
+
+#### 다크 모드 표면
+
+| 토큰 | 값 | 목적 |
+|---|---|---|
+| `--f5-black` | `#000000` | 메인 배경 |
+| `--f5-black-4` | `#222222` | 사이드바, 미묘한 영역 |
+| `--f5-surface-hover` | `var(--f5-black-3)` | 호버 채우기 |
+| `--f5-surface-active` | `var(--f5-black-2)` | 눌림/활성 채우기 |
+
+#### 표면 토큰 정의
+
+```css
+:root[data-theme='light'] {
+  --f5-surface-hover: var(--f5-white-2);     /* #f5f5f5 */
+  --f5-surface-active: var(--f5-white-3);    /* #e6e6e6 */
+}
+
+:root {
+  --f5-surface-hover: var(--f5-black-3);     /* #343434 */
+  --f5-surface-active: var(--f5-black-2);    /* #666666 */
+}
+```
+
+> **상태**: 완료 — `styles/custom.css`에 구현됨.
+
+---
+
+## 2. 고도 및 그림자 시스템
+
+### 그림자 스케일
+
+테마는 자연스러운 깊이감을 위해 이중 레이어 값의 **중립 색조 알파 그림자**를 사용합니다. 라이트 모드는 `--f5-black-3`(`#343434`)을 색조 기준으로 사용하고, 다크 모드는 `#cccccc`를 사용합니다.
+
+#### 라이트 모드 그림자
+
+```css
+:root[data-theme='light'] {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #3434341a;
+  --f5-shadow-low:
+    0px 1px 1px 0px #3434340d,
+    0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #3434341a,
+    0px 8px 16px -10px #34343433;
+  --f5-shadow-high:
+    0px 2px 3px 0px #34343426,
+    0px 16px 16px -10px #34343433;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #3434341a,
+    0px 12px 28px 0px #34343440;
+}
+```
+
+#### 다크 모드 그림자
+
+```css
+:root {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #cccccc0d;
+  --f5-shadow-low:
+    0px 1px 1px 0px #cccccc0a,
+    0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #cccccc0d,
+    0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high:
+    0px 2px 3px 0px #cccccc1a,
+    0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #cccccc0d,
+    0px 12px 28px 0px #cccccc26;
+}
+```
+
+### 컴포넌트 그림자 매핑
+
+| 컴포넌트 | 그림자 레벨 |
+|---|---|
+| `.swatch`, `.icon-card` | `--f5-shadow-low` (기본 상태) |
+| `.starlight-aside` | `--f5-shadow-low` |
+| `.expressive-code .frame` | `--f5-shadow-mid` |
+| `.mermaid-container` | `--f5-shadow-mid` |
+| 호버 시 카드 | `--f5-shadow-mid` |
+| 드롭다운, 팝오버 | `--f5-shadow-high` |
+| 모달 | `--f5-shadow-higher` |
+
+> **상태**: 완료 — 모든 그림자 레벨(`inset`, `low`, `mid`, `high`, `higher`)이 `styles/custom.css`에 구현됨.
+
+---
+
+## 3. 테두리 반경 스케일
+
+### 반경 토큰
+
+```css
+:root {
+  --f5-radius-xs: 0.1875rem;   /* 3px — 배지, 태그 */
+  --f5-radius-sm: 0.3125rem;   /* 5px — 내비게이션 항목, 소형 컨트롤 */
+  --f5-radius-md: 0.375rem;    /* 6px — 카드, 코드 블록 */
+  --f5-radius-lg: 0.5rem;      /* 8px — 모달, 대형 컨테이너 */
+  --f5-radius-full: 999px;     /* 필, 완전 둥근 모양 */
+}
+```
+
+### 컴포넌트 반경 매핑
+
+| 컴포넌트 | 반경 토큰 |
+|---|---|
+| `.swatch` | `--f5-radius-md` (6px) |
+| `.icon-card` | `--f5-radius-md` (6px) |
+| `.starlight-aside` | `--f5-radius-md` (6px) |
+| `.expressive-code .frame` | `--f5-radius-md` (6px) |
+| `.mermaid-container` | `--f5-radius-lg` (8px) |
+| `.edit-link` | `--f5-radius-full` (필) |
+| 사이드바 내비게이션 항목 | `--f5-radius-sm` (5px) |
+| 배지 | `--f5-radius-xs` (3px) |
+
+> **상태**: 완료 — 반경 스케일(`xs`, `sm`, `md`, `lg`, `full`)이 `styles/custom.css`에 구현됨.
+
+---
+
+## 4. 사이드바 내비게이션 스타일링
+
+### 사이드바 항목 스타일
+
+```css
+/* 사이드바 내비게이션 항목 */
+nav.sidebar a {
+  border-radius: var(--f5-radius-sm);    /* 5px */
+  padding: 0.25rem 0.5rem;               /* 4px 8px */
+  min-height: 2.25rem;                    /* 36px */
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* 라이트 모드 호버 */
+:root[data-theme='light'] nav.sidebar a:hover {
+  background-color: var(--f5-white-2);   /* #f5f5f5 */
+}
+
+/* 다크 모드 호버 */
+:root nav.sidebar a:hover {
+  background-color: var(--f5-black-3);   /* #343434 */
+}
+
+/* 현재 페이지 표시 */
+nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-white-3);   /* #e6e6e6 라이트 */
+  font-weight: 600;
+}
+
+:root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-black-2);   /* #666666 → 가독성에 맞게 조정 */
+}
+```
+
+### 왼쪽 강조 표시
+
+```css
+nav.sidebar a[aria-current="page"] {
+  border-left: 3px solid var(--sl-color-accent);
+  padding-left: calc(0.5rem - 3px);  /* 테두리 보정 */
+}
+```
+
+> **상태**: 완료 — 사이드바 호버, 활성, 강조 표시가 `styles/custom.css`에 구현됨.
+
+---
+
+## 5. 버튼 시스템
+
+### 버튼 변형
+
+```css
+/* 기본(Primary) — F5 레드를 브랜드 액션으로 사용 */
+.btn-primary {
+  background: var(--f5-red);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover {
+  background: var(--f5-red-3);
+  box-shadow: var(--f5-shadow-low);
+}
+
+/* 보조(Secondary) — 외곽선 스타일 */
+.btn-secondary {
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover {
+  background: var(--f5-surface-hover);
+  border-color: var(--f5-border-strong);
+}
+
+/* 3차(Tertiary) — 고스트/텍스트 전용 */
+.btn-tertiary {
+  background: transparent;
+  color: var(--sl-color-accent);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+}
+.btn-tertiary:hover {
+  background: var(--f5-surface-hover);
+}
+```
+
+### 버튼 크기 스케일
+
+| 크기 | 패딩 | 폰트 크기 | 최소 높이 |
+|---|---|---|---|
+| 소 | `0.375rem 0.75rem` | `0.8125rem` (13px) | `32px` |
+| 중 (기본) | `0.625rem 1rem` | `0.875rem` (14px) | `40px` |
+| 대 | `0.75rem 1.5rem` | `1rem` (16px) | `48px` |
+
+> **상태**: 완료 — 모든 버튼 변형(`primary`, `secondary`, `tertiary`, `critical`)과 크기 스케일(`sm`, 기본, `lg`)이 `styles/custom.css`에 구현됨.
+
+---
+
+## 6. 히어로 및 헤더 배경
+
+### 히어로 그라데이션
+
+F5 브랜드 팔레트를 사용합니다:
+
+```css
+/* 기본 히어로 그라데이션 — River 블루 */
+.hero-gradient-primary {
+  background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
+  /* #6e8dcc → #0e41aa */
+}
+
+/* 미묘한 페이지 워시 — 은은한 따뜻한 톤 */
+:root[data-theme='light'] .hero-gradient-faint {
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
+}
+:root .hero-gradient-faint {
+  background: linear-gradient(180deg, #222222 0%, #000000 100%);
+}
+
+/* 기능 페이지용 에그플랜트 변형 */
+.hero-gradient-eggplant {
+  background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
+  /* #9c59c9 → #62228b */
+}
+
+/* 공지사항용 레드 브랜드 변형 */
+.hero-gradient-red {
+  background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
+  /* #f06680 → #e4002b */
+}
+```
+
+### 그라데이션 오버레이 기법
+
+```css
+/* 깊이감을 위한 방사형 비네트 */
+.hero-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* 페이지 배경으로의 하단 페이드 */
+.hero-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+```
+
+> **상태**: 완료 — 히어로 그라데이션(`primary`, `eggplant`, `red`, `faint`)과 오버레이(`hero-fade`, `hero-vignette`)가 `styles/custom.css`에 구현됨.
+
+---
+
+## 7. 호버 효과 및 전환
+
+### 전환 토큰
+
+```css
+:root {
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+```
+
+| 토큰 | 지속 시간 | 이징 | 사용 사례 |
+|---|---|---|---|
+| `--f5-transition-fast` | `0.15s` | `ease` | 대부분의 호버 상태, 색상 변경 |
+| `--f5-transition-base` | `0.2s` | `ease` | 배경 채우기, 테두리 변경 |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | 스위치, 토글 |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | 탭 표시자, 슬라이딩 패널 |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | 툴팁, 팝오버 진입 |
+
+### 애니메이션 적용 가능 속성
+
+| 속성 | 애니메이션 가능 여부 | 참고사항 |
+|---|---|---|
+| `background-color` | 가능 | 호버 채우기에 표준적으로 사용 |
+| `color` | 가능 | 텍스트 색상 변경 |
+| `border-color` | 가능 | 호버 시 테두리 강조 |
+| `box-shadow` | 가능 | 고도 변경 (끊김 현상 시 `will-change` 사용) |
+| `transform` | 가능 | 피드백을 위한 크기 조정, 이동 |
+| `opacity` | 가능 | 페이드 인/아웃 |
+| `width`, `height` | 피할 것 | 레이아웃 리플로우 유발 |
+| `padding`, `margin` | 피할 것 | 레이아웃 리플로우 유발 |
+
+### 컴포넌트 전환 매핑
+
+```css
+/* 사이드바 내비게이션 항목 */
+nav.sidebar a {
+  transition: background-color var(--f5-transition-fast),
+              color var(--f5-transition-fast);
+}
+
+/* 카드 — 호버 시 그림자 상승 */
+.swatch, .icon-card {
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+.swatch:hover, .icon-card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+/* 버튼 */
+.btn-primary, .btn-secondary, .btn-tertiary {
+  transition: background-color var(--f5-transition-fast),
+              border-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+
+/* 링크 */
+a {
+  transition: color var(--f5-transition-fast);
+}
+```
+
+> **상태**: 완료 — 5가지 전환 토큰(`fast`, `base`, `bounce`, `decelerate`, `spring`)과 컴포넌트 전환이 `styles/custom.css`에 구현됨.
+
+---
+
+## 8. 포커스 링 시스템
+
+### 포커스 링 토큰
+
+테마는 인셋 내부 링과 외부 광선이 있는 **이중 링** 패턴을 사용합니다:
+
+```css
+/* 액션 포커스 — F5 River 블루 사용 */
+:root {
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
+
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+  /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
+}
+
+/* 인터랙티브 요소에 적용 */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--f5-focus-action);
+}
+
+/* 파괴적 버튼의 Critical 변형 */
+.btn-critical:focus-visible {
+  box-shadow: var(--f5-focus-critical);
+}
+```
+
+### 접근성 참고사항
+
+- 이중 링 패턴은 **WCAG 2.2 포커스 표시** 요구사항(최소 2px 대비 외곽선)을 충족합니다
+- `outline` 대신 `box-shadow`를 사용하면 border-radius가 적용됩니다
+- `:focus-visible`을 통해 마우스 클릭이 아닌 키보드 내비게이션 시에만 링이 표시됩니다
+
+> **상태**: 완료 — 이중 링 포커스 패턴(`action`, `critical`)과 `:focus-visible` 스타일이 `styles/custom.css`에 구현됨.
+
+---
+
+## 9. 타이포그래피
+
+### 폰트 스택
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-font-heading: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-line-height-headings: 1.1;
+}
+```
+
+### 타입 스케일
+
+| 스케일 | 크기 | 줄 높이 | 사용처 |
+|---|---|---|---|
+| Display 500 | `1.875rem` (30px) | 1.267 | `--sl-text-h1` |
+| Display 400 | `1.5rem` (24px) | 1.333 | `--sl-text-h2` |
+| Display 300 | `1.125rem` (18px) | 1.333 | `--sl-text-h3` |
+| Display 200 | `1rem` (16px) | 1.5 | `--sl-text-h4` |
+| Display 100 | `0.8125rem` (13px) | 1.385 | 오버라인 텍스트 |
+| Body 300 | `1rem` (16px) | 1.5 | 기본 본문 |
+| Body 200 | `0.875rem` (14px) | 1.429 | 사이드바 텍스트, 캡션 |
+| Body 100 | `0.8125rem` (13px) | 1.385 | 소형 인쇄 |
+
+### 주요 특성
+
+| 항목 | 값 | 참고사항 |
+|---|---|---|
+| 제목 줄 높이 | `1.1` | 브랜드 임팩트를 위한 조밀한 제목; 가독성을 위해 `1.2` 고려 가능 |
+| 본문 줄 높이 | `1.5` (Starlight 기본값) | 읽기에 적합 |
+| 폰트 패밀리 | 커스텀 브랜드 폰트 | proximaNova (본문), neusaNextProWide (제목) |
+| 제목 굵기 | `h1-h2: 700, h3: 500, h4-h6: 700 대문자` | 브랜드 일관성을 위한 의견 반영 |
+
+> **우선순위**: 변경 불필요. 현재 타이포그래피는 잘 정의되어 있으며 브랜드에 적합합니다. 제목 줄 높이(`1.1`에서 `1.2`)의 미세 조정은 선택 사항입니다.
+
+---
+
+## 10. 구현 변경 이력
+
+모든 디자인 토큰은 5개의 스프린트에 걸쳐 구현되었습니다:
+
+| 스프린트 | 범위 | 추가된 토큰 |
+|---|---|---|
+| 1. 기반 | 그림자 + 테두리 반경 | `--f5-shadow-*` (5단계), `--f5-radius-*` (5단계) |
+| 2. 사이드바 + 표면 | 내비게이션 + 인터랙티브 토큰 | `--f5-surface-hover`, `--f5-surface-active`, `--f5-border-*` (3단계), `--f5-transition-fast` |
+| 3. 버튼 | 컴포넌트 시스템 | `.btn-primary`, `.btn-secondary`, `.btn-tertiary`, `.btn-critical`, 크기 변형 |
+| 4. 히어로 그라데이션 | 배경 유틸리티 | `.hero-gradient-primary`, `-eggplant`, `-red`, `-faint`, `.hero-vignette`, `.hero-fade` |
+| 5. 포커스 + 전환 | 접근성 + 마감 | `--f5-focus-action`, `--f5-focus-critical`, `--f5-transition-*` (5개 토큰), 카드 호버 효과 |
+
+---
+
+## 빠른 참조: 토큰 요약
+
+### 모든 커스텀 프로퍼티
+
+```css
+:root {
+  /* 테두리 반경 스케일 */
+  --f5-radius-xs: 0.1875rem;     /* 3px */
+  --f5-radius-sm: 0.3125rem;     /* 5px */
+  --f5-radius-md: 0.375rem;      /* 6px */
+  --f5-radius-lg: 0.5rem;        /* 8px */
+  --f5-radius-full: 999px;
+
+  /* 전환 타이밍 */
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+
+  /* 포커스 링 */
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+
+  /* 다크 모드 그림자 (기본값) */
+  --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
+
+  /* 다크 모드 테두리 */
+  --f5-border-faint: #f5f5f51a;
+  --f5-border-default: #f5f5f533;
+  --f5-border-strong: #cccccc66;
+
+  /* 다크 모드 표면 */
+  --f5-surface-hover: var(--f5-black-3);
+  --f5-surface-active: var(--f5-black-2);
+}
+
+:root[data-theme='light'] {
+  /* 라이트 모드 그림자 */
+  --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
+  --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
+  --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
+
+  /* 라이트 모드 테두리 */
+  --f5-border-faint: #3434341a;
+  --f5-border-default: #34343433;
+  --f5-border-strong: #22222266;
+
+  /* 라이트 모드 표면 */
+  --f5-surface-hover: var(--f5-white-2);
+  --f5-surface-active: var(--f5-white-3);
+}
+```

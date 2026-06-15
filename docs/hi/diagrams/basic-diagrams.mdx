@@ -1,0 +1,104 @@
+---
+title: बुनियादी आरेख
+description: >-
+  मौलिक Mermaid आरेख प्रकार जिनमें फ्लोचार्ट, अनुक्रम, पाई, क्लास, स्टेट और गैंट
+  चार्ट शामिल हैं।
+sidebar:
+  order: 3
+i18n:
+  sourceHash: 98e8e087ae2f
+  translator: machine
+---
+
+सामान्य-उद्देश्य दस्तावेज़ीकरण के लिए मुख्य Mermaid आरेख प्रकार। ये किसी भी कस्टम आइकन पैक के बिना काम करते हैं।
+
+## फ्लोचार्ट
+
+```mermaid
+flowchart LR
+  A[User Request] --> B{WAF Check}
+  B -->|Pass| C[Origin Server]
+  B -->|Block| D[403 Forbidden]
+  C --> E[Response]
+```
+
+## अनुक्रम आरेख
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant LB as Load Balancer
+  participant App as Application
+  participant DB as Database
+
+  Client->>LB: HTTPS Request
+  LB->>App: Forward Request
+  App->>DB: Query Data
+  DB-->>App: Return Results
+  App-->>LB: Response
+  LB-->>Client: HTTPS Response
+```
+
+## पाई चार्ट
+
+```mermaid
+pie title Traffic Distribution
+  "North America" : 45
+  "Europe" : 30
+  "Asia Pacific" : 20
+  "Other" : 5
+```
+
+## क्लास आरेख
+
+```mermaid
+classDiagram
+  class LoadBalancer {
+    +String name
+    +String domain
+    +addOriginPool()
+    +removeOriginPool()
+  }
+  class OriginPool {
+    +String name
+    +List~Origin~ origins
+    +healthCheck()
+  }
+  class Origin {
+    +String address
+    +int port
+    +boolean healthy
+  }
+  LoadBalancer --> OriginPool
+  OriginPool --> Origin
+```
+
+## स्टेट आरेख
+
+```mermaid
+stateDiagram-v2
+  [*] --> Pending
+  Pending --> Active : approve
+  Pending --> Rejected : reject
+  Active --> Suspended : suspend
+  Suspended --> Active : reactivate
+  Active --> [*] : delete
+  Rejected --> [*]
+```
+
+## गैंट चार्ट
+
+```mermaid
+gantt
+  title Deployment Timeline
+  dateFormat YYYY-MM-DD
+  section Planning
+    Requirements     :a1, 2025-01-01, 14d
+    Design           :a2, after a1, 10d
+  section Development
+    Implementation   :b1, after a2, 21d
+    Testing          :b2, after b1, 14d
+  section Release
+    Staging Deploy   :c1, after b2, 3d
+    Production Deploy :c2, after c1, 2d
+```

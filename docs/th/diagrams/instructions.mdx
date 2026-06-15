@@ -1,0 +1,97 @@
+---
+title: คำแนะนำ
+description: >-
+  เอกสารอ้างอิงไวยากรณ์ไดอะแกรม Mermaid ชุดไอคอนที่ใช้งานได้ การจัดสไตล์ CSS
+  และรายละเอียดความเข้ากันได้กับธีม
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 5ce5851823d9
+  translator: machine
+---
+
+ธีมนี้มีปลั๊กอิน `remark-mermaid` แบบกำหนดเอง (`plugins/remark-mermaid.mjs`) ที่แปลงบล็อกโค้ด ` ```mermaid ` แบบมีรั้วเป็น wrapper `<div class="mermaid-container">` สคริปต์ Mermaid CDN จะเรนเดอร์ไดอะแกรม SVG เมื่อโหลดหน้า
+
+## ไวยากรณ์ไอคอน
+
+### ผังงาน (Flowcharts)
+
+ใช้ไวยากรณ์โหนด `@\{\}` เพื่อเพิ่มไอคอนจากชุดไอคอนที่ลงทะเบียนไว้:
+
+```
+nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
+```
+
+### ไดอะแกรมสถาปัตยกรรม
+
+ประเภทไดอะแกรม `architecture-beta` รองรับการกำหนด service และ group ด้วยโหนดที่ตกแต่งด้วยไอคอน:
+
+```
+service myService(pack:icon-name)[Label]
+group myGroup(pack:icon-name)[Label]
+```
+
+## ชุดไอคอนที่ใช้งานได้
+
+ชุดไอคอนต่อไปนี้ได้รับการลงทะเบียนและพร้อมใช้งานในไดอะแกรม Mermaid ไอคอนจะถูกโหลดแบบ lazy จาก CDN เฉพาะเมื่อมีการอ้างอิงเท่านั้น
+
+| ชื่อ Pack | npm Package | ไอคอนหลัก |
+|-----------|-------------|-----------|
+| `hashicorp-flight` | `@f5xc-salesdemos/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
+| `f5-brand` | `@f5xc-salesdemos/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
+| `f5xc` | `@f5xc-salesdemos/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
+| `carbon` | `@f5xc-salesdemos/icons-carbon` | `cloud-services`, `data-base`, `gateway-api`, `virtual-machine`, `load-balancer-global`, `firewall`, `dns-services`, `virtual-private-cloud` |
+| `lucide` | `@f5xc-salesdemos/icons-lucide` | `server`, `database`, `shield`, `shield-check`, `globe`, `lock`, `cloud`, `network`, `user` |
+| `mdi` | `@f5xc-salesdemos/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `dns`, `vpn`, `router` |
+| `phosphor` | `@f5xc-salesdemos/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock`, `network` |
+| `tabler` | `@f5xc-salesdemos/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `route`, `router` |
+| `azure` | `@f5xc-salesdemos/icons-azure` | `virtual-networks`, `load-balancers`, `firewalls`, `virtual-network-gateways`, `virtual-machine`, `public-ip-addresses`, `route-tables`, `subnet` |
+
+## เอกสารอ้างอิง CSS
+
+### การจัดสไตล์คอนเทนเนอร์
+
+ไดอะแกรม Mermaid จะถูกห่อด้วยคอนเทนเนอร์ที่มีสไตล์พร้อมมุมโค้งมนและเงากล่องแบบหลายชั้น:
+
+```css
+.mermaid-container {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+  margin-block: 1.5rem;
+  background: #fff;
+}
+```
+
+### การรีเซ็ต Pre Element
+
+การจัดสไตล์ `<pre>` เริ่มต้นของ Starlight จะถูกลบออกจาก wrapper mermaid เพื่อให้มองเห็นเฉพาะเส้นขอบคอนเทนเนอร์ด้านนอกเท่านั้น:
+
+```css
+.mermaid-container pre.mermaid {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+```
+
+### การบังคับพื้นหลัง SVG
+
+SVG ภายในถูกบังคับให้มีพื้นหลังสีขาวเพื่อความเข้ากันได้กับโหมดมืด:
+
+```css
+.mermaid-container svg {
+  background: white !important;
+  border-radius: 0.5rem;
+}
+```
+
+## การตรวจสอบธีม
+
+- `.mermaid-container` มีพื้นหลัง SVG สีขาวในโหมดมืด
+- เส้นขอบคอนเทนเนอร์ใช้ `--sl-color-gray-5`
+- คอนเทนเนอร์มี border radius ขนาด 0.75rem และเงากล่องแบบหลายชั้น
+- ไดอะแกรมอ่านได้ทั้งในธีมสว่างและธีมมืด
+- สคริปต์ Mermaid CDN โหลดและเรนเดอร์ SVG เมื่อโหลดหน้า

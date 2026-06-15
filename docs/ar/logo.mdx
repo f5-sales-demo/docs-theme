@@ -1,0 +1,78 @@
+---
+title: الشعار
+description: كيفية تكوين الشعار وكيفية استبداله.
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+تعرض السمة شعاراً في رأس الموقع لكل موقع توثيق.
+
+## أصول الشعار المتاحة
+
+تأتي السمة مع ملفَي شعار في مجلد `assets/`:
+
+| الملف | الصيغة | الوصف |
+|------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | شعار F5 باللون الأحمر السحابي (`#e4002b`) |
+| `assets/github-avatar.png` | PNG | صورة رمزية لمنظمة GitHub (الافتراضية) |
+
+## الشعار الافتراضي
+
+يُعيَّن الشعار الافتراضي في مصنع `createF5xcDocsConfig` داخل ملف `config.ts`:
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+إذا لم يُقدَّم خيار `logo`، تُستخدم صورة PNG الرمزية لـ GitHub. المسار هو محدد حزمة npm يُحلَّل عبر خريطة `exports` في `package.json`.
+
+## استبدال الشعار
+
+### الخيار الأول: استخدام شعار F5 بصيغة SVG
+
+مرّر خيار `logo` إلى `createF5xcDocsConfig`:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### الخيار الثاني: استخدام شعار مخصص
+
+ضع ملف الشعار في مستودع المحتوى وأشر إليه:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### الخيار الثالث: شعاران منفصلان للوضع الفاتح والداكن
+
+يدعم Starlight شعاراً منفصلاً لكل من الوضع الفاتح والوضع الداكن:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## الإرشادات
+
+- **استخدم صيغة SVG** — ستعمل الصور النقطية (PNG، JPG) ولكنها لن تتوسع بشكل نظيف في جميع الأحجام
+- **أدرج خاصية `viewBox`** — تضمن توسع الشعار بشكل متناسب (مثلاً، `viewBox="0 0 100 100"`)
+- **احرص على صغر حجم الملف** — يُحمَّل الشعار في كل صفحة؛ استهدف أن يكون أقل من 10 كيلوبايت
+- **اختبر في كلا السمتين** — تحقق من أن الشعار يبدو صحيحاً في كل من الوضع الفاتح والوضع الداكن

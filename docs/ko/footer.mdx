@@ -1,0 +1,111 @@
+---
+title: 푸터
+description: 소셜 미디어 링크가 포함된 커스텀 Starlight 푸터 구성 요소.
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+이 테마는 기본 Starlight 푸터를 커스텀 `Footer.astro` 구성 요소로 교체하여 표준 푸터 콘텐츠 아래에 소셜 미디어 링크를 추가합니다.
+
+## 구성 요소 패턴
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+이 패턴은 기본 푸터를 완전히 교체하는 것이 아니라 **확장**합니다. `<Default {...Astro.props}><slot /></Default>`는 원래 Starlight 푸터(이전/다음 내비게이션)를 렌더링하고, 그 아래에 소셜 링크가 추가됩니다.
+
+## 등록 방법
+
+푸터 오버라이드는 `index.ts`의 Starlight 플러그인에서 등록됩니다. `config:setup` 훅 실행 시 `Footer` 구성 요소 오버라이드를 설정합니다:
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+콘텐츠 저장소에서는 푸터를 수동으로 등록할 필요가 없으며, 테마 플러그인이 로드될 때 자동으로 적용됩니다.
+
+## 소셜 링크
+
+| 플랫폼 | URL | 아이콘 색상 | Aria 레이블 |
+|----------|-----|------------|------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Facebook 블루) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (상속) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (LinkedIn 블루) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Instagram 핑크) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (YouTube 레드) | YouTube |
+
+각 링크는 보안을 위해 `rel="noopener noreferrer"`와 함께 새 탭(`target="_blank"`)에서 열립니다.
+
+## CSS 스타일링
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+링크는 플렉스 행에서 오른쪽 정렬되며, 호버 시 미묘한 투명도 효과가 적용됩니다.
+
+## 커스터마이징
+
+### URL 변경
+
+`@f5xc-salesdemos/docs-theme` 패키지 내 `components/Footer.astro`의 해당 `<a>` 태그에서 `href` 속성을 수정하십시오.
+
+### 링크 추가
+
+`.social-links` div 내에 24x24 SVG 아이콘을 포함한 새 `<a>` 요소를 추가하십시오. 기존 패턴을 따르십시오:
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### 링크 제거
+
+제거하려는 플랫폼의 전체 `<a>...</a>` 블록을 삭제하십시오.
+
+### 아이콘 색상 변경
+
+`<svg>` 요소의 `fill` 속성을 수정하십시오. 텍스트 색상을 상속하려면 `currentColor`를 사용하고, 브랜드 색상에는 특정 16진수 값을 사용하십시오.
+
+### 레이아웃 변경
+
+`<style>` 블록의 `.social-links` CSS를 수정하십시오:
+- **가운데 정렬**: `justify-content`를 `center`로 변경
+- **넓은 간격**: `gap` 값 증가
+- **왼쪽 정렬**: `justify-content`를 `flex-start`로 변경

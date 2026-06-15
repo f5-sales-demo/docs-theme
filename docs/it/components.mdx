@@ -1,0 +1,517 @@
+---
+title: Componenti
+description: >-
+  Componenti integrati di Starlight — note, schede, passaggi, card, badge,
+  tabelle, immagini e albero dei file.
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: aadd8fb32c48
+  translator: machine
+---
+
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+
+## Note
+
+Ogni tipo di nota utilizza la sintassi del delimitatore `:::` con il titolo predefinito.
+
+:::note
+Questa è una nota di tipo **note**. Richiama l'attenzione su informazioni supplementari di cui il lettore dovrebbe essere a conoscenza.
+:::
+
+:::tip
+Questa è una nota di tipo **tip**. Evidenzia una buona pratica o una scorciatoia utile.
+:::
+
+:::caution
+Questa è una nota di tipo **caution**. Avverte di una potenziale insidia o di un comportamento non ovvio.
+:::
+
+:::danger
+Questa è una nota di tipo **danger**. Segnala un'azione distruttiva o irreversibile.
+:::
+
+### Titoli personalizzati
+
+<Aside type="note" title="Titolo nota personalizzato">
+Questa nota utilizza il componente `<Aside>` con un titolo personalizzato.
+</Aside>
+
+<Aside type="tip" title="Suggerimento avanzato">
+È possibile annidare **grassetto**, *corsivo* e `codice inline` all'interno dei componenti note.
+</Aside>
+
+<Aside type="caution" title="Attenzione">
+Prestare attenzione quando si aggiornano le dipendenze — verificare prima il changelog.
+</Aside>
+
+<Aside type="danger" title="Azione distruttiva">
+L'esecuzione di `git reset --hard` scarterà in modo permanente le modifiche non salvate.
+</Aside>
+
+### Contenuto avanzato nelle note
+
+:::tip[Nota con contenuto misto]
+Ecco un blocco di codice all'interno di una nota:
+
+```bash
+npm install @astrojs/starlight
+```
+
+Un elenco di elementi:
+
+- Primo elemento con **testo in grassetto**
+- Secondo elemento con `codice inline`
+- Terzo elemento con un [link alla documentazione di Starlight](https://starlight.astro.build)
+:::
+
+### CSS delle note
+
+I componenti note integrati di Starlight hanno angoli arrotondati e un'ombra a più livelli:
+
+```css
+.starlight-aside {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+## Schede
+
+### Schede di base
+
+<Tabs>
+  <TabItem label="Panoramica">
+    Questo è il contenuto della scheda panoramica. Contiene testo semplice per verificare il rendering di base delle schede.
+  </TabItem>
+  <TabItem label="Dettagli">
+    Questa è la scheda dei dettagli. Il passaggio tra le schede dovrebbe essere immediato senza ricaricare la pagina.
+  </TabItem>
+</Tabs>
+
+### Schede con contenuto misto
+
+<Tabs>
+  <TabItem label="Testo">
+    Contenuto di paragrafo semplice nella prima scheda.
+  </TabItem>
+  <TabItem label="Codice">
+    ```javascript
+    const greeting = "Hello from a code block inside a tab!";
+    console.log(greeting);
+    ```
+  </TabItem>
+  <TabItem label="Elenco">
+    - Elemento uno all'interno di una scheda
+    - Elemento due con **testo in grassetto**
+    - Elemento tre con `codice inline`
+  </TabItem>
+</Tabs>
+
+### Schede sincronizzate
+
+Questi due gruppi di schede condividono `syncKey="pkg"`. La selezione di una scheda in un gruppo deve aggiornare anche l'altro.
+
+**Comando di installazione:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+</Tabs>
+
+**Comando di esecuzione:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+
+## Passaggi
+
+<Steps>
+
+1. **Clonare il repository**
+
+   ```bash
+   git clone https://github.com/example/repo.git
+   cd repo
+   ```
+
+2. **Installare le dipendenze**
+
+   ```bash
+   npm install
+   ```
+
+3. **Avviare il server di sviluppo**
+
+   ```bash
+   npm run dev
+   ```
+
+   Il sito sarà disponibile all'indirizzo `http://localhost:4321`.
+
+</Steps>
+
+## Card
+
+### Card singola
+
+<Card title="Card singola" icon="star">
+  Questa è una card autonoma con un'icona. Le card sono utili per evidenziare informazioni o funzionalità chiave.
+</Card>
+
+### Griglia di card
+
+<CardGrid>
+  <Card title="Prestazioni" icon="rocket">
+    Astro fornisce zero JS per impostazione predefinita per caricamenti di pagina rapidi.
+  </Card>
+  <Card title="Personalizzabile" icon="pencil">
+    Starlight offre ampie opzioni di tematizzazione e plugin.
+  </Card>
+  <Card title="Accessibile" icon="heart">
+    Le funzionalità di accessibilità integrate garantiscono che il contenuto raggiunga tutti.
+  </Card>
+  <Card title="Documentato" icon="open-book">
+    Una documentazione completa rende semplice l'avvio.
+  </Card>
+</CardGrid>
+
+### Layout sfalsato
+
+<CardGrid stagger>
+  <Card title="Fase uno" icon="setting">
+    Configurare le impostazioni del progetto e le variabili d'ambiente.
+  </Card>
+  <Card title="Fase due" icon="document">
+    Creare le pagine di contenuto utilizzando il formato MDX.
+  </Card>
+  <Card title="Fase tre" icon="laptop">
+    Visualizzare l'anteprima in locale con il server di sviluppo.
+  </Card>
+  <Card title="Fase quattro" icon="rocket">
+    Distribuire sulla piattaforma di hosting preferita.
+  </Card>
+</CardGrid>
+
+### Link Card
+
+Il tema fornisce un componente `LinkCard` che funziona con o senza icone. Importarlo dal tema:
+
+```mdx
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+```
+
+<CardGrid>
+  <LinkCard
+    title="Documentazione di Starlight"
+    description="Scopri come creare siti di documentazione con Starlight."
+    href="https://starlight.astro.build"
+  />
+  <LinkCard
+    title="Documentazione di Astro"
+    description="Esplora il framework Astro per siti web basati sui contenuti."
+    href="https://docs.astro.build"
+  />
+</CardGrid>
+
+#### Con icone
+
+Aggiungere una prop `icon` utilizzando la sintassi `prefisso:nome`. Tutti e otto i pacchetti di icone sono supportati — consultare la documentazione dei [Pacchetti di icone](https://f5xc-salesdemos.github.io/docs-icons/) per il catalogo completo.
+
+##### Lucide (`lucide:`)
+
+<CardGrid>
+  <LinkCard
+    icon="lucide:shield-check"
+    title="Firewall per applicazioni web (WAF)"
+    description="Policy e configurazione del firewall."
+    href="https://f5xc-salesdemos.github.io/waf/"
+  />
+  <LinkCard
+    icon="lucide:globe"
+    title="Rete multi-cloud"
+    description="Connettività dei siti tra cloud."
+    href="https://f5xc-salesdemos.github.io/mcn/"
+  />
+</CardGrid>
+
+##### Carbon (`carbon:`)
+
+<CardGrid>
+  <LinkCard
+    icon="carbon:security"
+    title="Servizi di Sicurezza"
+    description="Set di icone di sicurezza IBM Carbon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="carbon:cloud"
+    title="Servizi Cloud"
+    description="Set di icone cloud IBM Carbon."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Material Design Icons (`mdi:`)
+
+<CardGrid>
+  <LinkCard
+    icon="mdi:shield-lock"
+    title="Controllo degli accessi"
+    description="Icona lucchetto scudo Material Design."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="mdi:database"
+    title="Gestione dei dati"
+    description="Icona database Material Design."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Phosphor (`phosphor:`)
+
+<CardGrid>
+  <LinkCard
+    icon="phosphor:shield"
+    title="Difesa dalle minacce"
+    description="Icona scudo Phosphor."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="phosphor:globe"
+    title="Rete globale"
+    description="Icona globo Phosphor."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Tabler (`tabler:`)
+
+<CardGrid>
+  <LinkCard
+    icon="tabler:cloud"
+    title="Piattaforma Cloud"
+    description="Icona cloud Tabler."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="tabler:rocket"
+    title="Distribuzione"
+    description="Icona razzo Tabler."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Brand (`f5-brand:`)
+
+<CardGrid>
+  <LinkCard
+    icon="f5-brand:cloud-shield-checkmark"
+    title="Sicurezza Cloud"
+    description="Icona scudo cloud F5 branded."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5-brand:security-firewall"
+    title="Firewall"
+    description="Icona firewall F5 branded."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Distributed Cloud (`f5xc:`)
+
+Queste icone sono multicolore e utilizzano proprietà personalizzate CSS per l'adattamento dei colori in modalità chiara/scura.
+
+<CardGrid>
+  <LinkCard
+    icon="f5xc:web-app-and-api-protection"
+    title="Protezione di app e API"
+    description="Icona F5 XC di protezione per app web e API."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5xc:bot-defense"
+    title="Difesa Bot"
+    description="Icona F5 XC di difesa bot."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### HashiCorp Flight (`hashicorp-flight:`)
+
+<CardGrid>
+  <LinkCard
+    icon="hashicorp-flight:terraform-color"
+    title="Terraform"
+    description="Icona HashiCorp Terraform."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="hashicorp-flight:consul-color"
+    title="Consul"
+    description="Icona HashiCorp Consul."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+## Badge
+
+### Varianti di badge inline
+
+Tutte e sei le varianti di badge rese inline:
+
+<Badge text="Predefinito" /> <Badge text="Nota" variant="note" /> <Badge text="Pericolo" variant="danger" /> <Badge text="Successo" variant="success" /> <Badge text="Suggerimento" variant="tip" /> <Badge text="Attenzione" variant="caution" />
+
+### Dimensioni dei badge
+
+<Badge text="Piccolo" size="small" /> <Badge text="Medio" size="medium" /> <Badge text="Grande" size="large" />
+
+Ogni dimensione con una variante:
+
+<Badge text="Suggerimento piccolo" variant="tip" size="small" /> <Badge text="Pericolo medio" variant="danger" size="medium" /> <Badge text="Successo grande" variant="success" size="large" />
+
+### Badge nelle intestazioni
+
+Le intestazioni seguenti utilizzano la sintassi del plugin `starlight-heading-badges`.
+
+#### Funzionalità completata :badge[Stabile]{variant=success}
+
+Questa intestazione ha un badge di successo che indica che la funzionalità è stabile.
+
+#### API sperimentale :badge[Beta]{variant=caution}
+
+Questa intestazione ha un badge di attenzione che indica che l'API è sperimentale.
+
+#### Sistema legacy :badge[Deprecato]{variant=danger}
+
+Questa intestazione ha un badge di pericolo che indica la deprecazione.
+
+#### Nuova funzionalità :badge[Nuovo]{variant=tip}
+
+Questa intestazione ha un badge di suggerimento che indica una nuova funzionalità.
+
+#### Documentazione :badge[Aggiornato]{variant=note}
+
+Questa intestazione ha un badge di nota che indica aggiornamenti recenti.
+
+#### Badge predefinito :badge[Info]
+
+Questa intestazione ha un badge predefinito senza variante specificata.
+
+### Badge nella barra laterale
+
+Controllare la barra laterale: questa pagina ha un badge "Nuovo" con la variante `tip` applicata tramite frontmatter.
+
+## Tabelle
+
+### Tabella semplice
+
+| Funzionalità | Stato | Priorità |
+|---------|--------|----------|
+| Modalità scura | Supportata | Alta |
+| Zoom immagine | Supportato | Media |
+| Diagrammi Mermaid | Supportati | Media |
+| Badge nelle intestazioni | Supportati | Bassa |
+
+### Tabella con allineamento e codice
+
+| Proprietà | Tipo | Predefinito | Descrizione |
+|:---------|:----:|--------:|:------------|
+| `title` | `string` | — | Titolo della pagina visualizzato nell'intestazione |
+| `description` | `string` | `""` | Meta descrizione per la SEO |
+| `sidebar.order` | `number` | `0` | Ordine di ordinamento nella barra laterale |
+| `sidebar.badge` | `object` | `null` | Badge mostrato accanto all'etichetta della barra laterale |
+| `template` | `"doc" \| "splash"` | `"doc"` | Template di layout della pagina |
+
+## Immagini
+
+L'immagine sottostante verifica il plugin `starlight-image-zoom`. Fare clic per ingrandire.
+
+![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+
+## Albero dei file
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - index.mdx
+      - 01-environment-variables.mdx
+      - 02-build-pipeline.mdx
+      - 03-astro-config.mdx
+      - 04-logo.mdx
+      - 05-colors.mdx
+      - 07-typography.mdx
+      - 08-code-blocks.mdx
+      - **09-components.mdx** Questa pagina
+      - 10-mermaid.mdx
+      - 11-footer.mdx
+      - 12-style-enhancement-guide.mdx
+  - plugins/
+    - remark-mermaid.mjs
+- styles/
+  - custom.css
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## Verifiche del tema
+
+- Il colore del bordo sinistro differisce per ogni variante di nota (blu, viola, giallo, rosso)
+- La tinta di sfondo della nota è visibile sia in modalità chiara che scura
+- L'ombra è sottile ma visibile attorno a ciascuna nota
+- Angoli arrotondati (0.75rem) su tutte le note
+- Il colore dell'indicatore della scheda attiva utilizza il colore di accento
+- La linea di connessione dei passaggi è visibile tra i passaggi numerati
+- Le schede sincronizzate rimangono sincronizzate quando si passa da un gruppo all'altro
+- I blocchi di codice all'interno delle schede vengono renderizzati con la corretta evidenziazione della sintassi
+- Il colore del bordo della card si adatta tra le modalità chiara e scura
+- L'effetto di sfondo al passaggio del mouse è visibile sulle card
+- Il colore dell'icona freccia della LinkCard corrisponde al colore di accento
+- Il layout sfalsato sposta verticalmente le card alternate
+- Le icone vengono renderizzate correttamente nelle intestazioni delle card
+- I colori di sfondo dei badge per variante differiscono tra le modalità scura e chiara
+- I badge in modalità scura utilizzano toni profondi (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
+- I badge in modalità chiara utilizzano toni chiari (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
+- I badge nelle intestazioni si allineano inline con il testo dell'intestazione
+- Il badge della barra laterale viene renderizzato accanto all'etichetta della pagina
+- I colori dei bordi della tabella si adattano tra le modalità chiara e scura
+- La riga dell'intestazione della tabella ha uno sfondo distinto
+- La sovrapposizione dello zoom dell'immagine funziona al clic (starlight-image-zoom)
+- Lo sfondo dell'albero dei file utilizza colori appropriati al tema
+- Le icone ereditano il colore del testo corrente

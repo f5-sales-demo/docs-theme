@@ -1,0 +1,79 @@
+---
+title: Zero Trust
+description: >-
+  Diagramas de acceso a redes de confianza cero (ZTNA) que muestran la
+  arquitectura ZTNA, verificación de identidad, motor de políticas y
+  micro-segmentación.
+sidebar:
+  order: 22
+i18n:
+  sourceHash: ff6ae43b8b88
+  translator: machine
+---
+
+Diagramas de arquitectura de confianza cero que cubren flujos de acceso ZTNA, verificación de identidad, control de acceso basado en políticas y micro-segmentación con integración de F5 XC.
+
+## Flujo de Acceso de Confianza Cero
+
+Flujo de acceso de confianza cero con verificación de postura del dispositivo, verificación de identidad, evaluación de políticas y acceso a aplicaciones mediante proxy.
+
+```mermaid
+flowchart LR
+  user@{ icon: 'lucide:user', label: 'User' }
+  device@{ icon: 'lucide:laptop', label: 'Device Check' }
+  idp@{ icon: 'lucide:key', label: 'Identity Provider' }
+  policy@{ icon: 'lucide:shield-check', label: 'Policy Engine' }
+  proxy@{ icon: 'carbon:server-proxy', label: 'Access Proxy' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> device
+  device --> idp
+  idp --> policy
+  policy --> proxy
+  proxy --> app
+```
+
+## Arquitectura de Confianza Cero de F5 XC
+
+F5 Distributed Cloud proporcionando acceso a aplicaciones de confianza cero con WAAP, proxy con reconocimiento de identidad y micro-segmentación a través de nubes.
+
+```mermaid
+flowchart TD
+  remote@{ icon: 'lucide:user', label: 'Remote Users' }
+  branch@{ icon: 'lucide:laptop', label: 'Branch Office' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  mcn@{ icon: 'f5xc:multi-cloud-network-connect', label: 'Network Connect' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Apps' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Apps' }
+  onprem@{ icon: 'lucide:server', label: 'On-Premises Apps' }
+
+  remote --> waap
+  branch --> waap
+  waap --> mcn
+  mcn --> aws
+  mcn --> azure
+  mcn --> onprem
+```
+
+## Arquitectura de Micro-Segmentación
+
+Micro-segmentación de red con políticas basadas en identidad que controlan el tráfico este-oeste entre los niveles de la aplicación.
+
+```mermaid
+architecture-beta
+  group trust(lucide:shield)[Zero Trust Fabric]
+  group apps(carbon:cloud-services)[Application Tiers]
+
+  service idp(lucide:key)[Identity Provider] in trust
+  service policy(carbon:gateway-security)[Policy Engine] in trust
+  service seg(carbon:subnet-acl-rules)[Segmentation] in trust
+  service web(carbon:application)[Web Tier] in apps
+  service api(carbon:api)[API Tier] in apps
+  service data(carbon:data-base)[Data Tier] in apps
+
+  idp:R --> L:policy
+  policy:R --> L:seg
+  seg:R --> L:web
+  web:R --> L:api
+  api:R --> L:data
+```

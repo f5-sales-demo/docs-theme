@@ -1,0 +1,111 @@
+---
+title: फ़ुटर
+description: सोशल मीडिया लिंक के साथ कस्टम Starlight फ़ुटर घटक।
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+थीम डिफ़ॉल्ट Starlight फ़ुटर को एक कस्टम `Footer.astro` घटक से प्रतिस्थापित करती है, जो मानक फ़ुटर सामग्री के नीचे सोशल मीडिया लिंक जोड़ता है।
+
+## घटक पैटर्न
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+यह पैटर्न डिफ़ॉल्ट फ़ुटर को पूरी तरह प्रतिस्थापित करने के बजाय उसे **विस्तारित** करता है। `<Default {...Astro.props}><slot /></Default>` मूल Starlight फ़ुटर (पिछला/अगला नेविगेशन) को रेंडर करता है, फिर सोशल लिंक नीचे जोड़े जाते हैं।
+
+## यह कैसे पंजीकृत होता है
+
+फ़ुटर ओवरराइड को Starlight प्लगइन द्वारा `index.ts` में पंजीकृत किया जाता है। `config:setup` हुक के दौरान, यह `Footer` घटक ओवरराइड सेट करता है:
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+कंटेंट रिपॉज़िटरी को फ़ुटर को मैन्युअल रूप से पंजीकृत करने की आवश्यकता नहीं है — यह थीम प्लगइन लोड होने पर स्वचालित रूप से लागू हो जाता है।
+
+## सोशल लिंक
+
+| प्लेटफ़ॉर्म | URL | आइकन रंग | Aria लेबल |
+|----------|-----|------------|------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Facebook Blue) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (inherits) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (LinkedIn Blue) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Instagram Pink) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (YouTube Red) | YouTube |
+
+प्रत्येक लिंक सुरक्षा के लिए `rel="noopener noreferrer"` के साथ एक नए टैब (`target="_blank"`) में खुलता है।
+
+## CSS स्टाइलिंग
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+लिंक एक flex रो में दाईं ओर संरेखित हैं और होवर पर एक सूक्ष्म ओपेसिटी प्रभाव दिखाते हैं।
+
+## अनुकूलन
+
+### URL बदलना
+
+`@f5xc-salesdemos/docs-theme` पैकेज के अंदर `components/Footer.astro` में संबंधित `<a>` टैग पर `href` विशेषता संपादित करें।
+
+### एक लिंक जोड़ना
+
+`.social-links` div के अंदर 24x24 SVG आइकन के साथ एक नया `<a>` एलिमेंट जोड़ें। मौजूदा पैटर्न का अनुसरण करें:
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### एक लिंक हटाना
+
+जिस प्लेटफ़ॉर्म को आप हटाना चाहते हैं, उसके लिए पूरा `<a>...</a>` ब्लॉक हटा दें।
+
+### आइकन रंग बदलना
+
+`<svg>` एलिमेंट पर `fill` विशेषता संशोधित करें। टेक्स्ट रंग इनहेरिट करने के लिए `currentColor` का उपयोग करें, या ब्रांड रंगों के लिए एक विशिष्ट hex मान दें।
+
+### लेआउट बदलना
+
+`<style>` ब्लॉक में `.social-links` CSS संशोधित करें:
+- **केंद्र संरेखण**: `justify-content` को `center` में बदलें
+- **अधिक स्पेसिंग**: `gap` मान बढ़ाएं
+- **बाएं संरेखण**: `justify-content` को `flex-start` में बदलें
