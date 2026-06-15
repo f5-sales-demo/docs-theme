@@ -9,9 +9,18 @@ const LOCALES = ['fr', 'es', 'de', 'pt-br', 'ja', 'ko', 'zh-cn', 'zh-tw', 'ar', 
 const CONCURRENCY = 8;
 
 const LOCALE_NAMES: Record<string, string> = {
-  fr: 'Français', es: 'Español', de: 'Deutsch', 'pt-br': 'Português (Brasil)',
-  ja: '日本語', ko: '한국어', 'zh-cn': '简体中文', 'zh-tw': '繁體中文',
-  ar: 'العربية', it: 'Italiano', hi: 'हिन्दी', th: 'ไทย',
+  fr: 'Français',
+  es: 'Español',
+  de: 'Deutsch',
+  'pt-br': 'Português (Brasil)',
+  ja: '日本語',
+  ko: '한국어',
+  'zh-cn': '简体中文',
+  'zh-tw': '繁體中文',
+  ar: 'العربية',
+  it: 'Italiano',
+  hi: 'हिन्दी',
+  th: 'ไทย',
 };
 
 function collectFiles(dir: string): string[] {
@@ -60,13 +69,13 @@ function discoverJobs(repos: string[]): TranslationJob[] {
         }
         const { data: lfm } = matter(fs.readFileSync(lf, 'utf-8'));
         const enT = enFm.title?.trim?.() || '';
-        const lT = (typeof lfm.title === 'string' ? lfm.title.trim() : '');
+        const lT = typeof lfm.title === 'string' ? lfm.title.trim() : '';
         if (enT && lT && lT === enT && isLikelyEnglish(lT)) {
           jobs.push({ repo, enFile: ef, relPath: rel, locale: loc, reason: 'untranslated' });
           continue;
         }
-        const enS = (typeof enFm.sidebar?.label === 'string' ? enFm.sidebar.label.trim() : '');
-        const lS = (typeof lfm.sidebar?.label === 'string' ? lfm.sidebar.label.trim() : '');
+        const enS = typeof enFm.sidebar?.label === 'string' ? enFm.sidebar.label.trim() : '';
+        const lS = typeof lfm.sidebar?.label === 'string' ? lfm.sidebar.label.trim() : '';
         if (enS && lS && lS === enS && isLikelyEnglish(lS)) {
           jobs.push({ repo, enFile: ef, relPath: rel, locale: loc, reason: 'untranslated' });
           continue;
@@ -147,12 +156,10 @@ async function translateOne(job: TranslationJob): Promise<boolean> {
     if (translatedFm.hero.tagline) merged.hero.tagline = translatedFm.hero.tagline;
     if (translatedFm.hero.title) merged.hero.title = translatedFm.hero.title;
     if (translatedFm.hero.actions) {
-      merged.hero.actions = merged.hero.actions?.map(
-        (action: Record<string, unknown>, i: number) => ({
-          ...action,
-          text: translatedFm.hero.actions?.[i]?.text || action.text,
-        }),
-      );
+      merged.hero.actions = merged.hero.actions?.map((action: Record<string, unknown>, i: number) => ({
+        ...action,
+        text: translatedFm.hero.actions?.[i]?.text || action.text,
+      }));
     }
   }
   merged.i18n = { sourceHash, translator: 'machine' };
@@ -198,12 +205,14 @@ if (!apiKey) {
 }
 
 const targetRepos = process.argv.slice(2).filter((a) => !a.startsWith('--'));
-const repos = targetRepos.length > 0
-  ? targetRepos
-  : fs.readdirSync(ECOSYSTEM_ROOT, { withFileTypes: true })
-      .filter((e) => e.isDirectory() && fs.existsSync(path.join(ECOSYSTEM_ROOT, e.name, 'docs', 'en')))
-      .map((e) => e.name)
-      .sort();
+const repos =
+  targetRepos.length > 0
+    ? targetRepos
+    : fs
+        .readdirSync(ECOSYSTEM_ROOT, { withFileTypes: true })
+        .filter((e) => e.isDirectory() && fs.existsSync(path.join(ECOSYSTEM_ROOT, e.name, 'docs', 'en')))
+        .map((e) => e.name)
+        .sort();
 
 console.log(`Scanning ${repos.length} repo(s) for translation gaps...`);
 const jobs = discoverJobs(repos);
@@ -215,7 +224,9 @@ if (jobs.length === 0) {
 
 const missing = jobs.filter((j) => j.reason === 'missing').length;
 const untranslated = jobs.filter((j) => j.reason === 'untranslated').length;
-console.log(`Found ${jobs.length} translations needed: ${missing} missing files, ${untranslated} untranslated frontmatter`);
+console.log(
+  `Found ${jobs.length} translations needed: ${missing} missing files, ${untranslated} untranslated frontmatter`,
+);
 console.log(`Running with concurrency=${CONCURRENCY}...\n`);
 
 const { succeeded, failed, total } = await runWithConcurrency(jobs, CONCURRENCY);
