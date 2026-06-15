@@ -196,23 +196,9 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
           const slug = filePathToSlug(relativePath);
           const baseName = path.basename(relativePath, path.extname(relativePath));
           if (baseName === 'index') return null;
-          let title = '';
-          try {
-            const raw = fs.readFileSync(filePath, 'utf-8');
-            const parsed = matter(raw);
-            if (typeof parsed.data.title === 'string' && parsed.data.title.trim()) {
-              title = parsed.data.title.trim();
-            }
-          } catch {
-            /* skip */
-          }
-          if (!title) {
-            title = baseName.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-          }
-          return { label: title, slug: slug.replace(/^\/|\/$/g, '') } as SidebarLink;
+          return { slug: slug.replace(/^\/|\/$/g, '') } as SidebarLink;
         })
-        .filter((item): item is SidebarLink => item !== null)
-        .sort((a, b) => a.label.localeCompare(b.label));
+        .filter((item): item is SidebarLink => item !== null);
 
       if (links.length > 0) {
         sidebar.push({
@@ -250,7 +236,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       label: 'Guides',
       collapsed: true,
       translations: sidebarTranslations.Guides,
-      items: guides.sort(byTitle).map((g) => ({ label: g.title, slug: g.slug.replace(/^\/|\/$/g, '') })),
+      items: guides.sort(byTitle).map((g) => ({ slug: g.slug.replace(/^\/|\/$/g, '') })),
     });
   }
 
@@ -260,7 +246,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       label: 'Functions',
       collapsed: true,
       translations: sidebarTranslations.Functions,
-      items: functions.sort(byTitle).map((f) => ({ label: f.title, slug: f.slug.replace(/^\/|\/$/g, '') })),
+      items: functions.sort(byTitle).map((f) => ({ slug: f.slug.replace(/^\/|\/$/g, '') })),
     });
   }
 
@@ -298,7 +284,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       groupItems.push({
         label: 'Resources',
         translations: sidebarTranslations.Resources,
-        items: catResources.sort(byTitle).map((r) => ({ label: r.title, slug: r.slug.replace(/^\/|\/$/g, '') })),
+        items: catResources.sort(byTitle).map((r) => ({ slug: r.slug.replace(/^\/|\/$/g, '') })),
       });
     }
 
@@ -306,7 +292,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       groupItems.push({
         label: 'Data Sources',
         translations: sidebarTranslations['Data Sources'],
-        items: catDataSources.sort(byTitle).map((d) => ({ label: d.title, slug: d.slug.replace(/^\/|\/$/g, '') })),
+        items: catDataSources.sort(byTitle).map((d) => ({ slug: d.slug.replace(/^\/|\/$/g, '') })),
       });
     }
 
