@@ -1,0 +1,78 @@
+---
+title: Bot Defense
+description: >-
+  Bot डिटेक्शन पाइपलाइन आरेख जो क्रेडेंशियल स्टफिंग रक्षा, क्लाइंट-साइड सुरक्षा,
+  और F5 XC बॉट प्रबंधन दर्शाते हैं।
+sidebar:
+  order: 18
+i18n:
+  sourceHash: 04371e8bb860
+  translator: machine
+---
+
+Bot रक्षा आर्किटेक्चर आरेख जो डिटेक्शन पाइपलाइन, क्रेडेंशियल स्टफिंग शमन, क्लाइंट-साइड डिफेंस, और F5 Distributed Cloud बॉट प्रबंधन क्षमताओं को कवर करते हैं।
+
+## Bot डिटेक्शन पाइपलाइन
+
+JavaScript चैलेंज, व्यवहार विश्लेषण, और फिंगरप्रिंटिंग के साथ बहु-चरणीय बॉट डिटेक्शन पाइपलाइन, जो एक्सेस की अनुमति देने से पहले कार्य करती है।
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Incoming Request' }
+  js@{ icon: 'lucide:bot', label: 'JS Challenge' }
+  fp@{ icon: 'lucide:shield-check', label: 'Fingerprinting' }
+  behavior@{ icon: 'carbon:application', label: 'Behavior Analysis' }
+  decision@{ icon: 'carbon:gateway-security', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'lucide:shield', label: 'Block/Challenge' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+## F5 XC Bot Defense और क्लाइंट-साइड डिफेंस
+
+F5 Distributed Cloud एकीकृत बॉट रक्षा जिसमें क्रेडेंशियल स्टफिंग और अकाउंट टेकओवर रोकथाम के लिए क्लाइंट-साइड सुरक्षा शामिल है।
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'lucide:bot', label: 'Bot Attackers' }
+  csd@{ icon: 'f5xc:client-side-defense', label: 'Client-Side Defense' }
+  botdef@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> csd
+  attacker --> csd
+  csd --> botdef
+  botdef --> waap
+  waap --> app
+```
+
+## क्रेडेंशियल स्टफिंग रक्षा आर्किटेक्चर
+
+डिवाइस फिंगरप्रिंटिंग, क्रेडेंशियल इंटेलिजेंस, और अकाउंट सुरक्षा के साथ क्रेडेंशियल स्टफिंग हमलों के विरुद्ध बहु-स्तरीय रक्षा।
+
+```mermaid
+architecture-beta
+  group defense(lucide:shield)[Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service edge(f5xc:bot-defense)[Bot Defense] in defense
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
+  service intel(f5xc:data-intelligence)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  edge:R --> L:csd
+  csd:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```

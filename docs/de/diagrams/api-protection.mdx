@@ -1,0 +1,78 @@
+---
+title: API-Schutz
+description: >-
+  API-Sicherheitsdiagramme mit Gateway-Architektur, Shadow-API-Erkennung,
+  Ratenbegrenzung und Schema-Validierung mit F5 XC.
+sidebar:
+  order: 17
+i18n:
+  sourceHash: 575b193c6c8c
+  translator: machine
+---
+
+API-Schutzarchitekturdiagramme zu API-Gateway-Sicherheit, Shadow-API-Erkennung, Ratenbegrenzung und Schema-Validierung mit F5 Distributed Cloud.
+
+## API-Gateway-Sicherheit
+
+API-Gateway mit Authentifizierung, Autorisierung, Ratenbegrenzung und Schema-Validierung vor dem Erreichen der Backend-Dienste.
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'API Client' }
+  gw@{ icon: 'carbon:gateway-api', label: 'API Gateway' }
+  auth@{ icon: 'lucide:key', label: 'Auth Service' }
+  rate@{ icon: 'carbon:load-balancer-vpc', label: 'Rate Limiter' }
+  api@{ icon: 'carbon:api', label: 'API Service' }
+  db@{ icon: 'carbon:data-base', label: 'Database' }
+
+  client --> gw
+  gw --> auth
+  auth --> gw
+  gw --> rate
+  rate --> api
+  api --> db
+```
+
+## F5 XC API-Erkennung und -Schutz
+
+F5 Distributed Cloud bietet API-Erkennung, Shadow-API-Erkennung und umfassende API-Sicherheit mit Datenverkehrseinblicken.
+
+```mermaid
+flowchart TD
+  traffic@{ icon: 'lucide:globe', label: 'API Traffic' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  discover@{ icon: 'f5xc:application-traffic-insight', label: 'API Discovery' }
+  scan@{ icon: 'f5xc:web-app-scanning', label: 'API Scanning' }
+  intel@{ icon: 'f5xc:data-intelligence', label: 'Data Intelligence' }
+  api@{ icon: 'carbon:api', label: 'API Endpoints' }
+
+  traffic --> waap
+  waap --> discover
+  waap --> scan
+  discover --> intel
+  scan --> intel
+  waap --> api
+```
+
+## API-Sicherheitspipeline
+
+Mehrstufige API-Anforderungsvalidierungspipeline mit TLS, JWT-Überprüfung, Ratenbegrenzung und Payload-Inspektion.
+
+```mermaid
+architecture-beta
+  group security(lucide:shield)[API Security Layer]
+  group backend(carbon:cloud-services)[Backend Services]
+
+  service tls(lucide:lock)[TLS Termination] in security
+  service jwt(lucide:key)[JWT Validation] in security
+  service rate(carbon:load-balancer-vpc)[Rate Limiter] in security
+  service schema(carbon:gateway-security)[Schema Validation] in security
+  service api1(carbon:api)[Users API] in backend
+  service api2(carbon:api)[Orders API] in backend
+
+  tls:R --> L:jwt
+  jwt:R --> L:rate
+  rate:R --> L:schema
+  schema:R --> L:api1
+  schema:B --> T:api2
+```

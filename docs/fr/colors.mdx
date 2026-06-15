@@ -1,0 +1,563 @@
+---
+title: Couleurs
+description: >-
+  Référence de la palette de couleurs pour le développement de thèmes — couleurs
+  primaires, teintes, nuances, CMJN, variables LESS et correspondance avec les
+  propriétés CSS personnalisées Starlight.
+sidebar:
+  order: 6
+i18n:
+  sourceHash: 51cffb696709
+  translator: machine
+---
+
+La gamme complète de notre palette de couleurs est utilisée dans les graphiques et les illustrations, explorant des combinaisons uniques et modernes ainsi que des contrastes monochromatiques. Elle peut être utilisée pour mettre en valeur un sujet spécifique ou un point d'emphase.
+
+La palette F5 utilise sept couleurs de marque primaires plus le noir et le blanc, chacune avec quatre variantes de teinte/nuance pour un total de **45 couleurs**. Cette page est la source de vérité unique pour la correspondance entre les couleurs de marque et les propriétés CSS personnalisées Starlight lors du développement de thèmes.
+
+## Couleurs primaires
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red);">#e4002b</div>
+    <div class="swatch-label">F5 Red<code>--f5-red</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine);">#f29a36</div>
+    <div class="swatch-label">Tangerine<code>--f5-tangerine</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river);">#0e41aa</div>
+    <div class="swatch-label">River<code>--f5-river</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry);">#ab2782</div>
+    <div class="swatch-label">Raspberry<code>--f5-raspberry</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade);">#009639</div>
+    <div class="swatch-label">Jade<code>--f5-jade</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant);">#62228b</div>
+    <div class="swatch-label">Eggplant<code>--f5-eggplant</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay);">#0072b0</div>
+    <div class="swatch-label">Bay<code>--f5-bay</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white);">#ffffff</div>
+    <div class="swatch-label">White<code>--f5-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black);">#000000</div>
+    <div class="swatch-label">Black<code>--f5-black</code></div>
+  </div>
+</div>
+
+| Nom | HEX | RVB | CMJN | LESS | PMS | Variable CSS |
+|------|-----|-----|------|------|-----|--------------|
+| F5 Red | `#e4002b` | 228, 0, 43 | 0, 100, 81, 11 | `monza` | 185 | `--f5-red` |
+| Tangerine | `#f29a36` | 242, 154, 54 | 0, 36, 78, 5 | `carrot-orange` | 1375 | `--f5-tangerine` |
+| River | `#0e41aa` | 14, 65, 170 | 92, 62, 0, 33 | `tory-blue` | 293 | `--f5-river` |
+| Raspberry | `#ab2782` | 171, 39, 130 | 0, 77, 24, 33 | — | 241 | `--f5-raspberry` |
+| Jade | `#009639` | 0, 150, 57 | 100, 0, 62, 41 | `fun-green` | 355 | `--f5-jade` |
+| Eggplant | `#62228b` | 98, 34, 139 | 29, 76, 0, 45 | `honey-flower` | 2617 | `--f5-eggplant` |
+| Bay | `#0072b0` | 0, 114, 176 | 100, 35, 0, 31 | — | 7461 | `--f5-bay` |
+| White | `#ffffff` | 255, 255, 255 | 0, 0, 0, 0 | `alabaster` | — | `--f5-white` |
+| Black | `#000000` | 0, 0, 0 | 60, 50, 40, 100 | `black` | Black | `--f5-black` |
+
+> **Remarque sur les noms LESS** : Le Brand Center indique Raspberry comme `tory-blue` et Bay comme `honey-flower` — il s'agit d'erreurs de copier-coller provenant respectivement des entrées River et Eggplant. Ils sont marqués `—` ci-dessus pour éviter la propagation de valeurs incorrectes.
+
+## Couleurs secondaires (teintes et nuances)
+
+Chaque couleur primaire possède quatre variantes ordonnées de la plus claire (Niveau 1) à la plus foncée (Niveau 4).
+
+Le Brand Center attribue des noms de variables LESS aux couleurs secondaires. Les variantes Cloud Red et Tangerine ont des noms uniques et significatifs. Tous les autres groupes de couleurs affichent les mêmes noms génériques (`wewak`, `froly`, `carmine`, `venetian-red`) — il s'agit de valeurs par défaut de modèle provenant de la plateforme de marque et sont incluses ci-dessous à titre de référence, mais ne doivent pas être considérées comme des identifiants canoniques.
+
+### F5 Red
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red);">#e4002b</div>
+    <div class="swatch-label">F5 Red (base)<code>--f5-red</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-red-1);">#f7b2bf</div>
+    <div class="swatch-label">Niveau 1<code>--f5-red-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-2);">#f06680</div>
+    <div class="swatch-label">Niveau 2<code>--f5-red-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-3);">#a70020</div>
+    <div class="swatch-label">Niveau 3<code>--f5-red-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-4);">#720016</div>
+    <div class="swatch-label">Niveau 4<code>--f5-red-4</code></div>
+  </div>
+</div>
+
+| Niveau | HEX | RVB | CMJN | LESS |
+|-------|-----|-----|------|------|
+| 1 (le plus clair) | `#f7b2bf` | 247, 178, 191 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#f06680` | 240, 102, 128 | 0, 57, 47, 6 | `froly` |
+| 3 | `#a70020` | 167, 0, 32 | 0, 100, 81, 35 | `carmine` |
+| 4 (le plus foncé) | `#720016` | 114, 0, 22 | 0, 100, 81, 55 | `venetian-red` |
+
+### Tangerine
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine);">#f29a36</div>
+    <div class="swatch-label">Tangerine (base)<code>--f5-tangerine</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine-1);">#ffe4c4</div>
+    <div class="swatch-label">Niveau 1<code>--f5-tangerine-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine-2);">#ffbd61</div>
+    <div class="swatch-label">Niveau 2<code>--f5-tangerine-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-tangerine-3);">#a35700</div>
+    <div class="swatch-label">Niveau 3<code>--f5-tangerine-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-tangerine-4);">#7a4100</div>
+    <div class="swatch-label">Niveau 4<code>--f5-tangerine-4</code></div>
+  </div>
+</div>
+
+| Niveau | HEX | RVB | CMJN | LESS |
+|-------|-----|-----|------|------|
+| 1 (le plus clair) | `#ffe4c4` | 255, 228, 196 | 0, 11, 23, 0 | `tequila` |
+| 2 | `#ffbd61` | 255, 189, 97 | 0, 26, 62, 0 | `koromiko` |
+| 3 | `#a35700` | 163, 87, 0 | 0, 47, 100, 36 | `chelsea-gem` |
+| 4 (le plus foncé) | `#7a4100` | 122, 65, 0 | 0, 47, 100, 52 | `cinnamon` |
+
+### River
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river);">#0e41aa</div>
+    <div class="swatch-label">River (base)<code>--f5-river</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-river-1);">#b7c6e5</div>
+    <div class="swatch-label">Niveau 1<code>--f5-river-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-2);">#6e8dcc</div>
+    <div class="swatch-label">Niveau 2<code>--f5-river-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-3);">#0b3180</div>
+    <div class="swatch-label">Niveau 3<code>--f5-river-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-4);">#072155</div>
+    <div class="swatch-label">Niveau 4<code>--f5-river-4</code></div>
+  </div>
+</div>
+
+| Niveau | HEX | RVB | CMJN | LESS |
+|-------|-----|-----|------|------|
+| 1 (le plus clair) | `#b7c6e5` | 183, 198, 229 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#6e8dcc` | 110, 141, 204 | 0, 58, 47, 6 | `froly` |
+| 3 | `#0b3180` | 11, 49, 128 | 0, 100, 81, 35 | `carmine` |
+| 4 (le plus foncé) | `#072155` | 7, 33, 85 | 0, 100, 81, 55 | `venetian-red` |
+
+### Raspberry
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry);">#ab2782</div>
+    <div class="swatch-label">Raspberry (base)<code>--f5-raspberry</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-raspberry-1);">#e6bed9</div>
+    <div class="swatch-label">Niveau 1<code>--f5-raspberry-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-2);">#cd7db4</div>
+    <div class="swatch-label">Niveau 2<code>--f5-raspberry-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-3);">#801d62</div>
+    <div class="swatch-label">Niveau 3<code>--f5-raspberry-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-4);">#561441</div>
+    <div class="swatch-label">Niveau 4<code>--f5-raspberry-4</code></div>
+  </div>
+</div>
+
+| Niveau | HEX | RVB | CMJN | LESS |
+|-------|-----|-----|------|------|
+| 1 (le plus clair) | `#e6bed9` | 230, 190, 217 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#cd7db4` | 205, 125, 180 | 0, 58, 47, 6 | `froly` |
+| 3 | `#801d62` | 128, 29, 98 | 0, 100, 81, 35 | `carmine` |
+| 4 (le plus foncé) | `#561441` | 86, 20, 65 | 0, 100, 81, 55 | `venetian-red` |
+
+### Jade
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade);">#009639</div>
+    <div class="swatch-label">Jade (base)<code>--f5-jade</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-jade-1);">#b2dfc4</div>
+    <div class="swatch-label">Niveau 1<code>--f5-jade-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-jade-2);">#66c088</div>
+    <div class="swatch-label">Niveau 2<code>--f5-jade-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade-3);">#00712b</div>
+    <div class="swatch-label">Niveau 3<code>--f5-jade-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade-4);">#004b1d</div>
+    <div class="swatch-label">Niveau 4<code>--f5-jade-4</code></div>
+  </div>
+</div>
+
+| Niveau | HEX | RVB | CMJN | LESS |
+|-------|-----|-----|------|------|
+| 1 (le plus clair) | `#b2dfc4` | 178, 223, 196 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#66c088` | 102, 192, 136 | 0, 58, 47, 6 | `froly` |
+| 3 | `#00712b` | 0, 113, 43 | 0, 100, 81, 35 | `carmine` |
+| 4 (le plus foncé) | `#004b1d` | 0, 75, 29 | 0, 100, 81, 55 | `venetian-red` |
+
+### Eggplant
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant);">#62228b</div>
+    <div class="swatch-label">Eggplant (base)<code>--f5-eggplant</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-eggplant-1);">#cdabe3</div>
+    <div class="swatch-label">Niveau 1<code>--f5-eggplant-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-2);">#9c59c9</div>
+    <div class="swatch-label">Niveau 2<code>--f5-eggplant-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-3);">#822cb8</div>
+    <div class="swatch-label">Niveau 3<code>--f5-eggplant-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-4);">#41175d</div>
+    <div class="swatch-label">Niveau 4<code>--f5-eggplant-4</code></div>
+  </div>
+</div>
+
+| Niveau | HEX | RVB | CMJN | LESS |
+|-------|-----|-----|------|------|
+| 1 (le plus clair) | `#cdabe3` | 205, 171, 227 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#9c59c9` | 156, 89, 201 | 0, 58, 47, 6 | `froly` |
+| 3 | `#822cb8` | 130, 44, 184 | 0, 100, 81, 35 | `carmine` |
+| 4 (le plus foncé) | `#41175d` | 65, 23, 93 | 0, 100, 81, 55 | `venetian-red` |
+
+### Bay
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay);">#0072b0</div>
+    <div class="swatch-label">Bay (base)<code>--f5-bay</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-bay-1);">#b2d7eb</div>
+    <div class="swatch-label">Niveau 1<code>--f5-bay-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-2);">#66afd7</div>
+    <div class="swatch-label">Niveau 2<code>--f5-bay-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-3);">#005c8d</div>
+    <div class="swatch-label">Niveau 3<code>--f5-bay-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-4);">#003d5f</div>
+    <div class="swatch-label">Niveau 4<code>--f5-bay-4</code></div>
+  </div>
+</div>
+
+| Niveau | HEX | RVB | CMJN | LESS |
+|-------|-----|-----|------|------|
+| 1 (le plus clair) | `#b2d7eb` | 178, 215, 235 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#66afd7` | 102, 175, 215 | 0, 58, 47, 6 | `froly` |
+| 3 | `#005c8d` | 0, 92, 141 | 0, 100, 81, 35 | `carmine` |
+| 4 (le plus foncé) | `#003d5f` | 0, 61, 95 | 0, 100, 81, 55 | `venetian-red` |
+
+### White (Neutres)
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white);">#ffffff</div>
+    <div class="swatch-label">White (base)<code>--f5-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-1);">#faf9f7</div>
+    <div class="swatch-label">Niveau 1<code>--f5-white-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-2);">#f5f5f5</div>
+    <div class="swatch-label">Niveau 2<code>--f5-white-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-3);">#e6e6e6</div>
+    <div class="swatch-label">Niveau 3<code>--f5-white-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-4);">#cccccc</div>
+    <div class="swatch-label">Niveau 4<code>--f5-white-4</code></div>
+  </div>
+</div>
+
+| Niveau | HEX | RVB | CMJN | LESS |
+|-------|-----|-----|------|------|
+| 1 (le plus clair) | `#faf9f7` | 250, 249, 247 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#f5f5f5` | 245, 245, 245 | 0, 58, 47, 6 | `froly` |
+| 3 | `#e6e6e6` | 230, 230, 230 | 0, 100, 81, 35 | `carmine` |
+| 4 (le plus foncé) | `#cccccc` | 204, 204, 204 | 0, 100, 81, 55 | `venetian-red` |
+
+### Black (Gris)
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black);">#000000</div>
+    <div class="swatch-label">Black (base)<code>--f5-black</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-1);">#999999</div>
+    <div class="swatch-label">Niveau 1<code>--f5-black-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-2);">#666666</div>
+    <div class="swatch-label">Niveau 2<code>--f5-black-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-3);">#343434</div>
+    <div class="swatch-label">Niveau 3<code>--f5-black-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-4);">#222222</div>
+    <div class="swatch-label">Niveau 4<code>--f5-black-4</code></div>
+  </div>
+</div>
+
+| Niveau | HEX | RVB | CMJN | LESS |
+|-------|-----|-----|------|------|
+| 1 (le plus clair) | `#999999` | 153, 153, 153 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#666666` | 102, 102, 102 | 0, 58, 47, 6 | `froly` |
+| 3 | `#343434` | 52, 52, 52 | 0, 100, 81, 35 | `carmine` |
+| 4 (le plus foncé) | `#222222` | 34, 34, 34 | 0, 100, 81, 55 | `venetian-red` |
+
+## Correspondance avec les propriétés CSS personnalisées Starlight
+
+Starlight expose des variables `--sl-color-*` pour la personnalisation des thèmes. Vous trouverez ci-dessous la correspondance entre la palette F5 et les emplacements de couleurs sémantiques de Starlight, implémentée dans `styles/custom.css`.
+
+> **Fonctionnement des thèmes Starlight** : Dans Starlight, **le mode sombre est la valeur par défaut de `:root`** — il n'existe pas de sélecteur `data-theme="dark"`. Le mode clair utilise `:root[data-theme='light']`. Les variables de l'échelle de gris sont *sémantiques*, et non ordonnées par luminosité : `gray-1` désigne toujours le « texte principal » et `gray-6`/`gray-7` désignent toujours les « arrière-plans subtils », quel que soit le mode. Leurs valeurs de luminosité réelles s'inversent entre les modes. De même, `accent-high` désigne toujours la couleur d'accentuation à haute visibilité et `accent-low` désigne toujours l'arrière-plan d'accentuation subtil — leur luminosité s'inverse entre les modes.
+
+```css
+/* Mode sombre — valeur par défaut Starlight (:root) */
+:root {
+  --sl-color-white: #ffffff;      /* Texte des titres (le plus clair) */
+  --sl-color-gray-1: #f5f5f5;    /* Texte principal — White Niveau 2 */
+  --sl-color-gray-2: #cccccc;    /* Texte courant — White Niveau 4 */
+  --sl-color-gray-3: #999999;    /* Texte atténué — Black Niveau 1 */
+  --sl-color-gray-4: #666666;    /* Bordures — Black Niveau 2 */
+  --sl-color-gray-5: #343434;    /* Arrière-plan code inline — Black Niveau 3 */
+  --sl-color-gray-6: #222222;    /* Arrière-plan barre latérale — Black Niveau 4 */
+  --sl-color-black: #000000;     /* Arrière-plan de la page */
+  --sl-color-accent-low: #720016;   /* Arrière-plan d'accent subtil — F5 Red Niveau 4 */
+  --sl-color-accent: #f06680;       /* Liens, état actif — F5 Red Niveau 2 */
+  --sl-color-accent-high: #f7b2bf;  /* Texte d'accent — F5 Red Niveau 1 */
+}
+
+/* Mode clair — échelle de gris et luminosité d'accent inversées */
+:root[data-theme='light'] {
+  --sl-color-white: #222222;      /* Texte des titres (le plus foncé) — Black Niveau 4 */
+  --sl-color-gray-1: #222222;    /* Texte principal — Black Niveau 4 */
+  --sl-color-gray-2: #343434;    /* Texte courant — Black Niveau 3 */
+  --sl-color-gray-3: #666666;    /* Texte atténué — Black Niveau 2 */
+  --sl-color-gray-4: #999999;    /* Bordures — Black Niveau 1 */
+  --sl-color-gray-5: #cccccc;    /* Bordures légères — White Niveau 4 */
+  --sl-color-gray-6: #f5f5f5;    /* Arrière-plan barre latérale — White Niveau 2 */
+  --sl-color-gray-7: #faf9f7;    /* Arrière-plan navigation — White Niveau 1 */
+  --sl-color-black: #ffffff;     /* Arrière-plan de la page */
+  --sl-color-accent-low: #f7b2bf;   /* Arrière-plan d'accent subtil — F5 Red Niveau 1 (inversé) */
+  --sl-color-accent: #e4002b;       /* Liens, état actif — F5 Red */
+  --sl-color-accent-high: #720016;  /* Texte d'accent — F5 Red Niveau 4 (inversé) */
+}
+```
+
+### Aperçu visuel des jetons
+
+Activez le sélecteur de thème pour voir ces jetons sémantiques changer entre le mode sombre et le mode clair.
+
+#### Jetons de l'échelle de gris
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-white);">white</div>
+    <div class="swatch-label">Texte des titres<code>--sl-color-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-gray-1);">gray-1</div>
+    <div class="swatch-label">Texte principal<code>--sl-color-gray-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-gray-2);">gray-2</div>
+    <div class="swatch-label">Texte courant<code>--sl-color-gray-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-3);">gray-3</div>
+    <div class="swatch-label">Texte atténué<code>--sl-color-gray-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-4);">gray-4</div>
+    <div class="swatch-label">Bordures<code>--sl-color-gray-4</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-5);">gray-5</div>
+    <div class="swatch-label">Arrière-plan code inline<code>--sl-color-gray-5</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-6);">gray-6</div>
+    <div class="swatch-label">Arrière-plan barre latérale<code>--sl-color-gray-6</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-black);">black</div>
+    <div class="swatch-label">Arrière-plan de la page<code>--sl-color-black</code></div>
+  </div>
+</div>
+
+#### Jetons d'accentuation
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-accent-low);">accent-low</div>
+    <div class="swatch-label">Arrière-plan d'accent subtil<code>--sl-color-accent-low</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-accent);">accent</div>
+    <div class="swatch-label">Liens, état actif<code>--sl-color-accent</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-accent-high);">accent-high</div>
+    <div class="swatch-label">Texte d'accent<code>--sl-color-accent-high</code></div>
+  </div>
+</div>
+
+#### Jetons de badges
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-default);">default</div>
+    <div class="swatch-label">Badge par défaut<code>--sl-color-bg-badge-default</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-note);">note</div>
+    <div class="swatch-label">Badge note<code>--sl-color-bg-badge-note</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-danger);">danger</div>
+    <div class="swatch-label">Badge danger<code>--sl-color-bg-badge-danger</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-success);">success</div>
+    <div class="swatch-label">Badge succès<code>--sl-color-bg-badge-success</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-caution);">caution</div>
+    <div class="swatch-label">Badge avertissement<code>--sl-color-bg-badge-caution</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-tip);">tip</div>
+    <div class="swatch-label">Badge conseil<code>--sl-color-bg-badge-tip</code></div>
+  </div>
+</div>
+
+### Vérification du contraste (WCAG AA)
+
+**Mode sombre** (texte sur fond de page `#000000`) :
+- Texte courant `#cccccc` → **16,3:1** (AAA)
+- Texte atténué `#999999` → **10:1** (AAA)
+- Lien d'accent `#f06680` → **5,6:1** (AA)
+
+**Mode clair** (texte sur fond de page `#ffffff`) :
+- Texte courant `#343434` → **11,6:1** (AAA)
+- Texte atténué `#666666` → **5,7:1** (AA)
+- Lien d'accent `#e4002b` → **4,6:1** (AA)
+
+### Suggestions de couleurs sémantiques
+
+| Variable Starlight | Couleur F5 | Cas d'utilisation |
+|--------------------|----------|----------|
+| `--sl-color-accent` | F5 Red `#e4002b` | Liens, boutons, états actifs |
+| `--sl-color-text-accent` | F5 Red Niveau 2 `#f06680` | États de survol en mode sombre |
+| `--sl-color-bg-accent` | F5 Red Niveau 4 `#720016` | Arrière-plans d'accent |
+| Personnalisé : `--sl-color-info` | Bay `#0072b0` | Encadrés informatifs |
+| Personnalisé : `--sl-color-success` | Jade `#009639` | Messages de succès |
+| Personnalisé : `--sl-color-warning` | Tangerine `#f29a36` | Encadrés d'avertissement |
+| Personnalisé : `--sl-color-danger` | F5 Red `#e4002b` | Encadrés d'erreur/danger |
+
+## Contraste des couleurs
+
+Pour garantir que chacun puisse accéder à nos communications et les comprendre, utilisez des combinaisons de couleurs d'arrière-plan et de texte qui respectent les normes d'accessibilité. Sélectionnez des paires de couleurs avec un rapport de contraste minimum de 3:1 pour les grands textes et de 4,5:1 pour les textes normaux.
+
+Toutes les associations de couleurs doivent respecter les exigences de contraste **WCAG AA** :
+
+- **Texte normal** (< 18pt / 14pt gras) : rapport de contraste minimum de **4,5:1**
+- **Grand texte** (≥ 18pt / 14pt gras) : rapport de contraste minimum de **3:1**
+- **Composants d'interface et objets graphiques** : rapport de contraste minimum de **3:1**
+
+### Associations sûres recommandées
+
+| Premier plan | Arrière-plan | Rapport de contraste | Validé |
+|------------|------------|----------------|--------|
+| White `#ffffff` | F5 Red `#e4002b` | 4,6:1 | AA |
+| White `#ffffff` | River `#0e41aa` | 6,4:1 | AA / AAA |
+| White `#ffffff` | Bay `#0072b0` | 4,6:1 | AA |
+| White `#ffffff` | Jade `#009639` | 4,2:1 | AA (grand texte) |
+| White `#ffffff` | Eggplant `#62228b` | 6,5:1 | AA / AAA |
+| White `#ffffff` | Raspberry `#ab2782` | 4,7:1 | AA |
+| Black `#000000` | Tangerine `#f29a36` | 7,8:1 | AA / AAA |
+| Black `#000000` | F5 Red Niveau 1 `#f7b2bf` | 10,1:1 | AA / AAA |
+| Black `#222222` | White Niveau 1 `#faf9f7` | 15,8:1 | AA / AAA |
+
+> **Conseil** : Vérifiez toujours les rapports de contraste avec un outil tel que [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) lors de la création de nouvelles combinaisons de couleurs.
+
+## Directives d'utilisation
+
+| Famille de couleurs | Rôle | Quand l'utiliser |
+|--------------|------|-------------|
+| **F5 Red** | Identité de marque, CTA principaux | Sections hero, boutons principaux, éléments de marque, états d'erreur |
+| **River** | Information, confiance | Liens de navigation, bannières informatives, visualisations de données |
+| **Bay** | Information, secondaire | Liens secondaires, encadrés informatifs, accents de blocs de code |
+| **Jade** | Succès, positif | Messages de succès, états de confirmation, indicateurs de progression |
+| **Tangerine** | Avertissement, attention | Encadrés d'avertissement, états nécessitant une attention, marqueurs de mise en évidence |
+| **Raspberry** | Accent, décoratif | Étiquettes, badges, accents secondaires, marqueurs de catégorie |
+| **Eggplant** | Accent, premium | Mises en avant de fonctionnalités, indicateurs premium, accents décoratifs |
+| **White / Neutres** | Arrière-plans, surfaces | Arrière-plans de page, surfaces de cartes, séparateurs, bordures subtiles |
+| **Black / Gris** | Texte, structure | Texte courant, titres, bordures, couches d'ombre |
+
+## Vérifications du thème
+
+- La bordure `.swatch` utilise `--sl-color-gray-5`
+- L'arrière-plan `.swatch-label` utilise `--sl-color-gray-6`
+- Tous les swatches `--f5-*` affichent leur couleur réelle (les propriétés CSS personnalisées sont résolues depuis `custom.css`)
+- Les swatches de couleurs sont visibles en mode clair et en mode sombre
+- Les swatches de jetons de badges se mettent à jour lors du changement de thème

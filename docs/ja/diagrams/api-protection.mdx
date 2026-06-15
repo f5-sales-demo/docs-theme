@@ -1,0 +1,76 @@
+---
+title: API 保護
+description: F5 XC を使用したゲートウェイアーキテクチャ、シャドウ API 検出、レート制限、スキーマ検証を示す API セキュリティ図。
+sidebar:
+  order: 17
+i18n:
+  sourceHash: 575b193c6c8c
+  translator: machine
+---
+
+F5 Distributed Cloud を使用した API ゲートウェイセキュリティ、シャドウ API 検出、レート制限、およびスキーマ検証を網羅する API 保護アーキテクチャ図。
+
+## API ゲートウェイセキュリティ
+
+バックエンドサービスへの到達前に、認証、認可、レート制限、およびスキーマ検証を行う API ゲートウェイ。
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'API Client' }
+  gw@{ icon: 'carbon:gateway-api', label: 'API Gateway' }
+  auth@{ icon: 'lucide:key', label: 'Auth Service' }
+  rate@{ icon: 'carbon:load-balancer-vpc', label: 'Rate Limiter' }
+  api@{ icon: 'carbon:api', label: 'API Service' }
+  db@{ icon: 'carbon:data-base', label: 'Database' }
+
+  client --> gw
+  gw --> auth
+  auth --> gw
+  gw --> rate
+  rate --> api
+  api --> db
+```
+
+## F5 XC API 検出と保護
+
+F5 Distributed Cloud による API 検出、シャドウ API 検出、およびトラフィックインサイトを活用した包括的な API セキュリティ。
+
+```mermaid
+flowchart TD
+  traffic@{ icon: 'lucide:globe', label: 'API Traffic' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  discover@{ icon: 'f5xc:application-traffic-insight', label: 'API Discovery' }
+  scan@{ icon: 'f5xc:web-app-scanning', label: 'API Scanning' }
+  intel@{ icon: 'f5xc:data-intelligence', label: 'Data Intelligence' }
+  api@{ icon: 'carbon:api', label: 'API Endpoints' }
+
+  traffic --> waap
+  waap --> discover
+  waap --> scan
+  discover --> intel
+  scan --> intel
+  waap --> api
+```
+
+## API セキュリティパイプライン
+
+TLS、JWT 検証、レート制限、およびペイロード検査を備えた多段階 API リクエスト検証パイプライン。
+
+```mermaid
+architecture-beta
+  group security(lucide:shield)[API Security Layer]
+  group backend(carbon:cloud-services)[Backend Services]
+
+  service tls(lucide:lock)[TLS Termination] in security
+  service jwt(lucide:key)[JWT Validation] in security
+  service rate(carbon:load-balancer-vpc)[Rate Limiter] in security
+  service schema(carbon:gateway-security)[Schema Validation] in security
+  service api1(carbon:api)[Users API] in backend
+  service api2(carbon:api)[Orders API] in backend
+
+  tls:R --> L:jwt
+  jwt:R --> L:rate
+  rate:R --> L:schema
+  schema:R --> L:api1
+  schema:B --> T:api2
+```

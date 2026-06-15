@@ -1,0 +1,76 @@
+---
+title: API 保護
+description: API 安全架構圖，涵蓋閘道架構、影子 API 探索、速率限制及結合 F5 XC 的結構描述驗證。
+sidebar:
+  order: 17
+i18n:
+  sourceHash: 575b193c6c8c
+  translator: machine
+---
+
+API 保護架構圖，涵蓋 API 閘道安全、影子 API 探索、速率限制，以及結合 F5 Distributed Cloud 的結構描述驗證。
+
+## API 閘道安全
+
+API 閘道在請求抵達後端服務前，執行身份驗證、授權、速率限制及結構描述驗證。
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'API Client' }
+  gw@{ icon: 'carbon:gateway-api', label: 'API Gateway' }
+  auth@{ icon: 'lucide:key', label: 'Auth Service' }
+  rate@{ icon: 'carbon:load-balancer-vpc', label: 'Rate Limiter' }
+  api@{ icon: 'carbon:api', label: 'API Service' }
+  db@{ icon: 'carbon:data-base', label: 'Database' }
+
+  client --> gw
+  gw --> auth
+  auth --> gw
+  gw --> rate
+  rate --> api
+  api --> db
+```
+
+## F5 XC API 探索與保護
+
+F5 Distributed Cloud 提供 API 探索、影子 API 偵測及全面的 API 安全防護，並具備流量洞察能力。
+
+```mermaid
+flowchart TD
+  traffic@{ icon: 'lucide:globe', label: 'API Traffic' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'XC WAAP' }
+  discover@{ icon: 'f5xc:application-traffic-insight', label: 'API Discovery' }
+  scan@{ icon: 'f5xc:web-app-scanning', label: 'API Scanning' }
+  intel@{ icon: 'f5xc:data-intelligence', label: 'Data Intelligence' }
+  api@{ icon: 'carbon:api', label: 'API Endpoints' }
+
+  traffic --> waap
+  waap --> discover
+  waap --> scan
+  discover --> intel
+  scan --> intel
+  waap --> api
+```
+
+## API 安全流水線
+
+多階段 API 請求驗證流水線，涵蓋 TLS、JWT 驗證、速率限制及酬載檢查。
+
+```mermaid
+architecture-beta
+  group security(lucide:shield)[API Security Layer]
+  group backend(carbon:cloud-services)[Backend Services]
+
+  service tls(lucide:lock)[TLS Termination] in security
+  service jwt(lucide:key)[JWT Validation] in security
+  service rate(carbon:load-balancer-vpc)[Rate Limiter] in security
+  service schema(carbon:gateway-security)[Schema Validation] in security
+  service api1(carbon:api)[Users API] in backend
+  service api2(carbon:api)[Orders API] in backend
+
+  tls:R --> L:jwt
+  jwt:R --> L:rate
+  rate:R --> L:schema
+  schema:R --> L:api1
+  schema:B --> T:api2
+```

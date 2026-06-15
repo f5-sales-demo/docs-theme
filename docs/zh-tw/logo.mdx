@@ -1,0 +1,78 @@
+---
+title: 標誌
+description: 如何設定標誌以及如何替換標誌。
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+主題會在每個文件網站的網站標頭中顯示標誌。
+
+## 可用的標誌資源
+
+主題在 `assets/` 目錄中附帶兩個標誌檔案：
+
+| 檔案 | 格式 | 說明 |
+|------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | F5 標誌，使用雲端紅色（`#e4002b`） |
+| `assets/github-avatar.png` | PNG | GitHub 組織頭像（預設） |
+
+## 預設標誌
+
+預設標誌設定於 `config.ts` 中的 `createF5xcDocsConfig` 工廠函式：
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+若未提供 `logo` 選項，則使用 GitHub 頭像 PNG。該路徑為 npm 套件指定符，透過 `package.json` 中的 `exports` 對應表進行解析。
+
+## 替換標誌
+
+### 選項一：使用 F5 SVG 標誌
+
+將 `logo` 選項傳遞給 `createF5xcDocsConfig`：
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### 選項二：使用自訂標誌
+
+將標誌檔案放置於內容儲存庫中並加以參照：
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### 選項三：分別設定淺色與深色標誌
+
+Starlight 支援為淺色與深色模式分別設定標誌：
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## 使用準則
+
+- **使用 SVG 格式** — 點陣圖格式（PNG、JPG）雖可使用，但在各種尺寸下無法清晰縮放
+- **包含 `viewBox`** — 確保標誌能等比例縮放（例如：`viewBox="0 0 100 100"`）
+- **保持檔案大小精簡** — 標誌會在每個頁面載入；建議控制在 10 KB 以內
+- **在兩種主題下測試** — 確認標誌在淺色與深色模式下均顯示正確

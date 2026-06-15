@@ -1,0 +1,320 @@
+---
+title: Tipografia
+description: >-
+  Famílias de fontes, hierarquia tipográfica, uso de pesos, especificações de
+  entrelinhamento, convenções de caixa, exemplos ao vivo e mapeamento do tema
+  Starlight.
+sidebar:
+  order: 7
+i18n:
+  sourceHash: ba962925d620
+  translator: machine
+---
+
+O sistema tipográfico combina duas famílias de fontes inspiradas no design suíço, estabelecendo uma hierarquia clara entre títulos expressivos e corpo de texto funcional.
+
+## Filosofia de Design
+
+A tipografia utiliza proporção, ritmo e tempo — obtidos por meio de estilo, escala, peso, cor, entrelinhamento, espaço horizontal e espaço vertical — para criar uma hierarquia visual clara.
+
+- **Neusa Next Wide** é inspirada nos tratamentos tipográficos da era inicial da exploração espacial, adicionando um caráter humano e expressivo a títulos e subtítulos
+- **Proxima Nova** traz abertura e estilo geométrico para momentos mais funcionais, como corpo de texto e texto utilitário
+
+A hierarquia é estabelecida por meio do tamanho de tipo decrescente **e** do contraste via tratamentos alternados de caixa baixa/caixa alta. Sign-offs e CTAs utilizam a face wide bold para se destacar de uma posição inferior na hierarquia.
+
+## Famílias de Fontes
+
+### Neusa Next Wide
+
+**Função**: Títulos, subtítulos, citações destacadas, CTAs, rótulos, estatísticas numéricas
+
+O espécime do Brand Center apresenta cinco estilos:
+
+| Estilo | Valor de Peso | CSS `font-weight` | CSS `font-style` |
+|--------|--------------|-------------------|-------------------|
+| Light | 300 | `300` | `normal` |
+| Regular | 400 | `400` | `normal` |
+| Italic | 400 | `400` | `italic` |
+| Medium | 500 | `500` | `normal` |
+| Bold | 700 | `700` | `normal` |
+
+### Proxima Nova
+
+**Função**: Corpo de texto, texto utilitário, cabeçalhos de seção, elementos de interface
+
+O espécime do Brand Center apresenta quatro estilos:
+
+| Estilo | Valor de Peso | CSS `font-weight` | CSS `font-style` |
+|--------|--------------|-------------------|-------------------|
+| Regular | 400 | `400` | `normal` |
+| Regular Italic | 400 | `400` | `italic` |
+| Bold | 700 | `700` | `normal` |
+| Bold Italic | 700 | `700` | `italic` |
+
+A Proxima Nova é licenciada separadamente e **não** está incluída no download de fontes do Brand Center. O tema é fornecido com os pesos 400, 500, 600 e 700 no estilo normal.
+
+## Hierarquia Tipográfica
+
+### Princípios Fundamentais
+
+- Estabelecer hierarquia por meio do **tamanho de tipo decrescente** combinado com tratamentos de **caixa alternada**
+- Usar **Neusa Wide Bold, caixa de frase** para títulos e subtítulos de campanha
+- Definir o entrelinhamento do título para **1,1× o tamanho do tipo**
+- Usar **Proxima Nova Bold, CAIXA ALTA** com espaçamento entre letras para cabeçalhos de seção, contrastando com os títulos em caixa de frase
+- Sign-offs e CTAs usam **Neusa Wide Bold** com um acento circunflexo voltado para a direita (**›**) em Cloud Red para indicar ação em experiências digitais
+
+### Tabela de Hierarquia
+
+| Elemento | Fonte | Peso | Caixa | Observações |
+|----------|-------|------|-------|-------------|
+| Título | Neusa Wide | Bold (700) | Frase | Entrelinhamento = 1,1× o tamanho do tipo |
+| Eyebrow | Proxima Nova | Bold (700) | MAIÚSCULAS | Pequeno, com espaçamento entre letras |
+| Subtítulo / Introdução | Neusa Wide | Medium (500) | Frase | Ou Proxima Nova se seguido imediatamente de corpo de texto |
+| Cabeçalho de seção | Proxima Nova | Bold (700) | MAIÚSCULAS | Com espaçamento entre letras |
+| Subtítulo secundário | Proxima Nova | Bold (700) | Frase | |
+| Corpo de texto | Proxima Nova | Regular (400) | Frase | |
+| Marcadores | Proxima Nova | Regular (400) | Frase | |
+| Citação destacada | Neusa Wide | Bold (700) | Frase | Cor Cloud Red; aspas vermelhas grandes com atribuição abaixo |
+| Sign-off / CTA | Neusa Wide | Bold (700) | Frase | Com acento circunflexo voltado para a direita (›) em Cloud Red |
+
+### Tratamentos Especializados
+
+| Contexto | Fonte | Peso | Tamanho/Entrelinhamento | Observações |
+|----------|-------|------|------------------------|-------------|
+| Citações em materiais impressos | Neusa Wide | Bold (700) | 9pt / 14pt | Caixa de frase |
+| Citações em eBooks | Neusa Wide | Regular (400) | 16pt / 19pt | Com linha acima |
+| Numerais/fatos em infográficos | Neusa Wide | Light (300) | — | Para impacto visual em tamanhos grandes |
+| Numerais em gráficos/barras | Neusa Wide | Regular (400) | — | Rotulagem padrão de gráficos |
+
+### Uso de Caixa Alta (Title Case)
+
+O uso de caixa alta (title case) é permitido para:
+- Subtítulos
+- Citações destacadas
+- Estatísticas numéricas
+- Rótulos
+
+Todos os demais elementos utilizam caixa de frase por padrão.
+
+## Exemplos ao Vivo
+
+### Títulos
+
+## Título Nível 2
+
+### Título Nível 3
+
+#### Título Nível 4
+
+##### Título Nível 5
+
+###### Título Nível 6
+
+### Estilos de Texto
+
+Este é um **texto em negrito** para ênfase.
+
+Este é um *texto em itálico* para ênfase sutil.
+
+Este é um ~~texto tachado~~ para conteúdo obsoleto.
+
+Este é `código inline` para referências técnicas.
+
+Este é um ***texto em negrito e itálico*** para ênfase forte.
+
+Esta é uma combinação: **negrito com `código inline` dentro** e *itálico com `código` dentro*.
+
+### Lista Ordenada
+
+1. Primeiro item da lista ordenada
+2. Segundo item com **texto em negrito**
+3. Terceiro item com `código inline`
+4. Quarto item com um [link para o Astro](https://astro.build)
+
+### Lista Não Ordenada
+
+- Primeiro marcador
+- Segundo marcador com **ênfase**
+- Terceiro marcador com `referência de código`
+- Quarto marcador com um [link](https://starlight.astro.build)
+
+### Listas Aninhadas
+
+1. Item ordenado de nível superior
+   - Item não ordenado aninhado A
+   - Item não ordenado aninhado B
+     1. Item ordenado profundamente aninhado
+     2. Outro item profundamente aninhado
+   - De volta ao primeiro nível de aninhamento
+2. Segundo item de nível superior
+   - Outro item aninhado
+
+### Citações em Bloco
+
+> Esta é uma citação em bloco de linha única.
+
+> Esta é uma citação em bloco de múltiplas linhas.
+>
+> Ela abrange múltiplos parágrafos e pode conter formatação em **negrito**, *itálico* e `código`.
+
+> Citações em bloco aninhadas:
+>
+> > Esta é uma citação em bloco aninhada dentro da externa.
+> >
+> > Ela pode conter sua própria formatação.
+
+### Linha Horizontal
+
+Conteúdo acima da linha.
+
+---
+
+Conteúdo abaixo da linha.
+
+### Links
+
+- Link interno: [Voltar à visão geral da documentação](/)
+- Link externo: [Documentação do Starlight](https://starlight.astro.build)
+- Link com título: [Astro](https://astro.build "Astro Framework Homepage")
+
+### Notas de Rodapé
+
+Esta é uma frase com uma referência de nota de rodapé[^1].
+
+E outra frase com uma nota de rodapé diferente[^2].
+
+[^1]: Este é o conteúdo da primeira nota de rodapé. Ela aparece na parte inferior da página.
+
+[^2]: Esta é a segunda nota de rodapé. Ela pode conter **formatação** e `código`.
+
+## Arquivos de Fonte
+
+O tema é fornecido com **10 arquivos woff2** no diretório `fonts/`:
+
+### Neusa Next Pro Wide
+
+| Arquivo | Peso | Estilo | Tamanho |
+|---------|------|--------|---------|
+| `neusaNextProWide-300.woff2` | 300 (Light) | Normal | ~49 KB |
+| `neusaNextProWide-400.woff2` | 400 (Regular) | Normal | ~49 KB |
+| `neusaNextProWide-400i.woff2` | 400 (Regular) | Italic | ~49 KB |
+| `neusaNextProWide-500.woff2` | 500 (Medium) | Normal | ~49 KB |
+| `neusaNextProWide-700.woff2` | 700 (Bold) | Normal | ~49 KB |
+| `neusaNextProWide-700i.woff2` | 700 (Bold) | Italic | ~49 KB |
+
+### Proxima Nova
+
+| Arquivo | Peso | Estilo | Tamanho |
+|---------|------|--------|---------|
+| `proximaNova-400.woff2` | 400 (Regular) | Normal | ~18 KB |
+| `proximaNova-500.woff2` | 500 (Medium) | Normal | ~18 KB |
+| `proximaNova-600.woff2` | 600 (Semi-Bold) | Normal | ~18 KB |
+| `proximaNova-700.woff2` | 700 (Bold) | Normal | ~18 KB |
+
+### Convenção de Nomenclatura
+
+Os arquivos de fonte seguem o padrão `nomeDaFamília-peso.woff2`, com o sufixo `i` para variantes em itálico (por exemplo, `neusaNextProWide-400i.woff2`).
+
+### Lacunas de Cobertura
+
+As seguintes variantes em itálico ainda não estão disponíveis no tema:
+
+| Variante Ausente | Motivo |
+|-----------------|--------|
+| Proxima Nova 400 italic | Arquivo fonte não disponível nos downloads atuais |
+| Proxima Nova 500 italic | Arquivo fonte não disponível nos downloads atuais |
+| Proxima Nova 600 italic (Semi-Bold) | Arquivo fonte não disponível |
+| Proxima Nova 700 italic (Bold) | Arquivo fonte não disponível |
+
+Para adicionar variantes em itálico da Proxima Nova, obtenha arquivos woff2 genuínos de uma fonte licenciada, nomeie-os seguindo a convenção (por exemplo, `proximaNova-400i.woff2`) e adicione as regras `@font-face` correspondentes ao arquivo `font-face.css`.
+
+## Declarações @font-face
+
+Todos os registros de fontes estão em `fonts/font-face.css`. Cada declaração utiliza:
+
+- **`font-display: swap`** — o texto é renderizado imediatamente com uma fonte de fallback e substituído quando a fonte personalizada carrega
+- **`format("woff2")`** — formato moderno comprimido compatível com todos os navegadores atuais
+- **URLs relativas** — os caminhos `./` são resolvidos em relação à localização do arquivo CSS
+
+Para adicionar uma nova variante de fonte, adicione um bloco `@font-face` ao `font-face.css`:
+
+```css
+@font-face {
+  font-family: "familyName";
+  font-weight: 400;
+  font-style: italic;  /* or normal */
+  font-display: swap;
+  src: url("./familyName-400i.woff2") format("woff2");
+}
+```
+
+## Integração CSS
+
+O plugin do tema (`index.ts`) injeta ambos os arquivos CSS por meio do hook `config:setup`:
+
+```
+index.ts → fonts/font-face.css → styles/custom.css → Starlight renders
+```
+
+### Atribuições de Fontes
+
+Em `styles/custom.css`:
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+```
+
+- **`--sl-font`** (variável de fonte de corpo do Starlight) → Proxima Nova para texto de corpo e interface
+- **`--sl-font-heading`** (token personalizado) → Neusa Next Pro Wide para referência de fonte de título
+- **`h1`–`h6`** → Família de fontes, peso e caixa aplicados conforme a hierarquia tipográfica Cloud
+- **Pilha de fallback**: `system-ui, "Segoe UI", Helvetica, Arial, sans-serif` para renderização inicial rápida antes do carregamento das fontes personalizadas
+
+### Tokens de Tipografia do Starlight
+
+O tema substitui estas propriedades CSS personalizadas do Starlight:
+
+| Token | Valor | Finalidade |
+|-------|-------|-----------|
+| `--sl-font` | `"proximaNova", ...` | Texto de corpo, elementos de interface |
+| `--sl-font-heading` | `"neusaNextProWide", ...` | Token personalizado para fonte de título |
+| `--sl-line-height-headings` | `1.1` | Entrelinhamento de título da marca Cloud |
+| `--sl-text-h1` | `var(--sl-text-5xl)` | Título de 2,625rem |
+| `--sl-text-h2` | `var(--sl-text-3xl)` | Subtítulo de 1,8125rem |
+| `--sl-text-h3` | `var(--sl-text-2xl)` | Introdução de seção de 1,5rem |
+| `--sl-text-h4` | `var(--sl-text-lg)` | Subseção de 1,125rem |
+
+### Mapeamento da Hierarquia de Títulos
+
+| HTML | Família de Fontes | Peso | Caixa | Função na Marca |
+|------|------------------|------|-------|----------------|
+| `h1` | Neusa Next Wide | 700 (Bold) | Frase | Título |
+| `h2` | Neusa Next Wide | 700 (Bold) | Frase | Subtítulo |
+| `h3` | Neusa Next Wide | 500 (Medium) | Frase | Introdução / Subtítulo secundário |
+| `h4` | Proxima Nova | 700 (Bold) | MAIÚSCULAS | Cabeçalho de seção |
+| `h5` | Proxima Nova | 700 (Bold) | MAIÚSCULAS | Cabeçalho de subseção |
+| `h6` | Proxima Nova | 700 (Bold) | MAIÚSCULAS | Cabeçalho de seção menor |
+
+## Substituindo Fontes
+
+Para usar diferentes famílias de fontes:
+
+1. **Adicione arquivos woff2** ao diretório `fonts/` usando a convenção de nomenclatura `nomeDaFamília-peso.woff2` (adicione o sufixo `i` para itálico)
+2. **Atualize `fonts/font-face.css`** com novas regras `@font-face` correspondentes aos nomes de arquivo, pesos e estilos
+3. **Atualize `styles/custom.css`** para definir `--sl-font` e o `font-family` dos títulos com os nomes das novas famílias
+4. **Mantenha a pilha de fallback** (`system-ui, "Segoe UI", Helvetica, Arial, sans-serif`) para renderização inicial rápida
+
+## Verificações do Tema
+
+- H2 e H3 usam a família de fontes `neusaNextProWide` com peso 700/500
+- H4, H5, H6 usam a fonte `proximaNova`, em maiúsculas, com espaçamento entre letras de 0,05em
+- A cor de destaque dos links é `#f06680` no modo escuro e `#e4002b` no modo claro
+- O código inline possui um fundo levemente colorido proveniente de `--sl-color-gray-5`
+- A borda esquerda da citação em bloco é visível em ambos os temas
+- As referências de notas de rodapé são sobrescritas e vinculadas
+- A linha horizontal possui contraste adequado

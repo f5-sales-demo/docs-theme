@@ -1,0 +1,113 @@
+---
+title: Pied de page
+description: >-
+  Composant de pied de page Starlight personnalisé avec des liens vers les
+  réseaux sociaux.
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+Le thème remplace le pied de page Starlight par défaut par un composant `Footer.astro` personnalisé qui ajoute des liens vers les réseaux sociaux sous le contenu standard du pied de page.
+
+## Modèle de composant
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+Ce modèle **étend** le pied de page par défaut plutôt que de le remplacer entièrement. `<Default {...Astro.props}><slot /></Default>` affiche le pied de page Starlight d'origine (navigation précédent/suivant), puis les liens sociaux sont ajoutés en dessous.
+
+## Méthode d'enregistrement
+
+Le remplacement du pied de page est enregistré par le plugin Starlight dans `index.ts`. Lors du hook `config:setup`, il définit le remplacement du composant `Footer` :
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+Les dépôts de contenu n'ont pas besoin d'enregistrer le pied de page manuellement — il est appliqué automatiquement lors du chargement du plugin de thème.
+
+## Liens sociaux
+
+| Plateforme | URL | Couleur de l'icône | Libellé aria |
+|------------|-----|-------------------|--------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Bleu Facebook) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (hérité) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (Bleu LinkedIn) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Rose Instagram) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (Rouge YouTube) | YouTube |
+
+Chaque lien s'ouvre dans un nouvel onglet (`target="_blank"`) avec `rel="noopener noreferrer"` pour la Sécurité.
+
+## Style CSS
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+Les liens sont alignés à droite dans une rangée flex avec un effet de survol d'opacité subtil.
+
+## Personnalisation
+
+### Modifier une URL
+
+Éditez l'attribut `href` sur la balise `<a>` correspondante dans `components/Footer.astro` au sein du package `@f5xc-salesdemos/docs-theme`.
+
+### Ajouter un lien
+
+Ajoutez un nouvel élément `<a>` à l'intérieur du div `.social-links` avec une icône SVG de 24x24. Suivez le modèle existant :
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### Supprimer un lien
+
+Supprimez l'intégralité du bloc `<a>...</a>` correspondant à la plateforme que vous souhaitez retirer.
+
+### Modifier les couleurs des icônes
+
+Modifiez l'attribut `fill` sur l'élément `<svg>`. Utilisez `currentColor` pour hériter de la couleur du texte, ou une valeur hexadécimale spécifique pour les couleurs de marque.
+
+### Modifier la mise en page
+
+Modifiez le CSS `.social-links` dans le bloc `<style>` :
+- **Alignement centré** : Remplacez `justify-content` par `center`
+- **Espacement plus large** : Augmentez la valeur de `gap`
+- **Alignement à gauche** : Remplacez `justify-content` par `flex-start`

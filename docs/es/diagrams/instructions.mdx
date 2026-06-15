@@ -1,0 +1,97 @@
+---
+title: Instrucciones
+description: >-
+  Referencia de sintaxis de diagramas Mermaid, paquetes de iconos disponibles,
+  estilos CSS y detalles de compatibilidad de temas.
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 5ce5851823d9
+  translator: machine
+---
+
+El tema incluye un plugin personalizado `remark-mermaid` (`plugins/remark-mermaid.mjs`) que convierte bloques de código ` ```mermaid ` delimitados en envoltorios `<div class="mermaid-container">`. El script CDN de Mermaid renderiza diagramas SVG al cargar la página.
+
+## Sintaxis de iconos
+
+### Diagramas de flujo
+
+Utilice la sintaxis de nodo `@\{\}` para agregar iconos de cualquier paquete de iconos registrado:
+
+```
+nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
+```
+
+### Diagramas de arquitectura
+
+El tipo de diagrama `architecture-beta` admite definiciones de servicios y grupos con nodos decorados con iconos:
+
+```
+service myService(pack:icon-name)[Label]
+group myGroup(pack:icon-name)[Label]
+```
+
+## Paquetes de iconos disponibles
+
+Los siguientes paquetes de iconos están registrados y disponibles en los diagramas Mermaid. Los iconos se cargan de forma diferida desde CDN únicamente cuando se hace referencia a ellos.
+
+| Nombre del paquete | Paquete npm | Iconos clave |
+|-----------|-------------|-----------|
+| `hashicorp-flight` | `@f5xc-salesdemos/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
+| `f5-brand` | `@f5xc-salesdemos/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
+| `f5xc` | `@f5xc-salesdemos/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
+| `carbon` | `@f5xc-salesdemos/icons-carbon` | `cloud-services`, `data-base`, `gateway-api`, `virtual-machine`, `load-balancer-global`, `firewall`, `dns-services`, `virtual-private-cloud` |
+| `lucide` | `@f5xc-salesdemos/icons-lucide` | `server`, `database`, `shield`, `shield-check`, `globe`, `lock`, `cloud`, `network`, `user` |
+| `mdi` | `@f5xc-salesdemos/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `dns`, `vpn`, `router` |
+| `phosphor` | `@f5xc-salesdemos/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock`, `network` |
+| `tabler` | `@f5xc-salesdemos/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `route`, `router` |
+| `azure` | `@f5xc-salesdemos/icons-azure` | `virtual-networks`, `load-balancers`, `firewalls`, `virtual-network-gateways`, `virtual-machine`, `public-ip-addresses`, `route-tables`, `subnet` |
+
+## Referencia CSS
+
+### Estilos del contenedor
+
+Los diagramas Mermaid se envuelven en un contenedor con estilo que incluye esquinas redondeadas y una sombra de caja en capas:
+
+```css
+.mermaid-container {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+  margin-block: 1.5rem;
+  background: #fff;
+}
+```
+
+### Restablecimiento del elemento Pre
+
+El estilo predeterminado de `<pre>` de Starlight se elimina del envoltorio Mermaid para que solo sea visible el borde del contenedor exterior:
+
+```css
+.mermaid-container pre.mermaid {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+```
+
+### Forzado del fondo SVG
+
+El SVG interior se fuerza a un fondo blanco para compatibilidad con el modo oscuro:
+
+```css
+.mermaid-container svg {
+  background: white !important;
+  border-radius: 0.5rem;
+}
+```
+
+## Verificaciones del tema
+
+- `.mermaid-container` tiene fondo SVG blanco en modo oscuro
+- El borde del contenedor utiliza `--sl-color-gray-5`
+- El contenedor tiene un radio de borde de 0.75rem y sombra de caja en capas
+- Los diagramas son legibles tanto en temas claros como oscuros
+- El script CDN de Mermaid se carga y renderiza los SVG al cargar la página

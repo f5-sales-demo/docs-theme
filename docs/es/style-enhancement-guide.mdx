@@ -1,0 +1,598 @@
+---
+title: Guía de mejoras de estilo
+description: Referencia de tokens del sistema de diseño para @f5xc-salesdemos/docs-theme
+sidebar:
+  order: 12
+i18n:
+  sourceHash: f0fb4524cc1c
+  translator: machine
+---
+
+Esta guía documenta los tokens del sistema de diseño y las clases de componentes implementadas en `styles/custom.css`. Sirve como referencia para los tokens de borde, superficie, sombra, radio, botón, degradado, transición, enfoque y tipografía utilizados en todo el tema.
+
+> **Estado**: Todos los tokens de diseño y las clases de componentes descritos a continuación están implementados y disponibles para su uso.
+
+## Cómo leer esta guía
+
+Cada sección documenta una categoría de tokens:
+
+1. **Definiciones de tokens** — propiedades personalizadas de CSS con valores para modo claro/oscuro
+2. **Asignación de componentes** — qué componentes del tema utilizan cada token
+3. **Notas de implementación** — orientación de uso y consideraciones de accesibilidad
+
+Las tablas de tokens están divididas por **modo claro** y **modo oscuro** cuando los valores difieren.
+
+---
+
+## 1. Sistema de colores
+
+### Bordes con transparencia alfa
+
+El tema utiliza **bordes con transparencia alfa** en lugar de colores grises sólidos. Esto permite que los bordes se adapten de forma natural a cualquier fondo.
+
+```css
+/* Patrón de borde con transparencia alfa */
+border: 1px solid var(--f5-border-default);  /* neutral al 20% alfa */
+```
+
+#### Tokens de borde
+
+```css
+/* Modo claro */
+:root[data-theme='light'] {
+  --f5-border-faint: #3434341a;    /* --f5-black-3 al 10% */
+  --f5-border-default: #34343433;  /* --f5-black-3 al 20% */
+  --f5-border-strong: #22222266;   /* --f5-black-4 al 40% */
+}
+
+/* Modo oscuro */
+:root {
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 al 10% */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2 al 20% */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4 al 40% */
+}
+```
+
+#### Casos de uso de bordes
+
+| Token | Opacidad | Caso de uso |
+|---|---|---|
+| `--f5-border-faint` | 10% | Separadores sutiles, filas de tabla |
+| `--f5-border-default` | 20% | Bordes predeterminados, contornos de tarjeta |
+| `--f5-border-strong` | 40% | Bordes enfatizados, estados activos |
+
+> **Estado**: Completo — implementado en `styles/custom.css`.
+
+### Colores de superficie interactiva
+
+Tokens de superficie semánticos para estados de hover y activo.
+
+#### Superficies en modo claro
+
+| Token | Valor | Propósito |
+|---|---|---|
+| `--f5-white` | `#ffffff` | Fondos principales |
+| `--f5-white-1` | `#faf9f7` | Barra lateral, áreas sutiles |
+| `--f5-white-2` | `#f5f5f5` | Superficies elevadas |
+| `--f5-surface-hover` | `var(--f5-white-2)` | Relleno al pasar el cursor |
+| `--f5-surface-active` | `var(--f5-white-3)` | Relleno presionado/activo |
+
+#### Superficies en modo oscuro
+
+| Token | Valor | Propósito |
+|---|---|---|
+| `--f5-black` | `#000000` | Fondos principales |
+| `--f5-black-4` | `#222222` | Barra lateral, áreas sutiles |
+| `--f5-surface-hover` | `var(--f5-black-3)` | Relleno al pasar el cursor |
+| `--f5-surface-active` | `var(--f5-black-2)` | Relleno presionado/activo |
+
+#### Definiciones de tokens de superficie
+
+```css
+:root[data-theme='light'] {
+  --f5-surface-hover: var(--f5-white-2);     /* #f5f5f5 */
+  --f5-surface-active: var(--f5-white-3);    /* #e6e6e6 */
+}
+
+:root {
+  --f5-surface-hover: var(--f5-black-3);     /* #343434 */
+  --f5-surface-active: var(--f5-black-2);    /* #666666 */
+}
+```
+
+> **Estado**: Completo — implementado en `styles/custom.css`.
+
+---
+
+## 2. Sistema de elevación y sombras
+
+### Escala de sombras
+
+El tema utiliza **sombras alfa con tinte neutro** con valores de doble capa para lograr una profundidad natural. El modo claro usa `--f5-black-3` (`#343434`) como base de tinte; el modo oscuro usa `#cccccc`.
+
+#### Sombras en modo claro
+
+```css
+:root[data-theme='light'] {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #3434341a;
+  --f5-shadow-low:
+    0px 1px 1px 0px #3434340d,
+    0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #3434341a,
+    0px 8px 16px -10px #34343433;
+  --f5-shadow-high:
+    0px 2px 3px 0px #34343426,
+    0px 16px 16px -10px #34343433;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #3434341a,
+    0px 12px 28px 0px #34343440;
+}
+```
+
+#### Sombras en modo oscuro
+
+```css
+:root {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #cccccc0d;
+  --f5-shadow-low:
+    0px 1px 1px 0px #cccccc0a,
+    0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #cccccc0d,
+    0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high:
+    0px 2px 3px 0px #cccccc1a,
+    0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #cccccc0d,
+    0px 12px 28px 0px #cccccc26;
+}
+```
+
+### Asignación de sombras a componentes
+
+| Componente | Nivel de sombra |
+|---|---|
+| `.swatch`, `.icon-card` | `--f5-shadow-low` (en reposo) |
+| `.starlight-aside` | `--f5-shadow-low` |
+| `.expressive-code .frame` | `--f5-shadow-mid` |
+| `.mermaid-container` | `--f5-shadow-mid` |
+| Tarjetas al pasar el cursor | `--f5-shadow-mid` |
+| Menús desplegables, popovers | `--f5-shadow-high` |
+| Modales | `--f5-shadow-higher` |
+
+> **Estado**: Completo — todos los niveles de sombra (`inset`, `low`, `mid`, `high`, `higher`) implementados en `styles/custom.css`.
+
+---
+
+## 3. Escala de radio de borde
+
+### Tokens de radio
+
+```css
+:root {
+  --f5-radius-xs: 0.1875rem;   /* 3px — insignias, etiquetas */
+  --f5-radius-sm: 0.3125rem;   /* 5px — elementos de navegación, controles pequeños */
+  --f5-radius-md: 0.375rem;    /* 6px — tarjetas, bloques de código */
+  --f5-radius-lg: 0.5rem;      /* 8px — modales, contenedores grandes */
+  --f5-radius-full: 999px;     /* píldoras, completamente redondeado */
+}
+```
+
+### Asignación de radio a componentes
+
+| Componente | Token de radio |
+|---|---|
+| `.swatch` | `--f5-radius-md` (6px) |
+| `.icon-card` | `--f5-radius-md` (6px) |
+| `.starlight-aside` | `--f5-radius-md` (6px) |
+| `.expressive-code .frame` | `--f5-radius-md` (6px) |
+| `.mermaid-container` | `--f5-radius-lg` (8px) |
+| `.edit-link` | `--f5-radius-full` (píldora) |
+| Elementos de navegación en barra lateral | `--f5-radius-sm` (5px) |
+| Insignias | `--f5-radius-xs` (3px) |
+
+> **Estado**: Completo — escala de radio (`xs`, `sm`, `md`, `lg`, `full`) implementada en `styles/custom.css`.
+
+---
+
+## 4. Estilo de navegación en barra lateral
+
+### Estilos de elementos de barra lateral
+
+```css
+/* Elementos de navegación en barra lateral */
+nav.sidebar a {
+  border-radius: var(--f5-radius-sm);    /* 5px */
+  padding: 0.25rem 0.5rem;               /* 4px 8px */
+  min-height: 2.25rem;                    /* 36px */
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Hover en modo claro */
+:root[data-theme='light'] nav.sidebar a:hover {
+  background-color: var(--f5-white-2);   /* #f5f5f5 */
+}
+
+/* Hover en modo oscuro */
+:root nav.sidebar a:hover {
+  background-color: var(--f5-black-3);   /* #343434 */
+}
+
+/* Indicador de página activa */
+nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-white-3);   /* #e6e6e6 claro */
+  font-weight: 600;
+}
+
+:root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-black-2);   /* #666666 → ajustar para legibilidad */
+}
+```
+
+### Indicador de acento izquierdo
+
+```css
+nav.sidebar a[aria-current="page"] {
+  border-left: 3px solid var(--sl-color-accent);
+  padding-left: calc(0.5rem - 3px);  /* compensar por el borde */
+}
+```
+
+> **Estado**: Completo — hover de barra lateral, estado activo e indicador de acento implementados en `styles/custom.css`.
+
+---
+
+## 5. Sistema de botones
+
+### Variantes de botón
+
+```css
+/* Primario — usando el rojo F5 como acción de marca */
+.btn-primary {
+  background: var(--f5-red);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover {
+  background: var(--f5-red-3);
+  box-shadow: var(--f5-shadow-low);
+}
+
+/* Secundario — estilo de contorno */
+.btn-secondary {
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover {
+  background: var(--f5-surface-hover);
+  border-color: var(--f5-border-strong);
+}
+
+/* Terciario — fantasma/solo texto */
+.btn-tertiary {
+  background: transparent;
+  color: var(--sl-color-accent);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+}
+.btn-tertiary:hover {
+  background: var(--f5-surface-hover);
+}
+```
+
+### Escala de tamaños de botón
+
+| Tamaño | Relleno | Tamaño de fuente | Altura mínima |
+|---|---|---|---|
+| Pequeño | `0.375rem 0.75rem` | `0.8125rem` (13px) | `32px` |
+| Mediano (predeterminado) | `0.625rem 1rem` | `0.875rem` (14px) | `40px` |
+| Grande | `0.75rem 1.5rem` | `1rem` (16px) | `48px` |
+
+> **Estado**: Completo — todas las variantes de botón (`primary`, `secondary`, `tertiary`, `critical`) y la escala de tamaños (`sm`, predeterminado, `lg`) implementadas en `styles/custom.css`.
+
+---
+
+## 6. Fondos de hero y encabezado
+
+### Degradados de hero
+
+Usando la paleta de marca F5:
+
+```css
+/* Degradado de hero primario — azul River */
+.hero-gradient-primary {
+  background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
+  /* #6e8dcc → #0e41aa */
+}
+
+/* Lavado de página suave — tono cálido sutil */
+:root[data-theme='light'] .hero-gradient-faint {
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
+}
+:root .hero-gradient-faint {
+  background: linear-gradient(180deg, #222222 0%, #000000 100%);
+}
+
+/* Variante berenjena para páginas de características */
+.hero-gradient-eggplant {
+  background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
+  /* #9c59c9 → #62228b */
+}
+
+/* Variante roja de marca para anuncios */
+.hero-gradient-red {
+  background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
+  /* #f06680 → #e4002b */
+}
+```
+
+### Técnicas de superposición de degradado
+
+```css
+/* Viñeta radial para profundidad */
+.hero-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* Desvanecimiento inferior hacia el fondo de la página */
+.hero-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+```
+
+> **Estado**: Completo — degradados de hero (`primary`, `eggplant`, `red`, `faint`) y superposiciones (`hero-fade`, `hero-vignette`) implementados en `styles/custom.css`.
+
+---
+
+## 7. Efectos de hover y transiciones
+
+### Tokens de transición
+
+```css
+:root {
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+```
+
+| Token | Duración | Suavizado | Caso de uso |
+|---|---|---|---|
+| `--f5-transition-fast` | `0.15s` | `ease` | La mayoría de estados hover, cambios de color |
+| `--f5-transition-base` | `0.2s` | `ease` | Rellenos de fondo, cambios de borde |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | Interruptores, alternadores |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | Indicadores de pestaña, paneles deslizantes |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | Tooltips, entrada de popover |
+
+### Qué animar
+
+| Propiedad | Seguro para animar | Notas |
+|---|---|---|
+| `background-color` | Sí | Estándar para rellenos hover |
+| `color` | Sí | Cambios de color de texto |
+| `border-color` | Sí | Énfasis de borde al pasar el cursor |
+| `box-shadow` | Sí | Cambios de elevación (usar `will-change` si hay saltos) |
+| `transform` | Sí | Escala, traslado para retroalimentación |
+| `opacity` | Sí | Aparecer/desaparecer gradualmente |
+| `width`, `height` | Evitar | Provoca reflujo de diseño |
+| `padding`, `margin` | Evitar | Provoca reflujo de diseño |
+
+### Asignación de transiciones a componentes
+
+```css
+/* Elementos de navegación en barra lateral */
+nav.sidebar a {
+  transition: background-color var(--f5-transition-fast),
+              color var(--f5-transition-fast);
+}
+
+/* Tarjetas — elevación de sombra al pasar el cursor */
+.swatch, .icon-card {
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+.swatch:hover, .icon-card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+/* Botones */
+.btn-primary, .btn-secondary, .btn-tertiary {
+  transition: background-color var(--f5-transition-fast),
+              border-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+
+/* Enlaces */
+a {
+  transition: color var(--f5-transition-fast);
+}
+```
+
+> **Estado**: Completo — los cinco tokens de transición (`fast`, `base`, `bounce`, `decelerate`, `spring`) y las transiciones de componentes implementados en `styles/custom.css`.
+
+---
+
+## 8. Sistema de anillo de enfoque
+
+### Tokens de anillo de enfoque
+
+El tema utiliza un patrón de **doble anillo** con un anillo interior insertado y un resplandor exterior:
+
+```css
+/* Enfoque de acción — usando el azul F5 River */
+:root {
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
+
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+  /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
+}
+
+/* Aplicar a elementos interactivos */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--f5-focus-action);
+}
+
+/* Variante crítica para botones destructivos */
+.btn-critical:focus-visible {
+  box-shadow: var(--f5-focus-critical);
+}
+```
+
+### Notas de accesibilidad
+
+- El patrón de doble anillo cumple con los requisitos de **Apariencia de enfoque de WCAG 2.2** (contorno contrastante mínimo de 2px)
+- Usar `box-shadow` en lugar de `outline` permite respetar el radio de borde
+- `:focus-visible` garantiza que el anillo solo aparezca para la navegación por teclado, no para clics del ratón
+
+> **Estado**: Completo — patrón de enfoque de doble anillo (`action`, `critical`) y estilos `:focus-visible` implementados en `styles/custom.css`.
+
+---
+
+## 9. Tipografía
+
+### Pila de fuentes
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-font-heading: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-line-height-headings: 1.1;
+}
+```
+
+### Escala tipográfica
+
+| Escala | Tamaño | Altura de línea | Uso |
+|---|---|---|---|
+| Display 500 | `1.875rem` (30px) | 1.267 | `--sl-text-h1` |
+| Display 400 | `1.5rem` (24px) | 1.333 | `--sl-text-h2` |
+| Display 300 | `1.125rem` (18px) | 1.333 | `--sl-text-h3` |
+| Display 200 | `1rem` (16px) | 1.5 | `--sl-text-h4` |
+| Display 100 | `0.8125rem` (13px) | 1.385 | Texto de encabezado de sección |
+| Body 300 | `1rem` (16px) | 1.5 | Cuerpo principal |
+| Body 200 | `0.875rem` (14px) | 1.429 | Texto de barra lateral, pies de foto |
+| Body 100 | `0.8125rem` (13px) | 1.385 | Texto pequeño |
+
+### Características principales
+
+| Aspecto | Valor | Notas |
+|---|---|---|
+| Altura de línea de encabezados | `1.1` | Encabezados compactos para impacto de marca; considerar `1.2` para legibilidad |
+| Altura de línea del cuerpo | `1.5` (predeterminado de Starlight) | Adecuada para lectura |
+| Familia de fuentes | Fuentes de marca personalizadas | proximaNova (cuerpo), neusaNextProWide (encabezados) |
+| Pesos de encabezados | `h1-h2: 700, h3: 500, h4-h6: 700 mayúsculas` | Opinionado para consistencia de marca |
+
+> **Prioridad**: No se necesitan cambios. La tipografía actual está bien definida y es apropiada para la marca. El ajuste menor de la altura de línea de encabezados (`1.1` a `1.2`) es opcional.
+
+---
+
+## 10. Registro de cambios de implementación
+
+Todos los tokens de diseño fueron implementados en cinco sprints:
+
+| Sprint | Alcance | Tokens añadidos |
+|---|---|---|
+| 1. Fundación | Sombras + radio de borde | `--f5-shadow-*` (5 niveles), `--f5-radius-*` (5 niveles) |
+| 2. Barra lateral + Superficies | Navegación + tokens interactivos | `--f5-surface-hover`, `--f5-surface-active`, `--f5-border-*` (3 niveles), `--f5-transition-fast` |
+| 3. Botones | Sistema de componentes | `.btn-primary`, `.btn-secondary`, `.btn-tertiary`, `.btn-critical`, variantes de tamaño |
+| 4. Degradados de hero | Utilidades de fondo | `.hero-gradient-primary`, `-eggplant`, `-red`, `-faint`, `.hero-vignette`, `.hero-fade` |
+| 5. Enfoque + Transiciones | Accesibilidad + pulido | `--f5-focus-action`, `--f5-focus-critical`, `--f5-transition-*` (5 tokens), efectos hover de tarjetas |
+
+---
+
+## Referencia rápida: Resumen de tokens
+
+### Todas las propiedades personalizadas
+
+```css
+:root {
+  /* Escala de radio de borde */
+  --f5-radius-xs: 0.1875rem;     /* 3px */
+  --f5-radius-sm: 0.3125rem;     /* 5px */
+  --f5-radius-md: 0.375rem;      /* 6px */
+  --f5-radius-lg: 0.5rem;        /* 8px */
+  --f5-radius-full: 999px;
+
+  /* Temporización de transiciones */
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+
+  /* Anillos de enfoque */
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+
+  /* Sombras en modo oscuro (predeterminado) */
+  --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
+
+  /* Bordes en modo oscuro */
+  --f5-border-faint: #f5f5f51a;
+  --f5-border-default: #f5f5f533;
+  --f5-border-strong: #cccccc66;
+
+  /* Superficies en modo oscuro */
+  --f5-surface-hover: var(--f5-black-3);
+  --f5-surface-active: var(--f5-black-2);
+}
+
+:root[data-theme='light'] {
+  /* Sombras en modo claro */
+  --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
+  --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
+  --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
+
+  /* Bordes en modo claro */
+  --f5-border-faint: #3434341a;
+  --f5-border-default: #34343433;
+  --f5-border-strong: #22222266;
+
+  /* Superficies en modo claro */
+  --f5-surface-hover: var(--f5-white-2);
+  --f5-surface-active: var(--f5-white-3);
+}
+```

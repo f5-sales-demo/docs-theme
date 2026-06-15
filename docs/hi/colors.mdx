@@ -1,0 +1,562 @@
+---
+title: रंग
+description: >-
+  थीम विकास के लिए रंग पैलेट संदर्भ — प्राथमिक रंग, टिंट, शेड, CMYK, LESS
+  वेरिएबल्स, और Starlight CSS कस्टम प्रॉपर्टी मैपिंग।
+sidebar:
+  order: 6
+i18n:
+  sourceHash: 51cffb696709
+  translator: machine
+---
+
+हमारे रंग पैलेट की पूरी श्रृंखला ग्राफिक्स और चित्रणों में उपयोग की जाती है, जो अनूठे और आधुनिक संयोजनों के साथ-साथ मोनोक्रोमेटिक कंट्रास्ट को भी explore करती है। इसका उपयोग किसी विशिष्ट विषय या जोर देने योग्य बिंदु को उजागर करने के लिए किया जा सकता है।
+
+F5 पैलेट में सात प्राथमिक ब्रांड रंगों के साथ काले और सफेद रंग भी शामिल हैं, जिनमें से प्रत्येक के चार टिंट/शेड वेरिएंट हैं, जो कुल **45 रंग** बनाते हैं। यह पृष्ठ थीम विकास के दौरान ब्रांड रंगों को Starlight CSS कस्टम प्रॉपर्टीज़ में मैप करने का एकमात्र आधिकारिक स्रोत है।
+
+## प्राथमिक रंग
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red);">#e4002b</div>
+    <div class="swatch-label">F5 Red<code>--f5-red</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine);">#f29a36</div>
+    <div class="swatch-label">Tangerine<code>--f5-tangerine</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river);">#0e41aa</div>
+    <div class="swatch-label">River<code>--f5-river</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry);">#ab2782</div>
+    <div class="swatch-label">Raspberry<code>--f5-raspberry</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade);">#009639</div>
+    <div class="swatch-label">Jade<code>--f5-jade</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant);">#62228b</div>
+    <div class="swatch-label">Eggplant<code>--f5-eggplant</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay);">#0072b0</div>
+    <div class="swatch-label">Bay<code>--f5-bay</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white);">#ffffff</div>
+    <div class="swatch-label">White<code>--f5-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black);">#000000</div>
+    <div class="swatch-label">Black<code>--f5-black</code></div>
+  </div>
+</div>
+
+| नाम | HEX | RGB | CMYK | LESS | PMS | CSS वेरिएबल |
+|------|-----|-----|------|------|-----|--------------|
+| F5 Red | `#e4002b` | 228, 0, 43 | 0, 100, 81, 11 | `monza` | 185 | `--f5-red` |
+| Tangerine | `#f29a36` | 242, 154, 54 | 0, 36, 78, 5 | `carrot-orange` | 1375 | `--f5-tangerine` |
+| River | `#0e41aa` | 14, 65, 170 | 92, 62, 0, 33 | `tory-blue` | 293 | `--f5-river` |
+| Raspberry | `#ab2782` | 171, 39, 130 | 0, 77, 24, 33 | — | 241 | `--f5-raspberry` |
+| Jade | `#009639` | 0, 150, 57 | 100, 0, 62, 41 | `fun-green` | 355 | `--f5-jade` |
+| Eggplant | `#62228b` | 98, 34, 139 | 29, 76, 0, 45 | `honey-flower` | 2617 | `--f5-eggplant` |
+| Bay | `#0072b0` | 0, 114, 176 | 100, 35, 0, 31 | — | 7461 | `--f5-bay` |
+| White | `#ffffff` | 255, 255, 255 | 0, 0, 0, 0 | `alabaster` | — | `--f5-white` |
+| Black | `#000000` | 0, 0, 0 | 60, 50, 40, 100 | `black` | Black | `--f5-black` |
+
+> **LESS नामों पर नोट**: Brand Center में Raspberry को `tory-blue` और Bay को `honey-flower` के रूप में दर्शाया गया है — ये क्रमशः River और Eggplant प्रविष्टियों से copy-paste त्रुटियाँ हैं। गलत मानों को प्रसारित होने से बचाने के लिए इन्हें ऊपर `—` के रूप में चिह्नित किया गया है।
+
+## द्वितीयक रंग (टिंट और शेड)
+
+प्रत्येक प्राथमिक रंग के चार वेरिएंट हैं जो सबसे हल्के (Level 1) से सबसे गहरे (Level 4) के क्रम में हैं।
+
+Brand Center द्वितीयक रंगों को LESS वेरिएबल नाम प्रदान करता है। Cloud Red और Tangerine वेरिएंट के अद्वितीय, सार्थक नाम हैं। अन्य सभी रंग समूह समान placeholder नाम (`wewak`, `froly`, `carmine`, `venetian-red`) प्रदर्शित करते हैं — ये ब्रांड प्लेटफ़ॉर्म के टेम्प्लेट डिफ़ॉल्ट हैं और पूर्णता के लिए नीचे शामिल किए गए हैं, लेकिन इन्हें विहित पहचानकर्ता के रूप में नहीं माना जाना चाहिए।
+
+### F5 Red
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red);">#e4002b</div>
+    <div class="swatch-label">F5 Red (base)<code>--f5-red</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-red-1);">#f7b2bf</div>
+    <div class="swatch-label">Level 1<code>--f5-red-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-2);">#f06680</div>
+    <div class="swatch-label">Level 2<code>--f5-red-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-3);">#a70020</div>
+    <div class="swatch-label">Level 3<code>--f5-red-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-4);">#720016</div>
+    <div class="swatch-label">Level 4<code>--f5-red-4</code></div>
+  </div>
+</div>
+
+| स्तर | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (सबसे हल्का) | `#f7b2bf` | 247, 178, 191 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#f06680` | 240, 102, 128 | 0, 57, 47, 6 | `froly` |
+| 3 | `#a70020` | 167, 0, 32 | 0, 100, 81, 35 | `carmine` |
+| 4 (सबसे गहरा) | `#720016` | 114, 0, 22 | 0, 100, 81, 55 | `venetian-red` |
+
+### Tangerine
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine);">#f29a36</div>
+    <div class="swatch-label">Tangerine (base)<code>--f5-tangerine</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine-1);">#ffe4c4</div>
+    <div class="swatch-label">Level 1<code>--f5-tangerine-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine-2);">#ffbd61</div>
+    <div class="swatch-label">Level 2<code>--f5-tangerine-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-tangerine-3);">#a35700</div>
+    <div class="swatch-label">Level 3<code>--f5-tangerine-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-tangerine-4);">#7a4100</div>
+    <div class="swatch-label">Level 4<code>--f5-tangerine-4</code></div>
+  </div>
+</div>
+
+| स्तर | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (सबसे हल्का) | `#ffe4c4` | 255, 228, 196 | 0, 11, 23, 0 | `tequila` |
+| 2 | `#ffbd61` | 255, 189, 97 | 0, 26, 62, 0 | `koromiko` |
+| 3 | `#a35700` | 163, 87, 0 | 0, 47, 100, 36 | `chelsea-gem` |
+| 4 (सबसे गहरा) | `#7a4100` | 122, 65, 0 | 0, 47, 100, 52 | `cinnamon` |
+
+### River
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river);">#0e41aa</div>
+    <div class="swatch-label">River (base)<code>--f5-river</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-river-1);">#b7c6e5</div>
+    <div class="swatch-label">Level 1<code>--f5-river-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-2);">#6e8dcc</div>
+    <div class="swatch-label">Level 2<code>--f5-river-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-3);">#0b3180</div>
+    <div class="swatch-label">Level 3<code>--f5-river-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-4);">#072155</div>
+    <div class="swatch-label">Level 4<code>--f5-river-4</code></div>
+  </div>
+</div>
+
+| स्तर | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (सबसे हल्का) | `#b7c6e5` | 183, 198, 229 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#6e8dcc` | 110, 141, 204 | 0, 58, 47, 6 | `froly` |
+| 3 | `#0b3180` | 11, 49, 128 | 0, 100, 81, 35 | `carmine` |
+| 4 (सबसे गहरा) | `#072155` | 7, 33, 85 | 0, 100, 81, 55 | `venetian-red` |
+
+### Raspberry
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry);">#ab2782</div>
+    <div class="swatch-label">Raspberry (base)<code>--f5-raspberry</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-raspberry-1);">#e6bed9</div>
+    <div class="swatch-label">Level 1<code>--f5-raspberry-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-2);">#cd7db4</div>
+    <div class="swatch-label">Level 2<code>--f5-raspberry-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-3);">#801d62</div>
+    <div class="swatch-label">Level 3<code>--f5-raspberry-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-4);">#561441</div>
+    <div class="swatch-label">Level 4<code>--f5-raspberry-4</code></div>
+  </div>
+</div>
+
+| स्तर | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (सबसे हल्का) | `#e6bed9` | 230, 190, 217 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#cd7db4` | 205, 125, 180 | 0, 58, 47, 6 | `froly` |
+| 3 | `#801d62` | 128, 29, 98 | 0, 100, 81, 35 | `carmine` |
+| 4 (सबसे गहरा) | `#561441` | 86, 20, 65 | 0, 100, 81, 55 | `venetian-red` |
+
+### Jade
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade);">#009639</div>
+    <div class="swatch-label">Jade (base)<code>--f5-jade</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-jade-1);">#b2dfc4</div>
+    <div class="swatch-label">Level 1<code>--f5-jade-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-jade-2);">#66c088</div>
+    <div class="swatch-label">Level 2<code>--f5-jade-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade-3);">#00712b</div>
+    <div class="swatch-label">Level 3<code>--f5-jade-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade-4);">#004b1d</div>
+    <div class="swatch-label">Level 4<code>--f5-jade-4</code></div>
+  </div>
+</div>
+
+| स्तर | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (सबसे हल्का) | `#b2dfc4` | 178, 223, 196 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#66c088` | 102, 192, 136 | 0, 58, 47, 6 | `froly` |
+| 3 | `#00712b` | 0, 113, 43 | 0, 100, 81, 35 | `carmine` |
+| 4 (सबसे गहरा) | `#004b1d` | 0, 75, 29 | 0, 100, 81, 55 | `venetian-red` |
+
+### Eggplant
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant);">#62228b</div>
+    <div class="swatch-label">Eggplant (base)<code>--f5-eggplant</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-eggplant-1);">#cdabe3</div>
+    <div class="swatch-label">Level 1<code>--f5-eggplant-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-2);">#9c59c9</div>
+    <div class="swatch-label">Level 2<code>--f5-eggplant-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-3);">#822cb8</div>
+    <div class="swatch-label">Level 3<code>--f5-eggplant-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-4);">#41175d</div>
+    <div class="swatch-label">Level 4<code>--f5-eggplant-4</code></div>
+  </div>
+</div>
+
+| स्तर | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (सबसे हल्का) | `#cdabe3` | 205, 171, 227 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#9c59c9` | 156, 89, 201 | 0, 58, 47, 6 | `froly` |
+| 3 | `#822cb8` | 130, 44, 184 | 0, 100, 81, 35 | `carmine` |
+| 4 (सबसे गहरा) | `#41175d` | 65, 23, 93 | 0, 100, 81, 55 | `venetian-red` |
+
+### Bay
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay);">#0072b0</div>
+    <div class="swatch-label">Bay (base)<code>--f5-bay</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-bay-1);">#b2d7eb</div>
+    <div class="swatch-label">Level 1<code>--f5-bay-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-2);">#66afd7</div>
+    <div class="swatch-label">Level 2<code>--f5-bay-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-3);">#005c8d</div>
+    <div class="swatch-label">Level 3<code>--f5-bay-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-4);">#003d5f</div>
+    <div class="swatch-label">Level 4<code>--f5-bay-4</code></div>
+  </div>
+</div>
+
+| स्तर | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (सबसे हल्का) | `#b2d7eb` | 178, 215, 235 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#66afd7` | 102, 175, 215 | 0, 58, 47, 6 | `froly` |
+| 3 | `#005c8d` | 0, 92, 141 | 0, 100, 81, 35 | `carmine` |
+| 4 (सबसे गहरा) | `#003d5f` | 0, 61, 95 | 0, 100, 81, 55 | `venetian-red` |
+
+### White (न्यूट्रल)
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white);">#ffffff</div>
+    <div class="swatch-label">White (base)<code>--f5-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-1);">#faf9f7</div>
+    <div class="swatch-label">Level 1<code>--f5-white-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-2);">#f5f5f5</div>
+    <div class="swatch-label">Level 2<code>--f5-white-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-3);">#e6e6e6</div>
+    <div class="swatch-label">Level 3<code>--f5-white-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-4);">#cccccc</div>
+    <div class="swatch-label">Level 4<code>--f5-white-4</code></div>
+  </div>
+</div>
+
+| स्तर | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (सबसे हल्का) | `#faf9f7` | 250, 249, 247 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#f5f5f5` | 245, 245, 245 | 0, 58, 47, 6 | `froly` |
+| 3 | `#e6e6e6` | 230, 230, 230 | 0, 100, 81, 35 | `carmine` |
+| 4 (सबसे गहरा) | `#cccccc` | 204, 204, 204 | 0, 100, 81, 55 | `venetian-red` |
+
+### Black (ग्रे)
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black);">#000000</div>
+    <div class="swatch-label">Black (base)<code>--f5-black</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-1);">#999999</div>
+    <div class="swatch-label">Level 1<code>--f5-black-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-2);">#666666</div>
+    <div class="swatch-label">Level 2<code>--f5-black-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-3);">#343434</div>
+    <div class="swatch-label">Level 3<code>--f5-black-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-4);">#222222</div>
+    <div class="swatch-label">Level 4<code>--f5-black-4</code></div>
+  </div>
+</div>
+
+| स्तर | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (सबसे हल्का) | `#999999` | 153, 153, 153 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#666666` | 102, 102, 102 | 0, 58, 47, 6 | `froly` |
+| 3 | `#343434` | 52, 52, 52 | 0, 100, 81, 35 | `carmine` |
+| 4 (सबसे गहरा) | `#222222` | 34, 34, 34 | 0, 100, 81, 55 | `venetian-red` |
+
+## Starlight CSS कस्टम प्रॉपर्टीज़ में मैपिंग
+
+Starlight थीमिंग के लिए `--sl-color-*` वेरिएबल्स उजागर करता है। नीचे F5 पैलेट से Starlight के semantic color slots में मैपिंग दी गई है, जो `styles/custom.css` में कार्यान्वित की गई है।
+
+> **Starlight थीमिंग कैसे काम करती है**: Starlight में, **डार्क मोड bare `:root` डिफ़ॉल्ट है** — कोई `data-theme="dark"` सिलेक्टर नहीं है। लाइट मोड `:root[data-theme='light']` का उपयोग करता है। gray scale वेरिएबल्स *semantic* हैं, brightness-ordered नहीं: `gray-1` हमेशा "primary text" होता है और `gray-6`/`gray-7` हमेशा "subtle backgrounds" होते हैं, चाहे मोड कोई भी हो। उनके वास्तविक brightness मान मोड के बीच swap हो जाते हैं। इसी प्रकार, `accent-high` हमेशा high-visibility accent text color होता है और `accent-low` हमेशा subtle accent background होता है — उनकी brightness मोड के बीच उलट जाती है।
+
+```css
+/* Dark mode — Starlight default (:root) */
+:root {
+  --sl-color-white: #ffffff;      /* Heading text (brightest) */
+  --sl-color-gray-1: #f5f5f5;    /* Primary text — White Level 2 */
+  --sl-color-gray-2: #cccccc;    /* Body text — White Level 4 */
+  --sl-color-gray-3: #999999;    /* Dim/muted text — Black Level 1 */
+  --sl-color-gray-4: #666666;    /* Borders — Black Level 2 */
+  --sl-color-gray-5: #343434;    /* Inline code bg — Black Level 3 */
+  --sl-color-gray-6: #222222;    /* Sidebar bg — Black Level 4 */
+  --sl-color-black: #000000;     /* Page background */
+  --sl-color-accent-low: #720016;   /* Subtle accent bg — F5 Red Level 4 */
+  --sl-color-accent: #f06680;       /* Links, active — F5 Red Level 2 */
+  --sl-color-accent-high: #f7b2bf;  /* Accent text — F5 Red Level 1 */
+}
+
+/* Light mode — inverted gray scale and accent brightness */
+:root[data-theme='light'] {
+  --sl-color-white: #222222;      /* Heading text (darkest) — Black Level 4 */
+  --sl-color-gray-1: #222222;    /* Primary text — Black Level 4 */
+  --sl-color-gray-2: #343434;    /* Body text — Black Level 3 */
+  --sl-color-gray-3: #666666;    /* Dim text — Black Level 2 */
+  --sl-color-gray-4: #999999;    /* Borders — Black Level 1 */
+  --sl-color-gray-5: #cccccc;    /* Light borders — White Level 4 */
+  --sl-color-gray-6: #f5f5f5;    /* Sidebar bg — White Level 2 */
+  --sl-color-gray-7: #faf9f7;    /* Nav bg — White Level 1 */
+  --sl-color-black: #ffffff;     /* Page background */
+  --sl-color-accent-low: #f7b2bf;   /* Subtle accent bg — F5 Red Level 1 (inverted) */
+  --sl-color-accent: #e4002b;       /* Links, active — F5 Red */
+  --sl-color-accent-high: #720016;  /* Accent text — F5 Red Level 4 (inverted) */
+}
+```
+
+### विज़ुअल टोकन पूर्वावलोकन
+
+इन semantic tokens को डार्क और लाइट मोड के बीच बदलते देखने के लिए थीम स्विचर टॉगल करें।
+
+#### Gray Scale टोकन
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-white);">white</div>
+    <div class="swatch-label">Heading text<code>--sl-color-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-gray-1);">gray-1</div>
+    <div class="swatch-label">Primary text<code>--sl-color-gray-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-gray-2);">gray-2</div>
+    <div class="swatch-label">Body text<code>--sl-color-gray-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-3);">gray-3</div>
+    <div class="swatch-label">Dim text<code>--sl-color-gray-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-4);">gray-4</div>
+    <div class="swatch-label">Borders<code>--sl-color-gray-4</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-5);">gray-5</div>
+    <div class="swatch-label">Inline code bg<code>--sl-color-gray-5</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-6);">gray-6</div>
+    <div class="swatch-label">Sidebar bg<code>--sl-color-gray-6</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-black);">black</div>
+    <div class="swatch-label">Page background<code>--sl-color-black</code></div>
+  </div>
+</div>
+
+#### Accent टोकन
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-accent-low);">accent-low</div>
+    <div class="swatch-label">Subtle accent bg<code>--sl-color-accent-low</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-accent);">accent</div>
+    <div class="swatch-label">Links, active<code>--sl-color-accent</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-accent-high);">accent-high</div>
+    <div class="swatch-label">Accent text<code>--sl-color-accent-high</code></div>
+  </div>
+</div>
+
+#### Badge टोकन
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-default);">default</div>
+    <div class="swatch-label">Default badge<code>--sl-color-bg-badge-default</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-note);">note</div>
+    <div class="swatch-label">Note badge<code>--sl-color-bg-badge-note</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-danger);">danger</div>
+    <div class="swatch-label">Danger badge<code>--sl-color-bg-badge-danger</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-success);">success</div>
+    <div class="swatch-label">Success badge<code>--sl-color-bg-badge-success</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-caution);">caution</div>
+    <div class="swatch-label">Caution badge<code>--sl-color-bg-badge-caution</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-tip);">tip</div>
+    <div class="swatch-label">Tip badge<code>--sl-color-bg-badge-tip</code></div>
+  </div>
+</div>
+
+### कंट्रास्ट सत्यापन (WCAG AA)
+
+**डार्क मोड** (`#000000` पृष्ठ पृष्ठभूमि पर टेक्स्ट):
+- Body text `#cccccc` → **16.3:1** (AAA)
+- Dim text `#999999` → **10:1** (AAA)
+- Accent link `#f06680` → **5.6:1** (AA)
+
+**लाइट मोड** (`#ffffff` पृष्ठ पृष्ठभूमि पर टेक्स्ट):
+- Body text `#343434` → **11.6:1** (AAA)
+- Dim text `#666666` → **5.7:1** (AA)
+- Accent link `#e4002b` → **4.6:1** (AA)
+
+### Semantic रंग सुझाव
+
+| Starlight वेरिएबल | F5 रंग | उपयोग का मामला |
+|--------------------|----------|----------|
+| `--sl-color-accent` | F5 Red `#e4002b` | लिंक, बटन, सक्रिय अवस्थाएं |
+| `--sl-color-text-accent` | F5 Red Level 2 `#f06680` | डार्क मोड में hover अवस्थाएं |
+| `--sl-color-bg-accent` | F5 Red Level 4 `#720016` | Accent पृष्ठभूमि |
+| Custom: `--sl-color-info` | Bay `#0072b0` | सूचनात्मक callouts |
+| Custom: `--sl-color-success` | Jade `#009639` | सफलता संदेश |
+| Custom: `--sl-color-warning` | Tangerine `#f29a36` | चेतावनी callouts |
+| Custom: `--sl-color-danger` | F5 Red `#e4002b` | त्रुटि/खतरा callouts |
+
+## रंग कंट्रास्ट
+
+यह सुनिश्चित करने के लिए कि हर कोई हमारे संचार को एक्सेस कर सके और समझ सके, पृष्ठभूमि और टेक्स्ट रंग संयोजनों का उपयोग करें जो एक्सेसिबिलिटी मानकों को पूरा करते हों। बड़े टेक्स्ट के लिए न्यूनतम 3:1 और सामान्य टेक्स्ट के लिए 4.5:1 कंट्रास्ट अनुपात वाले रंग युग्मों का चयन करें।
+
+सभी रंग युग्मों को **WCAG AA** कंट्रास्ट आवश्यकताओं को पूरा करना चाहिए:
+
+- **सामान्य टेक्स्ट** (< 18pt / 14pt bold): न्यूनतम **4.5:1** कंट्रास्ट अनुपात
+- **बड़ा टेक्स्ट** (≥ 18pt / 14pt bold): न्यूनतम **3:1** कंट्रास्ट अनुपात
+- **UI घटक और ग्राफिकल ऑब्जेक्ट**: न्यूनतम **3:1** कंट्रास्ट अनुपात
+
+### अनुशंसित सुरक्षित युग्म
+
+| अग्रभूमि | पृष्ठभूमि | कंट्रास्ट अनुपात | उत्तीर्ण |
+|------------|------------|----------------|--------|
+| White `#ffffff` | F5 Red `#e4002b` | 4.6:1 | AA |
+| White `#ffffff` | River `#0e41aa` | 6.4:1 | AA / AAA |
+| White `#ffffff` | Bay `#0072b0` | 4.6:1 | AA |
+| White `#ffffff` | Jade `#009639` | 4.2:1 | AA (बड़ा टेक्स्ट) |
+| White `#ffffff` | Eggplant `#62228b` | 6.5:1 | AA / AAA |
+| White `#ffffff` | Raspberry `#ab2782` | 4.7:1 | AA |
+| Black `#000000` | Tangerine `#f29a36` | 7.8:1 | AA / AAA |
+| Black `#000000` | F5 Red Level 1 `#f7b2bf` | 10.1:1 | AA / AAA |
+| Black `#222222` | White Level 1 `#faf9f7` | 15.8:1 | AA / AAA |
+
+> **टिप**: नए रंग संयोजन बनाते समय हमेशा [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) जैसे टूल से कंट्रास्ट अनुपात सत्यापित करें।
+
+## उपयोग दिशानिर्देश
+
+| रंग परिवार | भूमिका | कब उपयोग करें |
+|--------------|------|-------------|
+| **F5 Red** | ब्रांड पहचान, प्राथमिक CTA | Hero सेक्शन, प्राथमिक बटन, ब्रांड मार्क, त्रुटि अवस्थाएं |
+| **River** | सूचनात्मक, विश्वास | नेविगेशन लिंक, सूचनात्मक बैनर, डेटा विज़ुअलाइज़ेशन |
+| **Bay** | सूचनात्मक, द्वितीयक | द्वितीयक लिंक, info callouts, कोड ब्लॉक accent |
+| **Jade** | सफलता, सकारात्मक | सफलता संदेश, पुष्टि अवस्थाएं, प्रगति संकेतक |
+| **Tangerine** | चेतावनी, ध्यान | चेतावनी callouts, ध्यान-आवश्यक अवस्थाएं, highlight मार्कर |
+| **Raspberry** | Accent, सजावटी | Tags, badges, द्वितीयक accent, श्रेणी मार्कर |
+| **Eggplant** | Accent, प्रीमियम | फीचर हाइलाइट, प्रीमियम संकेतक, सजावटी accent |
+| **White / न्यूट्रल** | पृष्ठभूमि, सतह | पृष्ठ पृष्ठभूमि, कार्ड सतह, विभाजक, सूक्ष्म बॉर्डर |
+| **Black / ग्रे** | टेक्स्ट, संरचना | Body text, शीर्षक, बॉर्डर, शैडो परतें |
+
+## थीम जाँच
+
+- `.swatch` बॉर्डर `--sl-color-gray-5` का उपयोग करता है
+- `.swatch-label` पृष्ठभूमि `--sl-color-gray-6` का उपयोग करती है
+- सभी `--f5-*` swatches अपना वास्तविक रंग प्रदर्शित करते हैं (CSS कस्टम प्रॉपर्टीज़ `custom.css` से resolve होती हैं)
+- रंग swatches लाइट और डार्क दोनों मोड में दृश्यमान हैं
+- थीम टॉगल करने पर Badge टोकन swatches अपडेट होते हैं

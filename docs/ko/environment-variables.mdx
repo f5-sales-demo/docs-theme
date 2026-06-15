@@ -1,0 +1,112 @@
+---
+title: 환경 변수
+description: 테마에서 지원하는 모든 환경 변수에 대한 참조 문서입니다.
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 43298dddbd74
+  translator: machine
+---
+
+테마는 빌드 시 `config.ts` 및 커스텀 구성 요소에서 환경 변수를 읽습니다. 콘텐츠 저장소는 GitHub Actions 워크플로에서 이 변수들을 설정하여 구성을 수정하지 않고도 각 사이트를 커스터마이징합니다.
+
+## 변수 참조
+
+| 변수 | 기본값 | 목적 |
+|----------|---------|---------|
+| `DOCS_TITLE` | `Documentation` | 헤더 및 브라우저 탭에 표시되는 사이트 제목 |
+| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | 배포된 사이트의 정규 기본 URL |
+| `DOCS_BASE` | `/` | URL 기본 경로 (예: 프로젝트 사이트의 경우 `/my-repo/`) |
+| `DOCS_DESCRIPTION` | _(빈 문자열)_ | 메타데이터 및 llms.txt 플러그인을 위한 사이트 설명 |
+| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | 사이트 제목에서 링크되는 홈 페이지 URL |
+| `GITHUB_REPOSITORY` | _(빈 문자열)_ | GitHub 소셜 링크 및 편집 링크 생성에 사용 |
+| `LLMS_OPTIONAL_LINKS` | `[]` | llms.txt 플러그인을 위한 추가 링크의 JSON 배열 |
+
+## 각 변수가 사용되는 위치
+
+### DOCS_TITLE
+
+```ts
+// config.ts
+const title = options.title || process.env.DOCS_TITLE || 'Documentation';
+```
+
+Starlight의 `title` 옵션 및 `starlight-llms-txt` 플러그인에 전달됩니다. 사이트 헤더와 HTML `<title>` 태그에 표시됩니다.
+
+### DOCS_SITE
+
+```ts
+// config.ts
+const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+```
+
+Astro의 최상위 `site` 속성을 설정합니다. 정규 URL, 사이트맵 생성 및 Open Graph 메타데이터에 사용됩니다.
+
+### DOCS_BASE
+
+```ts
+// config.ts
+const base = options.base || process.env.DOCS_BASE || '/';
+```
+
+Astro의 최상위 `base` 속성을 설정합니다. 하위 디렉터리에 배포할 때 필요합니다 (예: `https://example.github.io/my-repo/`).
+
+### DOCS_DESCRIPTION
+
+```ts
+// config.ts
+const description = options.description || process.env.DOCS_DESCRIPTION || '';
+```
+
+`starlight-llms-txt` 플러그인에 사이트 설명으로 전달됩니다. 생성된 `llms.txt` 파일에서 사용됩니다.
+
+### DOCS_HOME
+
+```ts
+// components/SiteTitle.astro
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+```
+
+커스텀 `SiteTitle.astro` 구성 요소에서 읽습니다. 헤더의 사이트 제목을 이 URL로 연결하는 링크로 감싸 사용자가 중앙 문서 홈 페이지로 돌아갈 수 있게 합니다. 여러 콘텐츠 저장소가 동일한 테마를 공유할 때 모든 사이트에서 일관된 "홈" 링크를 제공하고자 할 때 유용합니다.
+
+### GITHUB_REPOSITORY
+
+```ts
+// config.ts
+const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
+```
+
+사이트 헤더의 GitHub 소셜 아이콘 및 편집 링크 기본 URL 생성에 사용됩니다. GitHub Actions는 이 변수를 자동으로 설정합니다 (예: `owner/repo`).
+
+### LLMS_OPTIONAL_LINKS
+
+```ts
+// config.ts
+const llmsOptionalLinks = options.llmsOptionalLinks
+  || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+```
+
+`starlight-llms-txt` 플러그인에 전달되는 `{ title, url }` 객체의 JSON 인코딩 배열입니다. 생성된 `llms.txt` 파일에서 추가 링크로 표시됩니다.
+
+예시 값:
+
+```json
+[{"title": "API Reference", "url": "https://api.example.com/docs"}]
+```
+
+## GitHub Actions에서 변수 설정
+
+콘텐츠 저장소는 워크플로를 통해 이 변수들을 전달합니다:
+
+```yaml
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    with:
+      docs_title: "My Project Docs"
+      docs_site: "https://example.github.io"
+      docs_base: "/my-project/"
+      docs_home: "https://example.github.io/home/"
+```
+
+`GITHUB_REPOSITORY` 변수는 GitHub Actions 러너에 의해 자동으로 제공되므로 수동으로 설정할 필요가 없습니다.

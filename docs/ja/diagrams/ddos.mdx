@@ -1,0 +1,77 @@
+---
+title: DDoS 対策
+description: スクラビングセンター、トランジットサービス、F5 XC ボリュメトリック攻撃対策を示す DDoS 対策アーキテクチャ図。
+sidebar:
+  order: 16
+i18n:
+  sourceHash: 55f75357099d
+  translator: machine
+---
+
+スクラビングセンター設計、トランジットサービス統合、F5 Distributed Cloud ボリュメトリック攻撃対策を網羅した DDoS 対策アーキテクチャ図。
+
+## DDoS 対策アーキテクチャ
+
+ネットワーク層スクラビング、アプリケーション層インスペクション、およびオリジンへのクリーントラフィック配信を備えたマルチティア DDoS 対策。
+
+```mermaid
+architecture-beta
+  group scrub(lucide:shield)[Scrubbing Center]
+  group origin(carbon:cloud-services)[Origin DC]
+
+  service edge(carbon:edge-node)[Edge Router] in scrub
+  service filter(carbon:firewall)[Traffic Filter] in scrub
+  service clean(carbon:load-balancer-global)[Clean Pipe] in scrub
+  service lb(carbon:load-balancer-application)[Load Balancer] in origin
+  service app(carbon:application)[Application] in origin
+  service db(carbon:data-base)[Database] in origin
+
+  edge:R --> L:filter
+  filter:R --> L:clean
+  clean:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## F5 XC DDoS およびトランジットサービス
+
+統合 CDN およびアプリケーションセキュリティを備えた DDoS 対策とトランジットサービスを提供する F5 Distributed Cloud。
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 Distributed Cloud]
+  group cloud(carbon:cloud-services)[Cloud Infrastructure]
+
+  service ddos(f5xc:ddos-and-transit-services)[DDoS Protection] in xc
+  service cdn(f5xc:content-delivery-network)[CDN] in xc
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in xc
+  service lb(carbon:load-balancer-application)[Load Balancer] in cloud
+  service app(carbon:application)[App Cluster] in cloud
+  service db(carbon:data-base)[Database] in cloud
+
+  ddos:R --> L:cdn
+  cdn:R --> L:waap
+  waap:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## ボリュメトリック攻撃フロー
+
+ボリュメトリック DDoS 攻撃がオリジンインフラに到達する前に F5 XC エッジで吸収・緩和される攻撃トラフィックのフロー。
+
+```mermaid
+flowchart LR
+  attacker@{ icon: 'lucide:bug', label: 'Attack Traffic' }
+  legit@{ icon: 'lucide:user', label: 'Legitimate Users' }
+  edge@{ icon: 'f5xc:ddos-and-transit-services', label: 'XC Edge' }
+  scrub@{ icon: 'carbon:firewall', label: 'Scrubbing' }
+  drop@{ icon: 'lucide:shield', label: 'Drop Malicious' }
+  origin@{ icon: 'carbon:application', label: 'Origin' }
+
+  attacker --> edge
+  legit --> edge
+  edge --> scrub
+  scrub --> drop
+  scrub --> origin
+```

@@ -1,0 +1,112 @@
+---
+title: 環境変数
+description: テーマがサポートするすべての環境変数のリファレンス。
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 43298dddbd74
+  translator: machine
+---
+
+テーマはビルド時に `config.ts` およびカスタムコンポーネントから環境変数を読み取ります。コンテンツリポジトリは、設定を変更せずに各サイトをカスタマイズするために、GitHub Actions ワークフロー内でこれらを設定します。
+
+## 変数リファレンス
+
+| 変数 | デフォルト | 目的 |
+|----------|---------|---------|
+| `DOCS_TITLE` | `Documentation` | ヘッダーおよびブラウザタブに表示されるサイトタイトル |
+| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | デプロイされたサイトの正規ベース URL |
+| `DOCS_BASE` | `/` | URL ベースパス（例：プロジェクトサイトの場合 `/my-repo/`） |
+| `DOCS_DESCRIPTION` | _(空文字列)_ | メタデータおよび llms.txt プラグイン用のサイト説明 |
+| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | サイトタイトルからリンクされるホームページ URL |
+| `GITHUB_REPOSITORY` | _(空文字列)_ | GitHub ソーシャルリンクおよび編集リンクの生成に使用 |
+| `LLMS_OPTIONAL_LINKS` | `[]` | llms.txt プラグイン用の追加リンクの JSON 配列 |
+
+## 各変数の使用箇所
+
+### DOCS_TITLE
+
+```ts
+// config.ts
+const title = options.title || process.env.DOCS_TITLE || 'Documentation';
+```
+
+Starlight の `title` オプションおよび `starlight-llms-txt` プラグインに渡されます。サイトヘッダーおよび HTML の `<title>` タグに表示されます。
+
+### DOCS_SITE
+
+```ts
+// config.ts
+const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+```
+
+Astro のトップレベル `site` プロパティを設定します。正規 URL、サイトマップ生成、および Open Graph メタデータに使用されます。
+
+### DOCS_BASE
+
+```ts
+// config.ts
+const base = options.base || process.env.DOCS_BASE || '/';
+```
+
+Astro のトップレベル `base` プロパティを設定します。サブディレクトリへのデプロイ時に必要です（例：`https://example.github.io/my-repo/`）。
+
+### DOCS_DESCRIPTION
+
+```ts
+// config.ts
+const description = options.description || process.env.DOCS_DESCRIPTION || '';
+```
+
+サイト説明として `starlight-llms-txt` プラグインに渡されます。生成された `llms.txt` ファイルで使用されます。
+
+### DOCS_HOME
+
+```ts
+// components/SiteTitle.astro
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+```
+
+カスタム `SiteTitle.astro` コンポーネントによって読み取られます。ヘッダーのサイトタイトルをこの URL へのリンクでラップし、ユーザーが中央のドキュメントホームページに戻れるようにします。複数のコンテンツリポジトリが同じテーマを共有しており、すべてのサイトで一貫した「ホーム」リンクを持たせたい場合に便利です。
+
+### GITHUB_REPOSITORY
+
+```ts
+// config.ts
+const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
+```
+
+サイトヘッダーの GitHub ソーシャルアイコンおよび編集リンクのベース URL を生成するために使用されます。GitHub Actions はこの変数を自動的に設定します（例：`owner/repo`）。
+
+### LLMS_OPTIONAL_LINKS
+
+```ts
+// config.ts
+const llmsOptionalLinks = options.llmsOptionalLinks
+  || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+```
+
+`starlight-llms-txt` プラグインに渡される `{ title, url }` オブジェクトの JSON エンコードされた配列です。これらは生成された `llms.txt` ファイルの追加リンクとして表示されます。
+
+値の例：
+
+```json
+[{"title": "API Reference", "url": "https://api.example.com/docs"}]
+```
+
+## GitHub Actions での変数の設定
+
+コンテンツリポジトリは、ワークフローを通じてこれらの変数を渡します：
+
+```yaml
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    with:
+      docs_title: "My Project Docs"
+      docs_site: "https://example.github.io"
+      docs_base: "/my-project/"
+      docs_home: "https://example.github.io/home/"
+```
+
+`GITHUB_REPOSITORY` 変数は GitHub Actions ランナーによって自動的に提供されるため、手動で設定する必要はありません。

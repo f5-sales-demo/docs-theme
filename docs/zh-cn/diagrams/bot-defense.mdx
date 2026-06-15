@@ -1,0 +1,76 @@
+---
+title: 机器人防御
+description: 机器人检测流水线图，展示凭证填充防御、客户端保护以及 F5 XC 机器人管理功能。
+sidebar:
+  order: 18
+i18n:
+  sourceHash: 04371e8bb860
+  translator: machine
+---
+
+机器人防御架构图，涵盖检测流水线、凭证填充缓解、客户端防御以及 F5 分布式云机器人管理能力。
+
+## 机器人检测流水线
+
+多阶段机器人检测流水线，包含 JavaScript 挑战、行为分析和指纹识别，通过后方可访问。
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Incoming Request' }
+  js@{ icon: 'lucide:bot', label: 'JS Challenge' }
+  fp@{ icon: 'lucide:shield-check', label: 'Fingerprinting' }
+  behavior@{ icon: 'carbon:application', label: 'Behavior Analysis' }
+  decision@{ icon: 'carbon:gateway-security', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'lucide:shield', label: 'Block/Challenge' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+## F5 XC 机器人防御与客户端防御
+
+F5 分布式云集成机器人防御与客户端保护，用于防范凭证填充和账户接管攻击。
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'lucide:bot', label: 'Bot Attackers' }
+  csd@{ icon: 'f5xc:client-side-defense', label: 'Client-Side Defense' }
+  botdef@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> csd
+  attacker --> csd
+  csd --> botdef
+  botdef --> waap
+  waap --> app
+```
+
+## 凭证填充防御架构
+
+针对凭证填充攻击的多层防御，涵盖设备指纹识别、凭证情报和账户保护。
+
+```mermaid
+architecture-beta
+  group defense(lucide:shield)[Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service edge(f5xc:bot-defense)[Bot Defense] in defense
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
+  service intel(f5xc:data-intelligence)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  edge:R --> L:csd
+  csd:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```

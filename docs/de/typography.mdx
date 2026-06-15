@@ -1,0 +1,320 @@
+---
+title: Typografie
+description: >-
+  Schriftfamilien, Typhierarchie, Gewichtsverwendung,
+  Zeilenabstandsspezifikationen, Groß-/Kleinschreibungskonventionen,
+  Live-Beispiele und Starlight-Theme-Zuordnung.
+sidebar:
+  order: 7
+i18n:
+  sourceHash: ba962925d620
+  translator: machine
+---
+
+Das Typsystem kombiniert zwei Schriftfamilien, die von der Schweizer Gestaltung inspiriert sind, und schafft eine klare Hierarchie zwischen ausdrucksstarken Überschriften und funktionalem Fließtext.
+
+## Designphilosophie
+
+Schrifttypografie nutzt Proportion, Rhythmus und Tempo – erreicht durch Schriftstil, Skalierung, Gewichtung, Farbe, Zeilenabstand, horizontalen und vertikalen Raum – um eine klare visuelle Hierarchie zu schaffen.
+
+- **Neusa Next Wide** ist von Schriftgestaltungen aus der frühen Raumfahrt inspiriert und verleiht Überschriften und Zwischenüberschriften einen menschlichen und ausdrucksstarken Charakter
+- **Proxima Nova** bringt Offenheit und geometrischen Stil in anspruchsvollere Anwendungsfälle wie Fließtext und Hilfstexte
+
+Hierarchie wird durch absteigende Schriftgröße **und** Kontrast durch abwechselnde Kleinschreibung/Großschreibung hergestellt. Abschlüsse und CTAs verwenden die breite Fettschrift, um sich aus einer niedrigeren Hierarchieposition abzuheben.
+
+## Schriftfamilien
+
+### Neusa Next Wide
+
+**Rolle**: Überschriften, Zwischenüberschriften, Zitate, CTAs, Beschriftungen, numerische Statistiken
+
+Das Brand-Center-Muster zeigt fünf Stile:
+
+| Stil | Gewichtswert | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Light | 300 | `300` | `normal` |
+| Regular | 400 | `400` | `normal` |
+| Italic | 400 | `400` | `italic` |
+| Medium | 500 | `500` | `normal` |
+| Bold | 700 | `700` | `normal` |
+
+### Proxima Nova
+
+**Rolle**: Fließtext, Hilfstext, Abschnittsüberschriften, UI-Elemente
+
+Das Brand-Center-Muster zeigt vier Stile:
+
+| Stil | Gewichtswert | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Regular | 400 | `400` | `normal` |
+| Regular Italic | 400 | `400` | `italic` |
+| Bold | 700 | `700` | `normal` |
+| Bold Italic | 700 | `700` | `italic` |
+
+Proxima Nova ist separat lizenziert und im Brand-Center-Schrift-Download **nicht** enthalten. Das Theme wird mit den Gewichtungen 400, 500, 600 und 700 im normalen Stil ausgeliefert.
+
+## Typhierarchie
+
+### Grundprinzipien
+
+- Hierarchie durch **absteigende Schriftgröße** in Kombination mit **abwechselnder Groß-/Kleinschreibung** herstellen
+- **Neusa Wide Bold, Satzschreibung** für Kampagnenüberschriften und Zwischenüberschriften verwenden
+- Zeilenabstand für Überschriften auf **das 1,1-fache der Schriftgröße** setzen
+- **Proxima Nova Bold, GROSSBUCHSTABEN** mit Buchstabenabstand für Abschnittsüberschriften verwenden, um Kontrast zu Überschriften in Satzschreibung zu schaffen
+- Abschlüsse und CTAs verwenden **Neusa Wide Bold** mit einem nach rechts zeigenden Caretzeichen (**›**) in Cloud-Rot, um Aktionen in digitalen Erlebnissen anzuzeigen
+
+### Hierarchietabelle
+
+| Element | Schrift | Gewichtung | Schreibweise | Hinweise |
+|---------|------|--------|------|-------|
+| Überschrift | Neusa Wide | Bold (700) | Satzschreibung | Zeilenabstand = 1,1× Schriftgröße |
+| Eyebrow | Proxima Nova | Bold (700) | GROSSBUCHSTABEN | Klein, mit Buchstabenabstand |
+| Zwischenüberschrift / Einleitung | Neusa Wide | Medium (500) | Satzschreibung | Oder Proxima Nova, wenn unmittelbar gefolgt von Fließtext |
+| Abschnittsüberschrift | Proxima Nova | Bold (700) | GROSSBUCHSTABEN | Mit Buchstabenabstand |
+| Unter-Unterüberschrift | Proxima Nova | Bold (700) | Satzschreibung | |
+| Fließtext | Proxima Nova | Regular (400) | Satzschreibung | |
+| Aufzählungspunkte | Proxima Nova | Regular (400) | Satzschreibung | |
+| Zitatblock | Neusa Wide | Bold (700) | Satzschreibung | Cloud-Rot-Farbe; große rote Anführungszeichen mit Quellenangabe darunter |
+| Abschluss / CTA | Neusa Wide | Bold (700) | Satzschreibung | Mit nach rechts zeigendem Caretzeichen (›) in Cloud-Rot |
+
+### Spezialisierte Gestaltungen
+
+| Kontext | Schrift | Gewichtung | Größe/Zeilenabstand | Hinweise |
+|---------|------|--------|-------------|-------|
+| Zitate in Begleitmaterialien | Neusa Wide | Bold (700) | 9pt / 14pt | Satzschreibung |
+| eBook-Zitate | Neusa Wide | Regular (400) | 16pt / 19pt | Mit Linie darüber |
+| Infografik-Ziffern/Fakten | Neusa Wide | Light (300) | — | Für visuelle Wirkung bei großen Größen |
+| Diagramm-/Balkenziffern | Neusa Wide | Regular (400) | — | Standard-Diagrammbeschriftung |
+
+### Verwendung von Titelschreibweise
+
+Titelschreibweise kann verwendet werden für:
+- Zwischenüberschriften
+- Zitate
+- Numerische Statistiken
+- Beschriftungen
+
+Alle anderen Elemente verwenden standardmäßig die Satzschreibung.
+
+## Live-Beispiele
+
+### Überschriften
+
+## Überschrift Ebene 2
+
+### Überschrift Ebene 3
+
+#### Überschrift Ebene 4
+
+##### Überschrift Ebene 5
+
+###### Überschrift Ebene 6
+
+### Textstile
+
+Dies ist **fetter Text** zur Hervorhebung.
+
+Dies ist *kursiver Text* zur dezenten Hervorhebung.
+
+Dies ist ~~durchgestrichener Text~~ für veraltete Inhalte.
+
+Dies ist `Inline-Code` für technische Referenzen.
+
+Dies ist ***fett kursiver Text*** für starke Hervorhebung.
+
+Dies ist eine Kombination: **fett mit `Inline-Code` darin** und *kursiv mit `Code` darin*.
+
+### Geordnete Liste
+
+1. Erstes Element in der geordneten Liste
+2. Zweites Element mit **fettem Text**
+3. Drittes Element mit `Inline-Code`
+4. Viertes Element mit einem [Link zu Astro](https://astro.build)
+
+### Ungeordnete Liste
+
+- Erster Aufzählungspunkt
+- Zweiter Aufzählungspunkt mit **Hervorhebung**
+- Dritter Aufzählungspunkt mit `Code-Referenz`
+- Vierter Aufzählungspunkt mit einem [Link](https://starlight.astro.build)
+
+### Verschachtelte Listen
+
+1. Oberstes geordnetes Element
+   - Verschachteltes ungeordnetes Element A
+   - Verschachteltes ungeordnetes Element B
+     1. Tief verschachteltes geordnetes Element
+     2. Ein weiteres tief verschachteltes Element
+   - Zurück zur ersten Verschachtelungsebene
+2. Zweites oberstes Element
+   - Ein weiteres verschachteltes Element
+
+### Blockzitate
+
+> Dies ist ein einzeiliges Blockzitat.
+
+> Dies ist ein mehrzeiliges Blockzitat.
+>
+> Es erstreckt sich über mehrere Absätze und kann **fette**, *kursive* und `Code`-Formatierung enthalten.
+
+> Verschachtelte Blockzitate:
+>
+> > Dies ist ein verschachteltes Blockzitat innerhalb des äußeren.
+> >
+> > Es kann seine eigene Formatierung enthalten.
+
+### Horizontale Linie
+
+Inhalt oberhalb der Linie.
+
+---
+
+Inhalt unterhalb der Linie.
+
+### Links
+
+- Interner Link: [Zurück zur Dokumentationsübersicht](/)
+- Externer Link: [Starlight-Dokumentation](https://starlight.astro.build)
+- Link mit Titel: [Astro](https://astro.build "Astro Framework Homepage")
+
+### Fußnoten
+
+Hier ist ein Satz mit einer Fußnotenreferenz[^1].
+
+Und ein weiterer Satz mit einer anderen Fußnote[^2].
+
+[^1]: Dies ist der Inhalt der ersten Fußnote. Er erscheint am Ende der Seite.
+
+[^2]: Dies ist die zweite Fußnote. Sie kann **Formatierung** und `Code` enthalten.
+
+## Schrift-Assets
+
+Das Theme enthält **10 woff2-Dateien** im Verzeichnis `fonts/`:
+
+### Neusa Next Pro Wide
+
+| Datei | Gewichtung | Stil | Größe |
+|------|--------|-------|------|
+| `neusaNextProWide-300.woff2` | 300 (Light) | Normal | ~49 KB |
+| `neusaNextProWide-400.woff2` | 400 (Regular) | Normal | ~49 KB |
+| `neusaNextProWide-400i.woff2` | 400 (Regular) | Italic | ~49 KB |
+| `neusaNextProWide-500.woff2` | 500 (Medium) | Normal | ~49 KB |
+| `neusaNextProWide-700.woff2` | 700 (Bold) | Normal | ~49 KB |
+| `neusaNextProWide-700i.woff2` | 700 (Bold) | Italic | ~49 KB |
+
+### Proxima Nova
+
+| Datei | Gewichtung | Stil | Größe |
+|------|--------|-------|------|
+| `proximaNova-400.woff2` | 400 (Regular) | Normal | ~18 KB |
+| `proximaNova-500.woff2` | 500 (Medium) | Normal | ~18 KB |
+| `proximaNova-600.woff2` | 600 (Semi-Bold) | Normal | ~18 KB |
+| `proximaNova-700.woff2` | 700 (Bold) | Normal | ~18 KB |
+
+### Namenskonvention
+
+Schriftdateien folgen dem Muster `familienname-gewichtung.woff2`, mit dem Suffix `i` für kursive Varianten (z. B. `neusaNextProWide-400i.woff2`).
+
+### Fehlende Varianten
+
+Die folgenden kursiven Varianten sind im Theme noch nicht verfügbar:
+
+| Fehlende Variante | Grund |
+|----------------|--------|
+| Proxima Nova 400 kursiv | Quelldatei in aktuellen Downloads nicht verfügbar |
+| Proxima Nova 500 kursiv | Quelldatei in aktuellen Downloads nicht verfügbar |
+| Proxima Nova 600 kursiv (Semi-Bold) | Quelldatei nicht verfügbar |
+| Proxima Nova 700 kursiv (Bold) | Quelldatei nicht verfügbar |
+
+Um kursive Proxima-Nova-Varianten hinzuzufügen, besorgen Sie echte woff2-Dateien aus einer lizenzierten Quelle, benennen Sie sie gemäß der Konvention (z. B. `proximaNova-400i.woff2`) und fügen Sie entsprechende `@font-face`-Regeln zu `font-face.css` hinzu.
+
+## @font-face-Deklarationen
+
+Alle Schriftregistrierungen befinden sich in `fonts/font-face.css`. Jede Deklaration verwendet:
+
+- **`font-display: swap`** — Text wird sofort mit einer Ausweichschrift gerendert und wechselt dann, wenn die benutzerdefinierte Schrift geladen ist
+- **`format("woff2")`** — modernes komprimiertes Format, das von allen aktuellen Browsern unterstützt wird
+- **Relative URLs** — `./`-Pfade werden relativ zum Speicherort der CSS-Datei aufgelöst
+
+Um eine neue Schriftvariante hinzuzufügen, fügen Sie einen `@font-face`-Block an `font-face.css` an:
+
+```css
+@font-face {
+  font-family: "familyName";
+  font-weight: 400;
+  font-style: italic;  /* or normal */
+  font-display: swap;
+  src: url("./familyName-400i.woff2") format("woff2");
+}
+```
+
+## CSS-Integration
+
+Das Theme-Plugin (`index.ts`) fügt beide CSS-Dateien über den `config:setup`-Hook ein:
+
+```
+index.ts → fonts/font-face.css → styles/custom.css → Starlight renders
+```
+
+### Schriftzuweisungen
+
+In `styles/custom.css`:
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+```
+
+- **`--sl-font`** (Starlight-Körperschrift-Variable) → Proxima Nova für Fließtext und UI
+- **`--sl-font-heading`** (benutzerdefiniertes Token) → Neusa Next Pro Wide als Überschriftenschrift-Referenz
+- **`h1`–`h6`** → Schriftfamilie, Gewichtung und Schreibweise gemäß der Cloud-Typhierarchie angewendet
+- **Fallback-Stack**: `system-ui, "Segoe UI", Helvetica, Arial, sans-serif` für schnelles initiales Rendering, bevor benutzerdefinierte Schriften geladen sind
+
+### Starlight-Typografie-Token
+
+Das Theme überschreibt diese benutzerdefinierten Starlight-CSS-Eigenschaften:
+
+| Token | Wert | Zweck |
+|-------|-------|---------|
+| `--sl-font` | `"proximaNova", ...` | Fließtext, UI-Elemente |
+| `--sl-font-heading` | `"neusaNextProWide", ...` | Benutzerdefiniertes Token für Überschriftenschrift |
+| `--sl-line-height-headings` | `1.1` | Cloud-Marken-Überschriftenzeilenabstand |
+| `--sl-text-h1` | `var(--sl-text-5xl)` | 2,625rem Überschrift |
+| `--sl-text-h2` | `var(--sl-text-3xl)` | 1,8125rem Zwischenüberschrift |
+| `--sl-text-h3` | `var(--sl-text-2xl)` | 1,5rem Abschnittseinleitung |
+| `--sl-text-h4` | `var(--sl-text-lg)` | 1,125rem Unterabschnitt |
+
+### Überschriftenhierarchie-Zuordnung
+
+| HTML | Schriftfamilie | Gewichtung | Schreibweise | Markenrolle |
+|------|------------|--------|------|------------|
+| `h1` | Neusa Next Wide | 700 (Bold) | Satzschreibung | Überschrift |
+| `h2` | Neusa Next Wide | 700 (Bold) | Satzschreibung | Zwischenüberschrift |
+| `h3` | Neusa Next Wide | 500 (Medium) | Satzschreibung | Einleitung / Unter-Unterüberschrift |
+| `h4` | Proxima Nova | 700 (Bold) | GROSSBUCHSTABEN | Abschnittsüberschrift |
+| `h5` | Proxima Nova | 700 (Bold) | GROSSBUCHSTABEN | Unterabschnittsüberschrift |
+| `h6` | Proxima Nova | 700 (Bold) | GROSSBUCHSTABEN | Nebenabschnittsüberschrift |
+
+## Schriften ersetzen
+
+So verwenden Sie andere Schriftfamilien:
+
+1. **woff2-Dateien hinzufügen** zu `fonts/` gemäß der Namenskonvention `familienname-gewichtung.woff2` (`i`-Suffix für kursiv hinzufügen)
+2. **`fonts/font-face.css` aktualisieren** mit neuen `@font-face`-Regeln, die zu Ihren Dateinamen, Gewichtungen und Stilen passen
+3. **`styles/custom.css` aktualisieren**, um `--sl-font` und `font-family` für Überschriften auf Ihre neuen Familiennamen zu setzen
+4. **Den Fallback-Stack beibehalten** (`system-ui, "Segoe UI", Helvetica, Arial, sans-serif`) für schnelles initiales Rendering
+
+## Theme-Prüfungen
+
+- H2 und H3 verwenden die Schriftfamilie `neusaNextProWide` mit Gewichtung 700/500
+- H4, H5, H6 verwenden `proximaNova`-Schrift, Großbuchstaben, mit Buchstabenabstand 0,05em
+- Linkakzentfarbe ist `#f06680` im Dunkelmodus, `#e4002b` im Hellmodus
+- Inline-Code hat eine Hintergrundtönung von `--sl-color-gray-5`
+- Blockzitat-Randlinie links ist in beiden Themes sichtbar
+- Fußnotenreferenzen sind hochgestellt und verlinkt
+- Horizontale Linie hat angemessenen Kontrast

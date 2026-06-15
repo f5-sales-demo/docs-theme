@@ -1,0 +1,139 @@
+---
+title: การกำหนดค่า Astro
+description: เอกสารอ้างอิงสำหรับ factory การกำหนดค่า Astro/Starlight แบบ plugin-based
+sidebar:
+  order: 4
+i18n:
+  sourceHash: 48445fbc1ed7
+  translator: machine
+---
+
+ที่เก็บเนื้อหาไม่มี `astro.config.mjs` เป็นของตัวเอง แต่จะนำเข้า configuration factory จาก npm package `@f5xc-salesdemos/docs-theme` ซึ่งคืนค่าการกำหนดค่า Astro ที่สมบูรณ์พร้อม Starlight, plugins ที่รวมมา 8 ตัว และค่าเริ่มต้นของธีมทั้งหมด
+
+## การใช้งานธีม
+
+ไฟล์ `astro.config.mjs` ของที่เก็บเนื้อหา (จัดเตรียมโดย Docker builder) เป็นเพียง wrapper บางๆ:
+
+```js
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig();
+```
+
+การปรับแต่งทั้งหมดทำผ่าน options object หรือตัวแปรสภาพแวดล้อม — ไม่จำเป็นต้องแตะการเชื่อมต่อ plugin, การนำเข้า CSS, หรือการแทนที่ส่วนประกอบ
+
+## ตัวเลือกการกำหนดค่า
+
+`createF5xcDocsConfig` รับ object ชนิด `F5xcDocsConfigOptions` โดยทุกฟิลด์เป็นแบบ optional; ตัวแปรสภาพแวดล้อมและค่าเริ่มต้นที่เหมาะสมจะเติมในส่วนที่ขาดหายไป
+
+```ts
+interface F5xcDocsConfigOptions {
+  site?: string;
+  base?: string;
+  title?: string;
+  description?: string;
+  githubRepository?: string;
+  llmsOptionalLinks?: Array<{ title: string; url: string }>;
+  additionalIntegrations?: AstroIntegration[];
+  additionalRemarkPlugins?: Array<unknown>;
+  megaMenuItems?: MegaMenuItem[];
+  head?: HeadEntry[];
+  logo?: { src: string } | { light: string; dark: string };
+}
+```
+
+| ตัวเลือก | ค่าเริ่มต้น / ค่าสำรองจาก Env | วัตถุประสงค์ |
+|--------|----------------------|---------|
+| `site` | `DOCS_SITE` หรือ `https://f5xc-salesdemos.github.io` | URL ฐานแบบ canonical |
+| `base` | `DOCS_BASE` หรือ `/` | URL base path สำหรับ project sites |
+| `title` | `DOCS_TITLE` หรือ `Documentation` | ชื่อไซต์ในส่วนหัวและแท็บของเบราว์เซอร์ |
+| `description` | `DOCS_DESCRIPTION` หรือ string ว่าง | คำอธิบายไซต์สำหรับ metadata และ llms.txt |
+| `githubRepository` | `GITHUB_REPOSITORY` หรือ string ว่าง | เปิดใช้งานลิงก์แก้ไขและไอคอน GitHub social |
+| `llmsOptionalLinks` | `LLMS_OPTIONAL_LINKS` (JSON) หรือ `[]` | ลิงก์เพิ่มเติมสำหรับ plugin llms.txt |
+| `additionalIntegrations` | `[]` | Astro integrations เพิ่มเติมที่จะต่อท้าย |
+| `additionalRemarkPlugins` | `[]` | remark plugins เพิ่มเติมที่เพิ่มหลัง remark-mermaid |
+| `megaMenuItems` | เมนู Products/Solutions/Docs/Support ที่มีในตัว | รายการ mega menu ระดับบนสุด |
+| `head` | แท็ก `<script>` ของ Mermaid CDN | รายการ `<head>` แบบกำหนดเอง |
+| `logo` | `@f5xc-salesdemos/docs-theme/assets/github-avatar.png` | โลโก้ sidebar (src เดี่ยว หรือคู่ light/dark) |
+
+## Starlight Plugins ที่รวมมาในตัว
+
+factory เชื่อมต่อ Starlight plugins 8 ตัวโดยอัตโนมัติ:
+
+| Plugin | วัตถุประสงค์ |
+|--------|---------|
+| `starlight-mega-menu` | mega menu การนำทางบนสุดพร้อมเลย์เอาต์แบบ grid/list |
+| `starlight-videos` | ฝังวิดีโอในหน้าเอกสาร |
+| `starlight-image-zoom` | คลิกเพื่อซูมภาพ |
+| `@f5xc-salesdemos/docs-theme` (self) | การแทรก CSS, การแทนที่ส่วนประกอบ, route middleware |
+| `starlight-scroll-to-top` | ปุ่มเลื่อนกลับขึ้นบนพร้อม progress ring |
+| `starlight-heading-badges` | คำอธิบาย badge บนหัวข้อ |
+| `starlight-page-actions` | ปุ่ม action ของหน้า |
+| `starlight-plugin-icons` | รองรับไอคอนใน Starlight |
+| `starlight-llms-txt` | สร้าง `llms.txt` และ `llms-full.txt` สำหรับการใช้งาน LLM |
+
+plugins เหล่านี้ถูกลงทะเบียนตามลำดับภายใน `config.ts` โดย theme plugin (`@f5xc-salesdemos/docs-theme`) เองก็เป็น Starlight plugin ที่ทำงานอยู่ในรายการนี้
+
+## Theme Plugin Hook
+
+theme plugin ถูกกำหนดใน `index.ts` และลงทะเบียนในกลุ่ม plugins ที่รวมมาข้างต้น โดย hook `config:setup` ทำสามสิ่ง:
+
+1. **แทรก CSS** — เพิ่ม `fonts/font-face.css` และ `styles/custom.css` ไว้ต้น array `customCss` ของ Starlight
+2. **แทนที่ส่วนประกอบ** — แทนที่ส่วนประกอบ Starlight 5 ตัว:
+   - `Banner` — การนำทางแบบ breadcrumb พร้อมลิงก์แก้ไข
+   - `EditLink` — ว่างเปล่าโดยเจตนา (ลิงก์แก้ไขอยู่ใน Banner)
+   - `Footer` — ลิงก์ social media ที่ต่อท้ายด้านล่าง footer เริ่มต้น
+   - `SiteTitle` — โลโก้พร้อมลิงก์หน้าแรก
+   - `MarkdownContent` — wrapper ที่เปิดใช้งานวิดีโอและการซูมภาพ
+3. **เพิ่ม route middleware** — ลงทะเบียน `route-middleware.ts` ซึ่งกรองหน้า index ออกจาก sidebar และปิดการแสดงสารบัญบนหน้า index
+
+```ts
+// index.ts — Starlight plugin entry point
+export default function f5xcDocsTheme(): StarlightPlugin {
+  return {
+    name: '@f5xc-salesdemos/docs-theme',
+    hooks: {
+      'config:setup'({ config, updateConfig, addRouteMiddleware }) {
+        addRouteMiddleware({
+          entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
+          order: 'pre',
+        });
+        updateConfig({
+          customCss: [
+            ...(config.customCss ?? []),
+            '@f5xc-salesdemos/docs-theme/fonts/font-face.css',
+            '@f5xc-salesdemos/docs-theme/styles/custom.css',
+          ],
+          components: {
+            ...config.components,
+            Banner: '@f5xc-salesdemos/docs-theme/components/Banner.astro',
+            EditLink: '@f5xc-salesdemos/docs-theme/components/EditLink.astro',
+            Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+            SiteTitle: '@f5xc-salesdemos/docs-theme/components/SiteTitle.astro',
+            MarkdownContent: '@f5xc-salesdemos/docs-theme/components/MarkdownContent.astro',
+          },
+        });
+      },
+    },
+  };
+}
+```
+
+เส้นทางทั้งหมดใช้ npm package specifiers (เช่น `@f5xc-salesdemos/docs-theme/styles/custom.css`) ซึ่ง resolve ผ่าน `exports` map ใน `package.json`
+
+## Integrations อื่นๆ
+
+นอกจาก Starlight และ plugins ของมัน factory ยังลงทะเบียนสิ่งต่อไปนี้:
+
+- **`@astrojs/react`** — เปิดใช้งานการรองรับ React component ในหน้า MDX
+- **`remark-mermaid`** — remark plugin แบบกำหนดเองที่แปลง code block ` ```mermaid ` ให้เป็น diagram ที่เรนเดอร์แล้ว
+
+integrations เพิ่มเติมและ remark plugins สามารถต่อท้ายได้ผ่านตัวเลือก `additionalIntegrations` และ `additionalRemarkPlugins`
+
+## Sidebar
+
+ไม่มีการกำหนด sidebar แบบกำหนดเอง Starlight สร้าง sidebar โดยอัตโนมัติจากโครงสร้างไฟล์ใน `docs/` โดยใช้ `title` frontmatter ของแต่ละหน้าเป็นข้อความลิงก์ และ `sidebar.order` สำหรับการเรียงลำดับ route middleware จะกรองหน้า index ออกจาก sidebar โดยอัตโนมัติ
+
+:::caution
+configuration factory ถูกใช้ร่วมกันในทุกไซต์เอกสาร การเปลี่ยนแปลงใดๆ ต่อ `config.ts` จะส่งผลกระทบต่อทุกที่เก็บเนื้อหาที่สร้างด้วยธีมนี้ ทดสอบการเปลี่ยนแปลงอย่างรอบคอบ
+:::

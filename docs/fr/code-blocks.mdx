@@ -1,0 +1,228 @@
+---
+title: Blocs de code
+description: >-
+  Coloration syntaxique, mode terminal, surlignage de lignes, blocs diff et
+  référence CSS pour le style Expressive Code.
+sidebar:
+  order: 8
+i18n:
+  sourceHash: b458d0378db1
+  translator: machine
+---
+
+Tous les blocs de code utilisent [Expressive Code](https://expressive-code.com/) avec un style personnalisé défini dans `styles/custom.css`.
+
+## Exemples de langages
+
+### JavaScript
+
+```js
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log(fibonacci(10)); // 55
+```
+
+### Python
+
+```python
+def fibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print(fibonacci(10))  # 55
+```
+
+### Bash
+
+```bash
+#!/bin/bash
+for i in $(seq 1 5); do
+  echo "Iteration $i"
+done
+```
+
+### YAML
+
+```yaml
+site:
+  title: Documentation
+  base: /
+  integrations:
+    - starlight
+    - react
+```
+
+### JSON
+
+```json
+{
+  "name": "@f5xc-salesdemos/docs-theme",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js"
+}
+```
+
+### HTML
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Page</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+  </body>
+</html>
+```
+
+### CSS
+
+```css
+:root {
+  --sl-color-accent: #f06680;
+  --sl-font: "proximaNova", system-ui;
+}
+
+h1 {
+  font-family: var(--sl-font-heading);
+  font-weight: 700;
+}
+```
+
+### TypeScript
+
+```ts
+interface Config {
+  title: string;
+  base: string;
+  plugins: string[];
+}
+
+const config: Config = {
+  title: "Documentation",
+  base: "/",
+  plugins: ["starlight", "react"],
+};
+```
+
+## Mode terminal
+
+Les blocs de code en mode terminal (délimités par ` ```bash ` ou ` ```sh `) reçoivent un cadre de fenêtre inspiré d'iTerm avec les boutons de contrôle macOS.
+
+```bash title="Terminal"
+npm install @f5xc-salesdemos/docs-theme
+npx astro build
+npx astro preview
+```
+
+### Référence CSS du terminal
+
+```css
+/* Bordure du cadre */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* En-tête sombre avec points SVG de type traffic light */
+.expressive-code .frame.is-terminal .header {
+  background: #323232 !important;
+  color: #ccc !important;
+}
+
+/* Corps du terminal en mode sombre — inspiré de Tokyo Night */
+:root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
+  background: #1a1b26 !important;
+}
+
+/* Remplacement de bordure en mode clair */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## Titres de noms de fichiers
+
+```ts title="src/config.ts"
+export default {
+  site: "https://example.com",
+  title: "My Docs",
+};
+```
+
+## Surlignage de lignes
+
+```js {1,3-5}
+const name = "highlighted"; // ligne 1 surlignée
+const other = "normal";
+const a = 1; // lignes 3-5 surlignées
+const b = 2;
+const c = 3;
+const d = "normal again";
+```
+
+## Lignes insérées et supprimées
+
+```js ins={2} del={3}
+const config = {
+  theme: "dark", // insérée
+  theme: "light", // supprimée
+  lang: "en",
+};
+```
+
+## Blocs diff
+
+```diff
+- const oldValue = "deprecated";
++ const newValue = "replacement";
+  const unchanged = "stays";
+- removeThis();
++ addThis();
+```
+
+## Référence CSS
+
+### Style du cadre
+
+Tous les blocs de code ont des coins arrondis et une ombre en couches :
+
+```css
+.expressive-code .frame {
+  --header-border-radius: 0.75rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+### Bordures adaptées au thème
+
+```css
+/* Mode sombre (par défaut) */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Mode clair */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## Vérifications du thème
+
+- La couleur de fond des blocs de code s'adapte au thème
+- L'en-tête du terminal a un fond `#323232` avec les boutons de contrôle macOS
+- La bordure du terminal utilise `rgba(255, 255, 255, 0.15)` en mode sombre et `rgba(0, 0, 0, 0.2)` en mode clair
+- Le corps du terminal en mode sombre utilise `#1a1b26`
+- Les couleurs de syntaxe restent lisibles dans les deux thèmes
+- Les surlignages de lignes ont une teinte de fond visible
+- Les lignes insérées affichent une teinte verte, les lignes supprimées affichent une teinte rouge
+- Les blocs de code ont un rayon de bordure de 0,75 rem et une ombre portée

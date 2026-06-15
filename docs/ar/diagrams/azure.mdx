@@ -1,0 +1,253 @@
+---
+title: Azure
+description: >-
+  مخططات بنية Azure توضح VNet وApp Gateway وVM Scale Sets وAKS وطبولوجيا
+  Hub-Spoke وأنماط توافر NVA العالي مع تكامل F5 XC.
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 97fde0a598a5
+  translator: machine
+---
+
+مخططات بنية تحتية لـ Azure باستخدام حزم أيقونات HashiCorp Flight وCarbon لشبكات VNet والحوسبة والخدمات المدارة.
+
+## VNet مع App Gateway
+
+Azure VNet مع بوابة وشبكات فرعية للتطبيق والبيانات. يوزع Application Gateway حركة المرور على VM Scale Sets.
+
+```mermaid
+architecture-beta
+  group vnet(carbon:virtual-private-cloud)[Azure VNet]
+  group gwsub(carbon:ibm-cloud-subnets)[Gateway Subnet] in vnet
+  group appsub(carbon:ibm-cloud-subnets)[App Subnet] in vnet
+  group datasub(carbon:ibm-cloud-subnets)[Data Subnet] in vnet
+
+  service appgw(carbon:gateway-security)[App Gateway] in gwsub
+  service vm1(hashicorp-flight:azure-vms-color)[VM Scale Set] in appsub
+  service vm2(hashicorp-flight:azure-vms-color)[VM Scale Set] in appsub
+  service sqldb(carbon:data-base)[Azure SQL] in datasub
+
+  appgw:R --> L:vm1
+  appgw:B --> T:vm2
+  vm1:R --> L:sqldb
+  vm2:R --> L:sqldb
+```
+
+## AKS مع F5 XC Multi-Cloud Connect
+
+خدمة Azure Kubernetes مدعومة بـ F5 Distributed Cloud لاتصال التطبيقات متعددة السحابات والأمان.
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 XC]
+  group aks(hashicorp-flight:azure-aks-color)[AKS Cluster]
+
+  service mcn(f5xc:multi-cloud-network-connect)[Network Connect] in xc
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in xc
+  service ingress(carbon:gateway)[Ingress] in aks
+  service app(hashicorp-flight:docker-color)[App Pods] in aks
+  service cache(carbon:datastore)[Redis Cache] in aks
+  service blob(hashicorp-flight:azure-blob-storage-color)[Blob Storage]
+
+  mcn:R --> L:waap
+  waap:R --> L:ingress
+  ingress:R --> L:app
+  app:B --> T:cache
+  app:R --> L:blob
+```
+
+## طبولوجيا شبكة Hub-Spoke
+
+بنية Azure Hub-Spoke مع أمان مركزي وخدمات مشتركة تربط شبكات VNet متعددة من نوع Spoke.
+
+```mermaid
+flowchart TD
+  hub@{ icon: 'carbon:virtual-private-cloud', label: 'Hub VNet' }
+  fw@{ icon: 'carbon:firewall', label: 'Azure Firewall' }
+  vpn@{ icon: 'carbon:gateway-vpn', label: 'VPN Gateway' }
+  spoke1@{ icon: 'carbon:ibm-cloud-subnets', label: 'Spoke 1 - Web' }
+  spoke2@{ icon: 'carbon:ibm-cloud-subnets', label: 'Spoke 2 - App' }
+  spoke3@{ icon: 'carbon:ibm-cloud-subnets', label: 'Spoke 3 - Data' }
+  onprem@{ icon: 'lucide:server', label: 'On-Premises DC' }
+
+  onprem --> vpn
+  vpn --> hub
+  hub --> fw
+  fw --> spoke1
+  fw --> spoke2
+  fw --> spoke3
+```
+
+## توافر NVA العالي مع موازن التحميل — حركة مرور الإنترنت
+
+تصل حركة مرور الإنترنت الواردة إلى موازن تحميل عام، يوزعها على نسخ NVA في المحور. يقوم NVA بإعادة توجيه حركة المرور المفحوصة إلى أحمال عمل Spoke. تمر حركة المرور العائدة من Spoke عبر موازن تحميل داخلي للوصول إلى NVA للخروج. تُظهر الخطوات المرقمة المسار الوارد (1-3) ومسار الإرجاع (4-6).
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      intlb@{ icon: 'azure:load-balancers', label: 'Internal LB 10.0.0.36' }
+      nva@{ icon: 'azure:firewalls', label: 'NVA' }
+    end
+    publb@{ icon: 'azure:load-balancers', label: 'Public LB' }
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  onprem@{ icon: 'lucide:building', label: 'On-Premises 192.168.0.0/16' }
+
+  cloud -->|1| publb
+  publb -->|2| nva
+  nva -->|3| app2
+  app2 -->|4| intlb
+  intlb -->|5| nva
+  nva -->|6| cloud
+  onprem --> gw
+  gw --> intlb
+```
+
+## توافر NVA العالي مع موازن التحميل — حركة المرور من الشبكة المحلية
+
+تدخل حركة المرور القادمة من الشبكة المحلية عبر بوابة VPN أو ExpressRoute وتُوجَّه إلى موازن تحميل داخلي يقف أمام نسخ NVA متعددة. يفحص NVA حركة المرور ويعيد توجيهها إلى أحمال عمل Spoke. تعبر حركة المرور العائدة نفس موازن التحميل الداخلي لضمان تماثل التدفق ومنع مشكلات التوجيه غير المتماثل.
+
+```mermaid
+flowchart TD
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      intlb@{ icon: 'azure:load-balancers', label: 'Internal LB 10.0.0.36' }
+      nva1@{ icon: 'azure:firewalls', label: 'NVA' }
+      nva2@{ icon: 'azure:firewalls', label: 'NVA' }
+    end
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  onprem@{ icon: 'lucide:building', label: 'On-Premises 192.168.0.0/16' }
+
+  onprem -->|1| gw
+  gw -->|2| intlb
+  intlb -->|3| nva1
+  nva1 -->|4| app2
+  app2 -->|5| intlb
+  intlb -->|6| nva2
+  nva2 -->|7| gw
+  gw -->|8| onprem
+```
+
+## توافر NVA العالي مع PIP/UDR — نشط/احتياطي
+
+زوج NVA نشط/احتياطي حيث تحتفظ النسخة النشطة (NVA1) بعنوان IP العام. عند الفشل، تستدعي NVA2 الاحتياطية واجهة Azure API لإعادة تعيين عنوان IP العام وتحديث مسارات المستخدم المعرّفة للإشارة إلى نفسها. يتجنب هذا النهج موازنات التحميل لكنه يتطلب تنسيق تجاوز الفشل على مستوى API.
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    pip@{ icon: 'azure:public-ip-addresses', label: 'Public IP' }
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      nva1@{ icon: 'azure:firewalls', label: 'NVA1 Active 10.0.0.37' }
+      nva2@{ icon: 'azure:firewalls', label: 'NVA2 Standby 10.0.0.38' }
+    end
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  onprem@{ icon: 'lucide:building', label: 'On-Premises 192.168.0.0/16' }
+
+  cloud -->|1| pip
+  pip -->|2| nva1
+  nva1 -->|3| app2
+  app2 -->|4| nva1
+  nva1 -->|5| cloud
+  onprem --> gw
+```
+
+## توافر NVA العالي مع Azure Route Server
+
+توافر عالٍ قائم على BGP باستخدام Azure Route Server. يُنشئ Route Server مجاورات eBGP مع كلتا نسختي NVA ويُبرمج مسارات Spoke الفعّالة بصورة ديناميكية. يوازن ECMP الحمل عبر NVAs دون الحاجة إلى مسارات معرّفة من قِبل المستخدم. يضخ Route Server إدخالات next-hop لعناوين IP الخاصة بكلا NVA في جميع الشبكات الظاهرية المتناظرة.
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    publb@{ icon: 'azure:load-balancers', label: 'Public LB' }
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      nva1@{ icon: 'azure:firewalls', label: 'NVA1 10.0.0.37' }
+      nva2@{ icon: 'azure:firewalls', label: 'NVA2 10.0.0.38' }
+    end
+    subgraph rssub[Route Server Subnet 10.0.0.64/27]
+      rs@{ icon: 'azure:virtual-router', label: 'Route Server' }
+    end
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+
+  cloud -->|1| publb
+  publb -->|2| nva1
+  nva1 -->|3| app2
+  app2 -->|4| nva1
+  nva1 -->|5| cloud
+  rs <-.->|eBGP| nva1
+  rs <-.->|eBGP| nva2
+  gw --> rs
+```
+
+## توافر NVA العالي مع Gateway Load Balancer
+
+إدراج NVA شفاف باستخدام Azure Gateway Load Balancer. يُحوَّل حركة المرور المتجهة إلى التطبيق بصورة شفافة من موازن التحميل العام القياسي إلى Gateway LB في شبكة NVA الظاهرية المنفصلة. تفحص نسخ NVA حركة المرور وتعيدها إلى Gateway LB الذي يعيد توجيهها إلى التطبيق. لا يلزم تناظر الشبكات الظاهرية أو مسارات UDR بين شبكتَي NVA والتطبيق.
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph nvavnet[NVA VNet]
+    gwlb@{ icon: 'azure:load-balancers', label: 'Gateway LB' }
+    nva1@{ icon: 'azure:firewalls', label: 'NVA' }
+    nva2@{ icon: 'azure:firewalls', label: 'NVA' }
+  end
+  subgraph appvnet[App VNet]
+    publb@{ icon: 'azure:load-balancers', label: 'Public Std LB' }
+    web@{ icon: 'azure:virtual-machine', label: 'Web Server' }
+  end
+
+  cloud -->|1| publb
+  publb -->|2| gwlb
+  gwlb -->|3| nva1
+  nva1 -->|4| gwlb
+  gwlb -->|5| publb
+  publb -->|6| web
+  gwlb --> nva2
+```

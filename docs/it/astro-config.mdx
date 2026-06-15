@@ -1,0 +1,139 @@
+---
+title: Configurazione Astro
+description: Riferimento per la factory di configurazione Astro/Starlight basata su plugin.
+sidebar:
+  order: 4
+i18n:
+  sourceHash: 48445fbc1ed7
+  translator: machine
+---
+
+I repository di contenuti non mantengono il proprio `astro.config.mjs`. Al suo posto, importano una factory di configurazione dal pacchetto npm `@f5xc-salesdemos/docs-theme` che restituisce una configurazione Astro completa con Starlight, otto plugin integrati e tutti i valori predefiniti del tema.
+
+## Utilizzo del tema
+
+Il file `astro.config.mjs` di un repository di contenuti (fornito dal builder Docker) è un sottile wrapper:
+
+```js
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig();
+```
+
+Tutta la personalizzazione avviene tramite l'oggetto opzioni o le variabili d'ambiente — non è necessario intervenire sul collegamento dei plugin, sulle importazioni CSS o sulle sostituzioni dei componenti.
+
+## Opzioni di configurazione
+
+`createF5xcDocsConfig` accetta un oggetto `F5xcDocsConfigOptions`. Ogni campo è opzionale; le variabili d'ambiente e i valori predefiniti ragionevoli colmano le lacune.
+
+```ts
+interface F5xcDocsConfigOptions {
+  site?: string;
+  base?: string;
+  title?: string;
+  description?: string;
+  githubRepository?: string;
+  llmsOptionalLinks?: Array<{ title: string; url: string }>;
+  additionalIntegrations?: AstroIntegration[];
+  additionalRemarkPlugins?: Array<unknown>;
+  megaMenuItems?: MegaMenuItem[];
+  head?: HeadEntry[];
+  logo?: { src: string } | { light: string; dark: string };
+}
+```
+
+| Opzione | Valore predefinito / Variabile d'ambiente | Scopo |
+|--------|----------------------|---------|
+| `site` | `DOCS_SITE` o `https://f5xc-salesdemos.github.io` | URL di base canonico |
+| `base` | `DOCS_BASE` o `/` | Percorso base URL per i siti di progetto |
+| `title` | `DOCS_TITLE` o `Documentation` | Titolo del sito nell'intestazione e nella scheda del browser |
+| `description` | `DOCS_DESCRIPTION` o stringa vuota | Descrizione del sito per i metadati e llms.txt |
+| `githubRepository` | `GITHUB_REPOSITORY` o stringa vuota | Abilita i link di modifica e l'icona social GitHub |
+| `llmsOptionalLinks` | `LLMS_OPTIONAL_LINKS` (JSON) o `[]` | Link aggiuntivi per il plugin llms.txt |
+| `additionalIntegrations` | `[]` | Integrazioni Astro aggiuntive da aggiungere in coda |
+| `additionalRemarkPlugins` | `[]` | Plugin remark aggiuntivi aggiunti dopo remark-mermaid |
+| `megaMenuItems` | Menu mega integrato Prodotti/Soluzioni/Documentazione/Supporto | Voci di primo livello del mega menu |
+| `head` | Tag `<script>` Mermaid CDN | Voci `<head>` personalizzate |
+| `logo` | `@f5xc-salesdemos/docs-theme/assets/github-avatar.png` | Logo della barra laterale (src singolo o coppia chiaro/scuro) |
+
+## Plugin Starlight integrati
+
+La factory collega automaticamente otto plugin Starlight:
+
+| Plugin | Scopo |
+|--------|---------|
+| `starlight-mega-menu` | Mega menu di navigazione superiore con layout a griglia/lista |
+| `starlight-videos` | Incorpora video nelle pagine della documentazione |
+| `starlight-image-zoom` | Clic per ingrandire le immagini |
+| `@f5xc-salesdemos/docs-theme` (self) | Iniezione CSS, sostituzioni dei componenti, middleware delle route |
+| `starlight-scroll-to-top` | Pulsante di ritorno all'inizio con anello di avanzamento |
+| `starlight-heading-badges` | Annotazioni badge sulle intestazioni |
+| `starlight-page-actions` | Pulsanti di azione della pagina |
+| `starlight-plugin-icons` | Supporto icone in Starlight |
+| `starlight-llms-txt` | Genera `llms.txt` e `llms-full.txt` per il consumo da parte di LLM |
+
+Questi vengono registrati in ordine all'interno di `config.ts`. Il plugin del tema (`@f5xc-salesdemos/docs-theme`) è esso stesso un plugin Starlight che viene eseguito in questo elenco.
+
+## Hook del plugin del tema
+
+Il plugin del tema è definito in `index.ts` e registrato tra i plugin integrati sopra elencati. Il suo hook `config:setup` esegue tre operazioni:
+
+1. **Iniezione CSS** — antepone `fonts/font-face.css` e `styles/custom.css` all'array `customCss` di Starlight
+2. **Sostituzione dei componenti** — sostituisce cinque componenti Starlight:
+   - `Banner` — navigazione breadcrumb con link di modifica
+   - `EditLink` — intenzionalmente vuoto (il link di modifica si trova nel Banner)
+   - `Footer` — link ai social media aggiunti sotto il footer predefinito
+   - `SiteTitle` — logo con link alla home
+   - `MarkdownContent` — wrapper che abilita i video e lo zoom delle immagini
+3. **Aggiunta del middleware delle route** — registra `route-middleware.ts` che filtra le pagine indice dalla barra laterale e sopprime il sommario nelle pagine indice
+
+```ts
+// index.ts — Starlight plugin entry point
+export default function f5xcDocsTheme(): StarlightPlugin {
+  return {
+    name: '@f5xc-salesdemos/docs-theme',
+    hooks: {
+      'config:setup'({ config, updateConfig, addRouteMiddleware }) {
+        addRouteMiddleware({
+          entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
+          order: 'pre',
+        });
+        updateConfig({
+          customCss: [
+            ...(config.customCss ?? []),
+            '@f5xc-salesdemos/docs-theme/fonts/font-face.css',
+            '@f5xc-salesdemos/docs-theme/styles/custom.css',
+          ],
+          components: {
+            ...config.components,
+            Banner: '@f5xc-salesdemos/docs-theme/components/Banner.astro',
+            EditLink: '@f5xc-salesdemos/docs-theme/components/EditLink.astro',
+            Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+            SiteTitle: '@f5xc-salesdemos/docs-theme/components/SiteTitle.astro',
+            MarkdownContent: '@f5xc-salesdemos/docs-theme/components/MarkdownContent.astro',
+          },
+        });
+      },
+    },
+  };
+}
+```
+
+Tutti i percorsi utilizzano specificatori di pacchetti npm (ad es., `@f5xc-salesdemos/docs-theme/styles/custom.css`) che vengono risolti tramite la mappa `exports` in `package.json`.
+
+## Altre integrazioni
+
+Oltre a Starlight e ai suoi plugin, la factory registra anche:
+
+- **`@astrojs/react`** — abilita il supporto ai componenti React nelle pagine MDX
+- **`remark-mermaid`** — plugin remark personalizzato che converte i blocchi di codice ` ```mermaid ` in diagrammi renderizzati
+
+Integrazioni aggiuntive e plugin remark possono essere aggiunti in coda tramite le opzioni `additionalIntegrations` e `additionalRemarkPlugins`.
+
+## Barra laterale
+
+Non è definita alcuna barra laterale personalizzata. Starlight genera automaticamente la barra laterale dalla struttura dei file in `docs/`, utilizzando il frontmatter `title` di ciascuna pagina come testo del link e `sidebar.order` per l'ordinamento. Il middleware delle route filtra automaticamente le pagine indice dalla barra laterale.
+
+:::caution
+La factory di configurazione è condivisa tra tutti i siti di documentazione. Qualsiasi modifica a `config.ts` influisce su ogni repository di contenuti che effettua la build con questo tema. Testare le modifiche con attenzione.
+:::

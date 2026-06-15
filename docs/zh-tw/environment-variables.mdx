@@ -1,0 +1,112 @@
+---
+title: 環境變數
+description: 主題所支援的所有環境變數參考說明。
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 43298dddbd74
+  translator: machine
+---
+
+主題在建置時會從 `config.ts` 及自訂元件中讀取環境變數。內容儲存庫在其 GitHub Actions 工作流程中設定這些變數，以便在不修改設定的情況下自訂各站台。
+
+## 變數參考
+
+| 變數 | 預設值 | 用途 |
+|----------|---------|---------|
+| `DOCS_TITLE` | `Documentation` | 顯示於頁首及瀏覽器分頁的站台標題 |
+| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | 已部署站台的標準基礎 URL |
+| `DOCS_BASE` | `/` | URL 基礎路徑（例如：專案站台使用 `/my-repo/`） |
+| `DOCS_DESCRIPTION` | _（空字串）_ | 用於中繼資料及 llms.txt 外掛程式的站台描述 |
+| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | 從站台標題連結的首頁 URL |
+| `GITHUB_REPOSITORY` | _（空字串）_ | 用於建立 GitHub 社群連結及編輯連結 |
+| `LLMS_OPTIONAL_LINKS` | `[]` | 供 llms.txt 外掛程式使用的額外連結 JSON 陣列 |
+
+## 各變數的使用位置
+
+### DOCS_TITLE
+
+```ts
+// config.ts
+const title = options.title || process.env.DOCS_TITLE || 'Documentation';
+```
+
+傳遞給 Starlight 的 `title` 選項及 `starlight-llms-txt` 外掛程式。顯示於站台頁首及 HTML `<title>` 標籤中。
+
+### DOCS_SITE
+
+```ts
+// config.ts
+const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+```
+
+設定 Astro 的頂層 `site` 屬性。用於標準 URL、網站地圖生成及 Open Graph 中繼資料。
+
+### DOCS_BASE
+
+```ts
+// config.ts
+const base = options.base || process.env.DOCS_BASE || '/';
+```
+
+設定 Astro 的頂層 `base` 屬性。部署至子目錄時必須設定（例如：`https://example.github.io/my-repo/`）。
+
+### DOCS_DESCRIPTION
+
+```ts
+// config.ts
+const description = options.description || process.env.DOCS_DESCRIPTION || '';
+```
+
+作為站台描述傳遞給 `starlight-llms-txt` 外掛程式。用於生成的 `llms.txt` 檔案中。
+
+### DOCS_HOME
+
+```ts
+// components/SiteTitle.astro
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+```
+
+由自訂的 `SiteTitle.astro` 元件讀取。將頁首的站台標題包覆為指向此 URL 的連結，讓使用者能夠返回中央文件首頁。當多個內容儲存庫共用同一主題，且您希望在所有站台之間保持一致的「首頁」連結時，此變數特別實用。
+
+### GITHUB_REPOSITORY
+
+```ts
+// config.ts
+const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
+```
+
+用於生成站台頁首的 GitHub 社群圖示及編輯連結基礎 URL。GitHub Actions 會自動設定此變數（例如：`owner/repo`）。
+
+### LLMS_OPTIONAL_LINKS
+
+```ts
+// config.ts
+const llmsOptionalLinks = options.llmsOptionalLinks
+  || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+```
+
+一個經 JSON 編碼的 `{ title, url }` 物件陣列，傳遞給 `starlight-llms-txt` 外掛程式。這些項目會顯示為生成的 `llms.txt` 檔案中的額外連結。
+
+範例值：
+
+```json
+[{"title": "API Reference", "url": "https://api.example.com/docs"}]
+```
+
+## 在 GitHub Actions 中設定變數
+
+內容儲存庫透過其工作流程傳遞這些變數：
+
+```yaml
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    with:
+      docs_title: "My Project Docs"
+      docs_site: "https://example.github.io"
+      docs_base: "/my-project/"
+      docs_home: "https://example.github.io/home/"
+```
+
+`GITHUB_REPOSITORY` 變數由 GitHub Actions 執行環境自動提供，無需手動設定。

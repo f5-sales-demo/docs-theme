@@ -1,0 +1,76 @@
+---
+title: Bot Defense
+description: '자격 증명 스터핑 방어, 클라이언트 측 보호, F5 XC 봇 관리를 보여주는 봇 탐지 파이프라인 다이어그램.'
+sidebar:
+  order: 18
+i18n:
+  sourceHash: 04371e8bb860
+  translator: machine
+---
+
+탐지 파이프라인, 자격 증명 스터핑 완화, 클라이언트 측 방어, F5 Distributed Cloud 봇 관리 기능을 다루는 봇 방어 아키텍처 다이어그램.
+
+## 봇 탐지 파이프라인
+
+JavaScript 챌린지, 행동 분석, 핑거프린팅을 통해 액세스를 허용하기 전에 처리하는 다단계 봇 탐지 파이프라인.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Incoming Request' }
+  js@{ icon: 'lucide:bot', label: 'JS Challenge' }
+  fp@{ icon: 'lucide:shield-check', label: 'Fingerprinting' }
+  behavior@{ icon: 'carbon:application', label: 'Behavior Analysis' }
+  decision@{ icon: 'carbon:gateway-security', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'lucide:shield', label: 'Block/Challenge' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+## F5 XC Bot Defense 및 클라이언트 측 방어
+
+자격 증명 스터핑 및 계정 탈취 방지를 위한 클라이언트 측 보호 기능이 통합된 F5 Distributed Cloud 봇 방어.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'lucide:bot', label: 'Bot Attackers' }
+  csd@{ icon: 'f5xc:client-side-defense', label: 'Client-Side Defense' }
+  botdef@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> csd
+  attacker --> csd
+  csd --> botdef
+  botdef --> waap
+  waap --> app
+```
+
+## 자격 증명 스터핑 방어 아키텍처
+
+장치 핑거프린팅, 자격 증명 인텔리전스, 계정 보호를 통한 자격 증명 스터핑 공격에 대한 다층 방어.
+
+```mermaid
+architecture-beta
+  group defense(lucide:shield)[Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service edge(f5xc:bot-defense)[Bot Defense] in defense
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
+  service intel(f5xc:data-intelligence)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  edge:R --> L:csd
+  csd:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```

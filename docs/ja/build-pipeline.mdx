@@ -1,0 +1,131 @@
+---
+title: ビルドパイプライン
+description: コンテンツリポジトリがDockerビルダーとnpmパッケージを通じて、ビルド時にテーマを利用する方法。
+sidebar:
+  order: 3
+i18n:
+  sourceHash: f305437613ca
+  translator: machine
+---
+
+このページでは、コンテンツリポジトリが `@f5xc-salesdemos/docs-theme` npm パッケージを利用して、完全にブランド化されたドキュメントサイトを生成する方法について説明します。
+
+## アーキテクチャ
+
+```
+┌─────────────────┐
+│  Content Repo   │
+│  (docs/ folder) │
+└────────┬────────┘
+         │
+         ▼
+┌───────────────────────────┐
+│   f5xc-docs-builder       │
+│   (Docker image)          │
+│                           │
+│  npm install              │
+│  @f5xc-salesdemos/docs-theme ─────┐  │
+│                        ▼  │
+│  node_modules/            │
+│    @f5xc-salesdemos/docs-theme/       │
+│      ├── config.ts        │
+│      ├── index.ts         │
+│      ├── fonts/           │
+│      ├── styles/          │
+│      ├── assets/          │
+│      └── components/      │
+│                           │
+│  Astro Build              │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   Astro Build Output      │
+│   (static HTML/CSS)       │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   GitHub Pages            │
+└───────────────────────────┘
+```
+
+## ビルドプロセスのステップごとの説明
+
+1. **コンテンツリポジトリへのプッシュ** — `main` へのプッシュ（または手動ディスパッチ）により、GitHub Pages デプロイワークフローがトリガーされます
+2. **再利用可能ワークフロー** — コンテンツリポジトリのワークフローがビルダーを呼び出します:
+   ```yaml
+   jobs:
+     docs:
+       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+   ```
+3. **Docker ビルダーの実行** — `f5xc-docs-builder` Docker イメージには、npm 経由でテーマがあらかじめインストールされています。ビルド時には以下の処理が行われます:
+   - `node_modules/@f5xc-salesdemos/docs-theme/` から `astro.config.mjs` と `content.config.ts` を Astro プロジェクトルートにコピー
+   - コンテンツリポジトリの `docs/` ファイルを `src/content/docs/` にコピー
+4. **Astro ビルド** — Astro は `createF5xcDocsConfig()` を呼び出す設定ファイルを読み込みます。このファクトリーは、npm パッケージ指定子（例: `@f5xc-salesdemos/docs-theme/styles/custom.css`）を通じてすべてのテーマアセットを解決します
+5. **デプロイ** — ビルドされた静的サイトが GitHub Pages にデプロイされます
+
+## コンテンツリポジトリの要件
+
+コンテンツリポジトリに必要なものは以下のみです:
+
+- Markdown（`.md`）または MDX（`.mdx`）ファイルを含む `docs/` ディレクトリ
+- ビルダーを呼び出す GitHub Actions ワークフロー
+
+### 最小限のワークフロー
+
+```yaml
+name: GitHub Pages Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+```
+
+これは、このテーマリポジトリ自体が現在ご覧のドキュメントをビルドする際に使用しているワークフローと同じです。
+
+## パス解決
+
+テーマ内のすべてのパスは npm パッケージ指定子を使用しており、`package.json` の `exports` マップを通じて解決されます:
+
+```js
+// CSS — node_modules から解決
+'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
+'@f5xc-salesdemos/docs-theme/styles/custom.css'
+
+// Components — node_modules から解決
+'@f5xc-salesdemos/docs-theme/components/Footer.astro'
+'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+
+// Assets — node_modules から解決
+'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+```
+
+ビルドワークスペースには `./theme/` ディレクトリは存在しません。Docker ビルダーはテーマを通常の npm 依存関係としてインストールし、Astro は `node_modules` を通じてすべての指定子を解決します。
+
+:::note
+`font-face.css` 内のフォントファイルパスは `./`（例: `url("./neusaNextProWide-300.woff2")`）を使用します。これらは CSS ファイル自体への相対パスであるため、パッケージのインストール方法に関わらず `fonts/` ディレクトリ内の他のファイルに解決されます。
+:::
+
+## 変更の反映
+
+テーマの変更は npm パッケージの更新を通じて反映されます:
+
+1. `@f5xc-salesdemos/docs-theme` の `main` に変更がマージされます
+2. Docker ビルダーイメージが更新されたパッケージで再ビルドされます
+3. 次回いずれかのコンテンツリポジトリのワークフローが実行されると、更新されたビルダーイメージが使用されます
+4. Astro ビルドにより、更新されたフォント、スタイル、ロゴ、コンポーネント、およびプラグインが取り込まれます
+5. コンテンツリポジトリのサイトが新しいテーマでデプロイされます
+
+コンテンツリポジトリは常に Docker イメージにバンドルされた最新のテーマを取得します。これにより、すべてのサイトで視覚的な一貫性が確保されますが、テーマの変更はマージ前に十分なテストが必要です。

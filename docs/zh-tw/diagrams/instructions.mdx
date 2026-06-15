@@ -1,0 +1,95 @@
+---
+title: 使用說明
+description: Mermaid 圖表語法參考、可用圖示套件、CSS 樣式及主題相容性詳細說明。
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 5ce5851823d9
+  translator: machine
+---
+
+此主題包含一個自訂的 `remark-mermaid` 外掛程式（`plugins/remark-mermaid.mjs`），可將圍欄式 ` ```mermaid ` 程式碼區塊轉換為 `<div class="mermaid-container">` 包裝元素。Mermaid CDN 腳本會在頁面載入時渲染 SVG 圖表。
+
+## 圖示語法
+
+### 流程圖
+
+使用 `@\{\}` 節點語法，從任何已註冊的圖示套件中添加圖示：
+
+```
+nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
+```
+
+### 架構圖
+
+`architecture-beta` 圖表類型支援帶有圖示裝飾節點的服務與群組定義：
+
+```
+service myService(pack:icon-name)[Label]
+group myGroup(pack:icon-name)[Label]
+```
+
+## 可用圖示套件
+
+以下圖示套件已完成註冊，可在 Mermaid 圖表中使用。圖示僅在被引用時才會從 CDN 延遲載入。
+
+| 套件名稱 | npm 套件 | 主要圖示 |
+|-----------|-------------|-----------|
+| `hashicorp-flight` | `@f5xc-salesdemos/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
+| `f5-brand` | `@f5xc-salesdemos/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
+| `f5xc` | `@f5xc-salesdemos/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
+| `carbon` | `@f5xc-salesdemos/icons-carbon` | `cloud-services`, `data-base`, `gateway-api`, `virtual-machine`, `load-balancer-global`, `firewall`, `dns-services`, `virtual-private-cloud` |
+| `lucide` | `@f5xc-salesdemos/icons-lucide` | `server`, `database`, `shield`, `shield-check`, `globe`, `lock`, `cloud`, `network`, `user` |
+| `mdi` | `@f5xc-salesdemos/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `dns`, `vpn`, `router` |
+| `phosphor` | `@f5xc-salesdemos/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock`, `network` |
+| `tabler` | `@f5xc-salesdemos/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `route`, `router` |
+| `azure` | `@f5xc-salesdemos/icons-azure` | `virtual-networks`, `load-balancers`, `firewalls`, `virtual-network-gateways`, `virtual-machine`, `public-ip-addresses`, `route-tables`, `subnet` |
+
+## CSS 參考
+
+### 容器樣式
+
+Mermaid 圖表被包裹在一個具有圓角及多層次陰影的樣式容器中：
+
+```css
+.mermaid-container {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+  margin-block: 1.5rem;
+  background: #fff;
+}
+```
+
+### Pre 元素重置
+
+Starlight 預設的 `<pre>` 樣式已從 mermaid 包裝元素中移除，使外框僅顯示外層容器的邊框：
+
+```css
+.mermaid-container pre.mermaid {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+```
+
+### SVG 背景強制設定
+
+內部 SVG 被強制設定為白色背景，以確保深色模式相容性：
+
+```css
+.mermaid-container svg {
+  background: white !important;
+  border-radius: 0.5rem;
+}
+```
+
+## 主題檢查項目
+
+- `.mermaid-container` 在深色模式下 SVG 背景為白色
+- 容器邊框使用 `--sl-color-gray-5`
+- 容器具有 0.75rem 圓角及多層次陰影
+- 圖表在淺色與深色主題下均可正常閱讀
+- Mermaid CDN 腳本可正常載入並在頁面載入時渲染 SVG

@@ -1,0 +1,79 @@
+---
+title: Defensa Bot
+description: >-
+  Diagramas del canal de detección de bots que muestran la defensa contra el
+  relleno de credenciales, la protección del lado del cliente y la gestión de
+  bots de F5 XC.
+sidebar:
+  order: 18
+i18n:
+  sourceHash: 04371e8bb860
+  translator: machine
+---
+
+Diagramas de arquitectura de defensa bot que cubren canales de detección, mitigación del relleno de credenciales, defensa del lado del cliente y capacidades de gestión de bots de F5 Distributed Cloud.
+
+## Canal de Detección de Bots
+
+Canal de detección de bots en múltiples etapas con desafío JavaScript, análisis de comportamiento y toma de huellas digitales antes de permitir el acceso.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Incoming Request' }
+  js@{ icon: 'lucide:bot', label: 'JS Challenge' }
+  fp@{ icon: 'lucide:shield-check', label: 'Fingerprinting' }
+  behavior@{ icon: 'carbon:application', label: 'Behavior Analysis' }
+  decision@{ icon: 'carbon:gateway-security', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'lucide:shield', label: 'Block/Challenge' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+## F5 XC Defensa Bot y Defensa del lado del cliente
+
+Defensa bot integrada de F5 Distributed Cloud con protección del lado del cliente para la prevención del relleno de credenciales y la apropiación de cuentas.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'lucide:bot', label: 'Bot Attackers' }
+  csd@{ icon: 'f5xc:client-side-defense', label: 'Client-Side Defense' }
+  botdef@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> csd
+  attacker --> csd
+  csd --> botdef
+  botdef --> waap
+  waap --> app
+```
+
+## Arquitectura de Defensa contra el Relleno de Credenciales
+
+Defensa multicapa contra ataques de relleno de credenciales con toma de huellas digitales de dispositivos, inteligencia de credenciales y protección de cuentas.
+
+```mermaid
+architecture-beta
+  group defense(lucide:shield)[Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service edge(f5xc:bot-defense)[Bot Defense] in defense
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
+  service intel(f5xc:data-intelligence)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  edge:R --> L:csd
+  csd:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```

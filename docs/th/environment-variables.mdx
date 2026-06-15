@@ -1,0 +1,112 @@
+---
+title: ตัวแปรสภาพแวดล้อม
+description: เอกสารอ้างอิงสำหรับตัวแปรสภาพแวดล้อมทั้งหมดที่ธีมรองรับ
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 43298dddbd74
+  translator: machine
+---
+
+ธีมอ่านตัวแปรสภาพแวดล้อมในขณะสร้างจาก `config.ts` และส่วนประกอบที่กำหนดเอง คลังเนื้อหาจะกำหนดค่าเหล่านี้ใน GitHub Actions workflow เพื่อปรับแต่งแต่ละไซต์โดยไม่ต้องแก้ไขการกำหนดค่า
+
+## เอกสารอ้างอิงตัวแปร
+
+| ตัวแปร | ค่าเริ่มต้น | วัตถุประสงค์ |
+|----------|---------|---------|
+| `DOCS_TITLE` | `Documentation` | ชื่อไซต์ที่แสดงในส่วนหัวและแท็บเบราว์เซอร์ |
+| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | URL ฐานแบบ Canonical สำหรับไซต์ที่ปรับใช้งาน |
+| `DOCS_BASE` | `/` | เส้นทางฐาน URL (เช่น `/my-repo/` สำหรับไซต์โปรเจกต์) |
+| `DOCS_DESCRIPTION` | _(สตริงว่าง)_ | คำอธิบายไซต์สำหรับ metadata และปลั๊กอิน llms.txt |
+| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | URL หน้าแรกที่เชื่อมโยงจากชื่อไซต์ |
+| `GITHUB_REPOSITORY` | _(สตริงว่าง)_ | ใช้สร้างลิงก์โซเชียล GitHub และลิงก์แก้ไข |
+| `LLMS_OPTIONAL_LINKS` | `[]` | อาร์เรย์ JSON ของลิงก์เพิ่มเติมสำหรับปลั๊กอิน llms.txt |
+
+## ตำแหน่งที่ใช้ตัวแปรแต่ละตัว
+
+### DOCS_TITLE
+
+```ts
+// config.ts
+const title = options.title || process.env.DOCS_TITLE || 'Documentation';
+```
+
+ส่งไปยังตัวเลือก `title` ของ Starlight และปลั๊กอิน `starlight-llms-txt` ปรากฏในส่วนหัวของไซต์และแท็ก `<title>` ของ HTML
+
+### DOCS_SITE
+
+```ts
+// config.ts
+const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+```
+
+กำหนดคุณสมบัติ `site` ระดับบนสุดของ Astro ใช้สำหรับ URL แบบ Canonical การสร้าง sitemap และ metadata ของ Open Graph
+
+### DOCS_BASE
+
+```ts
+// config.ts
+const base = options.base || process.env.DOCS_BASE || '/';
+```
+
+กำหนดคุณสมบัติ `base` ระดับบนสุดของ Astro จำเป็นต้องใช้เมื่อปรับใช้งานในไดเรกทอรีย่อย (เช่น `https://example.github.io/my-repo/`)
+
+### DOCS_DESCRIPTION
+
+```ts
+// config.ts
+const description = options.description || process.env.DOCS_DESCRIPTION || '';
+```
+
+ส่งไปยังปลั๊กอิน `starlight-llms-txt` เป็นคำอธิบายไซต์ ใช้ในไฟล์ `llms.txt` ที่สร้างขึ้น
+
+### DOCS_HOME
+
+```ts
+// components/SiteTitle.astro
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+```
+
+อ่านโดยส่วนประกอบ `SiteTitle.astro` ที่กำหนดเอง ครอบชื่อไซต์ในส่วนหัวด้วยลิงก์ไปยัง URL นี้ ช่วยให้ผู้ใช้สามารถนำทางกลับไปยังหน้าแรกของเอกสารส่วนกลางได้ มีประโยชน์เมื่อคลังเนื้อหาหลายแห่งใช้ธีมเดียวกันและคุณต้องการลิงก์ "home" ที่สอดคล้องกันในทุกไซต์
+
+### GITHUB_REPOSITORY
+
+```ts
+// config.ts
+const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
+```
+
+ใช้สร้างไอคอนโซเชียล GitHub ในส่วนหัวของไซต์และ URL ฐานของลิงก์แก้ไข GitHub Actions กำหนดตัวแปรนี้โดยอัตโนมัติ (เช่น `owner/repo`)
+
+### LLMS_OPTIONAL_LINKS
+
+```ts
+// config.ts
+const llmsOptionalLinks = options.llmsOptionalLinks
+  || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+```
+
+อาร์เรย์ที่เข้ารหัสด้วย JSON ของออบเจกต์ `{ title, url }` ที่ส่งไปยังปลั๊กอิน `starlight-llms-txt` สิ่งเหล่านี้ปรากฏเป็นลิงก์เพิ่มเติมในไฟล์ `llms.txt` ที่สร้างขึ้น
+
+ตัวอย่างค่า:
+
+```json
+[{"title": "API Reference", "url": "https://api.example.com/docs"}]
+```
+
+## การกำหนดตัวแปรใน GitHub Actions
+
+คลังเนื้อหาส่งตัวแปรเหล่านี้ผ่าน workflow ของตน:
+
+```yaml
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    with:
+      docs_title: "My Project Docs"
+      docs_site: "https://example.github.io"
+      docs_base: "/my-project/"
+      docs_home: "https://example.github.io/home/"
+```
+
+ตัวแปร `GITHUB_REPOSITORY` ถูกจัดเตรียมโดยอัตโนมัติจาก GitHub Actions runner และไม่จำเป็นต้องกำหนดค่าด้วยตนเอง

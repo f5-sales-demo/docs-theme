@@ -1,0 +1,111 @@
+---
+title: 页脚
+description: 自定义 Starlight 页脚组件，包含社交媒体链接。
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+该主题将默认的 Starlight 页脚替换为自定义的 `Footer.astro` 组件，在标准页脚内容下方添加了社交媒体链接。
+
+## 组件模式
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+此模式**扩展**默认页脚，而非完全替换它。`<Default {...Astro.props}><slot /></Default>` 渲染原始的 Starlight 页脚（上一页/下一页导航），随后在其下方追加社交链接。
+
+## 注册方式
+
+页脚覆盖由 `index.ts` 中的 Starlight 插件注册。在 `config:setup` 钩子期间，设置 `Footer` 组件覆盖：
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+内容仓库无需手动注册页脚——主题插件加载时会自动应用。
+
+## 社交链接
+
+| 平台 | URL | 图标颜色 | Aria 标签 |
+|----------|-----|------------|------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2`（Facebook 蓝） | Facebook |
+| X | `https://x.com/F5` | `currentColor`（继承） | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2`（LinkedIn 蓝） | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F`（Instagram 粉） | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000`（YouTube 红） | YouTube |
+
+每个链接均在新标签页中打开（`target="_blank"`），并附带 `rel="noopener noreferrer"` 以确保安全性。
+
+## CSS 样式
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+链接以弹性行布局右对齐，悬停时带有细微的透明度效果。
+
+## 自定义
+
+### 修改 URL
+
+在 `@f5xc-salesdemos/docs-theme` 包的 `components/Footer.astro` 中，编辑对应 `<a>` 标签的 `href` 属性。
+
+### 添加链接
+
+在 `.social-links` div 内添加一个新的 `<a>` 元素，并附带 24x24 的 SVG 图标。参照现有模式：
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### 删除链接
+
+删除您想移除的平台对应的完整 `<a>...</a>` 代码块。
+
+### 修改图标颜色
+
+修改 `<svg>` 元素上的 `fill` 属性。使用 `currentColor` 可继承文本颜色，或使用特定十六进制值来设置品牌颜色。
+
+### 修改布局
+
+修改 `<style>` 块中的 `.social-links` CSS：
+- **居中对齐**：将 `justify-content` 改为 `center`
+- **更宽间距**：增大 `gap` 值
+- **左对齐**：将 `justify-content` 改为 `flex-start`

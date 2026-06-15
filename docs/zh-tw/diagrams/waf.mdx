@@ -1,0 +1,77 @@
+---
+title: WAF
+description: Web 應用程式防火牆圖表，展示檢測管線、OWASP 保護流程及 F5 XC WAAP 架構。
+sidebar:
+  order: 15
+i18n:
+  sourceHash: aedfc1ad5acb
+  translator: machine
+---
+
+Web 應用程式防火牆架構圖表，涵蓋安全檢測鏈、OWASP 保護流程及 F5 Distributed Cloud WAAP 功能。
+
+## 安全檢測管線
+
+多層安全檢測鏈，從 CDN 邊緣節點經由 WAF、機器人防禦及負載平衡器，延伸至來源基礎設施。
+
+```mermaid
+architecture-beta
+  group edge(lucide:shield)[Security Edge]
+  group origin(carbon:cloud-services)[Origin Infrastructure]
+
+  service cdn(carbon:content-delivery-network)[CDN] in edge
+  service waf(carbon:firewall)[WAF] in edge
+  service bot(lucide:shield-check)[Bot Defense] in edge
+  service lb(carbon:load-balancer-application)[Load Balancer] in origin
+  service app(carbon:application)[App Server] in origin
+  service db(carbon:data-base)[Database] in origin
+
+  cdn:R --> L:waf
+  waf:R --> L:bot
+  bot:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+## F5 XC WAAP 保護
+
+F5 Distributed Cloud Web 應用程式與 API 保護，整合機器人防禦及用戶端防禦功能。
+
+```mermaid
+architecture-beta
+  group xcedge(lucide:cloud)[F5 XC Edge]
+  group cloud(carbon:cloud-services)[Cloud Origin]
+
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in xcedge
+  service botdef(f5xc:bot-defense)[Bot Defense] in xcedge
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in xcedge
+  service lb(carbon:load-balancer-application)[Load Balancer] in cloud
+  service app(carbon:application)[Application] in cloud
+  service api(carbon:api)[API Service] in cloud
+
+  waap:R --> L:botdef
+  botdef:R --> L:csd
+  csd:R --> L:lb
+  lb:R --> L:app
+  lb:B --> T:api
+```
+
+## OWASP 保護流程
+
+WAF 請求處理管線，展示針對 OWASP Top 10 威脅類別的各項檢測階段。
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Request' }
+  tls@{ icon: 'lucide:lock', label: 'TLS Termination' }
+  rate@{ icon: 'carbon:load-balancer-vpc', label: 'Rate Limiting' }
+  waf@{ icon: 'carbon:firewall', label: 'WAF Rules' }
+  bot@{ icon: 'lucide:shield-check', label: 'Bot Check' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  req --> tls
+  tls --> rate
+  rate --> waf
+  waf --> bot
+  bot --> app
+```

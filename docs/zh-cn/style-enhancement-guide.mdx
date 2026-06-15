@@ -1,0 +1,598 @@
+---
+title: 样式增强指南
+description: '@f5xc-salesdemos/docs-theme 的设计系统令牌参考'
+sidebar:
+  order: 12
+i18n:
+  sourceHash: f0fb4524cc1c
+  translator: machine
+---
+
+本指南记录了 `styles/custom.css` 中实现的设计系统令牌和组件类。它作为主题中使用的边框、表面、阴影、圆角、按钮、渐变、过渡、焦点和排版令牌的参考。
+
+> **状态**：以下描述的所有设计令牌和组件类均已实现并可供使用。
+
+## 如何阅读本指南
+
+每个章节记录一个令牌类别：
+
+1. **令牌定义** — 具有亮色/暗色模式值的 CSS 自定义属性
+2. **组件映射** — 哪些主题组件使用了每个令牌
+3. **实现说明** — 使用指导和无障碍注意事项
+
+令牌表在值不同的地方按**亮色模式**和**暗色模式**分开列示。
+
+---
+
+## 1. 颜色系统
+
+### Alpha 透明边框
+
+主题使用**Alpha 透明边框**而非纯灰色。这使边框能够自然适应任何背景。
+
+```css
+/* Alpha 透明边框模式 */
+border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
+```
+
+#### 边框令牌
+
+```css
+/* Light mode */
+:root[data-theme='light'] {
+  --f5-border-faint: #3434341a;    /* --f5-black-3 at 10% */
+  --f5-border-default: #34343433;  /* --f5-black-3 at 20% */
+  --f5-border-strong: #22222266;   /* --f5-black-4 at 40% */
+}
+
+/* Dark mode */
+:root {
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 at 10% */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2 at 20% */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4 at 40% */
+}
+```
+
+#### 边框使用场景
+
+| 令牌 | 不透明度 | 使用场景 |
+|---|---|---|
+| `--f5-border-faint` | 10% | 细微分隔线、表格行 |
+| `--f5-border-default` | 20% | 默认边框、卡片轮廓 |
+| `--f5-border-strong` | 40% | 强调边框、激活状态 |
+
+> **状态**：完成 — 已在 `styles/custom.css` 中实现。
+
+### 交互式表面颜色
+
+用于悬停和激活状态的语义化表面令牌。
+
+#### 亮色模式表面
+
+| 令牌 | 值 | 用途 |
+|---|---|---|
+| `--f5-white` | `#ffffff` | 主背景 |
+| `--f5-white-1` | `#faf9f7` | 侧边栏、细微区域 |
+| `--f5-white-2` | `#f5f5f5` | 提升的表面 |
+| `--f5-surface-hover` | `var(--f5-white-2)` | 悬停填充 |
+| `--f5-surface-active` | `var(--f5-white-3)` | 按下/激活填充 |
+
+#### 暗色模式表面
+
+| 令牌 | 值 | 用途 |
+|---|---|---|
+| `--f5-black` | `#000000` | 主背景 |
+| `--f5-black-4` | `#222222` | 侧边栏、细微区域 |
+| `--f5-surface-hover` | `var(--f5-black-3)` | 悬停填充 |
+| `--f5-surface-active` | `var(--f5-black-2)` | 按下/激活填充 |
+
+#### 表面令牌定义
+
+```css
+:root[data-theme='light'] {
+  --f5-surface-hover: var(--f5-white-2);     /* #f5f5f5 */
+  --f5-surface-active: var(--f5-white-3);    /* #e6e6e6 */
+}
+
+:root {
+  --f5-surface-hover: var(--f5-black-3);     /* #343434 */
+  --f5-surface-active: var(--f5-black-2);    /* #666666 */
+}
+```
+
+> **状态**：完成 — 已在 `styles/custom.css` 中实现。
+
+---
+
+## 2. 层级与阴影系统
+
+### 阴影比例
+
+主题使用**中性色调 Alpha 阴影**，具有双层值以呈现自然深度。亮色模式使用 `--f5-black-3`（`#343434`）作为色调基础；暗色模式使用 `#cccccc`。
+
+#### 亮色模式阴影
+
+```css
+:root[data-theme='light'] {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #3434341a;
+  --f5-shadow-low:
+    0px 1px 1px 0px #3434340d,
+    0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #3434341a,
+    0px 8px 16px -10px #34343433;
+  --f5-shadow-high:
+    0px 2px 3px 0px #34343426,
+    0px 16px 16px -10px #34343433;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #3434341a,
+    0px 12px 28px 0px #34343440;
+}
+```
+
+#### 暗色模式阴影
+
+```css
+:root {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #cccccc0d;
+  --f5-shadow-low:
+    0px 1px 1px 0px #cccccc0a,
+    0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #cccccc0d,
+    0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high:
+    0px 2px 3px 0px #cccccc1a,
+    0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #cccccc0d,
+    0px 12px 28px 0px #cccccc26;
+}
+```
+
+### 组件阴影映射
+
+| 组件 | 阴影级别 |
+|---|---|
+| `.swatch`、`.icon-card` | `--f5-shadow-low`（静止时） |
+| `.starlight-aside` | `--f5-shadow-low` |
+| `.expressive-code .frame` | `--f5-shadow-mid` |
+| `.mermaid-container` | `--f5-shadow-mid` |
+| 悬停时的卡片 | `--f5-shadow-mid` |
+| 下拉菜单、弹出框 | `--f5-shadow-high` |
+| 模态框 | `--f5-shadow-higher` |
+
+> **状态**：完成 — 所有阴影级别（`inset`、`low`、`mid`、`high`、`higher`）均已在 `styles/custom.css` 中实现。
+
+---
+
+## 3. 边框圆角比例
+
+### 圆角令牌
+
+```css
+:root {
+  --f5-radius-xs: 0.1875rem;   /* 3px — badges, tags */
+  --f5-radius-sm: 0.3125rem;   /* 5px — nav items, small controls */
+  --f5-radius-md: 0.375rem;    /* 6px — cards, code blocks */
+  --f5-radius-lg: 0.5rem;      /* 8px — modals, large containers */
+  --f5-radius-full: 999px;     /* pills, fully rounded */
+}
+```
+
+### 组件圆角映射
+
+| 组件 | 圆角令牌 |
+|---|---|
+| `.swatch` | `--f5-radius-md`（6px） |
+| `.icon-card` | `--f5-radius-md`（6px） |
+| `.starlight-aside` | `--f5-radius-md`（6px） |
+| `.expressive-code .frame` | `--f5-radius-md`（6px） |
+| `.mermaid-container` | `--f5-radius-lg`（8px） |
+| `.edit-link` | `--f5-radius-full`（胶囊形） |
+| 侧边栏导航项 | `--f5-radius-sm`（5px） |
+| 徽章 | `--f5-radius-xs`（3px） |
+
+> **状态**：完成 — 圆角比例（`xs`、`sm`、`md`、`lg`、`full`）均已在 `styles/custom.css` 中实现。
+
+---
+
+## 4. 侧边栏导航样式
+
+### 侧边栏项目样式
+
+```css
+/* Sidebar navigation items */
+nav.sidebar a {
+  border-radius: var(--f5-radius-sm);    /* 5px */
+  padding: 0.25rem 0.5rem;               /* 4px 8px */
+  min-height: 2.25rem;                    /* 36px */
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Light mode hover */
+:root[data-theme='light'] nav.sidebar a:hover {
+  background-color: var(--f5-white-2);   /* #f5f5f5 */
+}
+
+/* Dark mode hover */
+:root nav.sidebar a:hover {
+  background-color: var(--f5-black-3);   /* #343434 */
+}
+
+/* Active page indicator */
+nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-white-3);   /* #e6e6e6 light */
+  font-weight: 600;
+}
+
+:root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-black-2);   /* #666666 → adjust for readability */
+}
+```
+
+### 左侧强调指示器
+
+```css
+nav.sidebar a[aria-current="page"] {
+  border-left: 3px solid var(--sl-color-accent);
+  padding-left: calc(0.5rem - 3px);  /* compensate for border */
+}
+```
+
+> **状态**：完成 — 侧边栏悬停、激活和强调指示器均已在 `styles/custom.css` 中实现。
+
+---
+
+## 5. 按钮系统
+
+### 按钮变体
+
+```css
+/* Primary — using F5 Red as brand action */
+.btn-primary {
+  background: var(--f5-red);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover {
+  background: var(--f5-red-3);
+  box-shadow: var(--f5-shadow-low);
+}
+
+/* Secondary — outline style */
+.btn-secondary {
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover {
+  background: var(--f5-surface-hover);
+  border-color: var(--f5-border-strong);
+}
+
+/* Tertiary — ghost/text-only */
+.btn-tertiary {
+  background: transparent;
+  color: var(--sl-color-accent);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+}
+.btn-tertiary:hover {
+  background: var(--f5-surface-hover);
+}
+```
+
+### 按钮尺寸比例
+
+| 尺寸 | 内边距 | 字体大小 | 最小高度 |
+|---|---|---|---|
+| 小 | `0.375rem 0.75rem` | `0.8125rem`（13px） | `32px` |
+| 中（默认） | `0.625rem 1rem` | `0.875rem`（14px） | `40px` |
+| 大 | `0.75rem 1.5rem` | `1rem`（16px） | `48px` |
+
+> **状态**：完成 — 所有按钮变体（`primary`、`secondary`、`tertiary`、`critical`）和尺寸比例（`sm`、默认、`lg`）均已在 `styles/custom.css` 中实现。
+
+---
+
+## 6. Hero 和页头背景
+
+### Hero 渐变
+
+使用 F5 品牌调色板：
+
+```css
+/* Primary hero gradient — River blue */
+.hero-gradient-primary {
+  background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
+  /* #6e8dcc → #0e41aa */
+}
+
+/* Faint page wash — subtle warm tone */
+:root[data-theme='light'] .hero-gradient-faint {
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
+}
+:root .hero-gradient-faint {
+  background: linear-gradient(180deg, #222222 0%, #000000 100%);
+}
+
+/* Eggplant variant for feature pages */
+.hero-gradient-eggplant {
+  background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
+  /* #9c59c9 → #62228b */
+}
+
+/* Red brand variant for announcements */
+.hero-gradient-red {
+  background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
+  /* #f06680 → #e4002b */
+}
+```
+
+### 渐变叠加技术
+
+```css
+/* Radial vignette for depth */
+.hero-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* Bottom fade to page background */
+.hero-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+```
+
+> **状态**：完成 — Hero 渐变（`primary`、`eggplant`、`red`、`faint`）和叠加效果（`hero-fade`、`hero-vignette`）均已在 `styles/custom.css` 中实现。
+
+---
+
+## 7. 悬停效果与过渡
+
+### 过渡令牌
+
+```css
+:root {
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+```
+
+| 令牌 | 时长 | 缓动 | 使用场景 |
+|---|---|---|---|
+| `--f5-transition-fast` | `0.15s` | `ease` | 大多数悬停状态、颜色变化 |
+| `--f5-transition-base` | `0.2s` | `ease` | 背景填充、边框变化 |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | 开关、切换 |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | 标签指示器、滑动面板 |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | 工具提示、弹出框进入 |
+
+### 可动画属性
+
+| 属性 | 可安全动画 | 备注 |
+|---|---|---|
+| `background-color` | 是 | 悬停填充的标准用法 |
+| `color` | 是 | 文字颜色变化 |
+| `border-color` | 是 | 悬停时的边框强调 |
+| `box-shadow` | 是 | 层级变化（如有卡顿可使用 `will-change`） |
+| `transform` | 是 | 缩放、位移反馈 |
+| `opacity` | 是 | 淡入/淡出 |
+| `width`、`height` | 避免 | 会导致布局重排 |
+| `padding`、`margin` | 避免 | 会导致布局重排 |
+
+### 组件过渡映射
+
+```css
+/* Sidebar nav items */
+nav.sidebar a {
+  transition: background-color var(--f5-transition-fast),
+              color var(--f5-transition-fast);
+}
+
+/* Cards — shadow lift on hover */
+.swatch, .icon-card {
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+.swatch:hover, .icon-card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-tertiary {
+  transition: background-color var(--f5-transition-fast),
+              border-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+
+/* Links */
+a {
+  transition: color var(--f5-transition-fast);
+}
+```
+
+> **状态**：完成 — 所有五个过渡令牌（`fast`、`base`、`bounce`、`decelerate`、`spring`）和组件过渡均已在 `styles/custom.css` 中实现。
+
+---
+
+## 8. 焦点环系统
+
+### 焦点环令牌
+
+主题使用**双环**模式，包含内嵌内环和外发光：
+
+```css
+/* Action focus — using F5 River blue */
+:root {
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
+
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+  /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
+}
+
+/* Apply to interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--f5-focus-action);
+}
+
+/* Critical variant for destructive buttons */
+.btn-critical:focus-visible {
+  box-shadow: var(--f5-focus-critical);
+}
+```
+
+### 无障碍注意事项
+
+- 双环模式满足 **WCAG 2.2 焦点外观**要求（最小 2px 对比轮廓）
+- 使用 `box-shadow` 而非 `outline` 可确保圆角被正确保留
+- `:focus-visible` 确保焦点环仅在键盘导航时显示，而非鼠标点击时
+
+> **状态**：完成 — 双环焦点模式（`action`、`critical`）和 `:focus-visible` 样式均已在 `styles/custom.css` 中实现。
+
+---
+
+## 9. 排版
+
+### 字体栈
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-font-heading: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-line-height-headings: 1.1;
+}
+```
+
+### 字型比例
+
+| 比例 | 大小 | 行高 | 用途 |
+|---|---|---|---|
+| Display 500 | `1.875rem`（30px） | 1.267 | `--sl-text-h1` |
+| Display 400 | `1.5rem`（24px） | 1.333 | `--sl-text-h2` |
+| Display 300 | `1.125rem`（18px） | 1.333 | `--sl-text-h3` |
+| Display 200 | `1rem`（16px） | 1.5 | `--sl-text-h4` |
+| Display 100 | `0.8125rem`（13px） | 1.385 | 上方标题文字 |
+| Body 300 | `1rem`（16px） | 1.5 | 主体正文 |
+| Body 200 | `0.875rem`（14px） | 1.429 | 侧边栏文字、说明文字 |
+| Body 100 | `0.8125rem`（13px） | 1.385 | 小号文字 |
+
+### 主要特征
+
+| 方面 | 值 | 备注 |
+|---|---|---|
+| 标题行高 | `1.1` | 紧凑标题以彰显品牌气质；可考虑改为 `1.2` 以提升可读性 |
+| 正文行高 | `1.5`（Starlight 默认） | 非常适合阅读 |
+| 字体系列 | 自定义品牌字体 | proximaNova（正文）、neusaNextProWide（标题） |
+| 标题字重 | `h1-h2: 700, h3: 500, h4-h6: 700 uppercase` | 为品牌一致性而设计 |
+
+> **优先级**：无需更改。当前排版定义完善且符合品牌规范。标题行高（`1.1` 调整为 `1.2`）为可选项。
+
+---
+
+## 10. 实现变更日志
+
+所有设计令牌在五个迭代周期中完成实现：
+
+| 迭代周期 | 范围 | 新增令牌 |
+|---|---|---|
+| 1. 基础 | 阴影 + 边框圆角 | `--f5-shadow-*`（5 个级别）、`--f5-radius-*`（5 个级别） |
+| 2. 侧边栏 + 表面 | 导航 + 交互令牌 | `--f5-surface-hover`、`--f5-surface-active`、`--f5-border-*`（3 个级别）、`--f5-transition-fast` |
+| 3. 按钮 | 组件系统 | `.btn-primary`、`.btn-secondary`、`.btn-tertiary`、`.btn-critical`、尺寸变体 |
+| 4. Hero 渐变 | 背景工具类 | `.hero-gradient-primary`、`-eggplant`、`-red`、`-faint`、`.hero-vignette`、`.hero-fade` |
+| 5. 焦点 + 过渡 | 无障碍 + 精细调整 | `--f5-focus-action`、`--f5-focus-critical`、`--f5-transition-*`（5 个令牌）、卡片悬停效果 |
+
+---
+
+## 快速参考：令牌汇总
+
+### 所有自定义属性
+
+```css
+:root {
+  /* Border radius scale */
+  --f5-radius-xs: 0.1875rem;     /* 3px */
+  --f5-radius-sm: 0.3125rem;     /* 5px */
+  --f5-radius-md: 0.375rem;      /* 6px */
+  --f5-radius-lg: 0.5rem;        /* 8px */
+  --f5-radius-full: 999px;
+
+  /* Transition timing */
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+
+  /* Focus rings */
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+
+  /* Dark mode shadows (default) */
+  --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
+
+  /* Dark mode borders */
+  --f5-border-faint: #f5f5f51a;
+  --f5-border-default: #f5f5f533;
+  --f5-border-strong: #cccccc66;
+
+  /* Dark mode surfaces */
+  --f5-surface-hover: var(--f5-black-3);
+  --f5-surface-active: var(--f5-black-2);
+}
+
+:root[data-theme='light'] {
+  /* Light mode shadows */
+  --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
+  --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
+  --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
+
+  /* Light mode borders */
+  --f5-border-faint: #3434341a;
+  --f5-border-default: #34343433;
+  --f5-border-strong: #22222266;
+
+  /* Light mode surfaces */
+  --f5-surface-hover: var(--f5-white-2);
+  --f5-surface-active: var(--f5-white-3);
+}
+```

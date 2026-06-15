@@ -1,0 +1,112 @@
+---
+title: متغيرات البيئة
+description: مرجع لجميع متغيرات البيئة التي تدعمها السمة.
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 43298dddbd74
+  translator: machine
+---
+
+تقرأ السمة متغيرات البيئة في وقت البناء من `config.ts` والمكونات المخصصة. تقوم مستودعات المحتوى بتعيين هذه المتغيرات في سير عمل GitHub Actions الخاص بها لتخصيص كل موقع دون تعديل الإعدادات.
+
+## مرجع المتغيرات
+
+| المتغير | القيمة الافتراضية | الغرض |
+|----------|---------|---------|
+| `DOCS_TITLE` | `Documentation` | عنوان الموقع المعروض في الترويسة وعلامة تبويب المتصفح |
+| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | عنوان URL الأساسي الكنسي للموقع المنشور |
+| `DOCS_BASE` | `/` | مسار URL الأساسي (مثل `/my-repo/` لمواقع المشاريع) |
+| `DOCS_DESCRIPTION` | _(سلسلة فارغة)_ | وصف الموقع للبيانات الوصفية وإضافة llms.txt |
+| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | عنوان URL للصفحة الرئيسية المرتبط من عنوان الموقع |
+| `GITHUB_REPOSITORY` | _(سلسلة فارغة)_ | يُستخدم لبناء رابط GitHub الاجتماعي وروابط التحرير |
+| `LLMS_OPTIONAL_LINKS` | `[]` | مصفوفة JSON من روابط إضافية لإضافة llms.txt |
+
+## مكان استخدام كل متغير
+
+### DOCS_TITLE
+
+```ts
+// config.ts
+const title = options.title || process.env.DOCS_TITLE || 'Documentation';
+```
+
+يُمرَّر إلى خيار Starlight `title` وإضافة `starlight-llms-txt`. يظهر في ترويسة الموقع وفي وسم HTML `<title>`.
+
+### DOCS_SITE
+
+```ts
+// config.ts
+const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+```
+
+يضبط خاصية Astro `site` على المستوى الأعلى. يُستخدم لعناوين URL الكنسية وتوليد خريطة الموقع وبيانات Open Graph الوصفية.
+
+### DOCS_BASE
+
+```ts
+// config.ts
+const base = options.base || process.env.DOCS_BASE || '/';
+```
+
+يضبط خاصية Astro `base` على المستوى الأعلى. مطلوب عند النشر في دليل فرعي (مثل `https://example.github.io/my-repo/`).
+
+### DOCS_DESCRIPTION
+
+```ts
+// config.ts
+const description = options.description || process.env.DOCS_DESCRIPTION || '';
+```
+
+يُمرَّر إلى إضافة `starlight-llms-txt` كوصف للموقع. يُستخدم في ملف `llms.txt` المُوَلَّد.
+
+### DOCS_HOME
+
+```ts
+// components/SiteTitle.astro
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+```
+
+يُقرأ بواسطة المكوّن المخصص `SiteTitle.astro`. يُغلِّف عنوان الموقع في الترويسة برابط إلى عنوان URL هذا، مما يتيح للمستخدمين التنقل إلى صفحة رئيسية مركزية للتوثيق. مفيد عندما تشترك مستودعات محتوى متعددة في نفس السمة وتريد رابط "رئيسي" متسقًا عبر جميع المواقع.
+
+### GITHUB_REPOSITORY
+
+```ts
+// config.ts
+const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
+```
+
+يُستخدم لتوليد أيقونة GitHub الاجتماعية في ترويسة الموقع وعنوان URL الأساسي لرابط التحرير. يضبط GitHub Actions هذا المتغير تلقائيًا (مثل `owner/repo`).
+
+### LLMS_OPTIONAL_LINKS
+
+```ts
+// config.ts
+const llmsOptionalLinks = options.llmsOptionalLinks
+  || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+```
+
+مصفوفة مُشفَّرة بـ JSON من كائنات `{ title, url }` تُمرَّر إلى إضافة `starlight-llms-txt`. تظهر هذه العناصر كروابط إضافية في ملف `llms.txt` المُوَلَّد.
+
+مثال على القيمة:
+
+```json
+[{"title": "API Reference", "url": "https://api.example.com/docs"}]
+```
+
+## تعيين المتغيرات في GitHub Actions
+
+تمرر مستودعات المحتوى هذه المتغيرات عبر سير عملها:
+
+```yaml
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    with:
+      docs_title: "My Project Docs"
+      docs_site: "https://example.github.io"
+      docs_base: "/my-project/"
+      docs_home: "https://example.github.io/home/"
+```
+
+يتم توفير متغير `GITHUB_REPOSITORY` تلقائيًا بواسطة مشغّل GitHub Actions ولا يحتاج إلى تعيينه يدويًا.

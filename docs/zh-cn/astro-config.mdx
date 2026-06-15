@@ -1,0 +1,139 @@
+---
+title: Astro 配置
+description: 基于插件的 Astro/Starlight 配置工厂参考文档。
+sidebar:
+  order: 4
+i18n:
+  sourceHash: 48445fbc1ed7
+  translator: machine
+---
+
+内容仓库不维护自己的 `astro.config.mjs`。取而代之，它们从 `@f5xc-salesdemos/docs-theme` npm 包中导入一个配置工厂，该工厂会返回一个完整的 Astro 配置，其中包含 Starlight、八个内置插件以及所有主题默认值。
+
+## 使用主题
+
+内容仓库的 `astro.config.mjs`（由 Docker 构建器提供）是一个轻量包装器：
+
+```js
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig();
+```
+
+所有自定义均通过选项对象或环境变量完成——无需手动处理插件连接、CSS 导入或组件覆盖。
+
+## 配置选项
+
+`createF5xcDocsConfig` 接受一个 `F5xcDocsConfigOptions` 对象。每个字段均为可选；环境变量和合理的默认值会自动填充缺失项。
+
+```ts
+interface F5xcDocsConfigOptions {
+  site?: string;
+  base?: string;
+  title?: string;
+  description?: string;
+  githubRepository?: string;
+  llmsOptionalLinks?: Array<{ title: string; url: string }>;
+  additionalIntegrations?: AstroIntegration[];
+  additionalRemarkPlugins?: Array<unknown>;
+  megaMenuItems?: MegaMenuItem[];
+  head?: HeadEntry[];
+  logo?: { src: string } | { light: string; dark: string };
+}
+```
+
+| 选项 | 默认值 / 环境变量回退 | 用途 |
+|--------|----------------------|---------|
+| `site` | `DOCS_SITE` 或 `https://f5xc-salesdemos.github.io` | 规范基础 URL |
+| `base` | `DOCS_BASE` 或 `/` | 项目站点的 URL 基础路径 |
+| `title` | `DOCS_TITLE` 或 `Documentation` | 页眉和浏览器标签页中的站点标题 |
+| `description` | `DOCS_DESCRIPTION` 或空字符串 | 用于元数据和 llms.txt 的站点描述 |
+| `githubRepository` | `GITHUB_REPOSITORY` 或空字符串 | 启用编辑链接和 GitHub 社交图标 |
+| `llmsOptionalLinks` | `LLMS_OPTIONAL_LINKS`（JSON）或 `[]` | llms.txt 插件的附加链接 |
+| `additionalIntegrations` | `[]` | 追加的额外 Astro 集成 |
+| `additionalRemarkPlugins` | `[]` | 在 remark-mermaid 之后添加的额外 remark 插件 |
+| `megaMenuItems` | 内置的产品/解决方案/文档/支持菜单 | 顶级超级菜单条目 |
+| `head` | Mermaid CDN `<script>` 标签 | 自定义 `<head>` 条目 |
+| `logo` | `@f5xc-salesdemos/docs-theme/assets/github-avatar.png` | 侧边栏 Logo（单个 src 或明暗模式对） |
+
+## 内置 Starlight 插件
+
+该工厂会自动连接八个 Starlight 插件：
+
+| 插件 | 用途 |
+|--------|---------|
+| `starlight-mega-menu` | 支持网格/列表布局的顶部导航超级菜单 |
+| `starlight-videos` | 在文档页面中嵌入视频 |
+| `starlight-image-zoom` | 点击图片放大 |
+| `@f5xc-salesdemos/docs-theme`（自身） | CSS 注入、组件覆盖、路由中间件 |
+| `starlight-scroll-to-top` | 带进度环的回到顶部按钮 |
+| `starlight-heading-badges` | 标题上的徽章注释 |
+| `starlight-page-actions` | 页面操作按钮 |
+| `starlight-plugin-icons` | Starlight 中的图标支持 |
+| `starlight-llms-txt` | 生成供 LLM 使用的 `llms.txt` 和 `llms-full.txt` |
+
+这些插件按顺序在 `config.ts` 中注册。主题插件（`@f5xc-salesdemos/docs-theme`）本身也是一个 Starlight 插件，并在此列表中运行。
+
+## 主题插件钩子
+
+主题插件在 `index.ts` 中定义，并在上述内置插件列表中注册。其 `config:setup` 钩子完成三件事：
+
+1. **注入 CSS** — 将 `fonts/font-face.css` 和 `styles/custom.css` 前置到 Starlight 的 `customCss` 数组
+2. **覆盖组件** — 替换五个 Starlight 组件：
+   - `Banner` — 带编辑链接的面包屑导航
+   - `EditLink` — 故意留空（编辑链接位于 Banner 中）
+   - `Footer` — 在默认页脚下方追加社交媒体链接
+   - `SiteTitle` — 带主页链接的 Logo
+   - `MarkdownContent` — 启用视频和图片缩放的包装器
+3. **添加路由中间件** — 注册 `route-middleware.ts`，用于从侧边栏过滤索引页面，并在索引页面上禁用目录
+
+```ts
+// index.ts — Starlight plugin entry point
+export default function f5xcDocsTheme(): StarlightPlugin {
+  return {
+    name: '@f5xc-salesdemos/docs-theme',
+    hooks: {
+      'config:setup'({ config, updateConfig, addRouteMiddleware }) {
+        addRouteMiddleware({
+          entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
+          order: 'pre',
+        });
+        updateConfig({
+          customCss: [
+            ...(config.customCss ?? []),
+            '@f5xc-salesdemos/docs-theme/fonts/font-face.css',
+            '@f5xc-salesdemos/docs-theme/styles/custom.css',
+          ],
+          components: {
+            ...config.components,
+            Banner: '@f5xc-salesdemos/docs-theme/components/Banner.astro',
+            EditLink: '@f5xc-salesdemos/docs-theme/components/EditLink.astro',
+            Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+            SiteTitle: '@f5xc-salesdemos/docs-theme/components/SiteTitle.astro',
+            MarkdownContent: '@f5xc-salesdemos/docs-theme/components/MarkdownContent.astro',
+          },
+        });
+      },
+    },
+  };
+}
+```
+
+所有路径均使用 npm 包说明符（例如 `@f5xc-salesdemos/docs-theme/styles/custom.css`），通过 `package.json` 中的 `exports` 映射进行解析。
+
+## 其他集成
+
+除 Starlight 及其插件外，该工厂还注册了：
+
+- **`@astrojs/react`** — 在 MDX 页面中启用 React 组件支持
+- **`remark-mermaid`** — 自定义 remark 插件，将 ` ```mermaid ` 代码块转换为渲染后的图表
+
+额外的集成和 remark 插件可通过 `additionalIntegrations` 和 `additionalRemarkPlugins` 选项追加。
+
+## 侧边栏
+
+未定义自定义侧边栏。Starlight 根据 `docs/` 中的文件结构自动生成侧边栏，使用每个页面的 `title` frontmatter 作为链接文本，`sidebar.order` 用于排序。路由中间件会自动将索引页面从侧边栏中过滤掉。
+
+:::caution
+该配置工厂在所有文档站点之间共享。对 `config.ts` 的任何更改都会影响使用此主题构建的每个内容仓库。请谨慎测试更改。
+:::

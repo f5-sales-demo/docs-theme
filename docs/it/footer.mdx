@@ -1,0 +1,111 @@
+---
+title: Footer
+description: Componente footer personalizzato di Starlight con link ai social media.
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+Il tema sostituisce il footer predefinito di Starlight con un componente personalizzato `Footer.astro` che aggiunge link ai social media sotto il contenuto standard del footer.
+
+## Pattern del componente
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+Questo pattern **estende** il footer predefinito anziché sostituirlo interamente. `<Default {...Astro.props}><slot /></Default>` esegue il rendering del footer originale di Starlight (navigazione precedente/successiva), dopodiché i link ai social vengono aggiunti in fondo.
+
+## Come viene registrato
+
+L'override del footer viene registrato dal plugin di Starlight in `index.ts`. Durante il hook `config:setup`, viene impostato l'override del componente `Footer`:
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+I repository di contenuto non devono registrare il footer manualmente — viene applicato automaticamente al caricamento del plugin del tema.
+
+## Link ai social
+
+| Piattaforma | URL | Colore icona | Aria Label |
+|-------------|-----|--------------|------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Blu Facebook) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (ereditato) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (Blu LinkedIn) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Rosa Instagram) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (Rosso YouTube) | YouTube |
+
+Ogni link si apre in una nuova scheda (`target="_blank"`) con `rel="noopener noreferrer"` per la Sicurezza.
+
+## Stili CSS
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+I link sono allineati a destra in una riga flex con un sottile effetto di opacità al passaggio del mouse.
+
+## Personalizzazione
+
+### Modificare un URL
+
+Modificare l'attributo `href` sul tag `<a>` corrispondente in `components/Footer.astro` all'interno del pacchetto `@f5xc-salesdemos/docs-theme`.
+
+### Aggiungere un link
+
+Aggiungere un nuovo elemento `<a>` all'interno del div `.social-links` con un'icona SVG 24x24. Seguire il pattern esistente:
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### Rimuovere un link
+
+Eliminare l'intero blocco `<a>...</a>` per la piattaforma che si desidera rimuovere.
+
+### Modificare i colori delle icone
+
+Modificare l'attributo `fill` sull'elemento `<svg>`. Utilizzare `currentColor` per ereditare il colore del testo, oppure un valore esadecimale specifico per i colori del brand.
+
+### Modificare il layout
+
+Modificare il CSS `.social-links` nel blocco `<style>`:
+- **Allineamento centrato**: Cambiare `justify-content` in `center`
+- **Spaziatura più ampia**: Aumentare il valore di `gap`
+- **Allineamento a sinistra**: Cambiare `justify-content` in `flex-start`

@@ -1,0 +1,139 @@
+---
+title: Astro 구성
+description: 플러그인 기반 Astro/Starlight 구성 팩토리에 대한 참조 문서입니다.
+sidebar:
+  order: 4
+i18n:
+  sourceHash: 48445fbc1ed7
+  translator: machine
+---
+
+콘텐츠 저장소는 자체적인 `astro.config.mjs`를 유지하지 않습니다. 대신, `@f5xc-salesdemos/docs-theme` npm 패키지에서 구성 팩토리를 가져오며, 이 팩토리는 Starlight, 8개의 번들 플러그인, 그리고 모든 테마 기본값을 포함한 완전한 Astro 구성을 반환합니다.
+
+## 테마 사용
+
+콘텐츠 저장소의 `astro.config.mjs`(Docker 빌더가 제공)는 얇은 래퍼입니다:
+
+```js
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig();
+```
+
+모든 사용자 정의는 옵션 객체 또는 환경 변수를 통해 이루어지므로, 플러그인 연결, CSS 임포트, 또는 구성 요소 오버라이드를 직접 수정할 필요가 없습니다.
+
+## 구성 옵션
+
+`createF5xcDocsConfig`는 `F5xcDocsConfigOptions` 객체를 받습니다. 모든 필드는 선택적이며, 환경 변수와 합리적인 기본값이 빈 부분을 채웁니다.
+
+```ts
+interface F5xcDocsConfigOptions {
+  site?: string;
+  base?: string;
+  title?: string;
+  description?: string;
+  githubRepository?: string;
+  llmsOptionalLinks?: Array<{ title: string; url: string }>;
+  additionalIntegrations?: AstroIntegration[];
+  additionalRemarkPlugins?: Array<unknown>;
+  megaMenuItems?: MegaMenuItem[];
+  head?: HeadEntry[];
+  logo?: { src: string } | { light: string; dark: string };
+}
+```
+
+| 옵션 | 기본값 / 환경 변수 폴백 | 목적 |
+|--------|----------------------|---------|
+| `site` | `DOCS_SITE` 또는 `https://f5xc-salesdemos.github.io` | 정규 기본 URL |
+| `base` | `DOCS_BASE` 또는 `/` | 프로젝트 사이트의 URL 기본 경로 |
+| `title` | `DOCS_TITLE` 또는 `Documentation` | 헤더 및 브라우저 탭의 사이트 제목 |
+| `description` | `DOCS_DESCRIPTION` 또는 빈 문자열 | 메타데이터 및 llms.txt를 위한 사이트 설명 |
+| `githubRepository` | `GITHUB_REPOSITORY` 또는 빈 문자열 | 편집 링크 및 GitHub 소셜 아이콘 활성화 |
+| `llmsOptionalLinks` | `LLMS_OPTIONAL_LINKS` (JSON) 또는 `[]` | llms.txt 플러그인의 추가 링크 |
+| `additionalIntegrations` | `[]` | 추가할 Astro 통합 |
+| `additionalRemarkPlugins` | `[]` | remark-mermaid 이후에 추가되는 추가 remark 플러그인 |
+| `megaMenuItems` | 내장 Products/Solutions/Docs/Support 메뉴 | 최상위 메가 메뉴 항목 |
+| `head` | Mermaid CDN `<script>` 태그 | 사용자 정의 `<head>` 항목 |
+| `logo` | `@f5xc-salesdemos/docs-theme/assets/github-avatar.png` | 사이드바 로고 (단일 src 또는 라이트/다크 쌍) |
+
+## 번들된 Starlight 플러그인
+
+팩토리는 8개의 Starlight 플러그인을 자동으로 연결합니다:
+
+| 플러그인 | 목적 |
+|--------|---------|
+| `starlight-mega-menu` | 그리드/목록 레이아웃이 있는 상단 내비게이션 메가 메뉴 |
+| `starlight-videos` | 문서 페이지에 비디오 삽입 |
+| `starlight-image-zoom` | 이미지 클릭 시 확대 |
+| `@f5xc-salesdemos/docs-theme` (자체) | CSS 주입, 구성 요소 오버라이드, 라우트 미들웨어 |
+| `starlight-scroll-to-top` | 진행 링이 있는 맨 위로 스크롤 버튼 |
+| `starlight-heading-badges` | 제목에 배지 주석 |
+| `starlight-page-actions` | 페이지 액션 버튼 |
+| `starlight-plugin-icons` | Starlight에서 아이콘 지원 |
+| `starlight-llms-txt` | LLM 사용을 위한 `llms.txt` 및 `llms-full.txt` 생성 |
+
+이들은 `config.ts` 내에 순서대로 등록됩니다. 테마 플러그인(`@f5xc-salesdemos/docs-theme`)은 이 목록에서 실행되는 Starlight 플러그인 자체입니다.
+
+## 테마 플러그인 훅
+
+테마 플러그인은 `index.ts`에 정의되어 있으며 위의 번들 플러그인 중에 등록됩니다. 해당 `config:setup` 훅은 세 가지 작업을 수행합니다:
+
+1. **CSS 주입** — Starlight의 `customCss` 배열에 `fonts/font-face.css`와 `styles/custom.css`를 앞에 추가
+2. **구성 요소 오버라이드** — 다섯 개의 Starlight 구성 요소를 교체:
+   - `Banner` — 편집 링크가 있는 브레드크럼 내비게이션
+   - `EditLink` — 의도적으로 비어 있음 (편집 링크는 Banner에 위치)
+   - `Footer` — 기본 푸터 아래에 소셜 미디어 링크 추가
+   - `SiteTitle` — 홈 링크가 있는 로고
+   - `MarkdownContent` — 비디오 및 이미지 확대를 활성화하는 래퍼
+3. **라우트 미들웨어 추가** — 사이드바에서 인덱스 페이지를 필터링하고 인덱스 페이지의 목차를 숨기는 `route-middleware.ts` 등록
+
+```ts
+// index.ts — Starlight plugin entry point
+export default function f5xcDocsTheme(): StarlightPlugin {
+  return {
+    name: '@f5xc-salesdemos/docs-theme',
+    hooks: {
+      'config:setup'({ config, updateConfig, addRouteMiddleware }) {
+        addRouteMiddleware({
+          entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
+          order: 'pre',
+        });
+        updateConfig({
+          customCss: [
+            ...(config.customCss ?? []),
+            '@f5xc-salesdemos/docs-theme/fonts/font-face.css',
+            '@f5xc-salesdemos/docs-theme/styles/custom.css',
+          ],
+          components: {
+            ...config.components,
+            Banner: '@f5xc-salesdemos/docs-theme/components/Banner.astro',
+            EditLink: '@f5xc-salesdemos/docs-theme/components/EditLink.astro',
+            Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+            SiteTitle: '@f5xc-salesdemos/docs-theme/components/SiteTitle.astro',
+            MarkdownContent: '@f5xc-salesdemos/docs-theme/components/MarkdownContent.astro',
+          },
+        });
+      },
+    },
+  };
+}
+```
+
+모든 경로는 npm 패키지 지정자(예: `@f5xc-salesdemos/docs-theme/styles/custom.css`)를 사용하며, `package.json`의 `exports` 맵을 통해 해석됩니다.
+
+## 기타 통합
+
+Starlight와 해당 플러그인 외에도, 팩토리는 다음도 등록합니다:
+
+- **`@astrojs/react`** — MDX 페이지에서 React 구성 요소 지원 활성화
+- **`remark-mermaid`** — ` ```mermaid ` 코드 블록을 렌더링된 다이어그램으로 변환하는 커스텀 remark 플러그인
+
+추가 통합 및 remark 플러그인은 `additionalIntegrations` 및 `additionalRemarkPlugins` 옵션을 통해 추가할 수 있습니다.
+
+## 사이드바
+
+사용자 정의 사이드바는 정의되어 있지 않습니다. Starlight는 `docs/`의 파일 구조에서 사이드바를 자동 생성하며, 각 페이지의 `title` 프론트매터를 링크 텍스트로, `sidebar.order`를 정렬에 사용합니다. 라우트 미들웨어가 인덱스 페이지를 사이드바에서 자동으로 필터링합니다.
+
+:::caution
+구성 팩토리는 모든 문서 사이트에서 공유됩니다. `config.ts`에 대한 변경 사항은 이 테마로 빌드하는 모든 콘텐츠 저장소에 영향을 줍니다. 변경 사항을 신중하게 테스트하십시오.
+:::

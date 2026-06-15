@@ -1,0 +1,78 @@
+---
+title: Logo
+description: Comment le logo est configuré et comment le remplacer.
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+Le thème affiche un logo dans l'en-tête du site de chaque site de documentation.
+
+## Ressources de logo disponibles
+
+Le thème est livré avec deux fichiers de logo dans le répertoire `assets/` :
+
+| Fichier | Format | Description |
+|---------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | Logo F5 en rouge Cloud (`#e4002b`) |
+| `assets/github-avatar.png` | PNG | Avatar de l'organisation GitHub (par défaut) |
+
+## Logo par défaut
+
+Le logo par défaut est défini dans la fabrique `createF5xcDocsConfig` dans `config.ts` :
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+Si aucune option `logo` n'est fournie, le PNG de l'avatar GitHub est utilisé. Le chemin est un spécificateur de paquet npm résolu via la carte `exports` dans `package.json`.
+
+## Remplacement du logo
+
+### Option 1 : Utiliser le logo SVG F5
+
+Passez l'option `logo` à `createF5xcDocsConfig` :
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### Option 2 : Utiliser un logo personnalisé
+
+Placez votre fichier de logo dans le dépôt de contenu et référencez-le :
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### Option 3 : Logos distincts pour les modes clair et sombre
+
+Starlight prend en charge des logos distincts pour les modes clair et sombre :
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## Recommandations
+
+- **Utiliser le format SVG** — les images matricielles (PNG, JPG) fonctionneront mais ne s'adapteront pas parfaitement à toutes les tailles
+- **Inclure un attribut `viewBox`** — garantit que le logo se redimensionne proportionnellement (par exemple, `viewBox="0 0 100 100"`)
+- **Maintenir une taille de fichier réduite** — le logo se charge sur chaque page ; visez moins de 10 Ko
+- **Tester dans les deux thèmes** — vérifiez que le logo s'affiche correctement en mode clair et en mode sombre

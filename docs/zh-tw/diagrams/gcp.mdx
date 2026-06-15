@@ -1,0 +1,77 @@
+---
+title: GCP
+description: GCP 架構圖，展示 VPC、GKE、Cloud Functions、Cloud SQL 以及搭配 F5 XC 整合的全球負載平衡。
+sidebar:
+  order: 12
+i18n:
+  sourceHash: 8e12a5d554be
+  translator: machine
+---
+
+使用 HashiCorp Flight 與 Carbon 圖示套件繪製的 Google Cloud 基礎架構圖，涵蓋 VPC 網路、GKE 及受管服務。
+
+## GCP VPC 搭配 GKE
+
+Google Cloud 專案，使用全球負載平衡器將流量分發至 GKE 叢集與 Cloud Functions。
+
+```mermaid
+architecture-beta
+  group gcp(hashicorp-flight:gcp-color)[GCP Project]
+  group frontend(carbon:ibm-cloud-subnets)[Frontend Tier] in gcp
+  group backend(carbon:ibm-cloud-subnets)[Backend Tier] in gcp
+
+  service glb(carbon:load-balancer-global)[Global LB]
+  service gke(hashicorp-flight:kubernetes-color)[GKE Cluster] in frontend
+  service func(carbon:application)[Cloud Functions] in frontend
+  service sql(carbon:data-base)[Cloud SQL] in backend
+  service store(carbon:data-base)[Firestore] in backend
+
+  glb:R --> L:gke
+  glb:B --> T:func
+  gke:R --> L:sql
+  func:R --> L:store
+  sql:B --> T:store
+```
+
+## GKE 搭配 F5 XC App Connect
+
+GKE 叢集搭配 F5 Distributed Cloud，跨雲端環境提供應用程式連線能力與可觀測性。
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 XC]
+  group gke(hashicorp-flight:kubernetes-color)[GKE Cluster]
+
+  service appconn(f5xc:multi-cloud-app-connect)[App Connect] in xc
+  service obs(f5xc:observability)[Observability] in xc
+  service ingress(carbon:gateway)[Ingress] in gke
+  service web(hashicorp-flight:docker-color)[Web Pods] in gke
+  service api(carbon:api)[API Pods] in gke
+  service sql(carbon:data-base)[Cloud SQL]
+
+  appconn:R --> L:obs
+  obs:R --> L:ingress
+  ingress:R --> L:web
+  ingress:B --> T:api
+  api:R --> L:sql
+```
+
+## 無伺服器資料管線
+
+GCP 無伺服器資料處理管線，整合 Pub/Sub、Cloud Functions 與 BigQuery。
+
+```mermaid
+flowchart LR
+  source@{ icon: 'lucide:globe', label: 'Data Sources' }
+  pubsub@{ icon: 'carbon:edge-service', label: 'Pub/Sub' }
+  func@{ icon: 'carbon:application', label: 'Cloud Function' }
+  bq@{ icon: 'carbon:data-base', label: 'BigQuery' }
+  storage@{ icon: 'carbon:cloud-services', label: 'Cloud Storage' }
+  dash@{ icon: 'carbon:application', label: 'Dashboard' }
+
+  source --> pubsub
+  pubsub --> func
+  func --> bq
+  func --> storage
+  bq --> dash
+```

@@ -1,0 +1,78 @@
+---
+title: Défense Bot
+description: >-
+  Diagrammes du pipeline de détection des bots illustrant la défense contre le
+  credential stuffing, la protection côté client et la gestion des bots F5 XC.
+sidebar:
+  order: 18
+i18n:
+  sourceHash: 04371e8bb860
+  translator: machine
+---
+
+Diagrammes d'architecture de défense bot couvrant les pipelines de détection, la mitigation du credential stuffing, la défense côté client et les capacités de gestion des bots F5 Distributed Cloud.
+
+## Pipeline de détection des bots
+
+Pipeline de détection des bots à plusieurs étapes avec défi JavaScript, analyse comportementale et empreinte numérique avant d'autoriser l'accès.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Incoming Request' }
+  js@{ icon: 'lucide:bot', label: 'JS Challenge' }
+  fp@{ icon: 'lucide:shield-check', label: 'Fingerprinting' }
+  behavior@{ icon: 'carbon:application', label: 'Behavior Analysis' }
+  decision@{ icon: 'carbon:gateway-security', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'lucide:shield', label: 'Block/Challenge' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+## Défense Bot F5 XC et Défense côté client
+
+Défense bot intégrée de F5 Distributed Cloud avec protection côté client pour la prévention du credential stuffing et de la prise de contrôle de compte.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'lucide:bot', label: 'Bot Attackers' }
+  csd@{ icon: 'f5xc:client-side-defense', label: 'Client-Side Defense' }
+  botdef@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> csd
+  attacker --> csd
+  csd --> botdef
+  botdef --> waap
+  waap --> app
+```
+
+## Architecture de défense contre le credential stuffing
+
+Défense multicouche contre les attaques de credential stuffing avec empreinte numérique des appareils, renseignement sur les identifiants et protection des comptes.
+
+```mermaid
+architecture-beta
+  group defense(lucide:shield)[Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service edge(f5xc:bot-defense)[Bot Defense] in defense
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
+  service intel(f5xc:data-intelligence)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  edge:R --> L:csd
+  csd:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```

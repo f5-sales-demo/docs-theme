@@ -1,0 +1,598 @@
+---
+title: スタイル拡張ガイド
+description: '@f5xc-salesdemos/docs-theme のデザインシストークンリファレンス'
+sidebar:
+  order: 12
+i18n:
+  sourceHash: f0fb4524cc1c
+  translator: machine
+---
+
+このガイドでは、`styles/custom.css` に実装されたデザインシストークンとコンポーネントクラスを解説します。テーマ全体で使用されるボーダー、サーフェス、シャドウ、半径、ボタン、グラデーション、トランジション、フォーカス、タイポグラフィのトークンのリファレンスとして活用してください。
+
+> **ステータス**: 以下に記載されたすべてのデザイントークンとコンポーネントクラスは実装済みであり、使用可能です。
+
+## このガイドの読み方
+
+各セクションでは、トークンのカテゴリを解説します。
+
+1. **トークン定義** — ライト/ダークモードの値を持つ CSS カスタムプロパティ
+2. **コンポーネントマッピング** — 各トークンを使用するテーマコンポーネント
+3. **実装上の注意** — 使用ガイダンスとアクセシビリティに関する考慮事項
+
+値が異なる場合、トークンテーブルは**ライトモード**と**ダークモード**に分けて記載します。
+
+---
+
+## 1. カラーシステム
+
+### アルファ透過ボーダー
+
+このテーマでは、ソリッドなグレーの色の代わりに**アルファ透過ボーダー**を使用しています。これにより、ボーダーがどんな背景にも自然に馴染みます。
+
+```css
+/* アルファ透過ボーダーのパターン */
+border: 1px solid var(--f5-border-default);  /* 20% アルファのニュートラル */
+```
+
+#### ボーダートークン
+
+```css
+/* ライトモード */
+:root[data-theme='light'] {
+  --f5-border-faint: #3434341a;    /* --f5-black-3 at 10% */
+  --f5-border-default: #34343433;  /* --f5-black-3 at 20% */
+  --f5-border-strong: #22222266;   /* --f5-black-4 at 40% */
+}
+
+/* ダークモード */
+:root {
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 at 10% */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2 at 20% */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4 at 40% */
+}
+```
+
+#### ボーダーのユースケース
+
+| トークン | 不透明度 | ユースケース |
+|---|---|---|
+| `--f5-border-faint` | 10% | 控えめなセパレーター、テーブル行 |
+| `--f5-border-default` | 20% | デフォルトのボーダー、カードのアウトライン |
+| `--f5-border-strong` | 40% | 強調ボーダー、アクティブ状態 |
+
+> **ステータス**: 完了 — `styles/custom.css` に実装済みです。
+
+### インタラクティブサーフェスカラー
+
+ホバー状態とアクティブ状態のセマンティックサーフェストークン。
+
+#### ライトモードのサーフェス
+
+| トークン | 値 | 目的 |
+|---|---|---|
+| `--f5-white` | `#ffffff` | メイン背景 |
+| `--f5-white-1` | `#faf9f7` | サイドバー、微妙なエリア |
+| `--f5-white-2` | `#f5f5f5` | 浮き上がったサーフェス |
+| `--f5-surface-hover` | `var(--f5-white-2)` | ホバー時の塗り |
+| `--f5-surface-active` | `var(--f5-white-3)` | 押下/アクティブ時の塗り |
+
+#### ダークモードのサーフェス
+
+| トークン | 値 | 目的 |
+|---|---|---|
+| `--f5-black` | `#000000` | メイン背景 |
+| `--f5-black-4` | `#222222` | サイドバー、微妙なエリア |
+| `--f5-surface-hover` | `var(--f5-black-3)` | ホバー時の塗り |
+| `--f5-surface-active` | `var(--f5-black-2)` | 押下/アクティブ時の塗り |
+
+#### サーフェストークンの定義
+
+```css
+:root[data-theme='light'] {
+  --f5-surface-hover: var(--f5-white-2);     /* #f5f5f5 */
+  --f5-surface-active: var(--f5-white-3);    /* #e6e6e6 */
+}
+
+:root {
+  --f5-surface-hover: var(--f5-black-3);     /* #343434 */
+  --f5-surface-active: var(--f5-black-2);    /* #666666 */
+}
+```
+
+> **ステータス**: 完了 — `styles/custom.css` に実装済みです。
+
+---
+
+## 2. エレベーションとシャドウシステム
+
+### シャドウスケール
+
+このテーマでは、自然な奥行きを表現するために**ニュートラルティントのアルファシャドウ**を二重レイヤー値で使用しています。ライトモードはティントベースとして `--f5-black-3`（`#343434`）を、ダークモードは `#cccccc` を使用します。
+
+#### ライトモードのシャドウ
+
+```css
+:root[data-theme='light'] {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #3434341a;
+  --f5-shadow-low:
+    0px 1px 1px 0px #3434340d,
+    0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #3434341a,
+    0px 8px 16px -10px #34343433;
+  --f5-shadow-high:
+    0px 2px 3px 0px #34343426,
+    0px 16px 16px -10px #34343433;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #3434341a,
+    0px 12px 28px 0px #34343440;
+}
+```
+
+#### ダークモードのシャドウ
+
+```css
+:root {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #cccccc0d;
+  --f5-shadow-low:
+    0px 1px 1px 0px #cccccc0a,
+    0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #cccccc0d,
+    0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high:
+    0px 2px 3px 0px #cccccc1a,
+    0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #cccccc0d,
+    0px 12px 28px 0px #cccccc26;
+}
+```
+
+### コンポーネントシャドウマッピング
+
+| コンポーネント | シャドウレベル |
+|---|---|
+| `.swatch`、`.icon-card` | `--f5-shadow-low`（通常時） |
+| `.starlight-aside` | `--f5-shadow-low` |
+| `.expressive-code .frame` | `--f5-shadow-mid` |
+| `.mermaid-container` | `--f5-shadow-mid` |
+| ホバー時のカード | `--f5-shadow-mid` |
+| ドロップダウン、ポップオーバー | `--f5-shadow-high` |
+| モーダル | `--f5-shadow-higher` |
+
+> **ステータス**: 完了 — すべてのシャドウレベル（`inset`、`low`、`mid`、`high`、`higher`）が `styles/custom.css` に実装済みです。
+
+---
+
+## 3. ボーダー半径スケール
+
+### 半径トークン
+
+```css
+:root {
+  --f5-radius-xs: 0.1875rem;   /* 3px — バッジ、タグ */
+  --f5-radius-sm: 0.3125rem;   /* 5px — ナビゲーション項目、小さいコントロール */
+  --f5-radius-md: 0.375rem;    /* 6px — カード、コードブロック */
+  --f5-radius-lg: 0.5rem;      /* 8px — モーダル、大きいコンテナ */
+  --f5-radius-full: 999px;     /* ピル、完全な丸み */
+}
+```
+
+### コンポーネント半径マッピング
+
+| コンポーネント | 半径トークン |
+|---|---|
+| `.swatch` | `--f5-radius-md`（6px） |
+| `.icon-card` | `--f5-radius-md`（6px） |
+| `.starlight-aside` | `--f5-radius-md`（6px） |
+| `.expressive-code .frame` | `--f5-radius-md`（6px） |
+| `.mermaid-container` | `--f5-radius-lg`（8px） |
+| `.edit-link` | `--f5-radius-full`（ピル） |
+| サイドバーのナビ項目 | `--f5-radius-sm`（5px） |
+| バッジ | `--f5-radius-xs`（3px） |
+
+> **ステータス**: 完了 — 半径スケール（`xs`、`sm`、`md`、`lg`、`full`）が `styles/custom.css` に実装済みです。
+
+---
+
+## 4. サイドバーナビゲーションのスタイリング
+
+### サイドバー項目のスタイル
+
+```css
+/* サイドバーナビゲーション項目 */
+nav.sidebar a {
+  border-radius: var(--f5-radius-sm);    /* 5px */
+  padding: 0.25rem 0.5rem;               /* 4px 8px */
+  min-height: 2.25rem;                    /* 36px */
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* ライトモードのホバー */
+:root[data-theme='light'] nav.sidebar a:hover {
+  background-color: var(--f5-white-2);   /* #f5f5f5 */
+}
+
+/* ダークモードのホバー */
+:root nav.sidebar a:hover {
+  background-color: var(--f5-black-3);   /* #343434 */
+}
+
+/* アクティブページのインジケーター */
+nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-white-3);   /* #e6e6e6 ライト */
+  font-weight: 600;
+}
+
+:root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-black-2);   /* #666666 → 可読性のために調整 */
+}
+```
+
+### 左アクセントインジケーター
+
+```css
+nav.sidebar a[aria-current="page"] {
+  border-left: 3px solid var(--sl-color-accent);
+  padding-left: calc(0.5rem - 3px);  /* ボーダー分を補正 */
+}
+```
+
+> **ステータス**: 完了 — サイドバーのホバー、アクティブ、アクセントインジケーターが `styles/custom.css` に実装済みです。
+
+---
+
+## 5. ボタンシステム
+
+### ボタンバリアント
+
+```css
+/* プライマリ — ブランドアクションとして F5 レッドを使用 */
+.btn-primary {
+  background: var(--f5-red);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover {
+  background: var(--f5-red-3);
+  box-shadow: var(--f5-shadow-low);
+}
+
+/* セカンダリ — アウトラインスタイル */
+.btn-secondary {
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover {
+  background: var(--f5-surface-hover);
+  border-color: var(--f5-border-strong);
+}
+
+/* ターシャリー — ゴースト/テキストのみ */
+.btn-tertiary {
+  background: transparent;
+  color: var(--sl-color-accent);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+}
+.btn-tertiary:hover {
+  background: var(--f5-surface-hover);
+}
+```
+
+### ボタンサイズスケール
+
+| サイズ | パディング | フォントサイズ | 最小高さ |
+|---|---|---|---|
+| 小 | `0.375rem 0.75rem` | `0.8125rem`（13px） | `32px` |
+| 中（デフォルト） | `0.625rem 1rem` | `0.875rem`（14px） | `40px` |
+| 大 | `0.75rem 1.5rem` | `1rem`（16px） | `48px` |
+
+> **ステータス**: 完了 — すべてのボタンバリアント（`primary`、`secondary`、`tertiary`、`critical`）とサイズスケール（`sm`、デフォルト、`lg`）が `styles/custom.css` に実装済みです。
+
+---
+
+## 6. ヒーローとヘッダーの背景
+
+### ヒーローグラデーション
+
+F5 ブランドパレットを使用:
+
+```css
+/* プライマリヒーローグラデーション — リバーブルー */
+.hero-gradient-primary {
+  background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
+  /* #6e8dcc → #0e41aa */
+}
+
+/* 薄いページウォッシュ — 控えめなウォームトーン */
+:root[data-theme='light'] .hero-gradient-faint {
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
+}
+:root .hero-gradient-faint {
+  background: linear-gradient(180deg, #222222 0%, #000000 100%);
+}
+
+/* フィーチャーページ向けエッグプラントバリアント */
+.hero-gradient-eggplant {
+  background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
+  /* #9c59c9 → #62228b */
+}
+
+/* お知らせ向けレッドブランドバリアント */
+.hero-gradient-red {
+  background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
+  /* #f06680 → #e4002b */
+}
+```
+
+### グラデーションオーバーレイのテクニック
+
+```css
+/* 奥行きのためのラジアルビネット */
+.hero-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* ページ背景へのボトムフェード */
+.hero-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+```
+
+> **ステータス**: 完了 — ヒーローグラデーション（`primary`、`eggplant`、`red`、`faint`）とオーバーレイ（`hero-fade`、`hero-vignette`）が `styles/custom.css` に実装済みです。
+
+---
+
+## 7. ホバーエフェクトとトランジション
+
+### トランジショントークン
+
+```css
+:root {
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+```
+
+| トークン | 時間 | イージング | ユースケース |
+|---|---|---|---|
+| `--f5-transition-fast` | `0.15s` | `ease` | ほとんどのホバー状態、色の変更 |
+| `--f5-transition-base` | `0.2s` | `ease` | 背景の塗り、ボーダーの変更 |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | スイッチ、トグル |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | タブインジケーター、スライディングパネル |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | ツールチップ、ポップオーバーの表示 |
+
+### アニメーション対象プロパティ
+
+| プロパティ | アニメーション可否 | 備考 |
+|---|---|---|
+| `background-color` | 可 | ホバー塗りの標準 |
+| `color` | 可 | テキストカラーの変更 |
+| `border-color` | 可 | ホバー時のボーダー強調 |
+| `box-shadow` | 可 | エレベーションの変更（ガタつく場合は `will-change` を使用） |
+| `transform` | 可 | フィードバック用のスケール・移動 |
+| `opacity` | 可 | フェードイン/アウト |
+| `width`、`height` | 非推奨 | レイアウトのリフローを引き起こす |
+| `padding`、`margin` | 非推奨 | レイアウトのリフローを引き起こす |
+
+### コンポーネントトランジションマッピング
+
+```css
+/* サイドバーナビ項目 */
+nav.sidebar a {
+  transition: background-color var(--f5-transition-fast),
+              color var(--f5-transition-fast);
+}
+
+/* カード — ホバー時にシャドウが浮き上がる */
+.swatch, .icon-card {
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+.swatch:hover, .icon-card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+/* ボタン */
+.btn-primary, .btn-secondary, .btn-tertiary {
+  transition: background-color var(--f5-transition-fast),
+              border-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+
+/* リンク */
+a {
+  transition: color var(--f5-transition-fast);
+}
+```
+
+> **ステータス**: 完了 — 5 つのトランジショントークン（`fast`、`base`、`bounce`、`decelerate`、`spring`）とコンポーネントトランジションが `styles/custom.css` に実装済みです。
+
+---
+
+## 8. フォーカスリングシステム
+
+### フォーカスリングトークン
+
+このテーマでは、インセットの内側リングと外側グローを使用した**ダブルリング**パターンを採用しています。
+
+```css
+/* アクションフォーカス — F5 リバーブルーを使用 */
+:root {
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
+
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+  /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
+}
+
+/* インタラクティブ要素に適用 */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--f5-focus-action);
+}
+
+/* 破壊的なボタン向けのクリティカルバリアント */
+.btn-critical:focus-visible {
+  box-shadow: var(--f5-focus-critical);
+}
+```
+
+### アクセシビリティに関する注意
+
+- ダブルリングパターンは **WCAG 2.2 フォーカス表示**要件（最小 2px のコントラストアウトライン）を満たしています
+- `outline` の代わりに `box-shadow` を使用することで、`border-radius` が適用されます
+- `:focus-visible` を使用することで、マウスクリックではなくキーボードナビゲーション時のみリングが表示されます
+
+> **ステータス**: 完了 — ダブルリングフォーカスパターン（`action`、`critical`）と `:focus-visible` スタイルが `styles/custom.css` に実装済みです。
+
+---
+
+## 9. タイポグラフィ
+
+### フォントスタック
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-font-heading: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-line-height-headings: 1.1;
+}
+```
+
+### タイプスケール
+
+| スケール | サイズ | 行の高さ | 用途 |
+|---|---|---|---|
+| ディスプレイ 500 | `1.875rem`（30px） | 1.267 | `--sl-text-h1` |
+| ディスプレイ 400 | `1.5rem`（24px） | 1.333 | `--sl-text-h2` |
+| ディスプレイ 300 | `1.125rem`（18px） | 1.333 | `--sl-text-h3` |
+| ディスプレイ 200 | `1rem`（16px） | 1.5 | `--sl-text-h4` |
+| ディスプレイ 100 | `0.8125rem`（13px） | 1.385 | オーバーラインテキスト |
+| ボディ 300 | `1rem`（16px） | 1.5 | 本文 |
+| ボディ 200 | `0.875rem`（14px） | 1.429 | サイドバーテキスト、キャプション |
+| ボディ 100 | `0.8125rem`（13px） | 1.385 | 小さい印刷物 |
+
+### 主な特性
+
+| 観点 | 値 | 備考 |
+|---|---|---|
+| 見出しの行の高さ | `1.1` | ブランドインパクトのためのタイトな見出し。可読性を考慮する場合は `1.2` を検討 |
+| 本文の行の高さ | `1.5`（Starlight デフォルト） | 読書に適している |
+| フォントファミリー | カスタムブランドフォント | proximaNova（本文）、neusaNextProWide（見出し） |
+| 見出しウェイト | `h1-h2: 700、h3: 500、h4-h6: 700 大文字` | ブランドの一貫性のために意図的に定義 |
+
+> **優先度**: 変更不要。現在のタイポグラフィは十分に定義されており、ブランドに適しています。見出しの行の高さ（`1.1` から `1.2`）の微調整はオプションです。
+
+---
+
+## 10. 実装の変更履歴
+
+すべてのデザイントークンは 5 つのスプリントにわたって実装されました。
+
+| スプリント | スコープ | 追加されたトークン |
+|---|---|---|
+| 1. 基盤 | シャドウ + ボーダー半径 | `--f5-shadow-*`（5 レベル）、`--f5-radius-*`（5 レベル） |
+| 2. サイドバー + サーフェス | ナビゲーション + インタラクティブトークン | `--f5-surface-hover`、`--f5-surface-active`、`--f5-border-*`（3 レベル）、`--f5-transition-fast` |
+| 3. ボタン | コンポーネントシステム | `.btn-primary`、`.btn-secondary`、`.btn-tertiary`、`.btn-critical`、サイズバリアント |
+| 4. ヒーローグラデーション | 背景ユーティリティ | `.hero-gradient-primary`、`-eggplant`、`-red`、`-faint`、`.hero-vignette`、`.hero-fade` |
+| 5. フォーカス + トランジション | アクセシビリティ + 仕上げ | `--f5-focus-action`、`--f5-focus-critical`、`--f5-transition-*`（5 トークン）、カードホバーエフェクト |
+
+---
+
+## クイックリファレンス: トークンサマリー
+
+### すべてのカスタムプロパティ
+
+```css
+:root {
+  /* ボーダー半径スケール */
+  --f5-radius-xs: 0.1875rem;     /* 3px */
+  --f5-radius-sm: 0.3125rem;     /* 5px */
+  --f5-radius-md: 0.375rem;      /* 6px */
+  --f5-radius-lg: 0.5rem;        /* 8px */
+  --f5-radius-full: 999px;
+
+  /* トランジションタイミング */
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+
+  /* フォーカスリング */
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+
+  /* ダークモードシャドウ（デフォルト） */
+  --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
+
+  /* ダークモードボーダー */
+  --f5-border-faint: #f5f5f51a;
+  --f5-border-default: #f5f5f533;
+  --f5-border-strong: #cccccc66;
+
+  /* ダークモードサーフェス */
+  --f5-surface-hover: var(--f5-black-3);
+  --f5-surface-active: var(--f5-black-2);
+}
+
+:root[data-theme='light'] {
+  /* ライトモードシャドウ */
+  --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
+  --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
+  --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
+
+  /* ライトモードボーダー */
+  --f5-border-faint: #3434341a;
+  --f5-border-default: #34343433;
+  --f5-border-strong: #22222266;
+
+  /* ライトモードサーフェス */
+  --f5-surface-hover: var(--f5-white-2);
+  --f5-surface-active: var(--f5-white-3);
+}
+```

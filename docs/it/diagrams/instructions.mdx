@@ -1,0 +1,97 @@
+---
+title: Istruzioni
+description: >-
+  Riferimento alla sintassi dei diagrammi Mermaid, pacchetti di icone
+  disponibili, stile CSS e dettagli di compatibilità dei temi.
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 5ce5851823d9
+  translator: machine
+---
+
+Il tema include un plugin `remark-mermaid` personalizzato (`plugins/remark-mermaid.mjs`) che converte i blocchi di codice delimitati ` ```mermaid ` in wrapper `<div class="mermaid-container">`. Lo script CDN di Mermaid esegue il rendering dei diagrammi SVG al caricamento della pagina.
+
+## Sintassi delle icone
+
+### Diagrammi di flusso
+
+Utilizza la sintassi del nodo `@\{\}` per aggiungere icone da qualsiasi pacchetto di icone registrato:
+
+```
+nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
+```
+
+### Diagrammi di architettura
+
+Il tipo di diagramma `architecture-beta` supporta definizioni di servizi e gruppi con nodi decorati da icone:
+
+```
+service myService(pack:icon-name)[Label]
+group myGroup(pack:icon-name)[Label]
+```
+
+## Pacchetti di icone disponibili
+
+I seguenti pacchetti di icone sono registrati e disponibili nei diagrammi Mermaid. Le icone vengono caricate in modalità lazy dal CDN solo quando vengono referenziate.
+
+| Nome pacchetto | Pacchetto npm | Icone principali |
+|-----------|-------------|-----------|
+| `hashicorp-flight` | `@f5xc-salesdemos/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
+| `f5-brand` | `@f5xc-salesdemos/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
+| `f5xc` | `@f5xc-salesdemos/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
+| `carbon` | `@f5xc-salesdemos/icons-carbon` | `cloud-services`, `data-base`, `gateway-api`, `virtual-machine`, `load-balancer-global`, `firewall`, `dns-services`, `virtual-private-cloud` |
+| `lucide` | `@f5xc-salesdemos/icons-lucide` | `server`, `database`, `shield`, `shield-check`, `globe`, `lock`, `cloud`, `network`, `user` |
+| `mdi` | `@f5xc-salesdemos/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `dns`, `vpn`, `router` |
+| `phosphor` | `@f5xc-salesdemos/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock`, `network` |
+| `tabler` | `@f5xc-salesdemos/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `route`, `router` |
+| `azure` | `@f5xc-salesdemos/icons-azure` | `virtual-networks`, `load-balancers`, `firewalls`, `virtual-network-gateways`, `virtual-machine`, `public-ip-addresses`, `route-tables`, `subnet` |
+
+## Riferimento CSS
+
+### Stile del contenitore
+
+I diagrammi Mermaid sono racchiusi in un contenitore con stile personalizzato, angoli arrotondati e un'ombra a più livelli:
+
+```css
+.mermaid-container {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+  margin-block: 1.5rem;
+  background: #fff;
+}
+```
+
+### Reset dell'elemento Pre
+
+Lo stile predefinito `<pre>` di Starlight viene rimosso dal wrapper mermaid in modo che sia visibile solo il bordo del contenitore esterno:
+
+```css
+.mermaid-container pre.mermaid {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+```
+
+### Forzatura del background SVG
+
+L'SVG interno viene forzato su uno sfondo bianco per la compatibilità con la modalità scura:
+
+```css
+.mermaid-container svg {
+  background: white !important;
+  border-radius: 0.5rem;
+}
+```
+
+## Verifiche del tema
+
+- `.mermaid-container` ha uno sfondo SVG bianco in modalità scura
+- Il bordo del contenitore utilizza `--sl-color-gray-5`
+- Il contenitore ha un raggio del bordo di 0.75rem e un'ombra a più livelli
+- I diagrammi sono leggibili sia nei temi chiari che in quelli scuri
+- Lo script CDN di Mermaid si carica ed esegue il rendering degli SVG al caricamento della pagina

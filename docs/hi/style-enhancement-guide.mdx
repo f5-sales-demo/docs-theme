@@ -1,0 +1,598 @@
+---
+title: स्टाइल एन्हांसमेंट गाइड
+description: '@f5xc-salesdemos/docs-theme के लिए डिज़ाइन सिस्टम टोकन संदर्भ'
+sidebar:
+  order: 12
+i18n:
+  sourceHash: f0fb4524cc1c
+  translator: machine
+---
+
+यह गाइड `styles/custom.css` में लागू किए गए डिज़ाइन सिस्टम टोकन और कंपोनेंट क्लासेस को दस्तावेज़ीकृत करती है। यह थीम में उपयोग किए जाने वाले बॉर्डर, सरफेस, शैडो, रेडियस, बटन, ग्रेडिएंट, ट्रांज़िशन, फोकस और टाइपोग्राफी टोकन के लिए एक संदर्भ के रूप में कार्य करती है।
+
+> **स्थिति**: नीचे वर्णित सभी डिज़ाइन टोकन और कंपोनेंट क्लासेस लागू हैं और उपयोग के लिए उपलब्ध हैं।
+
+## इस गाइड को कैसे पढ़ें
+
+प्रत्येक अनुभाग एक टोकन श्रेणी को दस्तावेज़ीकृत करता है:
+
+1. **टोकन परिभाषाएँ** — लाइट/डार्क मोड मानों के साथ CSS कस्टम प्रॉपर्टीज़
+2. **कंपोनेंट मैपिंग** — कौन से थीम कंपोनेंट प्रत्येक टोकन का उपयोग करते हैं
+3. **कार्यान्वयन नोट्स** — उपयोग मार्गदर्शन और एक्सेसिबिलिटी संबंधी विचार
+
+टोकन तालिकाएँ **लाइट मोड** और **डार्क मोड** द्वारा अलग की गई हैं जहाँ मान भिन्न होते हैं।
+
+---
+
+## 1. कलर सिस्टम
+
+### अल्फा-ट्रांसपेरेंट बॉर्डर
+
+थीम सॉलिड ग्रे रंगों के बजाय **अल्फा-ट्रांसपेरेंट बॉर्डर** का उपयोग करती है। इससे बॉर्डर किसी भी बैकग्राउंड के अनुसार स्वाभाविक रूप से अनुकूलित हो जाते हैं।
+
+```css
+/* अल्फा-ट्रांसपेरेंट बॉर्डर पैटर्न */
+border: 1px solid var(--f5-border-default);  /* 20% अल्फा पर न्यूट्रल */
+```
+
+#### बॉर्डर टोकन
+
+```css
+/* लाइट मोड */
+:root[data-theme='light'] {
+  --f5-border-faint: #3434341a;    /* 10% पर --f5-black-3 */
+  --f5-border-default: #34343433;  /* 20% पर --f5-black-3 */
+  --f5-border-strong: #22222266;   /* 40% पर --f5-black-4 */
+}
+
+/* डार्क मोड */
+:root {
+  --f5-border-faint: #f5f5f51a;    /* 10% पर --f5-white-2 */
+  --f5-border-default: #f5f5f533;  /* 20% पर --f5-white-2 */
+  --f5-border-strong: #cccccc66;   /* 40% पर --f5-white-4 */
+}
+```
+
+#### बॉर्डर उपयोग के मामले
+
+| टोकन | अपारदर्शिता | उपयोग का मामला |
+|---|---|---|
+| `--f5-border-faint` | 10% | सूक्ष्म विभाजक, तालिका पंक्तियाँ |
+| `--f5-border-default` | 20% | डिफ़ॉल्ट बॉर्डर, कार्ड आउटलाइन |
+| `--f5-border-strong` | 40% | जोर दिए गए बॉर्डर, सक्रिय अवस्थाएँ |
+
+> **स्थिति**: पूर्ण — `styles/custom.css` में लागू।
+
+### इंटरएक्टिव सरफेस रंग
+
+होवर और सक्रिय अवस्थाओं के लिए सिमेंटिक सरफेस टोकन।
+
+#### लाइट मोड सरफेस
+
+| टोकन | मान | उद्देश्य |
+|---|---|---|
+| `--f5-white` | `#ffffff` | मुख्य बैकग्राउंड |
+| `--f5-white-1` | `#faf9f7` | साइडबार, सूक्ष्म क्षेत्र |
+| `--f5-white-2` | `#f5f5f5` | एलिवेटेड सरफेस |
+| `--f5-surface-hover` | `var(--f5-white-2)` | होवर फिल |
+| `--f5-surface-active` | `var(--f5-white-3)` | दबाया/सक्रिय फिल |
+
+#### डार्क मोड सरफेस
+
+| टोकन | मान | उद्देश्य |
+|---|---|---|
+| `--f5-black` | `#000000` | मुख्य बैकग्राउंड |
+| `--f5-black-4` | `#222222` | साइडबार, सूक्ष्म क्षेत्र |
+| `--f5-surface-hover` | `var(--f5-black-3)` | होवर फिल |
+| `--f5-surface-active` | `var(--f5-black-2)` | दबाया/सक्रिय फिल |
+
+#### सरफेस टोकन परिभाषाएँ
+
+```css
+:root[data-theme='light'] {
+  --f5-surface-hover: var(--f5-white-2);     /* #f5f5f5 */
+  --f5-surface-active: var(--f5-white-3);    /* #e6e6e6 */
+}
+
+:root {
+  --f5-surface-hover: var(--f5-black-3);     /* #343434 */
+  --f5-surface-active: var(--f5-black-2);    /* #666666 */
+}
+```
+
+> **स्थिति**: पूर्ण — `styles/custom.css` में लागू।
+
+---
+
+## 2. एलिवेशन और शैडो सिस्टम
+
+### शैडो स्केल
+
+थीम प्राकृतिक गहराई के लिए डबल-लेयर मानों के साथ **न्यूट्रल-टिंटेड अल्फा शैडो** का उपयोग करती है। लाइट मोड टिंट बेस के रूप में `--f5-black-3` (`#343434`) का उपयोग करता है; डार्क मोड `#cccccc` का उपयोग करता है।
+
+#### लाइट मोड शैडो
+
+```css
+:root[data-theme='light'] {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #3434341a;
+  --f5-shadow-low:
+    0px 1px 1px 0px #3434340d,
+    0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #3434341a,
+    0px 8px 16px -10px #34343433;
+  --f5-shadow-high:
+    0px 2px 3px 0px #34343426,
+    0px 16px 16px -10px #34343433;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #3434341a,
+    0px 12px 28px 0px #34343440;
+}
+```
+
+#### डार्क मोड शैडो
+
+```css
+:root {
+  --f5-shadow-inset: inset 0px 1px 2px 1px #cccccc0d;
+  --f5-shadow-low:
+    0px 1px 1px 0px #cccccc0a,
+    0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid:
+    0px 2px 3px 0px #cccccc0d,
+    0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high:
+    0px 2px 3px 0px #cccccc1a,
+    0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher:
+    0px 2px 3px 0px #cccccc0d,
+    0px 12px 28px 0px #cccccc26;
+}
+```
+
+### कंपोनेंट शैडो मैपिंग
+
+| कंपोनेंट | शैडो स्तर |
+|---|---|
+| `.swatch`, `.icon-card` | `--f5-shadow-low` (विश्राम अवस्था में) |
+| `.starlight-aside` | `--f5-shadow-low` |
+| `.expressive-code .frame` | `--f5-shadow-mid` |
+| `.mermaid-container` | `--f5-shadow-mid` |
+| होवर पर कार्ड | `--f5-shadow-mid` |
+| ड्रॉपडाउन, पॉपओवर | `--f5-shadow-high` |
+| मोडल | `--f5-shadow-higher` |
+
+> **स्थिति**: पूर्ण — सभी शैडो स्तर (`inset`, `low`, `mid`, `high`, `higher`) `styles/custom.css` में लागू।
+
+---
+
+## 3. बॉर्डर रेडियस स्केल
+
+### रेडियस टोकन
+
+```css
+:root {
+  --f5-radius-xs: 0.1875rem;   /* 3px — बैज, टैग */
+  --f5-radius-sm: 0.3125rem;   /* 5px — नेव आइटम, छोटे कंट्रोल */
+  --f5-radius-md: 0.375rem;    /* 6px — कार्ड, कोड ब्लॉक */
+  --f5-radius-lg: 0.5rem;      /* 8px — मोडल, बड़े कंटेनर */
+  --f5-radius-full: 999px;     /* पिल्स, पूरी तरह से गोल */
+}
+```
+
+### कंपोनेंट रेडियस मैपिंग
+
+| कंपोनेंट | रेडियस टोकन |
+|---|---|
+| `.swatch` | `--f5-radius-md` (6px) |
+| `.icon-card` | `--f5-radius-md` (6px) |
+| `.starlight-aside` | `--f5-radius-md` (6px) |
+| `.expressive-code .frame` | `--f5-radius-md` (6px) |
+| `.mermaid-container` | `--f5-radius-lg` (8px) |
+| `.edit-link` | `--f5-radius-full` (पिल) |
+| साइडबार नेव आइटम | `--f5-radius-sm` (5px) |
+| बैज | `--f5-radius-xs` (3px) |
+
+> **स्थिति**: पूर्ण — रेडियस स्केल (`xs`, `sm`, `md`, `lg`, `full`) `styles/custom.css` में लागू।
+
+---
+
+## 4. साइडबार नेविगेशन स्टाइलिंग
+
+### साइडबार आइटम स्टाइल
+
+```css
+/* साइडबार नेविगेशन आइटम */
+nav.sidebar a {
+  border-radius: var(--f5-radius-sm);    /* 5px */
+  padding: 0.25rem 0.5rem;               /* 4px 8px */
+  min-height: 2.25rem;                    /* 36px */
+  display: flex;
+  align-items: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* लाइट मोड होवर */
+:root[data-theme='light'] nav.sidebar a:hover {
+  background-color: var(--f5-white-2);   /* #f5f5f5 */
+}
+
+/* डार्क मोड होवर */
+:root nav.sidebar a:hover {
+  background-color: var(--f5-black-3);   /* #343434 */
+}
+
+/* सक्रिय पृष्ठ संकेतक */
+nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-white-3);   /* #e6e6e6 लाइट */
+  font-weight: 600;
+}
+
+:root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
+  background-color: var(--f5-black-2);   /* #666666 → पठनीयता के लिए समायोजित करें */
+}
+```
+
+### लेफ्ट एक्सेंट इंडिकेटर
+
+```css
+nav.sidebar a[aria-current="page"] {
+  border-left: 3px solid var(--sl-color-accent);
+  padding-left: calc(0.5rem - 3px);  /* बॉर्डर के लिए क्षतिपूर्ति */
+}
+```
+
+> **स्थिति**: पूर्ण — साइडबार होवर, सक्रिय और एक्सेंट इंडिकेटर `styles/custom.css` में लागू।
+
+---
+
+## 5. बटन सिस्टम
+
+### बटन वेरिएंट
+
+```css
+/* प्राइमरी — ब्रांड एक्शन के रूप में F5 रेड का उपयोग */
+.btn-primary {
+  background: var(--f5-red);
+  color: var(--f5-white);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover {
+  background: var(--f5-red-3);
+  box-shadow: var(--f5-shadow-low);
+}
+
+/* सेकेंडरी — आउटलाइन स्टाइल */
+.btn-secondary {
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  border: 1px solid var(--f5-border-default);
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-secondary:hover {
+  background: var(--f5-surface-hover);
+  border-color: var(--f5-border-strong);
+}
+
+/* टर्शियरी — घोस्ट/केवल-टेक्स्ट */
+.btn-tertiary {
+  background: transparent;
+  color: var(--sl-color-accent);
+  border: none;
+  border-radius: var(--f5-radius-sm);
+  padding: 0.625rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease;
+}
+.btn-tertiary:hover {
+  background: var(--f5-surface-hover);
+}
+```
+
+### बटन साइज़ स्केल
+
+| साइज़ | पैडिंग | फ़ॉन्ट साइज़ | न्यूनतम ऊँचाई |
+|---|---|---|---|
+| छोटा | `0.375rem 0.75rem` | `0.8125rem` (13px) | `32px` |
+| मध्यम (डिफ़ॉल्ट) | `0.625rem 1rem` | `0.875rem` (14px) | `40px` |
+| बड़ा | `0.75rem 1.5rem` | `1rem` (16px) | `48px` |
+
+> **स्थिति**: पूर्ण — सभी बटन वेरिएंट (`primary`, `secondary`, `tertiary`, `critical`) और साइज़ स्केल (`sm`, डिफ़ॉल्ट, `lg`) `styles/custom.css` में लागू।
+
+---
+
+## 6. हीरो और हेडर बैकग्राउंड
+
+### हीरो ग्रेडिएंट
+
+F5 ब्रांड पैलेट का उपयोग करते हुए:
+
+```css
+/* प्राइमरी हीरो ग्रेडिएंट — रिवर ब्लू */
+.hero-gradient-primary {
+  background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
+  /* #6e8dcc → #0e41aa */
+}
+
+/* फेंट पेज वॉश — सूक्ष्म वार्म टोन */
+:root[data-theme='light'] .hero-gradient-faint {
+  background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
+}
+:root .hero-gradient-faint {
+  background: linear-gradient(180deg, #222222 0%, #000000 100%);
+}
+
+/* फीचर पृष्ठों के लिए एगप्लांट वेरिएंट */
+.hero-gradient-eggplant {
+  background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
+  /* #9c59c9 → #62228b */
+}
+
+/* घोषणाओं के लिए रेड ब्रांड वेरिएंट */
+.hero-gradient-red {
+  background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
+  /* #f06680 → #e4002b */
+}
+```
+
+### ग्रेडिएंट ओवरले तकनीकें
+
+```css
+/* गहराई के लिए रेडियल विग्नेट */
+.hero-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* पेज बैकग्राउंड पर बॉटम फेड */
+.hero-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--sl-color-black));
+  pointer-events: none;
+}
+```
+
+> **स्थिति**: पूर्ण — हीरो ग्रेडिएंट (`primary`, `eggplant`, `red`, `faint`) और ओवरले (`hero-fade`, `hero-vignette`) `styles/custom.css` में लागू।
+
+---
+
+## 7. होवर इफेक्ट और ट्रांज़िशन
+
+### ट्रांज़िशन टोकन
+
+```css
+:root {
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+```
+
+| टोकन | अवधि | ईज़िंग | उपयोग का मामला |
+|---|---|---|---|
+| `--f5-transition-fast` | `0.15s` | `ease` | अधिकांश होवर अवस्थाएँ, रंग परिवर्तन |
+| `--f5-transition-base` | `0.2s` | `ease` | बैकग्राउंड फिल, बॉर्डर परिवर्तन |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | स्विच, टॉगल |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | टैब इंडिकेटर, स्लाइडिंग पैनल |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | टूलटिप, पॉपओवर एंट्री |
+
+### क्या एनिमेट करें
+
+| प्रॉपर्टी | एनिमेट करना सुरक्षित है | नोट्स |
+|---|---|---|
+| `background-color` | हाँ | होवर फिल के लिए मानक |
+| `color` | हाँ | टेक्स्ट रंग परिवर्तन |
+| `border-color` | हाँ | होवर पर बॉर्डर जोर |
+| `box-shadow` | हाँ | एलिवेशन परिवर्तन (जैंक होने पर `will-change` का उपयोग करें) |
+| `transform` | हाँ | फीडबैक के लिए स्केल, ट्रांसलेट |
+| `opacity` | हाँ | फेड इन/आउट |
+| `width`, `height` | बचें | लेआउट रीफ्लो का कारण बनता है |
+| `padding`, `margin` | बचें | लेआउट रीफ्लो का कारण बनता है |
+
+### कंपोनेंट ट्रांज़िशन मैपिंग
+
+```css
+/* साइडबार नेव आइटम */
+nav.sidebar a {
+  transition: background-color var(--f5-transition-fast),
+              color var(--f5-transition-fast);
+}
+
+/* कार्ड — होवर पर शैडो लिफ्ट */
+.swatch, .icon-card {
+  transition: box-shadow var(--f5-transition-base),
+              transform var(--f5-transition-base);
+}
+.swatch:hover, .icon-card:hover {
+  box-shadow: var(--f5-shadow-mid);
+  transform: translateY(-1px);
+}
+
+/* बटन */
+.btn-primary, .btn-secondary, .btn-tertiary {
+  transition: background-color var(--f5-transition-fast),
+              border-color var(--f5-transition-fast),
+              box-shadow var(--f5-transition-fast);
+}
+
+/* लिंक */
+a {
+  transition: color var(--f5-transition-fast);
+}
+```
+
+> **स्थिति**: पूर्ण — सभी पाँच ट्रांज़िशन टोकन (`fast`, `base`, `bounce`, `decelerate`, `spring`) और कंपोनेंट ट्रांज़िशन `styles/custom.css` में लागू।
+
+---
+
+## 8. फोकस रिंग सिस्टम
+
+### फोकस रिंग टोकन
+
+थीम एक इनसेट इनर रिंग और आउटर ग्लो के साथ **डबल-रिंग** पैटर्न का उपयोग करती है:
+
+```css
+/* एक्शन फोकस — F5 रिवर ब्लू का उपयोग */
+:root {
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
+
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+  /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
+}
+
+/* इंटरएक्टिव एलिमेंट पर लागू करें */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--f5-focus-action);
+}
+
+/* विनाशकारी बटन के लिए क्रिटिकल वेरिएंट */
+.btn-critical:focus-visible {
+  box-shadow: var(--f5-focus-critical);
+}
+```
+
+### एक्सेसिबिलिटी नोट्स
+
+- डबल-रिंग पैटर्न **WCAG 2.2 फोकस अपियरेंस** आवश्यकताओं को पूरा करता है (न्यूनतम 2px विपरीत आउटलाइन)
+- `outline` के बजाय `box-shadow` का उपयोग करने से बॉर्डर-रेडियस का सम्मान होता है
+- `:focus-visible` सुनिश्चित करता है कि रिंग केवल कीबोर्ड नेविगेशन के लिए दिखाई दे, माउस क्लिक के लिए नहीं
+
+> **स्थिति**: पूर्ण — डबल-रिंग फोकस पैटर्न (`action`, `critical`) और `:focus-visible` स्टाइल `styles/custom.css` में लागू।
+
+---
+
+## 9. टाइपोग्राफी
+
+### फ़ॉन्ट स्टैक
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-font-heading: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sl-line-height-headings: 1.1;
+}
+```
+
+### टाइप स्केल
+
+| स्केल | साइज़ | लाइन हाइट | उपयोग |
+|---|---|---|---|
+| Display 500 | `1.875rem` (30px) | 1.267 | `--sl-text-h1` |
+| Display 400 | `1.5rem` (24px) | 1.333 | `--sl-text-h2` |
+| Display 300 | `1.125rem` (18px) | 1.333 | `--sl-text-h3` |
+| Display 200 | `1rem` (16px) | 1.5 | `--sl-text-h4` |
+| Display 100 | `0.8125rem` (13px) | 1.385 | ओवरलाइन टेक्स्ट |
+| Body 300 | `1rem` (16px) | 1.5 | प्राइमरी बॉडी |
+| Body 200 | `0.875rem` (14px) | 1.429 | साइडबार टेक्स्ट, कैप्शन |
+| Body 100 | `0.8125rem` (13px) | 1.385 | छोटा प्रिंट |
+
+### मुख्य विशेषताएँ
+
+| पहलू | मान | नोट्स |
+|---|---|---|
+| हेडिंग लाइन हाइट | `1.1` | ब्रांड प्रभाव के लिए टाइट हेडिंग; पठनीयता के लिए `1.2` पर विचार करें |
+| बॉडी लाइन हाइट | `1.5` (Starlight डिफ़ॉल्ट) | पढ़ने के लिए उपयुक्त |
+| फ़ॉन्ट परिवार | कस्टम ब्रांड फ़ॉन्ट | proximaNova (बॉडी), neusaNextProWide (हेडिंग) |
+| हेडिंग वज़न | `h1-h2: 700, h3: 500, h4-h6: 700 uppercase` | ब्रांड संगतता के लिए राय-आधारित |
+
+> **प्राथमिकता**: कोई बदलाव आवश्यक नहीं। वर्तमान टाइपोग्राफी अच्छी तरह से परिभाषित और ब्रांड के अनुरूप है। हेडिंग लाइन हाइट (`1.1` से `1.2`) में मामूली समायोजन वैकल्पिक है।
+
+---
+
+## 10. कार्यान्वयन चेंजलॉग
+
+सभी डिज़ाइन टोकन पाँच स्प्रिंट में लागू किए गए:
+
+| स्प्रिंट | दायरा | जोड़े गए टोकन |
+|---|---|---|
+| 1. फाउंडेशन | शैडो + बॉर्डर रेडियस | `--f5-shadow-*` (5 स्तर), `--f5-radius-*` (5 स्तर) |
+| 2. साइडबार + सरफेस | नेविगेशन + इंटरएक्टिव टोकन | `--f5-surface-hover`, `--f5-surface-active`, `--f5-border-*` (3 स्तर), `--f5-transition-fast` |
+| 3. बटन | कंपोनेंट सिस्टम | `.btn-primary`, `.btn-secondary`, `.btn-tertiary`, `.btn-critical`, साइज़ वेरिएंट |
+| 4. हीरो ग्रेडिएंट | बैकग्राउंड यूटिलिटीज | `.hero-gradient-primary`, `-eggplant`, `-red`, `-faint`, `.hero-vignette`, `.hero-fade` |
+| 5. फोकस + ट्रांज़िशन | एक्सेसिबिलिटी + पॉलिश | `--f5-focus-action`, `--f5-focus-critical`, `--f5-transition-*` (5 टोकन), कार्ड होवर इफेक्ट |
+
+---
+
+## त्वरित संदर्भ: टोकन सारांश
+
+### सभी कस्टम प्रॉपर्टीज़
+
+```css
+:root {
+  /* बॉर्डर रेडियस स्केल */
+  --f5-radius-xs: 0.1875rem;     /* 3px */
+  --f5-radius-sm: 0.3125rem;     /* 5px */
+  --f5-radius-md: 0.375rem;      /* 6px */
+  --f5-radius-lg: 0.5rem;        /* 8px */
+  --f5-radius-full: 999px;
+
+  /* ट्रांज़िशन टाइमिंग */
+  --f5-transition-fast: 0.15s ease;
+  --f5-transition-base: 0.2s ease;
+  --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
+  --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
+  --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
+
+  /* फोकस रिंग */
+  --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
+  --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
+
+  /* डार्क मोड शैडो (डिफ़ॉल्ट) */
+  --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
+  --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
+  --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
+  --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
+
+  /* डार्क मोड बॉर्डर */
+  --f5-border-faint: #f5f5f51a;
+  --f5-border-default: #f5f5f533;
+  --f5-border-strong: #cccccc66;
+
+  /* डार्क मोड सरफेस */
+  --f5-surface-hover: var(--f5-black-3);
+  --f5-surface-active: var(--f5-black-2);
+}
+
+:root[data-theme='light'] {
+  /* लाइट मोड शैडो */
+  --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
+  --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
+  --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
+  --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
+
+  /* लाइट मोड बॉर्डर */
+  --f5-border-faint: #3434341a;
+  --f5-border-default: #34343433;
+  --f5-border-strong: #22222266;
+
+  /* लाइट मोड सरफेस */
+  --f5-surface-hover: var(--f5-white-2);
+  --f5-surface-active: var(--f5-white-3);
+}
+```

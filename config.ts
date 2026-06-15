@@ -760,7 +760,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         logo: logo as Parameters<typeof starlight>[0]['logo'],
         ...(resolvedLocales ? { locales: resolvedLocales, defaultLocale: resolvedDefaultLocale } : {}),
         ...(subcategorySidebar
-          ? { sidebar: [...subcategorySidebar, ...openAPISidebarGroups] }
+          ? { sidebar: [...subcategorySidebar, ...(openAPISpecs.length > 0 ? openAPISidebarGroups : [])] }
           : openAPISpecs.length > 0
             ? {
                 sidebar: [

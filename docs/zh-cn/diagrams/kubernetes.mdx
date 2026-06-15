@@ -1,0 +1,74 @@
+---
+title: Kubernetes
+description: Kubernetes 架构图，展示入口控制器、服务网格、Pod 网络以及使用 NGINX 的容器安全。
+sidebar:
+  order: 19
+i18n:
+  sourceHash: 4d56bd6f1b35
+  translator: machine
+---
+
+Kubernetes 架构图，涵盖入口控制器、服务网格模式、Pod 网络以及与 NGINX 和 F5 XC 集成的容器安全。
+
+## 使用 NGINX 的 Kubernetes 入口
+
+基于容器的应用程序，使用 NGINX 入口控制器将流量分发到前端和后端 Pod。
+
+```mermaid
+architecture-beta
+  group cluster(hashicorp-flight:kubernetes-color)[Kubernetes Cluster]
+  group frontend(carbon:container-services)[Frontend Pods] in cluster
+  group backend(carbon:container-services)[Backend Pods] in cluster
+
+  service ingress(carbon:gateway)[Ingress Controller] in cluster
+  service web(hashicorp-flight:docker-color)[Web App] in frontend
+  service api(carbon:api)[API Service] in backend
+  service db(carbon:data-base)[StatefulSet DB] in backend
+
+  ingress:R --> L:web
+  ingress:B --> T:api
+  api:R --> L:db
+```
+
+## 使用 F5 XC 的服务网格
+
+Kubernetes 服务网格，由 F5 XC 提供外部负载均衡、可观测性和多集群连接。
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 XC]
+  group mesh(hashicorp-flight:kubernetes-color)[Service Mesh]
+
+  service nginx(f5xc:nginx-one)[NGINX One] in xc
+  service obs(f5xc:observability)[Observability] in xc
+  service proxy1(carbon:server-proxy)[Sidecar Proxy] in mesh
+  service svc1(hashicorp-flight:docker-color)[Service A] in mesh
+  service proxy2(carbon:server-proxy)[Sidecar Proxy] in mesh
+  service svc2(hashicorp-flight:docker-color)[Service B] in mesh
+
+  nginx:R --> L:obs
+  obs:R --> L:proxy1
+  proxy1:R --> L:svc1
+  svc1:B --> T:proxy2
+  proxy2:R --> L:svc2
+```
+
+## 容器部署流水线
+
+使用 Helm Chart、容器镜像仓库和自动化发布的 Kubernetes 部署 CI/CD 流水线。
+
+```mermaid
+flowchart LR
+  dev@{ icon: 'lucide:user', label: 'Developer' }
+  repo@{ icon: 'carbon:application', label: 'Git Repo' }
+  ci@{ icon: 'carbon:cloud-services', label: 'CI Pipeline' }
+  registry@{ icon: 'hashicorp-flight:docker-color', label: 'Container Registry' }
+  helm@{ icon: 'hashicorp-flight:helm-color', label: 'Helm Deploy' }
+  k8s@{ icon: 'hashicorp-flight:kubernetes-color', label: 'K8s Cluster' }
+
+  dev --> repo
+  repo --> ci
+  ci --> registry
+  registry --> helm
+  helm --> k8s
+```

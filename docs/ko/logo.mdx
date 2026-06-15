@@ -1,0 +1,78 @@
+---
+title: 로고
+description: 로고 설정 방법 및 교체 방법
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+테마는 모든 문서 사이트의 사이트 헤더에 로고를 표시합니다.
+
+## 사용 가능한 로고 에셋
+
+테마는 `assets/` 디렉토리에 두 개의 로고 파일을 제공합니다:
+
+| 파일 | 형식 | 설명 |
+|------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | Cloud Red(`#e4002b`) 색상의 F5 로고 |
+| `assets/github-avatar.png` | PNG | GitHub 조직 아바타 (기본값) |
+
+## 기본 로고
+
+기본 로고는 `config.ts`의 `createF5xcDocsConfig` 팩토리에서 설정됩니다:
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+`logo` 옵션이 제공되지 않으면 GitHub 아바타 PNG가 사용됩니다. 경로는 `package.json`의 `exports` 맵을 통해 해석되는 npm 패키지 지정자입니다.
+
+## 로고 교체
+
+### 옵션 1: F5 SVG 로고 사용
+
+`createF5xcDocsConfig`에 `logo` 옵션을 전달합니다:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### 옵션 2: 커스텀 로고 사용
+
+콘텐츠 저장소에 로고 파일을 배치하고 참조합니다:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### 옵션 3: 라이트 및 다크 로고 분리
+
+Starlight는 라이트 모드와 다크 모드에 대해 별도의 로고를 지원합니다:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## 가이드라인
+
+- **SVG 형식 사용** — 래스터 이미지(PNG, JPG)도 작동하지만 모든 크기에서 깔끔하게 확대·축소되지 않습니다
+- **`viewBox` 포함** — 로고가 비례적으로 확대·축소되도록 합니다 (예: `viewBox="0 0 100 100"`)
+- **파일 크기를 작게 유지** — 로고는 모든 페이지에서 로드되므로 10 KB 미만을 목표로 합니다
+- **두 테마에서 모두 테스트** — 라이트 모드와 다크 모드 모두에서 로고가 올바르게 표시되는지 확인합니다

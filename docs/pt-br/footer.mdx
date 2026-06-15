@@ -1,0 +1,111 @@
+---
+title: Rodapé
+description: Componente de rodapé personalizado do Starlight com links para redes sociais.
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+O tema substitui o rodapé padrão do Starlight por um componente personalizado `Footer.astro` que adiciona links para redes sociais abaixo do conteúdo padrão do rodapé.
+
+## Padrão do Componente
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+Este padrão **estende** o rodapé padrão em vez de substituí-lo completamente. `<Default {...Astro.props}><slot /></Default>` renderiza o rodapé original do Starlight (navegação anterior/próximo), e em seguida os links sociais são adicionados abaixo.
+
+## Como É Registrado
+
+A substituição do rodapé é registrada pelo plugin do Starlight em `index.ts`. Durante o hook `config:setup`, ele define a substituição do componente `Footer`:
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+Os repositórios de conteúdo não precisam registrar o rodapé manualmente — ele é aplicado automaticamente quando o plugin do tema é carregado.
+
+## Links Sociais
+
+| Plataforma | URL | Cor do Ícone | Aria Label |
+|------------|-----|--------------|------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Azul do Facebook) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (herda) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (Azul do LinkedIn) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Rosa do Instagram) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (Vermelho do YouTube) | YouTube |
+
+Cada link abre em uma nova aba (`target="_blank"`) com `rel="noopener noreferrer"` por segurança.
+
+## Estilização CSS
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+Os links são alinhados à direita em uma linha flex com um sutil efeito de opacidade ao passar o mouse.
+
+## Personalização
+
+### Alterando uma URL
+
+Edite o atributo `href` na tag `<a>` correspondente em `components/Footer.astro` dentro do pacote `@f5xc-salesdemos/docs-theme`.
+
+### Adicionando um Link
+
+Adicione um novo elemento `<a>` dentro da div `.social-links` com um ícone SVG de 24x24. Siga o padrão existente:
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### Removendo um Link
+
+Exclua o bloco `<a>...</a>` completo da plataforma que deseja remover.
+
+### Alterando as Cores dos Ícones
+
+Modifique o atributo `fill` no elemento `<svg>`. Use `currentColor` para herdar a cor do texto, ou um valor hexadecimal específico para as cores da marca.
+
+### Alterando o Layout
+
+Modifique o CSS de `.social-links` no bloco `<style>`:
+- **Alinhamento centralizado**: Altere `justify-content` para `center`
+- **Espaçamento maior**: Aumente o valor de `gap`
+- **Alinhamento à esquerda**: Altere `justify-content` para `flex-start`

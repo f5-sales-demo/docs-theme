@@ -1,0 +1,112 @@
+---
+title: Variabili di ambiente
+description: Riferimento per tutte le variabili di ambiente supportate dal tema.
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 43298dddbd74
+  translator: machine
+---
+
+Il tema legge le variabili di ambiente in fase di build da `config.ts` e dai componenti personalizzati. I repository di contenuti le impostano nel proprio workflow di GitHub Actions per personalizzare ogni sito senza modificare la configurazione.
+
+## Riferimento alle variabili
+
+| Variabile | Predefinito | Scopo |
+|----------|---------|---------|
+| `DOCS_TITLE` | `Documentation` | Titolo del sito mostrato nell'intestazione e nella scheda del browser |
+| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | URL base canonico per il sito distribuito |
+| `DOCS_BASE` | `/` | Percorso base dell'URL (es. `/my-repo/` per i siti di progetto) |
+| `DOCS_DESCRIPTION` | _(stringa vuota)_ | Descrizione del sito per i metadati e il plugin llms.txt |
+| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | URL della home page collegata dal titolo del sito |
+| `GITHUB_REPOSITORY` | _(stringa vuota)_ | Utilizzato per costruire il link social GitHub e i link di modifica |
+| `LLMS_OPTIONAL_LINKS` | `[]` | Array JSON di link aggiuntivi per il plugin llms.txt |
+
+## Dove viene utilizzata ciascuna variabile
+
+### DOCS_TITLE
+
+```ts
+// config.ts
+const title = options.title || process.env.DOCS_TITLE || 'Documentation';
+```
+
+Passata all'opzione `title` di Starlight e al plugin `starlight-llms-txt`. Appare nell'intestazione del sito e nel tag HTML `<title>`.
+
+### DOCS_SITE
+
+```ts
+// config.ts
+const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+```
+
+Imposta la proprietà `site` di primo livello di Astro. Utilizzata per gli URL canonici, la generazione della sitemap e i metadati Open Graph.
+
+### DOCS_BASE
+
+```ts
+// config.ts
+const base = options.base || process.env.DOCS_BASE || '/';
+```
+
+Imposta la proprietà `base` di primo livello di Astro. Necessaria quando si distribuisce in una sottodirectory (es. `https://example.github.io/my-repo/`).
+
+### DOCS_DESCRIPTION
+
+```ts
+// config.ts
+const description = options.description || process.env.DOCS_DESCRIPTION || '';
+```
+
+Passata al plugin `starlight-llms-txt` come descrizione del sito. Utilizzata nel file `llms.txt` generato.
+
+### DOCS_HOME
+
+```ts
+// components/SiteTitle.astro
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+```
+
+Letta dal componente personalizzato `SiteTitle.astro`. Racchiude il titolo del sito nell'intestazione con un link a questo URL, consentendo agli utenti di tornare a una home page centrale della documentazione. Utile quando più repository di contenuti condividono lo stesso tema e si desidera un link "home" coerente su tutti i siti.
+
+### GITHUB_REPOSITORY
+
+```ts
+// config.ts
+const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
+```
+
+Utilizzata per generare l'icona social GitHub nell'intestazione del sito e l'URL base del link di modifica. GitHub Actions imposta questa variabile automaticamente (es. `owner/repo`).
+
+### LLMS_OPTIONAL_LINKS
+
+```ts
+// config.ts
+const llmsOptionalLinks = options.llmsOptionalLinks
+  || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+```
+
+Un array di oggetti `{ title, url }` codificato in JSON, passato al plugin `starlight-llms-txt`. Questi appaiono come link aggiuntivi nel file `llms.txt` generato.
+
+Valore di esempio:
+
+```json
+[{"title": "API Reference", "url": "https://api.example.com/docs"}]
+```
+
+## Impostazione delle variabili in GitHub Actions
+
+I repository di contenuti passano queste variabili tramite il proprio workflow:
+
+```yaml
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    with:
+      docs_title: "My Project Docs"
+      docs_site: "https://example.github.io"
+      docs_base: "/my-project/"
+      docs_home: "https://example.github.io/home/"
+```
+
+La variabile `GITHUB_REPOSITORY` viene fornita automaticamente dal runner di GitHub Actions e non è necessario impostarla manualmente.

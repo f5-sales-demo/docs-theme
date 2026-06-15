@@ -1,0 +1,95 @@
+---
+title: 使用说明
+description: Mermaid 图表语法参考、可用图标包、CSS 样式及主题兼容性详情。
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 5ce5851823d9
+  translator: machine
+---
+
+该主题包含一个自定义的 `remark-mermaid` 插件（`plugins/remark-mermaid.mjs`），可将围栏式 ` ```mermaid ` 代码块转换为 `<div class="mermaid-container">` 包装器。Mermaid CDN 脚本在页面加载时渲染 SVG 图表。
+
+## 图标语法
+
+### 流程图
+
+使用 `@\{\}` 节点语法，从任意已注册的图标包中添加图标：
+
+```
+nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
+```
+
+### 架构图
+
+`architecture-beta` 图表类型支持使用图标装饰节点的服务和分组定义：
+
+```
+service myService(pack:icon-name)[Label]
+group myGroup(pack:icon-name)[Label]
+```
+
+## 可用图标包
+
+以下图标包已完成注册，可在 Mermaid 图表中使用。图标仅在被引用时才会从 CDN 按需加载。
+
+| 包名 | npm 包 | 主要图标 |
+|-----------|-------------|-----------|
+| `hashicorp-flight` | `@f5xc-salesdemos/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
+| `f5-brand` | `@f5xc-salesdemos/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
+| `f5xc` | `@f5xc-salesdemos/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
+| `carbon` | `@f5xc-salesdemos/icons-carbon` | `cloud-services`, `data-base`, `gateway-api`, `virtual-machine`, `load-balancer-global`, `firewall`, `dns-services`, `virtual-private-cloud` |
+| `lucide` | `@f5xc-salesdemos/icons-lucide` | `server`, `database`, `shield`, `shield-check`, `globe`, `lock`, `cloud`, `network`, `user` |
+| `mdi` | `@f5xc-salesdemos/icons-mdi` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `dns`, `vpn`, `router` |
+| `phosphor` | `@f5xc-salesdemos/icons-phosphor` | `cloud`, `database`, `shield`, `globe`, `lock`, `network` |
+| `tabler` | `@f5xc-salesdemos/icons-tabler` | `server`, `database`, `shield`, `cloud`, `lock`, `network`, `route`, `router` |
+| `azure` | `@f5xc-salesdemos/icons-azure` | `virtual-networks`, `load-balancers`, `firewalls`, `virtual-network-gateways`, `virtual-machine`, `public-ip-addresses`, `route-tables`, `subnet` |
+
+## CSS 参考
+
+### 容器样式
+
+Mermaid 图表被包裹在一个带有圆角和多层盒阴影的样式容器中：
+
+```css
+.mermaid-container {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+  margin-block: 1.5rem;
+  background: #fff;
+}
+```
+
+### `<pre>` 元素重置
+
+Starlight 默认的 `<pre>` 样式已从 Mermaid 包装器中剥离，使得仅外层容器边框可见：
+
+```css
+.mermaid-container pre.mermaid {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+```
+
+### SVG 背景强制设置
+
+内部 SVG 被强制设置为白色背景，以兼容深色模式：
+
+```css
+.mermaid-container svg {
+  background: white !important;
+  border-radius: 0.5rem;
+}
+```
+
+## 主题检查项
+
+- `.mermaid-container` 在深色模式下 SVG 背景为白色
+- 容器边框使用 `--sl-color-gray-5`
+- 容器具有 0.75rem 圆角及多层盒阴影
+- 图表在浅色和深色主题下均可正常阅读
+- Mermaid CDN 脚本在页面加载时正常加载并渲染 SVG

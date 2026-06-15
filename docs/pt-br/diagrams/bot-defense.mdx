@@ -1,0 +1,79 @@
+---
+title: Defesa contra Bots
+description: >-
+  Diagramas do pipeline de detecção de bots mostrando defesa contra
+  preenchimento de credenciais, proteção do lado do cliente e gerenciamento de
+  bots F5 XC.
+sidebar:
+  order: 18
+i18n:
+  sourceHash: 04371e8bb860
+  translator: machine
+---
+
+Diagramas de arquitetura de defesa contra bots cobrindo pipelines de detecção, mitigação de preenchimento de credenciais, defesa do lado do cliente e capacidades de gerenciamento de bots do F5 Distributed Cloud.
+
+## Pipeline de Detecção de Bots
+
+Pipeline de detecção de bots em múltiplos estágios com desafio JavaScript, análise comportamental e fingerprinting antes de permitir o acesso.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Incoming Request' }
+  js@{ icon: 'lucide:bot', label: 'JS Challenge' }
+  fp@{ icon: 'lucide:shield-check', label: 'Fingerprinting' }
+  behavior@{ icon: 'carbon:application', label: 'Behavior Analysis' }
+  decision@{ icon: 'carbon:gateway-security', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'lucide:shield', label: 'Block/Challenge' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+## Defesa contra Bots F5 XC e Defesa do Lado do Cliente
+
+Defesa integrada contra bots do F5 Distributed Cloud com proteção do lado do cliente para prevenção de preenchimento de credenciais e tomada de conta.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'lucide:bot', label: 'Bot Attackers' }
+  csd@{ icon: 'f5xc:client-side-defense', label: 'Client-Side Defense' }
+  botdef@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> csd
+  attacker --> csd
+  csd --> botdef
+  botdef --> waap
+  waap --> app
+```
+
+## Arquitetura de Defesa contra Preenchimento de Credenciais
+
+Defesa em múltiplas camadas contra ataques de preenchimento de credenciais com fingerprinting de dispositivo, inteligência de credenciais e proteção de conta.
+
+```mermaid
+architecture-beta
+  group defense(lucide:shield)[Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service edge(f5xc:bot-defense)[Bot Defense] in defense
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
+  service intel(f5xc:data-intelligence)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  edge:R --> L:csd
+  csd:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```

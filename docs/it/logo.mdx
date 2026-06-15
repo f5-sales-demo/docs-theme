@@ -1,0 +1,78 @@
+---
+title: Logo
+description: Come viene configurato il logo e come sostituirlo.
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+Il tema visualizza un logo nell'intestazione del sito di ogni sito di documentazione.
+
+## Asset Logo Disponibili
+
+Il tema include due file logo nella directory `assets/`:
+
+| File | Formato | Descrizione |
+|------|--------|-------------|
+| `assets/f5-logo.svg` | SVG | Logo F5 in Cloud Red (`#e4002b`) |
+| `assets/github-avatar.png` | PNG | Avatar dell'organizzazione GitHub (predefinito) |
+
+## Logo Predefinito
+
+Il logo predefinito è impostato nella factory `createF5xcDocsConfig` in `config.ts`:
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+Se non viene fornita alcuna opzione `logo`, viene utilizzato il PNG dell'avatar GitHub. Il percorso è un identificatore di pacchetto npm risolto tramite la mappa `exports` in `package.json`.
+
+## Sostituzione del Logo
+
+### Opzione 1: Utilizzare il logo SVG F5
+
+Passare l'opzione `logo` a `createF5xcDocsConfig`:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### Opzione 2: Utilizzare un logo personalizzato
+
+Inserire il file logo nel repository dei contenuti e fare riferimento ad esso:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### Opzione 3: Logo separati per tema chiaro e scuro
+
+Starlight supporta logo separati per la modalità chiara e scura:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## Linee Guida
+
+- **Utilizzare il formato SVG** — le immagini raster (PNG, JPG) funzioneranno ma non si ridimensioneranno correttamente a tutte le dimensioni
+- **Includere un `viewBox`** — assicura che il logo si ridimensioni proporzionalmente (ad es., `viewBox="0 0 100 100"`)
+- **Mantenere le dimensioni del file ridotte** — il logo viene caricato su ogni pagina; puntare a meno di 10 KB
+- **Testare in entrambi i temi** — verificare che il logo appaia correttamente sia in modalità chiara che scura

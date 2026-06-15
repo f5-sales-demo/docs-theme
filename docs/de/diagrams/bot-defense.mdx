@@ -1,0 +1,78 @@
+---
+title: Bot-Abwehr
+description: >-
+  Diagramme zur Bot-Erkennungspipeline mit Credential-Stuffing-Abwehr,
+  clientseitigem Schutz und F5 XC Bot-Verwaltung.
+sidebar:
+  order: 18
+i18n:
+  sourceHash: 04371e8bb860
+  translator: machine
+---
+
+Architekturdiagramme zur Bot-Abwehr, die Erkennungspipelines, Credential-Stuffing-Mitigation, clientseitige Abwehr und F5 Distributed Cloud Bot-Verwaltungsfunktionen abdecken.
+
+## Bot-Erkennungspipeline
+
+Mehrstufige Bot-Erkennungspipeline mit JavaScript-Challenge, Verhaltensanalyse und Fingerprinting vor der Zugriffsgewährung.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Incoming Request' }
+  js@{ icon: 'lucide:bot', label: 'JS Challenge' }
+  fp@{ icon: 'lucide:shield-check', label: 'Fingerprinting' }
+  behavior@{ icon: 'carbon:application', label: 'Behavior Analysis' }
+  decision@{ icon: 'carbon:gateway-security', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'lucide:shield', label: 'Block/Challenge' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+## F5 XC Bot-Abwehr und clientseitige Abwehr
+
+In F5 Distributed Cloud integrierte Bot-Abwehr mit clientseitigem Schutz zur Prävention von Credential Stuffing und Kontoübernahmen.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'lucide:bot', label: 'Bot Attackers' }
+  csd@{ icon: 'f5xc:client-side-defense', label: 'Client-Side Defense' }
+  botdef@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> csd
+  attacker --> csd
+  csd --> botdef
+  botdef --> waap
+  waap --> app
+```
+
+## Credential-Stuffing-Abwehrarchitektur
+
+Mehrschichtige Abwehr gegen Credential-Stuffing-Angriffe mit Gerätefingerprinting, Credential-Intelligence und Kontoschutz.
+
+```mermaid
+architecture-beta
+  group defense(lucide:shield)[Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service edge(f5xc:bot-defense)[Bot Defense] in defense
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
+  service intel(f5xc:data-intelligence)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  edge:R --> L:csd
+  csd:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```

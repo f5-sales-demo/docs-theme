@@ -1,0 +1,491 @@
+---
+title: F5 Distributed Cloud
+description: >-
+  ไดอะแกรม use case ของ F5 Distributed Cloud สำหรับ WAAP, bot defense,
+  multi-cloud networking, DDoS, DNS, API security และ observability โดยใช้ไอคอน
+  f5-brand
+sidebar:
+  order: 22
+i18n:
+  sourceHash: ff7d8967011c
+  translator: machine
+---
+
+ไดอะแกรม use case ของ F5 Distributed Cloud ที่แสดงสถาปัตยกรรมด้านความปลอดภัย เครือข่าย และการส่งมอบแอปพลิเคชัน โดยใช้ชุดไอคอน `f5-brand`
+
+## การป้องกันแอปเว็บและ API
+
+### ไปป์ไลน์การตรวจสอบ WAAP
+
+ไปป์ไลน์การตรวจสอบ WAAP แบบหลายชั้น ประกอบด้วย ไฟร์วอลล์ การป้องกันโค้ดแอปพลิเคชัน และ bot defense ก่อนที่จะถึงแอปพลิเคชัน
+
+```mermaid
+flowchart LR
+  user@{ icon: 'lucide:globe', label: 'Users' }
+  fw@{ icon: 'f5-brand:security-firewall-shield', label: 'Firewall Shield' }
+  appcode@{ icon: 'f5-brand:security-shield-app-code', label: 'App Code Protection' }
+  botdef@{ icon: 'f5-brand:security-bot-defence', label: 'Bot Defence' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> fw
+  fw --> appcode
+  appcode --> botdef
+  botdef --> app
+```
+
+### สถาปัตยกรรมความปลอดภัยที่ Edge
+
+สถาปัตยกรรมความปลอดภัยที่ Edge ประกอบด้วย WAF การตรวจสอบ shield checkmark และกลุ่มการป้องกันแอปพลิเคชันข้ามต้นทางคลาวด์
+
+```mermaid
+architecture-beta
+  group edge(f5-brand:security-firewall-shield)[Security Edge]
+  group origins(carbon:cloud-services)[Cloud Origins]
+
+  service waf(f5-brand:security-firewall)[WAF] in edge
+  service shield(f5-brand:security-shield-checkmark)[Shield Verify] in edge
+  service appshield(f5-brand:security-shield-app-code)[App Shield] in edge
+  service aws(hashicorp-flight:aws-color)[AWS Origin] in origins
+  service azure(hashicorp-flight:azure-color)[Azure Origin] in origins
+
+  waf:R --> L:shield
+  shield:R --> L:appshield
+  appshield:R --> L:aws
+  appshield:B --> T:azure
+```
+
+### การป้องกัน API พร้อม Rate Limiting
+
+ไปป์ไลน์การตรวจสอบคำขอ API ประกอบด้วย ไฟร์วอลล์ rate limiting และการตรวจสอบ schema ก่อนที่จะถึง API endpoint
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'API Client' }
+  fw@{ icon: 'f5-brand:security-firewall-shield', label: 'Firewall' }
+  rate@{ icon: 'f5-brand:network-api-gateway', label: 'API Gateway' }
+  schema@{ icon: 'f5-brand:security-shield-checkmark', label: 'Schema Validation' }
+  api@{ icon: 'carbon:api', label: 'API Service' }
+  db@{ icon: 'carbon:data-base', label: 'Database' }
+
+  client --> fw
+  fw --> rate
+  rate --> schema
+  schema --> api
+  api --> db
+```
+
+## การป้องกัน Bot
+
+### ไปป์ไลน์การตรวจจับ Bot
+
+การตรวจจับ bot แบบหลายขั้นตอน ประกอบด้วย JavaScript challenge, device fingerprinting, การวิเคราะห์พฤติกรรม และ decision engine
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Request' }
+  js@{ icon: 'f5-brand:security-bot', label: 'JS Challenge' }
+  fp@{ icon: 'f5-brand:security-fingerprint', label: 'Fingerprinting' }
+  behavior@{ icon: 'f5-brand:security-pattern-matching', label: 'Behavior Analysis' }
+  decision@{ icon: 'f5-brand:security-bot-defence', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'f5-brand:security-firewall-bot', label: 'Block' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+### ชั้นการป้องกัน Bot
+
+สถาปัตยกรรมการป้องกัน bot แบบหลายชั้น ประกอบด้วย credential intelligence, การตรวจจับ bot และการวิเคราะห์ device posture
+
+```mermaid
+architecture-beta
+  group defense(f5-brand:security-bot-defence)[Bot Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service botfw(f5-brand:security-firewall-bot)[Bot Firewall] in defense
+  service botdef(f5-brand:security-bot-defence)[Bot Defence] in defense
+  service intel(f5-brand:security-password-bot)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  botfw:R --> L:botdef
+  botdef:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```
+
+### การป้องกันฝั่งไคลเอนต์
+
+ไปป์ไลน์การป้องกันฝั่งไคลเอนต์ ประกอบด้วย การตรวจสอบ device posture, การตรวจจับ laptop bot และการป้องกัน Magecart
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'f5-brand:security-laptop-bot', label: 'Compromised Client' }
+  posture@{ icon: 'f5-brand:device-laptop-lock-arrows', label: 'Device Posture' }
+  botcheck@{ icon: 'f5-brand:security-bot-defence', label: 'Bot Check' }
+  shield@{ icon: 'f5-brand:security-shield-checkmark', label: 'Verified Clean' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> posture
+  attacker --> posture
+  posture --> botcheck
+  botcheck --> shield
+  shield --> app
+```
+
+## เครือข่ายมัลติคลาวด์
+
+### การเชื่อมต่อแอปมัลติคลาวด์
+
+การเชื่อมต่อแอปพลิเคชันมัลติคลาวด์ข้าม AWS, Azure และ GCP พร้อมโครงสร้างการส่งมอบแอปแบบรวมศูนย์
+
+```mermaid
+architecture-beta
+  group xc(f5-brand:cloud-multi)[F5 Multi-Cloud]
+  group aws(hashicorp-flight:aws-color)[AWS]
+  group azure(hashicorp-flight:azure-color)[Azure]
+  group gcp(hashicorp-flight:gcp-color)[GCP]
+
+  service fabric(f5-brand:app-delivery-fabric)[App Delivery Fabric] in xc
+  service connect(f5-brand:cloud-multi-app-container)[App Connect] in xc
+  service eks(hashicorp-flight:kubernetes-color)[EKS] in aws
+  service rds(carbon:data-base)[RDS] in aws
+  service aks(hashicorp-flight:azure-aks-color)[AKS] in azure
+  service gke(hashicorp-flight:kubernetes-color)[GKE] in gcp
+
+  fabric:R --> L:connect
+  connect:B --> T:eks
+  eks:R --> L:rds
+  connect:B --> T:aks
+  connect:B --> T:gke
+```
+
+### Network Connect พร้อม Site Mesh
+
+การเชื่อมต่อเครือข่ายมัลติคลาวด์ด้วยโทโพโลยี site mesh และ transit gateway เชื่อมโยงระหว่างภูมิภาคคลาวด์
+
+```mermaid
+architecture-beta
+  group net(f5-brand:cloud-network-connect)[Network Connect]
+  group region1(hashicorp-flight:aws-color)[AWS Region]
+  group region2(hashicorp-flight:azure-color)[Azure Region]
+
+  service mesh(f5-brand:cloud-multi-network)[Site Mesh] in net
+  service gw(f5-brand:network-gateway)[Transit Gateway] in net
+  service web1(carbon:virtual-machine)[Web Tier] in region1
+  service db1(carbon:data-base)[Database] in region1
+  service web2(carbon:virtual-machine)[Web Tier] in region2
+  service db2(carbon:data-base)[Database] in region2
+
+  mesh:R --> L:gw
+  gw:B --> T:web1
+  web1:R --> L:db1
+  gw:B --> T:web2
+  web2:R --> L:db2
+```
+
+### การส่งมอบแอปมัลติคลาวด์
+
+การส่งมอบแอปมัลติคลาวด์แบบ end-to-end พร้อม global load balancing ความปลอดภัย และ workload แบบกระจาย
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:globe', label: 'Global Users' }
+  glb@{ icon: 'f5-brand:network-globe-load-balance', label: 'Global LB' }
+  shield@{ icon: 'f5-brand:security-firewall-shield', label: 'Security' }
+  fabric@{ icon: 'f5-brand:app-delivery-fabric', label: 'App Fabric' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Workloads' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Workloads' }
+  gcp@{ icon: 'hashicorp-flight:gcp-color', label: 'GCP Workloads' }
+
+  user --> glb
+  glb --> shield
+  shield --> fabric
+  fabric --> aws
+  fabric --> azure
+  fabric --> gcp
+```
+
+## DDoS และบริการ Edge
+
+### สถาปัตยกรรม DDoS Scrubbing
+
+ศูนย์ scrubbing สำหรับการป้องกัน DDoS ประกอบด้วย การป้องกันระดับ network, site scrubbing และการส่งทราฟฟิกที่สะอาดไปยัง origin
+
+```mermaid
+architecture-beta
+  group scrub(f5-brand:network-ddos-protection)[Scrubbing Center]
+  group origin(carbon:cloud-services)[Origin DC]
+
+  service ddos(f5-brand:network-ddos-protection)[DDoS Protection] in scrub
+  service sitescrub(f5-brand:security-site-scrubbing)[Site Scrubbing] in scrub
+  service clean(f5-brand:network-globe-load-balance)[Clean Pipe] in scrub
+  service lb(carbon:load-balancer-application)[Load Balancer] in origin
+  service app(carbon:application)[Application] in origin
+  service db(carbon:data-base)[Database] in origin
+
+  ddos:R --> L:sitescrub
+  sitescrub:R --> L:clean
+  clean:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+### การบรรเทาการโจมตีแบบ Volumetric
+
+การไหลของทราฟฟิกโจมตีที่แสดงการดูดซับและบรรเทา DDoS แบบ volumetric ที่ edge ก่อนที่จะถึง origin
+
+```mermaid
+flowchart LR
+  attacker@{ icon: 'lucide:bug', label: 'Attack Traffic' }
+  legit@{ icon: 'lucide:user', label: 'Legitimate Users' }
+  edge@{ icon: 'f5-brand:network-ddos-protection', label: 'DDoS Edge' }
+  scrub@{ icon: 'f5-brand:security-site-scrubbing', label: 'Scrubbing' }
+  drop@{ icon: 'f5-brand:security-firewall', label: 'Drop Malicious' }
+  origin@{ icon: 'carbon:application', label: 'Origin' }
+
+  attacker --> edge
+  legit --> edge
+  edge --> scrub
+  scrub --> drop
+  scrub --> origin
+```
+
+### การป้องกันแบบหลายชั้นด้วย CDN + DDoS + WAF
+
+การป้องกัน edge แบบหลายชั้น รวม CDN caching, การบรรเทา DDoS และการตรวจสอบ WAF ในไปป์ไลน์เดียวกัน
+
+```mermaid
+architecture-beta
+  group edge(f5-brand:cloud-performance-arrow)[Edge Services]
+  group security(f5-brand:security-firewall-shield)[Security Layer]
+  group app(carbon:cloud-services)[Application]
+
+  service cdn(f5-brand:cloud-performance-arrow)[CDN] in edge
+  service ddos(f5-brand:network-ddos-protection)[DDoS Protection] in edge
+  service waf(f5-brand:security-firewall-shield)[WAF] in security
+  service shield(f5-brand:security-shield-checkmark)[Shield] in security
+  service web(carbon:application)[Web App] in app
+  service api(carbon:api)[API Service] in app
+
+  cdn:R --> L:ddos
+  ddos:R --> L:waf
+  waf:R --> L:shield
+  shield:R --> L:web
+  shield:B --> T:api
+```
+
+## DNS และการจัดการทราฟฟิก
+
+### GSLB ที่ใช้ DNS พร้อม Health Monitoring
+
+การกระจายโหลดเซิร์ฟเวอร์ระดับโลกที่ใช้ DNS พร้อม health monitoring ข้าม endpoint มัลติคลาวด์
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:globe', label: 'End Users' }
+  dns@{ icon: 'f5-brand:network-dns-1', label: 'DNS Management' }
+  health@{ icon: 'f5-brand:other-site-metrics', label: 'Health Monitor' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Origin' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Origin' }
+  gcp@{ icon: 'hashicorp-flight:gcp-color', label: 'GCP Origin' }
+
+  user --> dns
+  dns --> health
+  health --> aws
+  health --> azure
+  health --> gcp
+  dns --> aws
+  dns --> azure
+  dns --> gcp
+```
+
+### สถาปัตยกรรมการจัดการ DNS
+
+โครงสร้างพื้นฐานการจัดการ DNS ประกอบด้วย การกระจายโหลด DNS และการป้องกัน shield DNS ข้ามภูมิภาคคลาวด์
+
+```mermaid
+architecture-beta
+  group dnsinfra(f5-brand:network-dns-1)[DNS Infrastructure]
+  group region1(hashicorp-flight:aws-color)[US East]
+  group region2(hashicorp-flight:azure-color)[EU West]
+
+  service dns(f5-brand:network-dns-load-balance)[DNS Load Balance] in dnsinfra
+  service shielddns(f5-brand:security-shield-dns)[Shield DNS] in dnsinfra
+  service lb1(carbon:load-balancer-application)[Regional LB] in region1
+  service app1(carbon:virtual-machine)[App Servers] in region1
+  service lb2(carbon:load-balancer-application)[Regional LB] in region2
+  service app2(carbon:virtual-machine)[App Servers] in region2
+
+  dns:R --> L:shielddns
+  dns:B --> T:lb1
+  lb1:R --> L:app1
+  dns:B --> T:lb2
+  lb2:R --> L:app2
+```
+
+### การกระจายโหลด DNS อัจฉริยะพร้อม Failover
+
+การกระจายโหลด DNS อัจฉริยะพร้อมการรวม cloud DNS, การกำหนดเส้นทางตามประสิทธิภาพ และ failover อัตโนมัติ
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'Client' }
+  dns@{ icon: 'f5-brand:network-dns-load-balance', label: 'DNS Load Balance' }
+  cloud@{ icon: 'f5-brand:cloud-dns-load-balance', label: 'Cloud DNS LB' }
+  primary@{ icon: 'carbon:virtual-machine', label: 'Primary' }
+  secondary@{ icon: 'carbon:virtual-machine', label: 'Secondary' }
+  health@{ icon: 'f5-brand:other-site-metrics', label: 'Health Check' }
+
+  client --> dns
+  dns --> cloud
+  cloud --> primary
+  cloud -->|Failover| secondary
+  dns --> health
+  health --> primary
+  health --> secondary
+```
+
+## ความปลอดภัย API และการค้นพบ
+
+### ไปป์ไลน์การค้นพบ Shadow API
+
+ไปป์ไลน์การค้นพบ shadow API ที่ตรวจจับ API ที่ไม่รู้จักผ่านการวิเคราะห์ทราฟฟิกและการจัดการ inventory
+
+```mermaid
+flowchart LR
+  traffic@{ icon: 'lucide:globe', label: 'API Traffic' }
+  gw@{ icon: 'f5-brand:network-api-gateway', label: 'API Gateway' }
+  shadow@{ icon: 'f5-brand:network-shadow-api', label: 'Shadow API Discovery' }
+  inventory@{ icon: 'f5-brand:network-api-inventory', label: 'API Inventory' }
+  alert@{ icon: 'f5-brand:other-visibility-eye', label: 'Visibility' }
+
+  traffic --> gw
+  gw --> shadow
+  shadow --> inventory
+  inventory --> alert
+```
+
+### สถาปัตยกรรม API Gateway
+
+API gateway พร้อมการยืนยันตัวตน rate limiting และการตรวจสอบความปลอดภัยเพื่อป้องกันบริการ API ของ backend
+
+```mermaid
+architecture-beta
+  group gateway(f5-brand:network-api-gateway)[API Gateway]
+  group backend(carbon:cloud-services)[Backend Services]
+
+  service apigw(f5-brand:network-api-gateway)[API Gateway] in gateway
+  service auth(f5-brand:security-key-lock)[Authentication] in gateway
+  service rate(f5-brand:network-api)[Rate Limiter] in gateway
+  service shield(f5-brand:security-shield-checkmark)[Schema Check] in gateway
+  service api1(carbon:api)[Users API] in backend
+  service api2(carbon:api)[Orders API] in backend
+
+  apigw:R --> L:auth
+  auth:R --> L:rate
+  rate:R --> L:shield
+  shield:R --> L:api1
+  shield:B --> T:api2
+```
+
+### วงจรชีวิต API: จากการค้นพบสู่การป้องกัน
+
+ไปป์ไลน์วงจรชีวิต API ตั้งแต่การค้นพบ shadow API ผ่านการจัดทำ inventory catalog ไปจนถึงการป้องกันที่ใช้งานจริง
+
+```mermaid
+flowchart TD
+  apps@{ icon: 'carbon:application', label: 'Applications' }
+  discover@{ icon: 'f5-brand:network-shadow-api', label: 'Shadow API Discovery' }
+  inventory@{ icon: 'f5-brand:network-api-inventory', label: 'API Inventory' }
+  gateway@{ icon: 'f5-brand:network-api-gateway', label: 'API Gateway' }
+  shield@{ icon: 'f5-brand:security-shield-app-code', label: 'API Protection' }
+  monitor@{ icon: 'f5-brand:other-site-metrics', label: 'API Metrics' }
+
+  apps --> discover
+  discover --> inventory
+  inventory --> gateway
+  gateway --> shield
+  shield --> monitor
+```
+
+## แพลตฟอร์มและการสังเกตการณ์
+
+### แอปแบบกระจายพร้อม NGINX One
+
+แพลตฟอร์มแอปพลิเคชันแบบกระจาย ประกอบด้วย การจัดการ NGINX One, Kubernetes workload และการควบคุมแบบรวมศูนย์
+
+```mermaid
+architecture-beta
+  group platform(f5-brand:service-f5)[F5 Platform]
+  group compute(carbon:cloud-services)[Compute]
+
+  service nginx(f5-brand:service-nginx)[NGINX One] in platform
+  service netng(f5-brand:network-nginx)[NGINX Network] in platform
+  service f5svc(f5-brand:service-f5)[F5 Service] in platform
+  service k8s(f5-brand:app-kubernetes)[Kubernetes] in compute
+  service dist(f5-brand:cloud-distributed)[Distributed App] in compute
+  service container(f5-brand:cloud-container-app)[Container App] in compute
+
+  nginx:R --> L:netng
+  netng:R --> L:f5svc
+  nginx:B --> T:k8s
+  netng:B --> T:dist
+  f5svc:B --> T:container
+```
+
+### ไปป์ไลน์การสังเกตการณ์
+
+ไปป์ไลน์การสังเกตการณ์ที่รวบรวม metrics จากแอปพลิเคชันและสร้าง insights, alerts และ dashboards
+
+```mermaid
+flowchart LR
+  app1@{ icon: 'carbon:application', label: 'Web App' }
+  app2@{ icon: 'carbon:api', label: 'API Service' }
+  metrics@{ icon: 'f5-brand:other-site-metrics', label: 'Metrics Collection' }
+  eye@{ icon: 'f5-brand:other-visibility-eye', label: 'Visibility' }
+  llmobs@{ icon: 'f5-brand:ai-llm-observability', label: 'LLM Observability' }
+  alert@{ icon: 'f5-brand:other-bell', label: 'Alerts' }
+
+  app1 --> metrics
+  app2 --> metrics
+  metrics --> eye
+  eye --> llmobs
+  llmobs --> alert
+```
+
+### มุมมองแพลตฟอร์มแบบสมบูรณ์
+
+มุมมองแพลตฟอร์ม F5 ที่ครอบคลุม เชื่อมต่อความปลอดภัย เครือข่าย และการส่งมอบแอปพลิเคชันภายใต้บริการเดียวกัน
+
+```mermaid
+architecture-beta
+  group f5(f5-brand:service-f5)[F5 Service Platform]
+  group security(f5-brand:security-firewall-shield)[Security]
+  group networking(f5-brand:cloud-network-connect)[Networking]
+
+  service svcf5(f5-brand:service-f5)[F5 Service] in f5
+  service bigip(f5-brand:service-big-ip-next)[BIG-IP Next] in f5
+  service obs(f5-brand:other-site-metrics)[Observability] in f5
+  service fw(f5-brand:security-firewall-shield)[WAF] in security
+  service botd(f5-brand:security-bot-defence)[Bot Defence] in security
+  service ddos(f5-brand:network-ddos-protection)[DDoS] in security
+  service multi(f5-brand:cloud-multi-network)[Multi-Cloud Net] in networking
+  service fabric(f5-brand:app-delivery-fabric)[App Fabric] in networking
+  service nginx(f5-brand:service-nginx)[NGINX One] in networking
+
+  svcf5:B --> T:fw
+  svcf5:B --> T:multi
+  bigip:B --> T:botd
+  bigip:B --> T:fabric
+  obs:B --> T:ddos
+  obs:B --> T:nginx
+```

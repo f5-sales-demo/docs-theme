@@ -1,0 +1,139 @@
+---
+title: Astro 設定
+description: プラグインベースの Astro/Starlight 設定ファクトリーのリファレンス。
+sidebar:
+  order: 4
+i18n:
+  sourceHash: 48445fbc1ed7
+  translator: machine
+---
+
+コンテンツリポジトリは独自の `astro.config.mjs` を保持しません。代わりに、`@f5xc-salesdemos/docs-theme` npm パッケージから設定ファクトリーをインポートし、Starlight、8 つのバンドルされたプラグイン、およびすべてのテーマのデフォルト値を含む完全な Astro 設定を返します。
+
+## テーマの利用
+
+コンテンツリポジトリの `astro.config.mjs`（Docker ビルダーにより提供）は薄いラッパーです：
+
+```js
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig();
+```
+
+すべてのカスタマイズはオプションオブジェクトまたは環境変数を通じて行われます。プラグインの配線、CSS インポート、またはコンポーネントのオーバーライドに触れる必要はありません。
+
+## 設定オプション
+
+`createF5xcDocsConfig` は `F5xcDocsConfigOptions` オブジェクトを受け取ります。すべてのフィールドはオプションであり、環境変数と適切なデフォルト値が不足分を補います。
+
+```ts
+interface F5xcDocsConfigOptions {
+  site?: string;
+  base?: string;
+  title?: string;
+  description?: string;
+  githubRepository?: string;
+  llmsOptionalLinks?: Array<{ title: string; url: string }>;
+  additionalIntegrations?: AstroIntegration[];
+  additionalRemarkPlugins?: Array<unknown>;
+  megaMenuItems?: MegaMenuItem[];
+  head?: HeadEntry[];
+  logo?: { src: string } | { light: string; dark: string };
+}
+```
+
+| オプション | デフォルト / 環境変数のフォールバック | 用途 |
+|--------|----------------------|---------|
+| `site` | `DOCS_SITE` または `https://f5xc-salesdemos.github.io` | 正規ベース URL |
+| `base` | `DOCS_BASE` または `/` | プロジェクトサイトの URL ベースパス |
+| `title` | `DOCS_TITLE` または `Documentation` | ヘッダーおよびブラウザタブのサイトタイトル |
+| `description` | `DOCS_DESCRIPTION` または空文字列 | メタデータおよび llms.txt 用のサイト説明 |
+| `githubRepository` | `GITHUB_REPOSITORY` または空文字列 | 編集リンクおよび GitHub ソーシャルアイコンを有効化 |
+| `llmsOptionalLinks` | `LLMS_OPTIONAL_LINKS`（JSON）または `[]` | llms.txt プラグイン用の追加リンク |
+| `additionalIntegrations` | `[]` | 追加する Astro インテグレーション |
+| `additionalRemarkPlugins` | `[]` | remark-mermaid の後に追加される追加 remark プラグイン |
+| `megaMenuItems` | 組み込みの Products/Solutions/Docs/Support メニュー | トップレベルのメガメニューエントリー |
+| `head` | Mermaid CDN `<script>` タグ | カスタム `<head>` エントリー |
+| `logo` | `@f5xc-salesdemos/docs-theme/assets/github-avatar.png` | サイドバーロゴ（単一 src またはライト/ダークペア） |
+
+## バンドルされた Starlight プラグイン
+
+ファクトリーは 8 つの Starlight プラグインを自動的に配線します：
+
+| プラグイン | 用途 |
+|--------|---------|
+| `starlight-mega-menu` | グリッド/リストレイアウトのトップナビゲーションメガメニュー |
+| `starlight-videos` | ドキュメントページへの動画埋め込み |
+| `starlight-image-zoom` | 画像のクリック拡大表示 |
+| `@f5xc-salesdemos/docs-theme`（自身） | CSS インジェクション、コンポーネントオーバーライド、ルートミドルウェア |
+| `starlight-scroll-to-top` | プログレスリング付きのトップへスクロールボタン |
+| `starlight-heading-badges` | 見出しへのバッジアノテーション |
+| `starlight-page-actions` | ページアクションボタン |
+| `starlight-plugin-icons` | Starlight でのアイコンサポート |
+| `starlight-llms-txt` | LLM 利用のための `llms.txt` および `llms-full.txt` を生成 |
+
+これらは `config.ts` 内で順番に登録されます。テーマプラグイン（`@f5xc-salesdemos/docs-theme`）はそれ自体が Starlight プラグインであり、このリスト内で実行されます。
+
+## テーマプラグインフック
+
+テーマプラグインは `index.ts` で定義され、上記のバンドルされたプラグインの中に登録されます。その `config:setup` フックは 3 つのことを行います：
+
+1. **CSS のインジェクション** — Starlight の `customCss` 配列の先頭に `fonts/font-face.css` と `styles/custom.css` を追加します
+2. **コンポーネントのオーバーライド** — 5 つの Starlight コンポーネントを置き換えます：
+   - `Banner` — 編集リンク付きのパンくずナビゲーション
+   - `EditLink` — 意図的に空（編集リンクは Banner 内に存在）
+   - `Footer` — デフォルトのフッター下にソーシャルメディアリンクを追加
+   - `SiteTitle` — ホームリンク付きのロゴ
+   - `MarkdownContent` — 動画と画像ズームを有効にするラッパー
+3. **ルートミドルウェアの追加** — インデックスページをサイドバーからフィルタリングし、インデックスページの目次を非表示にする `route-middleware.ts` を登録します
+
+```ts
+// index.ts — Starlight プラグインのエントリーポイント
+export default function f5xcDocsTheme(): StarlightPlugin {
+  return {
+    name: '@f5xc-salesdemos/docs-theme',
+    hooks: {
+      'config:setup'({ config, updateConfig, addRouteMiddleware }) {
+        addRouteMiddleware({
+          entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
+          order: 'pre',
+        });
+        updateConfig({
+          customCss: [
+            ...(config.customCss ?? []),
+            '@f5xc-salesdemos/docs-theme/fonts/font-face.css',
+            '@f5xc-salesdemos/docs-theme/styles/custom.css',
+          ],
+          components: {
+            ...config.components,
+            Banner: '@f5xc-salesdemos/docs-theme/components/Banner.astro',
+            EditLink: '@f5xc-salesdemos/docs-theme/components/EditLink.astro',
+            Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+            SiteTitle: '@f5xc-salesdemos/docs-theme/components/SiteTitle.astro',
+            MarkdownContent: '@f5xc-salesdemos/docs-theme/components/MarkdownContent.astro',
+          },
+        });
+      },
+    },
+  };
+}
+```
+
+すべてのパスは npm パッケージ指定子（例：`@f5xc-salesdemos/docs-theme/styles/custom.css`）を使用しており、`package.json` の `exports` マップを通じて解決されます。
+
+## その他のインテグレーション
+
+Starlight とそのプラグインに加えて、ファクトリーは以下も登録します：
+
+- **`@astrojs/react`** — MDX ページでの React コンポーネントサポートを有効化
+- **`remark-mermaid`** — ` ```mermaid ` コードブロックをレンダリングされたダイアグラムに変換するカスタム remark プラグイン
+
+追加のインテグレーションと remark プラグインは、`additionalIntegrations` および `additionalRemarkPlugins` オプションを通じて追加できます。
+
+## サイドバー
+
+カスタムサイドバーは定義されていません。Starlight は `docs/` のファイル構造からサイドバーを自動生成し、各ページの `title` フロントマターをリンクテキストとして使用し、`sidebar.order` でソートします。ルートミドルウェアはインデックスページをサイドバーから自動的にフィルタリングします。
+
+:::caution
+設定ファクトリーはすべてのドキュメントサイトで共有されます。`config.ts` への変更は、このテーマでビルドするすべてのコンテンツリポジトリに影響します。変更は慎重にテストしてください。
+:::

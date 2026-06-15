@@ -1,0 +1,114 @@
+---
+title: Variables d'environnement
+description: >-
+  Référence de toutes les variables d'environnement prises en charge par le
+  thème.
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 43298dddbd74
+  translator: machine
+---
+
+Le thème lit les variables d'environnement au moment de la compilation depuis `config.ts` et les composants personnalisés. Les dépôts de contenu les définissent dans leur workflow GitHub Actions pour personnaliser chaque site sans modifier la configuration.
+
+## Référence des variables
+
+| Variable | Valeur par défaut | Objectif |
+|----------|---------|---------|
+| `DOCS_TITLE` | `Documentation` | Titre du site affiché dans l'en-tête et l'onglet du navigateur |
+| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | URL de base canonique du site déployé |
+| `DOCS_BASE` | `/` | Chemin de base de l'URL (ex. : `/my-repo/` pour les sites de projet) |
+| `DOCS_DESCRIPTION` | _(chaîne vide)_ | Description du site pour les métadonnées et le plugin llms.txt |
+| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | URL de la page d'accueil liée depuis le titre du site |
+| `GITHUB_REPOSITORY` | _(chaîne vide)_ | Utilisé pour générer le lien social GitHub et les liens d'édition |
+| `LLMS_OPTIONAL_LINKS` | `[]` | Tableau JSON de liens supplémentaires pour le plugin llms.txt |
+
+## Où chaque variable est utilisée
+
+### DOCS_TITLE
+
+```ts
+// config.ts
+const title = options.title || process.env.DOCS_TITLE || 'Documentation';
+```
+
+Transmis à l'option Starlight `title` et au plugin `starlight-llms-txt`. Apparaît dans l'en-tête du site et la balise HTML `<title>`.
+
+### DOCS_SITE
+
+```ts
+// config.ts
+const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+```
+
+Définit la propriété `site` de niveau supérieur d'Astro. Utilisé pour les URL canoniques, la génération du sitemap et les métadonnées Open Graph.
+
+### DOCS_BASE
+
+```ts
+// config.ts
+const base = options.base || process.env.DOCS_BASE || '/';
+```
+
+Définit la propriété `base` de niveau supérieur d'Astro. Requis lors du déploiement dans un sous-répertoire (ex. : `https://example.github.io/my-repo/`).
+
+### DOCS_DESCRIPTION
+
+```ts
+// config.ts
+const description = options.description || process.env.DOCS_DESCRIPTION || '';
+```
+
+Transmis au plugin `starlight-llms-txt` comme description du site. Utilisé dans le fichier `llms.txt` généré.
+
+### DOCS_HOME
+
+```ts
+// components/SiteTitle.astro
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+```
+
+Lu par le composant personnalisé `SiteTitle.astro`. Entoure le titre du site dans l'en-tête d'un lien vers cette URL, permettant aux utilisateurs de revenir à une page d'accueil centrale de la documentation. Utile lorsque plusieurs dépôts de contenu partagent le même thème et que vous souhaitez un lien « accueil » cohérent sur tous les sites.
+
+### GITHUB_REPOSITORY
+
+```ts
+// config.ts
+const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
+```
+
+Utilisé pour générer l'icône sociale GitHub dans l'en-tête du site et l'URL de base des liens d'édition. GitHub Actions définit cette variable automatiquement (ex. : `owner/repo`).
+
+### LLMS_OPTIONAL_LINKS
+
+```ts
+// config.ts
+const llmsOptionalLinks = options.llmsOptionalLinks
+  || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+```
+
+Un tableau encodé en JSON d'objets `{ title, url }` transmis au plugin `starlight-llms-txt`. Ces éléments apparaissent comme liens supplémentaires dans le fichier `llms.txt` généré.
+
+Exemple de valeur :
+
+```json
+[{"title": "API Reference", "url": "https://api.example.com/docs"}]
+```
+
+## Définir les variables dans GitHub Actions
+
+Les dépôts de contenu transmettent ces variables via leur workflow :
+
+```yaml
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    with:
+      docs_title: "My Project Docs"
+      docs_site: "https://example.github.io"
+      docs_base: "/my-project/"
+      docs_home: "https://example.github.io/home/"
+```
+
+La variable `GITHUB_REPOSITORY` est fournie automatiquement par l'exécuteur GitHub Actions et n'a pas besoin d'être définie manuellement.

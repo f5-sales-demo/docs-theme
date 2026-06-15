@@ -1,0 +1,228 @@
+---
+title: कोड ब्लॉक
+description: >-
+  Expressive Code स्टाइलिंग के लिए सिंटैक्स हाइलाइटिंग, टर्मिनल मोड, लाइन
+  हाइलाइट्स, diff ब्लॉक, और CSS संदर्भ।
+sidebar:
+  order: 8
+i18n:
+  sourceHash: b458d0378db1
+  translator: machine
+---
+
+सभी कोड ब्लॉक `styles/custom.css` में परिभाषित कस्टम स्टाइलिंग के साथ [Expressive Code](https://expressive-code.com/) का उपयोग करते हैं।
+
+## भाषा उदाहरण
+
+### JavaScript
+
+```js
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log(fibonacci(10)); // 55
+```
+
+### Python
+
+```python
+def fibonacci(n: int) -> int:
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print(fibonacci(10))  # 55
+```
+
+### Bash
+
+```bash
+#!/bin/bash
+for i in $(seq 1 5); do
+  echo "Iteration $i"
+done
+```
+
+### YAML
+
+```yaml
+site:
+  title: Documentation
+  base: /
+  integrations:
+    - starlight
+    - react
+```
+
+### JSON
+
+```json
+{
+  "name": "@f5xc-salesdemos/docs-theme",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js"
+}
+```
+
+### HTML
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Page</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+  </body>
+</html>
+```
+
+### CSS
+
+```css
+:root {
+  --sl-color-accent: #f06680;
+  --sl-font: "proximaNova", system-ui;
+}
+
+h1 {
+  font-family: var(--sl-font-heading);
+  font-weight: 700;
+}
+```
+
+### TypeScript
+
+```ts
+interface Config {
+  title: string;
+  base: string;
+  plugins: string[];
+}
+
+const config: Config = {
+  title: "Documentation",
+  base: "/",
+  plugins: ["starlight", "react"],
+};
+```
+
+## टर्मिनल मोड
+
+टर्मिनल-स्टाइल कोड ब्लॉक (` ```bash ` या ` ```sh ` से फेंस किए गए) को macOS ट्रैफ़िक लाइट डॉट्स के साथ iTerm-प्रेरित विंडो फ्रेम प्राप्त होता है।
+
+```bash title="Terminal"
+npm install @f5xc-salesdemos/docs-theme
+npx astro build
+npx astro preview
+```
+
+### टर्मिनल CSS संदर्भ
+
+```css
+/* Frame border */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Dark header with traffic light SVG dots */
+.expressive-code .frame.is-terminal .header {
+  background: #323232 !important;
+  color: #ccc !important;
+}
+
+/* Dark mode terminal body — Tokyo Night-inspired */
+:root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
+  background: #1a1b26 !important;
+}
+
+/* Light mode border override */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## फ़ाइल नाम शीर्षक
+
+```ts title="src/config.ts"
+export default {
+  site: "https://example.com",
+  title: "My Docs",
+};
+```
+
+## लाइन हाइलाइटिंग
+
+```js {1,3-5}
+const name = "highlighted"; // line 1 highlighted
+const other = "normal";
+const a = 1; // lines 3-5 highlighted
+const b = 2;
+const c = 3;
+const d = "normal again";
+```
+
+## सम्मिलित और हटाई गई लाइनें
+
+```js ins={2} del={3}
+const config = {
+  theme: "dark", // inserted
+  theme: "light", // deleted
+  lang: "en",
+};
+```
+
+## Diff ब्लॉक
+
+```diff
+- const oldValue = "deprecated";
++ const newValue = "replacement";
+  const unchanged = "stays";
+- removeThis();
++ addThis();
+```
+
+## CSS संदर्भ
+
+### फ्रेम स्टाइलिंग
+
+सभी कोड ब्लॉक को गोल कोने और एक स्तरित शैडो मिलती है:
+
+```css
+.expressive-code .frame {
+  --header-border-radius: 0.75rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+### थीम-जागरूक बॉर्डर
+
+```css
+/* Dark mode (default) */
+.expressive-code .frame.is-terminal {
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Light mode */
+:root[data-theme="light"] .expressive-code .frame.is-terminal {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+```
+
+## थीम जाँच
+
+- कोड ब्लॉक की पृष्ठभूमि का रंग थीम के अनुसार अनुकूलित होता है
+- टर्मिनल हेडर की पृष्ठभूमि macOS ट्रैफ़िक लाइट डॉट्स के साथ `#323232` है
+- टर्मिनल बॉर्डर डार्क मोड में `rgba(255, 255, 255, 0.15)` और लाइट मोड में `rgba(0, 0, 0, 0.2)` का उपयोग करती है
+- डार्क मोड टर्मिनल बॉडी `#1a1b26` का उपयोग करती है
+- सिंटैक्स रंग दोनों थीम में पठनीय रहते हैं
+- लाइन हाइलाइट्स में दृश्यमान पृष्ठभूमि टिंट होती है
+- सम्मिलित लाइनें हरी टिंट दिखाती हैं, हटाई गई लाइनें लाल टिंट दिखाती हैं
+- कोड ब्लॉक में 0.75rem बॉर्डर रेडियस और बॉक्स शैडो है

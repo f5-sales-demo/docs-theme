@@ -1,0 +1,78 @@
+---
+title: Logo
+description: Cómo se configura el logo y cómo reemplazarlo.
+sidebar:
+  order: 5
+i18n:
+  sourceHash: 2902004c3464
+  translator: machine
+---
+
+El tema muestra un logo en el encabezado del sitio de cada documentación.
+
+## Recursos de logo disponibles
+
+El tema incluye dos archivos de logo en el directorio `assets/`:
+
+| Archivo | Formato | Descripción |
+|---------|---------|-------------|
+| `assets/f5-logo.svg` | SVG | Logo de F5 en Cloud Red (`#e4002b`) |
+| `assets/github-avatar.png` | PNG | Avatar de la organización de GitHub (predeterminado) |
+
+## Logo predeterminado
+
+El logo predeterminado se establece en la fábrica `createF5xcDocsConfig` en `config.ts`:
+
+```ts
+const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+```
+
+Si no se proporciona ninguna opción `logo`, se utiliza el PNG del avatar de GitHub. La ruta es un especificador de paquete npm resuelto a través del mapa `exports` en `package.json`.
+
+## Reemplazar el logo
+
+### Opción 1: Usar el logo SVG de F5
+
+Pase la opción `logo` a `createF5xcDocsConfig`:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+});
+```
+
+### Opción 2: Usar un logo personalizado
+
+Coloque su archivo de logo en el repositorio de contenido y referencíelo:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: { src: './src/assets/my-logo.svg' },
+});
+```
+
+### Opción 3: Logos separados para modo claro y oscuro
+
+Starlight admite logos separados para el modo claro y oscuro:
+
+```ts
+import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+
+export default createF5xcDocsConfig({
+  logo: {
+    light: './src/assets/logo-light.svg',
+    dark: './src/assets/logo-dark.svg',
+  },
+});
+```
+
+## Directrices
+
+- **Use formato SVG** — las imágenes rasterizadas (PNG, JPG) funcionarán, pero no escalarán correctamente en todos los tamaños
+- **Incluya un `viewBox`** — garantiza que el logo escale proporcionalmente (p. ej., `viewBox="0 0 100 100"`)
+- **Mantenga el tamaño del archivo pequeño** — el logo se carga en cada página; procure que sea inferior a 10 KB
+- **Pruebe en ambos temas** — verifique que el logo se vea correctamente tanto en el modo claro como en el oscuro

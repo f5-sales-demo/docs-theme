@@ -1,0 +1,320 @@
+---
+title: Tipografía
+description: >-
+  Familias tipográficas, jerarquía de tipos, uso de pesos, especificaciones de
+  interlineado, convenciones de uso de mayúsculas, ejemplos en vivo y mapeo del
+  tema Starlight.
+sidebar:
+  order: 7
+i18n:
+  sourceHash: ba962925d620
+  translator: machine
+---
+
+El sistema tipográfico combina dos familias de fuentes inspiradas en el diseño suizo, estableciendo una jerarquía clara entre titulares expresivos y texto de cuerpo funcional.
+
+## Filosofía de diseño
+
+La tipografía utiliza proporción, ritmo y tempo — logrados a través del estilo tipográfico, escala, peso, color, interlineado, espacio horizontal y espacio vertical — para crear una jerarquía visual clara.
+
+- **Neusa Next Wide** está inspirada en tratamientos tipográficos de la exploración espacial temprana, añadiendo un carácter humano y expresivo a los titulares y subtítulos
+- **Proxima Nova** aporta apertura y estilo geométrico a los momentos de mayor trabajo, como el texto de cuerpo y el texto utilitario
+
+La jerarquía se establece mediante el descenso en el tamaño tipográfico **y** el contraste a través de tratamientos alternados de minúsculas/mayúsculas. Los cierres y CTAs utilizan la tipografía ancha en negrita para destacarse desde una posición jerárquica inferior.
+
+## Familias tipográficas
+
+### Neusa Next Wide
+
+**Rol**: Titulares, subtítulos, citas destacadas, CTAs, etiquetas, estadísticas numéricas
+
+El espécimen del Brand Center muestra cinco estilos:
+
+| Estilo | Valor de peso | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Light | 300 | `300` | `normal` |
+| Regular | 400 | `400` | `normal` |
+| Italic | 400 | `400` | `italic` |
+| Medium | 500 | `500` | `normal` |
+| Bold | 700 | `700` | `normal` |
+
+### Proxima Nova
+
+**Rol**: Texto de cuerpo, texto utilitario, encabezados de sección, elementos de interfaz de usuario
+
+El espécimen del Brand Center muestra cuatro estilos:
+
+| Estilo | Valor de peso | CSS `font-weight` | CSS `font-style` |
+|-------|-------------|-------------------|-------------------|
+| Regular | 400 | `400` | `normal` |
+| Regular Italic | 400 | `400` | `italic` |
+| Bold | 700 | `700` | `normal` |
+| Bold Italic | 700 | `700` | `italic` |
+
+Proxima Nova tiene licencia independiente y **no** está incluida en la descarga de fuentes del Brand Center. El tema incluye los pesos 400, 500, 600 y 700 en estilo normal.
+
+## Jerarquía tipográfica
+
+### Principios fundamentales
+
+- Establecer la jerarquía mediante el **descenso en el tamaño tipográfico** combinado con tratamientos de **mayúsculas/minúsculas alternados**
+- Usar **Neusa Wide Bold, mayúscula inicial** para titulares y subtítulos de campaña
+- Configurar el interlineado de los titulares a **1,1× el tamaño tipográfico**
+- Usar **Proxima Nova Bold, MAYÚSCULAS** con espaciado entre letras para los encabezados de sección, a fin de contrastar con los titulares en mayúscula inicial
+- Los cierres y CTAs usan **Neusa Wide Bold** con un acento circunflejo orientado a la derecha (**›**) en Cloud Red para indicar acción en experiencias digitales
+
+### Tabla de jerarquía
+
+| Elemento | Fuente | Peso | Mayúsculas | Notas |
+|---------|------|--------|------|-------|
+| Titular | Neusa Wide | Bold (700) | Mayúscula inicial | Interlineado = 1,1× tamaño tipográfico |
+| Eyebrow | Proxima Nova | Bold (700) | MAYÚSCULAS | Pequeño, con espaciado entre letras |
+| Subtítulo / Introducción | Neusa Wide | Medium (500) | Mayúscula inicial | O Proxima Nova si va seguido inmediatamente de texto de cuerpo |
+| Encabezado de sección | Proxima Nova | Bold (700) | MAYÚSCULAS | Con espaciado entre letras |
+| Sub-subtítulo | Proxima Nova | Bold (700) | Mayúscula inicial | |
+| Texto de cuerpo | Proxima Nova | Regular (400) | Mayúscula inicial | |
+| Puntos de lista | Proxima Nova | Regular (400) | Mayúscula inicial | |
+| Cita destacada | Neusa Wide | Bold (700) | Mayúscula inicial | Color Cloud Red; comillas rojas grandes con atribución debajo |
+| Cierre / CTA | Neusa Wide | Bold (700) | Mayúscula inicial | Con acento circunflejo orientado a la derecha (›) en Cloud Red |
+
+### Tratamientos especializados
+
+| Contexto | Fuente | Peso | Tamaño/Interlineado | Notas |
+|---------|------|--------|-------------|-------|
+| Citas destacadas en colaterales | Neusa Wide | Bold (700) | 9pt / 14pt | Mayúscula inicial |
+| Citas destacadas en eBook | Neusa Wide | Regular (400) | 16pt / 19pt | Con filete superior |
+| Numerales/datos de infografía | Neusa Wide | Light (300) | — | Para impacto visual en tamaños grandes |
+| Numerales de gráficos/barras | Neusa Wide | Regular (400) | — | Etiquetado estándar de gráficos |
+
+### Uso de mayúscula inicial en títulos
+
+El uso de mayúscula inicial en títulos puede aplicarse a:
+- Subtítulos
+- Citas destacadas
+- Estadísticas numéricas
+- Etiquetas
+
+Todos los demás elementos usan de forma predeterminada mayúscula inicial de oración.
+
+## Ejemplos en vivo
+
+### Encabezados
+
+## Encabezado nivel 2
+
+### Encabezado nivel 3
+
+#### Encabezado nivel 4
+
+##### Encabezado nivel 5
+
+###### Encabezado nivel 6
+
+### Estilos de texto
+
+Este es **texto en negrita** para énfasis.
+
+Este es *texto en cursiva* para énfasis sutil.
+
+Este es ~~texto tachado~~ para contenido obsoleto.
+
+Este es `código en línea` para referencias técnicas.
+
+Este es ***texto en negrita y cursiva*** para énfasis fuerte.
+
+Esta es una combinación: **negrita con `código en línea` dentro** y *cursiva con `código` dentro*.
+
+### Lista ordenada
+
+1. Primer elemento de la lista ordenada
+2. Segundo elemento con **texto en negrita**
+3. Tercer elemento con `código en línea`
+4. Cuarto elemento con un [enlace a Astro](https://astro.build)
+
+### Lista no ordenada
+
+- Primer punto de lista
+- Segundo punto con **énfasis**
+- Tercer punto con `referencia de código`
+- Cuarto punto con un [enlace](https://starlight.astro.build)
+
+### Listas anidadas
+
+1. Elemento ordenado de nivel superior
+   - Elemento no ordenado anidado A
+   - Elemento no ordenado anidado B
+     1. Elemento ordenado profundamente anidado
+     2. Otro elemento profundamente anidado
+   - De vuelta al primer nivel de anidación
+2. Segundo elemento de nivel superior
+   - Otro elemento anidado
+
+### Citas en bloque
+
+> Esta es una cita en bloque de una sola línea.
+
+> Esta es una cita en bloque de varias líneas.
+>
+> Abarca varios párrafos y puede contener formato **en negrita**, *en cursiva* y `de código`.
+
+> Citas en bloque anidadas:
+>
+> > Esta es una cita en bloque anidada dentro de la exterior.
+> >
+> > Puede contener su propio formato.
+
+### Línea horizontal
+
+Contenido sobre la línea.
+
+---
+
+Contenido bajo la línea.
+
+### Enlaces
+
+- Enlace interno: [Volver al resumen de la documentación](/)
+- Enlace externo: [Documentación de Starlight](https://starlight.astro.build)
+- Enlace con título: [Astro](https://astro.build "Página de inicio del framework Astro")
+
+### Notas al pie
+
+Aquí hay una oración con una referencia a nota al pie[^1].
+
+Y otra oración con una nota al pie diferente[^2].
+
+[^1]: Este es el contenido de la primera nota al pie. Aparece al final de la página.
+
+[^2]: Esta es la segunda nota al pie. Puede contener **formato** y `código`.
+
+## Archivos de fuentes
+
+El tema incluye **10 archivos woff2** en el directorio `fonts/`:
+
+### Neusa Next Pro Wide
+
+| Archivo | Peso | Estilo | Tamaño |
+|------|--------|-------|------|
+| `neusaNextProWide-300.woff2` | 300 (Light) | Normal | ~49 KB |
+| `neusaNextProWide-400.woff2` | 400 (Regular) | Normal | ~49 KB |
+| `neusaNextProWide-400i.woff2` | 400 (Regular) | Italic | ~49 KB |
+| `neusaNextProWide-500.woff2` | 500 (Medium) | Normal | ~49 KB |
+| `neusaNextProWide-700.woff2` | 700 (Bold) | Normal | ~49 KB |
+| `neusaNextProWide-700i.woff2` | 700 (Bold) | Italic | ~49 KB |
+
+### Proxima Nova
+
+| Archivo | Peso | Estilo | Tamaño |
+|------|--------|-------|------|
+| `proximaNova-400.woff2` | 400 (Regular) | Normal | ~18 KB |
+| `proximaNova-500.woff2` | 500 (Medium) | Normal | ~18 KB |
+| `proximaNova-600.woff2` | 600 (Semi-Bold) | Normal | ~18 KB |
+| `proximaNova-700.woff2` | 700 (Bold) | Normal | ~18 KB |
+
+### Convención de nomenclatura
+
+Los archivos de fuentes siguen el patrón `nombreFamilia-peso.woff2`, con un sufijo `i` para las variantes en cursiva (p. ej., `neusaNextProWide-400i.woff2`).
+
+### Brechas de cobertura
+
+Las siguientes variantes en cursiva aún no están disponibles en el tema:
+
+| Variante faltante | Motivo |
+|----------------|--------|
+| Proxima Nova 400 italic | Archivo fuente no disponible en las descargas actuales |
+| Proxima Nova 500 italic | Archivo fuente no disponible en las descargas actuales |
+| Proxima Nova 600 italic (Semi-Bold) | Archivo fuente no disponible |
+| Proxima Nova 700 italic (Bold) | Archivo fuente no disponible |
+
+Para añadir variantes en cursiva de Proxima Nova, obtenga archivos woff2 originales de una fuente con licencia, nómbrelos siguiendo la convención (p. ej., `proximaNova-400i.woff2`) y añada las reglas `@font-face` correspondientes a `font-face.css`.
+
+## Declaraciones @font-face
+
+Todos los registros de fuentes se encuentran en `fonts/font-face.css`. Cada declaración utiliza:
+
+- **`font-display: swap`** — el texto se renderiza inmediatamente con una fuente de reserva y luego se intercambia cuando se carga la fuente personalizada
+- **`format("woff2")`** — formato moderno comprimido compatible con todos los navegadores actuales
+- **URLs relativas** — las rutas `./` se resuelven en relación con la ubicación del archivo CSS
+
+Para añadir una nueva variante de fuente, añada un bloque `@font-face` a `font-face.css`:
+
+```css
+@font-face {
+  font-family: "familyName";
+  font-weight: 400;
+  font-style: italic;  /* or normal */
+  font-display: swap;
+  src: url("./familyName-400i.woff2") format("woff2");
+}
+```
+
+## Integración CSS
+
+El complemento del tema (`index.ts`) inyecta ambos archivos CSS a través del hook `config:setup`:
+
+```
+index.ts → fonts/font-face.css → styles/custom.css → Starlight renders
+```
+
+### Asignaciones de fuentes
+
+En `styles/custom.css`:
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+```
+
+- **`--sl-font`** (variable de fuente de cuerpo de Starlight) → Proxima Nova para texto de cuerpo e interfaz de usuario
+- **`--sl-font-heading`** (token personalizado) → Neusa Next Pro Wide como referencia de fuente para encabezados
+- **`h1`–`h6`** → Familia tipográfica, peso y mayúsculas aplicados según la jerarquía tipográfica Cloud
+- **Pila de reserva**: `system-ui, "Segoe UI", Helvetica, Arial, sans-serif` para una renderización inicial rápida antes de que se carguen las fuentes personalizadas
+
+### Tokens de tipografía de Starlight
+
+El tema sobreescribe estas propiedades CSS personalizadas de Starlight:
+
+| Token | Valor | Propósito |
+|-------|-------|---------|
+| `--sl-font` | `"proximaNova", ...` | Texto de cuerpo, elementos de interfaz de usuario |
+| `--sl-font-heading` | `"neusaNextProWide", ...` | Token personalizado para la fuente de encabezados |
+| `--sl-line-height-headings` | `1.1` | Interlineado de titulares de la marca Cloud |
+| `--sl-text-h1` | `var(--sl-text-5xl)` | Titular de 2,625rem |
+| `--sl-text-h2` | `var(--sl-text-3xl)` | Subtítulo de 1,8125rem |
+| `--sl-text-h3` | `var(--sl-text-2xl)` | Introducción de sección de 1,5rem |
+| `--sl-text-h4` | `var(--sl-text-lg)` | Sub-sección de 1,125rem |
+
+### Mapeo de jerarquía de encabezados
+
+| HTML | Familia tipográfica | Peso | Mayúsculas | Rol en la marca |
+|------|------------|--------|------|------------|
+| `h1` | Neusa Next Wide | 700 (Bold) | Mayúscula inicial | Titular |
+| `h2` | Neusa Next Wide | 700 (Bold) | Mayúscula inicial | Subtítulo |
+| `h3` | Neusa Next Wide | 500 (Medium) | Mayúscula inicial | Introducción / Sub-subtítulo |
+| `h4` | Proxima Nova | 700 (Bold) | MAYÚSCULAS | Encabezado de sección |
+| `h5` | Proxima Nova | 700 (Bold) | MAYÚSCULAS | Encabezado de sub-sección |
+| `h6` | Proxima Nova | 700 (Bold) | MAYÚSCULAS | Encabezado de sección menor |
+
+## Reemplazar fuentes
+
+Para utilizar familias tipográficas diferentes:
+
+1. **Añada archivos woff2** a `fonts/` siguiendo la convención de nomenclatura `nombreFamilia-peso.woff2` (añada el sufijo `i` para cursiva)
+2. **Actualice `fonts/font-face.css`** con nuevas reglas `@font-face` que coincidan con los nombres de archivo, pesos y estilos
+3. **Actualice `styles/custom.css`** para establecer `--sl-font` y la `font-family` de los encabezados con los nuevos nombres de familia
+4. **Conserve la pila de reserva** (`system-ui, "Segoe UI", Helvetica, Arial, sans-serif`) para una renderización inicial rápida
+
+## Verificaciones del tema
+
+- H2 y H3 usan la familia tipográfica `neusaNextProWide` con peso 700/500
+- H4, H5, H6 usan la fuente `proximaNova`, en mayúsculas, con espaciado entre letras de 0,05em
+- El color de acento de los enlaces es `#f06680` en modo oscuro y `#e4002b` en modo claro
+- El código en línea tiene un fondo tintado de `--sl-color-gray-5`
+- El borde izquierdo de la cita en bloque es visible en ambos temas
+- Las referencias a notas al pie están en superíndice y enlazadas
+- La línea horizontal tiene el contraste adecuado

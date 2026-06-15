@@ -1,0 +1,491 @@
+---
+title: F5 Distributed Cloud
+description: >-
+  Diagramas de casos de uso de F5 Distributed Cloud para WAAP, defensa bot,
+  redes multinube, DDoS, DNS, seguridad de API y observabilidad usando iconos
+  f5-brand.
+sidebar:
+  order: 22
+i18n:
+  sourceHash: ff7d8967011c
+  translator: machine
+---
+
+Diagramas de casos de uso de F5 Distributed Cloud que demuestran arquitecturas de seguridad, redes y distribución de aplicaciones usando el paquete de iconos `f5-brand`.
+
+## Protección de aplicaciones web y API
+
+### Pipeline de inspección WAAP de múltiples capas
+
+Pipeline de inspección WAAP de múltiples capas con firewall, protección de código de aplicación y defensa bot antes de llegar a la aplicación.
+
+```mermaid
+flowchart LR
+  user@{ icon: 'lucide:globe', label: 'Users' }
+  fw@{ icon: 'f5-brand:security-firewall-shield', label: 'Firewall Shield' }
+  appcode@{ icon: 'f5-brand:security-shield-app-code', label: 'App Code Protection' }
+  botdef@{ icon: 'f5-brand:security-bot-defence', label: 'Bot Defence' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> fw
+  fw --> appcode
+  appcode --> botdef
+  botdef --> app
+```
+
+### Arquitectura de seguridad en el borde
+
+Arquitectura de seguridad en el borde con WAF, verificación de escudo y grupos de protección de aplicaciones a través de orígenes en la nube.
+
+```mermaid
+architecture-beta
+  group edge(f5-brand:security-firewall-shield)[Security Edge]
+  group origins(carbon:cloud-services)[Cloud Origins]
+
+  service waf(f5-brand:security-firewall)[WAF] in edge
+  service shield(f5-brand:security-shield-checkmark)[Shield Verify] in edge
+  service appshield(f5-brand:security-shield-app-code)[App Shield] in edge
+  service aws(hashicorp-flight:aws-color)[AWS Origin] in origins
+  service azure(hashicorp-flight:azure-color)[Azure Origin] in origins
+
+  waf:R --> L:shield
+  shield:R --> L:appshield
+  appshield:R --> L:aws
+  appshield:B --> T:azure
+```
+
+### Protección de API con limitación de velocidad
+
+Pipeline de validación de solicitudes de API con firewall, limitación de velocidad y validación de esquema antes de llegar a los endpoints de API.
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'API Client' }
+  fw@{ icon: 'f5-brand:security-firewall-shield', label: 'Firewall' }
+  rate@{ icon: 'f5-brand:network-api-gateway', label: 'API Gateway' }
+  schema@{ icon: 'f5-brand:security-shield-checkmark', label: 'Schema Validation' }
+  api@{ icon: 'carbon:api', label: 'API Service' }
+  db@{ icon: 'carbon:data-base', label: 'Database' }
+
+  client --> fw
+  fw --> rate
+  rate --> schema
+  schema --> api
+  api --> db
+```
+
+## Defensa Bot
+
+### Pipeline de detección de bots
+
+Detección de bots en múltiples etapas con desafío JavaScript, toma de huellas digitales del dispositivo, análisis de comportamiento y motor de decisiones.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Request' }
+  js@{ icon: 'f5-brand:security-bot', label: 'JS Challenge' }
+  fp@{ icon: 'f5-brand:security-fingerprint', label: 'Fingerprinting' }
+  behavior@{ icon: 'f5-brand:security-pattern-matching', label: 'Behavior Analysis' }
+  decision@{ icon: 'f5-brand:security-bot-defence', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'f5-brand:security-firewall-bot', label: 'Block' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+### Capas de defensa bot
+
+Arquitectura de defensa bot en capas con inteligencia de credenciales, detección de bots y análisis de postura del dispositivo.
+
+```mermaid
+architecture-beta
+  group defense(f5-brand:security-bot-defence)[Bot Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service botfw(f5-brand:security-firewall-bot)[Bot Firewall] in defense
+  service botdef(f5-brand:security-bot-defence)[Bot Defence] in defense
+  service intel(f5-brand:security-password-bot)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  botfw:R --> L:botdef
+  botdef:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```
+
+### Defensa del lado del cliente
+
+Pipeline de defensa del lado del cliente con verificación de postura del dispositivo, detección de bots en portátiles y protección contra Magecart.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'f5-brand:security-laptop-bot', label: 'Compromised Client' }
+  posture@{ icon: 'f5-brand:device-laptop-lock-arrows', label: 'Device Posture' }
+  botcheck@{ icon: 'f5-brand:security-bot-defence', label: 'Bot Check' }
+  shield@{ icon: 'f5-brand:security-shield-checkmark', label: 'Verified Clean' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> posture
+  attacker --> posture
+  posture --> botcheck
+  botcheck --> shield
+  shield --> app
+```
+
+## Redes multinube
+
+### Conexión de aplicaciones multinube
+
+Conectividad de aplicaciones multinube a través de AWS, Azure y GCP con una capa de distribución de aplicaciones centralizada.
+
+```mermaid
+architecture-beta
+  group xc(f5-brand:cloud-multi)[F5 Multi-Cloud]
+  group aws(hashicorp-flight:aws-color)[AWS]
+  group azure(hashicorp-flight:azure-color)[Azure]
+  group gcp(hashicorp-flight:gcp-color)[GCP]
+
+  service fabric(f5-brand:app-delivery-fabric)[App Delivery Fabric] in xc
+  service connect(f5-brand:cloud-multi-app-container)[App Connect] in xc
+  service eks(hashicorp-flight:kubernetes-color)[EKS] in aws
+  service rds(carbon:data-base)[RDS] in aws
+  service aks(hashicorp-flight:azure-aks-color)[AKS] in azure
+  service gke(hashicorp-flight:kubernetes-color)[GKE] in gcp
+
+  fabric:R --> L:connect
+  connect:B --> T:eks
+  eks:R --> L:rds
+  connect:B --> T:aks
+  connect:B --> T:gke
+```
+
+### Conexión de red con malla de sitios
+
+Conexión de red multinube con topología de malla de sitios y puerta de enlace de tránsito que vincula regiones en la nube.
+
+```mermaid
+architecture-beta
+  group net(f5-brand:cloud-network-connect)[Network Connect]
+  group region1(hashicorp-flight:aws-color)[AWS Region]
+  group region2(hashicorp-flight:azure-color)[Azure Region]
+
+  service mesh(f5-brand:cloud-multi-network)[Site Mesh] in net
+  service gw(f5-brand:network-gateway)[Transit Gateway] in net
+  service web1(carbon:virtual-machine)[Web Tier] in region1
+  service db1(carbon:data-base)[Database] in region1
+  service web2(carbon:virtual-machine)[Web Tier] in region2
+  service db2(carbon:data-base)[Database] in region2
+
+  mesh:R --> L:gw
+  gw:B --> T:web1
+  web1:R --> L:db1
+  gw:B --> T:web2
+  web2:R --> L:db2
+```
+
+### Distribución de aplicaciones multinube
+
+Distribución de aplicaciones multinube de extremo a extremo con balanceo de carga global, seguridad y cargas de trabajo distribuidas.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:globe', label: 'Global Users' }
+  glb@{ icon: 'f5-brand:network-globe-load-balance', label: 'Global LB' }
+  shield@{ icon: 'f5-brand:security-firewall-shield', label: 'Security' }
+  fabric@{ icon: 'f5-brand:app-delivery-fabric', label: 'App Fabric' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Workloads' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Workloads' }
+  gcp@{ icon: 'hashicorp-flight:gcp-color', label: 'GCP Workloads' }
+
+  user --> glb
+  glb --> shield
+  shield --> fabric
+  fabric --> aws
+  fabric --> azure
+  fabric --> gcp
+```
+
+## DDoS y servicios en el borde
+
+### Arquitectura de limpieza DDoS
+
+Centro de limpieza DDoS con protección en la capa de red, limpieza de sitios y distribución de tráfico limpio al origen.
+
+```mermaid
+architecture-beta
+  group scrub(f5-brand:network-ddos-protection)[Scrubbing Center]
+  group origin(carbon:cloud-services)[Origin DC]
+
+  service ddos(f5-brand:network-ddos-protection)[DDoS Protection] in scrub
+  service sitescrub(f5-brand:security-site-scrubbing)[Site Scrubbing] in scrub
+  service clean(f5-brand:network-globe-load-balance)[Clean Pipe] in scrub
+  service lb(carbon:load-balancer-application)[Load Balancer] in origin
+  service app(carbon:application)[Application] in origin
+  service db(carbon:data-base)[Database] in origin
+
+  ddos:R --> L:sitescrub
+  sitescrub:R --> L:clean
+  clean:R --> L:lb
+  lb:R --> L:app
+  app:B --> T:db
+```
+
+### Mitigación de ataques volumétricos
+
+Flujo de tráfico de ataque que muestra la absorción y mitigación de DDoS volumétrico en el borde antes de llegar al origen.
+
+```mermaid
+flowchart LR
+  attacker@{ icon: 'lucide:bug', label: 'Attack Traffic' }
+  legit@{ icon: 'lucide:user', label: 'Legitimate Users' }
+  edge@{ icon: 'f5-brand:network-ddos-protection', label: 'DDoS Edge' }
+  scrub@{ icon: 'f5-brand:security-site-scrubbing', label: 'Scrubbing' }
+  drop@{ icon: 'f5-brand:security-firewall', label: 'Drop Malicious' }
+  origin@{ icon: 'carbon:application', label: 'Origin' }
+
+  attacker --> edge
+  legit --> edge
+  edge --> scrub
+  scrub --> drop
+  scrub --> origin
+```
+
+### Protección en capas: CDN + DDoS + WAF
+
+Protección en el borde en capas que combina caché CDN, mitigación DDoS e inspección WAF en un pipeline unificado.
+
+```mermaid
+architecture-beta
+  group edge(f5-brand:cloud-performance-arrow)[Edge Services]
+  group security(f5-brand:security-firewall-shield)[Security Layer]
+  group app(carbon:cloud-services)[Application]
+
+  service cdn(f5-brand:cloud-performance-arrow)[CDN] in edge
+  service ddos(f5-brand:network-ddos-protection)[DDoS Protection] in edge
+  service waf(f5-brand:security-firewall-shield)[WAF] in security
+  service shield(f5-brand:security-shield-checkmark)[Shield] in security
+  service web(carbon:application)[Web App] in app
+  service api(carbon:api)[API Service] in app
+
+  cdn:R --> L:ddos
+  ddos:R --> L:waf
+  waf:R --> L:shield
+  shield:R --> L:web
+  shield:B --> T:api
+```
+
+## DNS y gestión de tráfico
+
+### GSLB basado en DNS con monitoreo de salud
+
+Balanceo de carga global de servidores basado en DNS con monitoreo de salud a través de endpoints multinube.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:globe', label: 'End Users' }
+  dns@{ icon: 'f5-brand:network-dns-1', label: 'DNS Management' }
+  health@{ icon: 'f5-brand:other-site-metrics', label: 'Health Monitor' }
+  aws@{ icon: 'hashicorp-flight:aws-color', label: 'AWS Origin' }
+  azure@{ icon: 'hashicorp-flight:azure-color', label: 'Azure Origin' }
+  gcp@{ icon: 'hashicorp-flight:gcp-color', label: 'GCP Origin' }
+
+  user --> dns
+  dns --> health
+  health --> aws
+  health --> azure
+  health --> gcp
+  dns --> aws
+  dns --> azure
+  dns --> gcp
+```
+
+### Arquitectura de gestión DNS
+
+Infraestructura de gestión DNS con balanceo de carga DNS y protección DNS de escudo a través de regiones en la nube.
+
+```mermaid
+architecture-beta
+  group dnsinfra(f5-brand:network-dns-1)[DNS Infrastructure]
+  group region1(hashicorp-flight:aws-color)[US East]
+  group region2(hashicorp-flight:azure-color)[EU West]
+
+  service dns(f5-brand:network-dns-load-balance)[DNS Load Balance] in dnsinfra
+  service shielddns(f5-brand:security-shield-dns)[Shield DNS] in dnsinfra
+  service lb1(carbon:load-balancer-application)[Regional LB] in region1
+  service app1(carbon:virtual-machine)[App Servers] in region1
+  service lb2(carbon:load-balancer-application)[Regional LB] in region2
+  service app2(carbon:virtual-machine)[App Servers] in region2
+
+  dns:R --> L:shielddns
+  dns:B --> T:lb1
+  lb1:R --> L:app1
+  dns:B --> T:lb2
+  lb2:R --> L:app2
+```
+
+### Balanceo de carga DNS inteligente con conmutación por error
+
+Balanceo de carga DNS inteligente con integración de DNS en la nube, enrutamiento por rendimiento y conmutación por error automática.
+
+```mermaid
+flowchart LR
+  client@{ icon: 'lucide:globe', label: 'Client' }
+  dns@{ icon: 'f5-brand:network-dns-load-balance', label: 'DNS Load Balance' }
+  cloud@{ icon: 'f5-brand:cloud-dns-load-balance', label: 'Cloud DNS LB' }
+  primary@{ icon: 'carbon:virtual-machine', label: 'Primary' }
+  secondary@{ icon: 'carbon:virtual-machine', label: 'Secondary' }
+  health@{ icon: 'f5-brand:other-site-metrics', label: 'Health Check' }
+
+  client --> dns
+  dns --> cloud
+  cloud --> primary
+  cloud -->|Failover| secondary
+  dns --> health
+  health --> primary
+  health --> secondary
+```
+
+## Seguridad de API y descubrimiento
+
+### Pipeline de descubrimiento de APIs ocultas
+
+Pipeline de descubrimiento de APIs ocultas que detecta APIs desconocidas mediante análisis de tráfico y gestión de inventario.
+
+```mermaid
+flowchart LR
+  traffic@{ icon: 'lucide:globe', label: 'API Traffic' }
+  gw@{ icon: 'f5-brand:network-api-gateway', label: 'API Gateway' }
+  shadow@{ icon: 'f5-brand:network-shadow-api', label: 'Shadow API Discovery' }
+  inventory@{ icon: 'f5-brand:network-api-inventory', label: 'API Inventory' }
+  alert@{ icon: 'f5-brand:other-visibility-eye', label: 'Visibility' }
+
+  traffic --> gw
+  gw --> shadow
+  shadow --> inventory
+  inventory --> alert
+```
+
+### Arquitectura de gateway de API
+
+Gateway de API con autenticación, limitación de velocidad y validación de seguridad que protege los servicios de API del backend.
+
+```mermaid
+architecture-beta
+  group gateway(f5-brand:network-api-gateway)[API Gateway]
+  group backend(carbon:cloud-services)[Backend Services]
+
+  service apigw(f5-brand:network-api-gateway)[API Gateway] in gateway
+  service auth(f5-brand:security-key-lock)[Authentication] in gateway
+  service rate(f5-brand:network-api)[Rate Limiter] in gateway
+  service shield(f5-brand:security-shield-checkmark)[Schema Check] in gateway
+  service api1(carbon:api)[Users API] in backend
+  service api2(carbon:api)[Orders API] in backend
+
+  apigw:R --> L:auth
+  auth:R --> L:rate
+  rate:R --> L:shield
+  shield:R --> L:api1
+  shield:B --> T:api2
+```
+
+### Ciclo de vida de API: del descubrimiento a la protección
+
+Pipeline del ciclo de vida de API desde el descubrimiento de APIs ocultas, pasando por la catalogación del inventario, hasta la protección activa.
+
+```mermaid
+flowchart TD
+  apps@{ icon: 'carbon:application', label: 'Applications' }
+  discover@{ icon: 'f5-brand:network-shadow-api', label: 'Shadow API Discovery' }
+  inventory@{ icon: 'f5-brand:network-api-inventory', label: 'API Inventory' }
+  gateway@{ icon: 'f5-brand:network-api-gateway', label: 'API Gateway' }
+  shield@{ icon: 'f5-brand:security-shield-app-code', label: 'API Protection' }
+  monitor@{ icon: 'f5-brand:other-site-metrics', label: 'API Metrics' }
+
+  apps --> discover
+  discover --> inventory
+  inventory --> gateway
+  gateway --> shield
+  shield --> monitor
+```
+
+## Plataforma y Observabilidad
+
+### Aplicaciones distribuidas con NGINX One
+
+Plataforma de aplicaciones distribuidas con gestión de NGINX One, cargas de trabajo Kubernetes y control centralizado.
+
+```mermaid
+architecture-beta
+  group platform(f5-brand:service-f5)[F5 Platform]
+  group compute(carbon:cloud-services)[Compute]
+
+  service nginx(f5-brand:service-nginx)[NGINX One] in platform
+  service netng(f5-brand:network-nginx)[NGINX Network] in platform
+  service f5svc(f5-brand:service-f5)[F5 Service] in platform
+  service k8s(f5-brand:app-kubernetes)[Kubernetes] in compute
+  service dist(f5-brand:cloud-distributed)[Distributed App] in compute
+  service container(f5-brand:cloud-container-app)[Container App] in compute
+
+  nginx:R --> L:netng
+  netng:R --> L:f5svc
+  nginx:B --> T:k8s
+  netng:B --> T:dist
+  f5svc:B --> T:container
+```
+
+### Pipeline de Observabilidad
+
+Pipeline de observabilidad que recopila métricas de aplicaciones y produce información, alertas y paneles de control.
+
+```mermaid
+flowchart LR
+  app1@{ icon: 'carbon:application', label: 'Web App' }
+  app2@{ icon: 'carbon:api', label: 'API Service' }
+  metrics@{ icon: 'f5-brand:other-site-metrics', label: 'Metrics Collection' }
+  eye@{ icon: 'f5-brand:other-visibility-eye', label: 'Visibility' }
+  llmobs@{ icon: 'f5-brand:ai-llm-observability', label: 'LLM Observability' }
+  alert@{ icon: 'f5-brand:other-bell', label: 'Alerts' }
+
+  app1 --> metrics
+  app2 --> metrics
+  metrics --> eye
+  eye --> llmobs
+  llmobs --> alert
+```
+
+### Vista completa de la Plataforma
+
+Vista completa de la plataforma F5 que conecta seguridad, redes y distribución de aplicaciones bajo un servicio unificado.
+
+```mermaid
+architecture-beta
+  group f5(f5-brand:service-f5)[F5 Service Platform]
+  group security(f5-brand:security-firewall-shield)[Security]
+  group networking(f5-brand:cloud-network-connect)[Networking]
+
+  service svcf5(f5-brand:service-f5)[F5 Service] in f5
+  service bigip(f5-brand:service-big-ip-next)[BIG-IP Next] in f5
+  service obs(f5-brand:other-site-metrics)[Observability] in f5
+  service fw(f5-brand:security-firewall-shield)[WAF] in security
+  service botd(f5-brand:security-bot-defence)[Bot Defence] in security
+  service ddos(f5-brand:network-ddos-protection)[DDoS] in security
+  service multi(f5-brand:cloud-multi-network)[Multi-Cloud Net] in networking
+  service fabric(f5-brand:app-delivery-fabric)[App Fabric] in networking
+  service nginx(f5-brand:service-nginx)[NGINX One] in networking
+
+  svcf5:B --> T:fw
+  svcf5:B --> T:multi
+  bigip:B --> T:botd
+  bigip:B --> T:fabric
+  obs:B --> T:ddos
+  obs:B --> T:nginx
+```

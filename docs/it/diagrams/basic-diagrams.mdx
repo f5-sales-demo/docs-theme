@@ -1,0 +1,104 @@
+---
+title: Diagrammi di base
+description: >-
+  Tipi fondamentali di diagrammi Mermaid tra cui diagrammi di flusso, sequenza,
+  torta, classi, stati e Gantt.
+sidebar:
+  order: 3
+i18n:
+  sourceHash: 98e8e087ae2f
+  translator: machine
+---
+
+Tipi di diagrammi Mermaid fondamentali per la documentazione di uso generale. Funzionano senza pacchetti di icone personalizzati.
+
+## Diagramma di flusso
+
+```mermaid
+flowchart LR
+  A[User Request] --> B{WAF Check}
+  B -->|Pass| C[Origin Server]
+  B -->|Block| D[403 Forbidden]
+  C --> E[Response]
+```
+
+## Diagramma di sequenza
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant LB as Load Balancer
+  participant App as Application
+  participant DB as Database
+
+  Client->>LB: HTTPS Request
+  LB->>App: Forward Request
+  App->>DB: Query Data
+  DB-->>App: Return Results
+  App-->>LB: Response
+  LB-->>Client: HTTPS Response
+```
+
+## Grafico a torta
+
+```mermaid
+pie title Traffic Distribution
+  "North America" : 45
+  "Europe" : 30
+  "Asia Pacific" : 20
+  "Other" : 5
+```
+
+## Diagramma delle classi
+
+```mermaid
+classDiagram
+  class LoadBalancer {
+    +String name
+    +String domain
+    +addOriginPool()
+    +removeOriginPool()
+  }
+  class OriginPool {
+    +String name
+    +List~Origin~ origins
+    +healthCheck()
+  }
+  class Origin {
+    +String address
+    +int port
+    +boolean healthy
+  }
+  LoadBalancer --> OriginPool
+  OriginPool --> Origin
+```
+
+## Diagramma degli stati
+
+```mermaid
+stateDiagram-v2
+  [*] --> Pending
+  Pending --> Active : approve
+  Pending --> Rejected : reject
+  Active --> Suspended : suspend
+  Suspended --> Active : reactivate
+  Active --> [*] : delete
+  Rejected --> [*]
+```
+
+## Diagramma di Gantt
+
+```mermaid
+gantt
+  title Deployment Timeline
+  dateFormat YYYY-MM-DD
+  section Planning
+    Requirements     :a1, 2025-01-01, 14d
+    Design           :a2, after a1, 10d
+  section Development
+    Implementation   :b1, after a2, 21d
+    Testing          :b2, after b1, 14d
+  section Release
+    Staging Deploy   :c1, after b2, 3d
+    Production Deploy :c2, after c1, 2d
+```

@@ -1,0 +1,112 @@
+---
+title: Variáveis de Ambiente
+description: Referência de todas as variáveis de ambiente suportadas pelo tema.
+sidebar:
+  order: 2
+i18n:
+  sourceHash: 43298dddbd74
+  translator: machine
+---
+
+O tema lê as variáveis de ambiente em tempo de build a partir de `config.ts` e componentes personalizados. Os repositórios de conteúdo as definem em seus workflows do GitHub Actions para personalizar cada site sem modificar a configuração.
+
+## Referência de Variáveis
+
+| Variável | Padrão | Finalidade |
+|----------|---------|---------|
+| `DOCS_TITLE` | `Documentation` | Título do site exibido no cabeçalho e na aba do navegador |
+| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | URL base canônica para o site implantado |
+| `DOCS_BASE` | `/` | Caminho base da URL (ex.: `/my-repo/` para sites de projeto) |
+| `DOCS_DESCRIPTION` | _(string vazia)_ | Descrição do site para metadados e o plugin llms.txt |
+| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | URL da página inicial vinculada ao título do site |
+| `GITHUB_REPOSITORY` | _(string vazia)_ | Usado para construir o link social do GitHub e os links de edição |
+| `LLMS_OPTIONAL_LINKS` | `[]` | Array JSON de links adicionais para o plugin llms.txt |
+
+## Onde Cada Variável É Utilizada
+
+### DOCS_TITLE
+
+```ts
+// config.ts
+const title = options.title || process.env.DOCS_TITLE || 'Documentation';
+```
+
+Passada para a opção `title` do Starlight e para o plugin `starlight-llms-txt`. Aparece no cabeçalho do site e na tag HTML `<title>`.
+
+### DOCS_SITE
+
+```ts
+// config.ts
+const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+```
+
+Define a propriedade `site` de nível superior do Astro. Utilizada para URLs canônicas, geração de sitemap e metadados Open Graph.
+
+### DOCS_BASE
+
+```ts
+// config.ts
+const base = options.base || process.env.DOCS_BASE || '/';
+```
+
+Define a propriedade `base` de nível superior do Astro. Necessária ao implantar em um subdiretório (ex.: `https://example.github.io/my-repo/`).
+
+### DOCS_DESCRIPTION
+
+```ts
+// config.ts
+const description = options.description || process.env.DOCS_DESCRIPTION || '';
+```
+
+Passada para o plugin `starlight-llms-txt` como descrição do site. Utilizada no arquivo `llms.txt` gerado.
+
+### DOCS_HOME
+
+```ts
+// components/SiteTitle.astro
+const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+```
+
+Lida pelo componente personalizado `SiteTitle.astro`. Envolve o título do site no cabeçalho com um link para esta URL, permitindo que os usuários naveguem de volta para uma página inicial central de documentação. Útil quando múltiplos repositórios de conteúdo compartilham o mesmo tema e você deseja um link "home" consistente em todos os sites.
+
+### GITHUB_REPOSITORY
+
+```ts
+// config.ts
+const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
+```
+
+Usado para gerar o ícone social do GitHub no cabeçalho do site e a URL base do link de edição. O GitHub Actions define esta variável automaticamente (ex.: `owner/repo`).
+
+### LLMS_OPTIONAL_LINKS
+
+```ts
+// config.ts
+const llmsOptionalLinks = options.llmsOptionalLinks
+  || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
+```
+
+Um array codificado em JSON de objetos `{ title, url }` passados para o plugin `starlight-llms-txt`. Estes aparecem como links adicionais no arquivo `llms.txt` gerado.
+
+Exemplo de valor:
+
+```json
+[{"title": "API Reference", "url": "https://api.example.com/docs"}]
+```
+
+## Definindo Variáveis no GitHub Actions
+
+Os repositórios de conteúdo passam essas variáveis por meio de seu workflow:
+
+```yaml
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    with:
+      docs_title: "My Project Docs"
+      docs_site: "https://example.github.io"
+      docs_base: "/my-project/"
+      docs_home: "https://example.github.io/home/"
+```
+
+A variável `GITHUB_REPOSITORY` é fornecida automaticamente pelo runner do GitHub Actions e não precisa ser definida manualmente.

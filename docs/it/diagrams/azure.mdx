@@ -1,0 +1,254 @@
+---
+title: Azure
+description: >-
+  Diagrammi di architettura Azure con VNet, App Gateway, VM Scale Sets, AKS,
+  topologia Hub-Spoke e pattern di alta disponibilità NVA con integrazione F5
+  XC.
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 97fde0a598a5
+  translator: machine
+---
+
+Diagrammi dell'infrastruttura Azure che utilizzano i pacchetti di icone HashiCorp Flight e Carbon per la rete VNet, il calcolo e i servizi gestiti.
+
+## VNet con App Gateway
+
+Azure VNet con gateway, applicazione e subnet dati. L'Application Gateway distribuisce il traffico ai VM Scale Sets.
+
+```mermaid
+architecture-beta
+  group vnet(carbon:virtual-private-cloud)[Azure VNet]
+  group gwsub(carbon:ibm-cloud-subnets)[Gateway Subnet] in vnet
+  group appsub(carbon:ibm-cloud-subnets)[App Subnet] in vnet
+  group datasub(carbon:ibm-cloud-subnets)[Data Subnet] in vnet
+
+  service appgw(carbon:gateway-security)[App Gateway] in gwsub
+  service vm1(hashicorp-flight:azure-vms-color)[VM Scale Set] in appsub
+  service vm2(hashicorp-flight:azure-vms-color)[VM Scale Set] in appsub
+  service sqldb(carbon:data-base)[Azure SQL] in datasub
+
+  appgw:R --> L:vm1
+  appgw:B --> T:vm2
+  vm1:R --> L:sqldb
+  vm2:R --> L:sqldb
+```
+
+## AKS con F5 XC Multi-Cloud Connect
+
+Azure Kubernetes Service frontato da F5 Distributed Cloud per la connettività e la sicurezza delle applicazioni multi-cloud.
+
+```mermaid
+architecture-beta
+  group xc(lucide:cloud)[F5 XC]
+  group aks(hashicorp-flight:azure-aks-color)[AKS Cluster]
+
+  service mcn(f5xc:multi-cloud-network-connect)[Network Connect] in xc
+  service waap(f5xc:web-app-and-api-protection)[WAAP] in xc
+  service ingress(carbon:gateway)[Ingress] in aks
+  service app(hashicorp-flight:docker-color)[App Pods] in aks
+  service cache(carbon:datastore)[Redis Cache] in aks
+  service blob(hashicorp-flight:azure-blob-storage-color)[Blob Storage]
+
+  mcn:R --> L:waap
+  waap:R --> L:ingress
+  ingress:R --> L:app
+  app:B --> T:cache
+  app:R --> L:blob
+```
+
+## Topologia di rete Hub-Spoke
+
+Architettura Hub-Spoke di Azure con sicurezza centralizzata e servizi condivisi che collegano più VNet spoke.
+
+```mermaid
+flowchart TD
+  hub@{ icon: 'carbon:virtual-private-cloud', label: 'Hub VNet' }
+  fw@{ icon: 'carbon:firewall', label: 'Azure Firewall' }
+  vpn@{ icon: 'carbon:gateway-vpn', label: 'VPN Gateway' }
+  spoke1@{ icon: 'carbon:ibm-cloud-subnets', label: 'Spoke 1 - Web' }
+  spoke2@{ icon: 'carbon:ibm-cloud-subnets', label: 'Spoke 2 - App' }
+  spoke3@{ icon: 'carbon:ibm-cloud-subnets', label: 'Spoke 3 - Data' }
+  onprem@{ icon: 'lucide:server', label: 'On-Premises DC' }
+
+  onprem --> vpn
+  vpn --> hub
+  hub --> fw
+  fw --> spoke1
+  fw --> spoke2
+  fw --> spoke3
+```
+
+## NVA HA con Load Balancer — Traffico Internet
+
+Il traffico Internet in ingresso raggiunge un load balancer pubblico, che distribuisce agli istanze NVA nell'hub. L'NVA inoltra il traffico ispezionato ai carichi di lavoro spoke. Il traffico di ritorno dagli spoke viene instradato attraverso un load balancer interno verso l'NVA per l'uscita. I passaggi numerati mostrano il percorso in ingresso (1-3) e il percorso di ritorno (4-6).
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      intlb@{ icon: 'azure:load-balancers', label: 'Internal LB 10.0.0.36' }
+      nva@{ icon: 'azure:firewalls', label: 'NVA' }
+    end
+    publb@{ icon: 'azure:load-balancers', label: 'Public LB' }
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  onprem@{ icon: 'lucide:building', label: 'On-Premises 192.168.0.0/16' }
+
+  cloud -->|1| publb
+  publb -->|2| nva
+  nva -->|3| app2
+  app2 -->|4| intlb
+  intlb -->|5| nva
+  nva -->|6| cloud
+  onprem --> gw
+  gw --> intlb
+```
+
+## NVA HA con Load Balancer — Traffico On-Premises
+
+Il traffico on-premises entra attraverso un gateway VPN o ExpressRoute e viene diretto verso un load balancer interno che fronteggia più istanze NVA. L'NVA ispeziona e inoltra il traffico ai carichi di lavoro spoke. Il traffico di ritorno attraversa lo stesso load balancer interno per garantire la simmetria dei flussi, prevenendo problemi di routing asimmetrico.
+
+```mermaid
+flowchart TD
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      intlb@{ icon: 'azure:load-balancers', label: 'Internal LB 10.0.0.36' }
+      nva1@{ icon: 'azure:firewalls', label: 'NVA' }
+      nva2@{ icon: 'azure:firewalls', label: 'NVA' }
+    end
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  onprem@{ icon: 'lucide:building', label: 'On-Premises 192.168.0.0/16' }
+
+  onprem -->|1| gw
+  gw -->|2| intlb
+  intlb -->|3| nva1
+  nva1 -->|4| app2
+  app2 -->|5| intlb
+  intlb -->|6| nva2
+  nva2 -->|7| gw
+  gw -->|8| onprem
+```
+
+## NVA HA con PIP/UDR — Attivo/Standby
+
+Coppia NVA attivo/standby in cui l'istanza attiva (NVA1) detiene l'indirizzo IP pubblico. In caso di guasto, l'NVA2 in standby chiama le API di Azure per riassegnare l'IP pubblico e aggiornare le route definite dall'utente affinché puntino a se stessa. Questo approccio evita i load balancer ma richiede un'orchestrazione del failover a livello di API.
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    pip@{ icon: 'azure:public-ip-addresses', label: 'Public IP' }
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      nva1@{ icon: 'azure:firewalls', label: 'NVA1 Active 10.0.0.37' }
+      nva2@{ icon: 'azure:firewalls', label: 'NVA2 Standby 10.0.0.38' }
+    end
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  onprem@{ icon: 'lucide:building', label: 'On-Premises 192.168.0.0/16' }
+
+  cloud -->|1| pip
+  pip -->|2| nva1
+  nva1 -->|3| app2
+  app2 -->|4| nva1
+  nva1 -->|5| cloud
+  onprem --> gw
+```
+
+## NVA HA con Azure Route Server
+
+Alta disponibilità basata su BGP tramite Azure Route Server. Il Route Server stabilisce adiacenze eBGP con entrambe le istanze NVA e programma dinamicamente le route effettive degli spoke. ECMP bilancia il carico tra le NVA senza route definite dall'utente. Il Route Server inserisce voci next-hop per entrambi gli IP NVA in tutte le VNet in peering.
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph hub[Hub VNet 10.0.0.0/24]
+    publb@{ icon: 'azure:load-balancers', label: 'Public LB' }
+    subgraph gwsub[Gateway Subnet 10.0.0.0/27]
+      gw@{ icon: 'azure:virtual-network-gateways', label: 'VPN/ER GW' }
+    end
+    subgraph nvasub[NVA Subnet 10.0.0.32/27]
+      nva1@{ icon: 'azure:firewalls', label: 'NVA1 10.0.0.37' }
+      nva2@{ icon: 'azure:firewalls', label: 'NVA2 10.0.0.38' }
+    end
+    subgraph rssub[Route Server Subnet 10.0.0.64/27]
+      rs@{ icon: 'azure:virtual-router', label: 'Route Server' }
+    end
+  end
+  subgraph spoke1[Spoke1 10.1.1.0/24]
+    app1@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+  subgraph spoke2[Spoke2 10.1.2.0/24]
+    app2@{ icon: 'azure:virtual-machine', label: 'App Server' }
+  end
+
+  cloud -->|1| publb
+  publb -->|2| nva1
+  nva1 -->|3| app2
+  app2 -->|4| nva1
+  nva1 -->|5| cloud
+  rs <-.->|eBGP| nva1
+  rs <-.->|eBGP| nva2
+  gw --> rs
+```
+
+## NVA HA con Gateway Load Balancer
+
+Inserimento trasparente di NVA tramite Azure Gateway Load Balancer. Il traffico destinato all'applicazione viene deviato in modo trasparente dal load balancer standard pubblico al Gateway LB in una VNet NVA separata. Le NVA ispezionano il traffico e lo restituiscono al Gateway LB, che lo reindirizza all'applicazione. Non sono richiesti peering VNet né UDR tra la VNet NVA e quella applicativa.
+
+```mermaid
+flowchart TD
+  subgraph internet[Internet]
+    cloud@{ icon: 'lucide:globe', label: 'Internet' }
+  end
+  subgraph nvavnet[NVA VNet]
+    gwlb@{ icon: 'azure:load-balancers', label: 'Gateway LB' }
+    nva1@{ icon: 'azure:firewalls', label: 'NVA' }
+    nva2@{ icon: 'azure:firewalls', label: 'NVA' }
+  end
+  subgraph appvnet[App VNet]
+    publb@{ icon: 'azure:load-balancers', label: 'Public Std LB' }
+    web@{ icon: 'azure:virtual-machine', label: 'Web Server' }
+  end
+
+  cloud -->|1| publb
+  publb -->|2| gwlb
+  gwlb -->|3| nva1
+  nva1 -->|4| gwlb
+  gwlb -->|5| publb
+  publb -->|6| web
+  gwlb --> nva2
+```

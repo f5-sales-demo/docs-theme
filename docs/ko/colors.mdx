@@ -1,0 +1,562 @@
+---
+title: 색상
+description: >-
+  테마 개발을 위한 색상 팔레트 참조 — 기본 색상, 틴트, 쉐이드, CMYK, LESS 변수 및 Starlight CSS 사용자 정의 속성
+  매핑.
+sidebar:
+  order: 6
+i18n:
+  sourceHash: 51cffb696709
+  translator: machine
+---
+
+전체 색상 팔레트는 그래픽 및 일러스트레이션에 사용되며, 독특하고 현대적인 조합과 단색 대비를 탐색합니다. 특정 주제나 강조점을 부각시키는 데 활용할 수 있습니다.
+
+F5 팔레트는 7개의 기본 브랜드 색상과 흑백을 포함하며, 각각 4가지 틴트/쉐이드 변형을 갖추어 총 **45가지 색상**으로 구성됩니다. 이 페이지는 테마 개발 시 브랜드 색상을 Starlight CSS 사용자 정의 속성에 매핑하는 단일 기준 출처입니다.
+
+## 기본 색상
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red);">#e4002b</div>
+    <div class="swatch-label">F5 Red<code>--f5-red</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine);">#f29a36</div>
+    <div class="swatch-label">Tangerine<code>--f5-tangerine</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river);">#0e41aa</div>
+    <div class="swatch-label">River<code>--f5-river</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry);">#ab2782</div>
+    <div class="swatch-label">Raspberry<code>--f5-raspberry</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade);">#009639</div>
+    <div class="swatch-label">Jade<code>--f5-jade</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant);">#62228b</div>
+    <div class="swatch-label">Eggplant<code>--f5-eggplant</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay);">#0072b0</div>
+    <div class="swatch-label">Bay<code>--f5-bay</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white);">#ffffff</div>
+    <div class="swatch-label">White<code>--f5-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black);">#000000</div>
+    <div class="swatch-label">Black<code>--f5-black</code></div>
+  </div>
+</div>
+
+| 이름 | HEX | RGB | CMYK | LESS | PMS | CSS 변수 |
+|------|-----|-----|------|------|-----|--------------|
+| F5 Red | `#e4002b` | 228, 0, 43 | 0, 100, 81, 11 | `monza` | 185 | `--f5-red` |
+| Tangerine | `#f29a36` | 242, 154, 54 | 0, 36, 78, 5 | `carrot-orange` | 1375 | `--f5-tangerine` |
+| River | `#0e41aa` | 14, 65, 170 | 92, 62, 0, 33 | `tory-blue` | 293 | `--f5-river` |
+| Raspberry | `#ab2782` | 171, 39, 130 | 0, 77, 24, 33 | — | 241 | `--f5-raspberry` |
+| Jade | `#009639` | 0, 150, 57 | 100, 0, 62, 41 | `fun-green` | 355 | `--f5-jade` |
+| Eggplant | `#62228b` | 98, 34, 139 | 29, 76, 0, 45 | `honey-flower` | 2617 | `--f5-eggplant` |
+| Bay | `#0072b0` | 0, 114, 176 | 100, 35, 0, 31 | — | 7461 | `--f5-bay` |
+| White | `#ffffff` | 255, 255, 255 | 0, 0, 0, 0 | `alabaster` | — | `--f5-white` |
+| Black | `#000000` | 0, 0, 0 | 60, 50, 40, 100 | `black` | Black | `--f5-black` |
+
+> **LESS 이름에 대한 참고 사항**: 브랜드 센터에서는 Raspberry를 `tory-blue`로, Bay를 `honey-flower`로 표시하고 있는데, 이는 각각 River 및 Eggplant 항목에서 복사-붙여넣기 오류입니다. 잘못된 값의 전파를 방지하기 위해 위 표에서 `—`로 표시되었습니다.
+
+## 보조 색상 (틴트 및 쉐이드)
+
+각 기본 색상은 가장 밝은 (레벨 1)부터 가장 어두운 (레벨 4) 순서로 4가지 변형을 갖습니다.
+
+브랜드 센터는 보조 색상에 LESS 변수 이름을 지정합니다. Cloud Red 및 Tangerine 변형은 고유하고 의미 있는 이름을 가집니다. 다른 모든 색상 그룹은 동일한 자리 표시자 이름(`wewak`, `froly`, `carmine`, `venetian-red`)을 표시합니다 — 이는 브랜드 플랫폼의 템플릿 기본값이며, 완전성을 위해 아래에 포함되어 있지만 표준 식별자로 사용해서는 안 됩니다.
+
+### F5 Red
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red);">#e4002b</div>
+    <div class="swatch-label">F5 Red (base)<code>--f5-red</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-red-1);">#f7b2bf</div>
+    <div class="swatch-label">Level 1<code>--f5-red-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-2);">#f06680</div>
+    <div class="swatch-label">Level 2<code>--f5-red-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-3);">#a70020</div>
+    <div class="swatch-label">Level 3<code>--f5-red-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-red-4);">#720016</div>
+    <div class="swatch-label">Level 4<code>--f5-red-4</code></div>
+  </div>
+</div>
+
+| 레벨 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (가장 밝음) | `#f7b2bf` | 247, 178, 191 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#f06680` | 240, 102, 128 | 0, 57, 47, 6 | `froly` |
+| 3 | `#a70020` | 167, 0, 32 | 0, 100, 81, 35 | `carmine` |
+| 4 (가장 어두움) | `#720016` | 114, 0, 22 | 0, 100, 81, 55 | `venetian-red` |
+
+### Tangerine
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine);">#f29a36</div>
+    <div class="swatch-label">Tangerine (base)<code>--f5-tangerine</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine-1);">#ffe4c4</div>
+    <div class="swatch-label">Level 1<code>--f5-tangerine-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-tangerine-2);">#ffbd61</div>
+    <div class="swatch-label">Level 2<code>--f5-tangerine-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-tangerine-3);">#a35700</div>
+    <div class="swatch-label">Level 3<code>--f5-tangerine-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-tangerine-4);">#7a4100</div>
+    <div class="swatch-label">Level 4<code>--f5-tangerine-4</code></div>
+  </div>
+</div>
+
+| 레벨 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (가장 밝음) | `#ffe4c4` | 255, 228, 196 | 0, 11, 23, 0 | `tequila` |
+| 2 | `#ffbd61` | 255, 189, 97 | 0, 26, 62, 0 | `koromiko` |
+| 3 | `#a35700` | 163, 87, 0 | 0, 47, 100, 36 | `chelsea-gem` |
+| 4 (가장 어두움) | `#7a4100` | 122, 65, 0 | 0, 47, 100, 52 | `cinnamon` |
+
+### River
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river);">#0e41aa</div>
+    <div class="swatch-label">River (base)<code>--f5-river</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-river-1);">#b7c6e5</div>
+    <div class="swatch-label">Level 1<code>--f5-river-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-2);">#6e8dcc</div>
+    <div class="swatch-label">Level 2<code>--f5-river-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-3);">#0b3180</div>
+    <div class="swatch-label">Level 3<code>--f5-river-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-river-4);">#072155</div>
+    <div class="swatch-label">Level 4<code>--f5-river-4</code></div>
+  </div>
+</div>
+
+| 레벨 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (가장 밝음) | `#b7c6e5` | 183, 198, 229 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#6e8dcc` | 110, 141, 204 | 0, 58, 47, 6 | `froly` |
+| 3 | `#0b3180` | 11, 49, 128 | 0, 100, 81, 35 | `carmine` |
+| 4 (가장 어두움) | `#072155` | 7, 33, 85 | 0, 100, 81, 55 | `venetian-red` |
+
+### Raspberry
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry);">#ab2782</div>
+    <div class="swatch-label">Raspberry (base)<code>--f5-raspberry</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-raspberry-1);">#e6bed9</div>
+    <div class="swatch-label">Level 1<code>--f5-raspberry-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-2);">#cd7db4</div>
+    <div class="swatch-label">Level 2<code>--f5-raspberry-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-3);">#801d62</div>
+    <div class="swatch-label">Level 3<code>--f5-raspberry-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-raspberry-4);">#561441</div>
+    <div class="swatch-label">Level 4<code>--f5-raspberry-4</code></div>
+  </div>
+</div>
+
+| 레벨 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (가장 밝음) | `#e6bed9` | 230, 190, 217 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#cd7db4` | 205, 125, 180 | 0, 58, 47, 6 | `froly` |
+| 3 | `#801d62` | 128, 29, 98 | 0, 100, 81, 35 | `carmine` |
+| 4 (가장 어두움) | `#561441` | 86, 20, 65 | 0, 100, 81, 55 | `venetian-red` |
+
+### Jade
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade);">#009639</div>
+    <div class="swatch-label">Jade (base)<code>--f5-jade</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-jade-1);">#b2dfc4</div>
+    <div class="swatch-label">Level 1<code>--f5-jade-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-jade-2);">#66c088</div>
+    <div class="swatch-label">Level 2<code>--f5-jade-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade-3);">#00712b</div>
+    <div class="swatch-label">Level 3<code>--f5-jade-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-jade-4);">#004b1d</div>
+    <div class="swatch-label">Level 4<code>--f5-jade-4</code></div>
+  </div>
+</div>
+
+| 레벨 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (가장 밝음) | `#b2dfc4` | 178, 223, 196 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#66c088` | 102, 192, 136 | 0, 58, 47, 6 | `froly` |
+| 3 | `#00712b` | 0, 113, 43 | 0, 100, 81, 35 | `carmine` |
+| 4 (가장 어두움) | `#004b1d` | 0, 75, 29 | 0, 100, 81, 55 | `venetian-red` |
+
+### Eggplant
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant);">#62228b</div>
+    <div class="swatch-label">Eggplant (base)<code>--f5-eggplant</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-eggplant-1);">#cdabe3</div>
+    <div class="swatch-label">Level 1<code>--f5-eggplant-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-2);">#9c59c9</div>
+    <div class="swatch-label">Level 2<code>--f5-eggplant-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-3);">#822cb8</div>
+    <div class="swatch-label">Level 3<code>--f5-eggplant-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-eggplant-4);">#41175d</div>
+    <div class="swatch-label">Level 4<code>--f5-eggplant-4</code></div>
+  </div>
+</div>
+
+| 레벨 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (가장 밝음) | `#cdabe3` | 205, 171, 227 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#9c59c9` | 156, 89, 201 | 0, 58, 47, 6 | `froly` |
+| 3 | `#822cb8` | 130, 44, 184 | 0, 100, 81, 35 | `carmine` |
+| 4 (가장 어두움) | `#41175d` | 65, 23, 93 | 0, 100, 81, 55 | `venetian-red` |
+
+### Bay
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay);">#0072b0</div>
+    <div class="swatch-label">Bay (base)<code>--f5-bay</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-bay-1);">#b2d7eb</div>
+    <div class="swatch-label">Level 1<code>--f5-bay-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-2);">#66afd7</div>
+    <div class="swatch-label">Level 2<code>--f5-bay-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-3);">#005c8d</div>
+    <div class="swatch-label">Level 3<code>--f5-bay-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-bay-4);">#003d5f</div>
+    <div class="swatch-label">Level 4<code>--f5-bay-4</code></div>
+  </div>
+</div>
+
+| 레벨 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (가장 밝음) | `#b2d7eb` | 178, 215, 235 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#66afd7` | 102, 175, 215 | 0, 58, 47, 6 | `froly` |
+| 3 | `#005c8d` | 0, 92, 141 | 0, 100, 81, 35 | `carmine` |
+| 4 (가장 어두움) | `#003d5f` | 0, 61, 95 | 0, 100, 81, 55 | `venetian-red` |
+
+### White (중립색)
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white);">#ffffff</div>
+    <div class="swatch-label">White (base)<code>--f5-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-1);">#faf9f7</div>
+    <div class="swatch-label">Level 1<code>--f5-white-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-2);">#f5f5f5</div>
+    <div class="swatch-label">Level 2<code>--f5-white-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-3);">#e6e6e6</div>
+    <div class="swatch-label">Level 3<code>--f5-white-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--f5-white-4);">#cccccc</div>
+    <div class="swatch-label">Level 4<code>--f5-white-4</code></div>
+  </div>
+</div>
+
+| 레벨 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (가장 밝음) | `#faf9f7` | 250, 249, 247 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#f5f5f5` | 245, 245, 245 | 0, 58, 47, 6 | `froly` |
+| 3 | `#e6e6e6` | 230, 230, 230 | 0, 100, 81, 35 | `carmine` |
+| 4 (가장 어두움) | `#cccccc` | 204, 204, 204 | 0, 100, 81, 55 | `venetian-red` |
+
+### Black (회색 계열)
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black);">#000000</div>
+    <div class="swatch-label">Black (base)<code>--f5-black</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-1);">#999999</div>
+    <div class="swatch-label">Level 1<code>--f5-black-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-2);">#666666</div>
+    <div class="swatch-label">Level 2<code>--f5-black-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-3);">#343434</div>
+    <div class="swatch-label">Level 3<code>--f5-black-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--f5-black-4);">#222222</div>
+    <div class="swatch-label">Level 4<code>--f5-black-4</code></div>
+  </div>
+</div>
+
+| 레벨 | HEX | RGB | CMYK | LESS |
+|-------|-----|-----|------|------|
+| 1 (가장 밝음) | `#999999` | 153, 153, 153 | 0, 28, 23, 3 | `wewak` |
+| 2 | `#666666` | 102, 102, 102 | 0, 58, 47, 6 | `froly` |
+| 3 | `#343434` | 52, 52, 52 | 0, 100, 81, 35 | `carmine` |
+| 4 (가장 어두움) | `#222222` | 34, 34, 34 | 0, 100, 81, 55 | `venetian-red` |
+
+## Starlight CSS 사용자 정의 속성 매핑
+
+Starlight는 테마 적용을 위해 `--sl-color-*` 변수를 제공합니다. 아래는 F5 팔레트에서 Starlight의 의미론적 색상 슬롯으로의 매핑이며, `styles/custom.css`에 구현되어 있습니다.
+
+> **Starlight 테마 작동 방식**: Starlight에서 **다크 모드는 기본 `:root` 기본값**입니다 — `data-theme="dark"` 선택자는 없습니다. 라이트 모드는 `:root[data-theme='light']`를 사용합니다. 회색 계열 변수는 *의미론적*이며, 밝기 순서가 아닙니다: `gray-1`은 항상 "기본 텍스트"이고 `gray-6`/`gray-7`은 항상 "미묘한 배경"을 나타내며, 모드에 관계없이 동일합니다. 실제 밝기 값은 모드 간에 교체됩니다. 마찬가지로, `accent-high`는 항상 고가시성 강조 텍스트 색상이고 `accent-low`는 항상 미묘한 강조 배경을 나타냅니다 — 모드 간에 밝기가 반전됩니다.
+
+```css
+/* 다크 모드 — Starlight 기본값 (:root) */
+:root {
+  --sl-color-white: #ffffff;      /* 제목 텍스트 (가장 밝음) */
+  --sl-color-gray-1: #f5f5f5;    /* 기본 텍스트 — White Level 2 */
+  --sl-color-gray-2: #cccccc;    /* 본문 텍스트 — White Level 4 */
+  --sl-color-gray-3: #999999;    /* 흐린/음소거 텍스트 — Black Level 1 */
+  --sl-color-gray-4: #666666;    /* 테두리 — Black Level 2 */
+  --sl-color-gray-5: #343434;    /* 인라인 코드 배경 — Black Level 3 */
+  --sl-color-gray-6: #222222;    /* 사이드바 배경 — Black Level 4 */
+  --sl-color-black: #000000;     /* 페이지 배경 */
+  --sl-color-accent-low: #720016;   /* 미묘한 강조 배경 — F5 Red Level 4 */
+  --sl-color-accent: #f06680;       /* 링크, 활성 상태 — F5 Red Level 2 */
+  --sl-color-accent-high: #f7b2bf;  /* 강조 텍스트 — F5 Red Level 1 */
+}
+
+/* 라이트 모드 — 반전된 회색 계열 및 강조 밝기 */
+:root[data-theme='light'] {
+  --sl-color-white: #222222;      /* 제목 텍스트 (가장 어두움) — Black Level 4 */
+  --sl-color-gray-1: #222222;    /* 기본 텍스트 — Black Level 4 */
+  --sl-color-gray-2: #343434;    /* 본문 텍스트 — Black Level 3 */
+  --sl-color-gray-3: #666666;    /* 흐린 텍스트 — Black Level 2 */
+  --sl-color-gray-4: #999999;    /* 테두리 — Black Level 1 */
+  --sl-color-gray-5: #cccccc;    /* 밝은 테두리 — White Level 4 */
+  --sl-color-gray-6: #f5f5f5;    /* 사이드바 배경 — White Level 2 */
+  --sl-color-gray-7: #faf9f7;    /* 내비게이션 배경 — White Level 1 */
+  --sl-color-black: #ffffff;     /* 페이지 배경 */
+  --sl-color-accent-low: #f7b2bf;   /* 미묘한 강조 배경 — F5 Red Level 1 (반전) */
+  --sl-color-accent: #e4002b;       /* 링크, 활성 상태 — F5 Red */
+  --sl-color-accent-high: #720016;  /* 강조 텍스트 — F5 Red Level 4 (반전) */
+}
+```
+
+### 시각적 토큰 미리보기
+
+테마 전환기를 전환하면 다크 모드와 라이트 모드 사이에서 이러한 의미론적 토큰이 변경되는 것을 확인할 수 있습니다.
+
+#### 회색 계열 토큰
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-white);">white</div>
+    <div class="swatch-label">제목 텍스트<code>--sl-color-white</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-gray-1);">gray-1</div>
+    <div class="swatch-label">기본 텍스트<code>--sl-color-gray-1</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-gray-2);">gray-2</div>
+    <div class="swatch-label">본문 텍스트<code>--sl-color-gray-2</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-3);">gray-3</div>
+    <div class="swatch-label">흐린 텍스트<code>--sl-color-gray-3</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-4);">gray-4</div>
+    <div class="swatch-label">테두리<code>--sl-color-gray-4</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-5);">gray-5</div>
+    <div class="swatch-label">인라인 코드 배경<code>--sl-color-gray-5</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-gray-6);">gray-6</div>
+    <div class="swatch-label">사이드바 배경<code>--sl-color-gray-6</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-black);">black</div>
+    <div class="swatch-label">페이지 배경<code>--sl-color-black</code></div>
+  </div>
+</div>
+
+#### 강조 토큰
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-accent-low);">accent-low</div>
+    <div class="swatch-label">미묘한 강조 배경<code>--sl-color-accent-low</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-accent);">accent</div>
+    <div class="swatch-label">링크, 활성 상태<code>--sl-color-accent</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-dark" style="background-color: var(--sl-color-accent-high);">accent-high</div>
+    <div class="swatch-label">강조 텍스트<code>--sl-color-accent-high</code></div>
+  </div>
+</div>
+
+#### 배지 토큰
+
+<div class="swatch-grid not-content">
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-default);">default</div>
+    <div class="swatch-label">기본 배지<code>--sl-color-bg-badge-default</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-note);">note</div>
+    <div class="swatch-label">참고 배지<code>--sl-color-bg-badge-note</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-danger);">danger</div>
+    <div class="swatch-label">위험 배지<code>--sl-color-bg-badge-danger</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-success);">success</div>
+    <div class="swatch-label">성공 배지<code>--sl-color-bg-badge-success</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-caution);">caution</div>
+    <div class="swatch-label">주의 배지<code>--sl-color-bg-badge-caution</code></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color text-light" style="background-color: var(--sl-color-bg-badge-tip);">tip</div>
+    <div class="swatch-label">팁 배지<code>--sl-color-bg-badge-tip</code></div>
+  </div>
+</div>
+
+### 명암 대비 검증 (WCAG AA)
+
+**다크 모드** (`#000000` 페이지 배경의 텍스트):
+- 본문 텍스트 `#cccccc` → **16.3:1** (AAA)
+- 흐린 텍스트 `#999999` → **10:1** (AAA)
+- 강조 링크 `#f06680` → **5.6:1** (AA)
+
+**라이트 모드** (`#ffffff` 페이지 배경의 텍스트):
+- 본문 텍스트 `#343434` → **11.6:1** (AAA)
+- 흐린 텍스트 `#666666` → **5.7:1** (AA)
+- 강조 링크 `#e4002b` → **4.6:1** (AA)
+
+### 의미론적 색상 제안
+
+| Starlight 변수 | F5 색상 | 사용 사례 |
+|--------------------|----------|----------|
+| `--sl-color-accent` | F5 Red `#e4002b` | 링크, 버튼, 활성 상태 |
+| `--sl-color-text-accent` | F5 Red Level 2 `#f06680` | 다크 모드 호버 상태 |
+| `--sl-color-bg-accent` | F5 Red Level 4 `#720016` | 강조 배경 |
+| 커스텀: `--sl-color-info` | Bay `#0072b0` | 정보 콜아웃 |
+| 커스텀: `--sl-color-success` | Jade `#009639` | 성공 메시지 |
+| 커스텀: `--sl-color-warning` | Tangerine `#f29a36` | 경고 콜아웃 |
+| 커스텀: `--sl-color-danger` | F5 Red `#e4002b` | 오류/위험 콜아웃 |
+
+## 색상 대비
+
+모든 사람이 커뮤니케이션에 접근하고 이해할 수 있도록, 접근성 기준을 충족하는 배경색과 텍스트 색상 조합을 사용하십시오. 큰 텍스트의 경우 최소 3:1, 일반 텍스트의 경우 4.5:1의 최소 명암 대비율을 갖는 색상 쌍을 선택하십시오.
+
+모든 색상 조합은 **WCAG AA** 명암 대비 요건을 충족해야 합니다:
+
+- **일반 텍스트** (18pt 미만 / 14pt 굵음 미만): 최소 **4.5:1** 명암 대비율
+- **큰 텍스트** (18pt 이상 / 14pt 굵음 이상): 최소 **3:1** 명암 대비율
+- **UI 구성 요소 및 그래픽 객체**: 최소 **3:1** 명암 대비율
+
+### 권장 안전 색상 조합
+
+| 전경색 | 배경색 | 명암 대비율 | 통과 기준 |
+|------------|------------|----------------|--------|
+| White `#ffffff` | F5 Red `#e4002b` | 4.6:1 | AA |
+| White `#ffffff` | River `#0e41aa` | 6.4:1 | AA / AAA |
+| White `#ffffff` | Bay `#0072b0` | 4.6:1 | AA |
+| White `#ffffff` | Jade `#009639` | 4.2:1 | AA (큰 텍스트) |
+| White `#ffffff` | Eggplant `#62228b` | 6.5:1 | AA / AAA |
+| White `#ffffff` | Raspberry `#ab2782` | 4.7:1 | AA |
+| Black `#000000` | Tangerine `#f29a36` | 7.8:1 | AA / AAA |
+| Black `#000000` | F5 Red Level 1 `#f7b2bf` | 10.1:1 | AA / AAA |
+| Black `#222222` | White Level 1 `#faf9f7` | 15.8:1 | AA / AAA |
+
+> **팁**: 새로운 색상 조합을 만들 때는 [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)와 같은 도구를 사용하여 항상 명암 대비율을 검증하십시오.
+
+## 사용 지침
+
+| 색상 계열 | 역할 | 사용 시기 |
+|--------------|------|-------------|
+| **F5 Red** | 브랜드 아이덴티티, 기본 CTA | 히어로 섹션, 기본 버튼, 브랜드 마크, 오류 상태 |
+| **River** | 정보 제공, 신뢰 | 내비게이션 링크, 정보 배너, 데이터 시각화 |
+| **Bay** | 정보 제공, 보조 | 보조 링크, 정보 콜아웃, 코드 블록 강조 |
+| **Jade** | 성공, 긍정적 | 성공 메시지, 확인 상태, 진행 표시기 |
+| **Tangerine** | 경고, 주의 | 경고 콜아웃, 주의 필요 상태, 강조 표시 |
+| **Raspberry** | 강조, 장식적 | 태그, 배지, 보조 강조, 카테고리 마커 |
+| **Eggplant** | 강조, 프리미엄 | 기능 하이라이트, 프리미엄 표시, 장식적 강조 |
+| **White / 중립색** | 배경, 표면 | 페이지 배경, 카드 표면, 구분선, 미묘한 테두리 |
+| **Black / 회색 계열** | 텍스트, 구조 | 본문 텍스트, 제목, 테두리, 그림자 레이어 |
+
+## 테마 확인 사항
+
+- `.swatch` 테두리는 `--sl-color-gray-5`를 사용합니다
+- `.swatch-label` 배경은 `--sl-color-gray-6`을 사용합니다
+- 모든 `--f5-*` 스와치는 실제 색상을 표시합니다 (CSS 사용자 정의 속성은 `custom.css`에서 확인됩니다)
+- 색상 스와치는 라이트 모드와 다크 모드 모두에서 표시됩니다
+- 배지 토큰 스와치는 테마를 전환할 때 업데이트됩니다

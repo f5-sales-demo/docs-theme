@@ -1,0 +1,320 @@
+---
+title: Typographie
+description: >-
+  Familles de polices, hiérarchie typographique, utilisation des graisses,
+  spécifications d'interlignage, conventions de casse, exemples en direct et
+  correspondance avec le thème Starlight.
+sidebar:
+  order: 7
+i18n:
+  sourceHash: ba962925d620
+  translator: machine
+---
+
+Le système typographique associe deux familles de polices inspirées du design suisse, établissant une hiérarchie claire entre des titres expressifs et un corps de texte fonctionnel.
+
+## Philosophie de conception
+
+La typographie utilise la proportion, le rythme et le tempo — obtenus par le style, l'échelle, la graisse, la couleur, l'interlignage, l'espace horizontal et l'espace vertical — pour créer une hiérarchie visuelle claire.
+
+- **Neusa Next Wide** s'inspire des traitements typographiques de la première ère spatiale, apportant un caractère humain et expressif aux titres et sous-titres
+- **Proxima Nova** apporte ouverture et style géométrique aux usages plus fonctionnels tels que le corps de texte et les éléments utilitaires
+
+La hiérarchie est établie par une taille de caractère **décroissante** **et** un contraste obtenu par l'alternance de traitements en minuscules/majuscules. Les conclusions et les CTA utilisent la graisse large et grasse pour se démarquer d'une position hiérarchique inférieure.
+
+## Familles de polices
+
+### Neusa Next Wide
+
+**Rôle** : Titres, sous-titres, citations extraites, CTA, étiquettes, statistiques numériques
+
+Le spécimen du Brand Center présente cinq styles :
+
+| Style | Valeur de graisse | CSS `font-weight` | CSS `font-style` |
+|-------|------------------|-------------------|-------------------|
+| Light | 300 | `300` | `normal` |
+| Regular | 400 | `400` | `normal` |
+| Italic | 400 | `400` | `italic` |
+| Medium | 500 | `500` | `normal` |
+| Bold | 700 | `700` | `normal` |
+
+### Proxima Nova
+
+**Rôle** : Corps de texte, texte utilitaire, en-têtes de section, éléments d'interface
+
+Le spécimen du Brand Center présente quatre styles :
+
+| Style | Valeur de graisse | CSS `font-weight` | CSS `font-style` |
+|-------|------------------|-------------------|-------------------|
+| Regular | 400 | `400` | `normal` |
+| Regular Italic | 400 | `400` | `italic` |
+| Bold | 700 | `700` | `normal` |
+| Bold Italic | 700 | `700` | `italic` |
+
+Proxima Nova est soumise à une licence distincte et **n'est pas** incluse dans le téléchargement de polices du Brand Center. Le thème est livré avec les graisses 400, 500, 600 et 700 en style normal.
+
+## Hiérarchie typographique
+
+### Principes fondamentaux
+
+- Établir la hiérarchie par une **taille de caractère décroissante** combinée à des traitements de **casse alternés**
+- Utiliser **Neusa Wide Bold, casse de phrase** pour les titres et sous-titres de campagne
+- Définir l'interlignage des titres à **1,1× la taille du caractère**
+- Utiliser **Proxima Nova Bold, MAJUSCULES** avec un espacement des lettres pour les en-têtes de section afin de contraster avec les titres en casse de phrase
+- Les conclusions et les CTA utilisent **Neusa Wide Bold** avec un caret orienté vers la droite (**›**) en Cloud Red pour indiquer une action dans les expériences numériques
+
+### Tableau de hiérarchie
+
+| Élément | Police | Graisse | Casse | Remarques |
+|---------|--------|---------|-------|-----------|
+| Titre | Neusa Wide | Bold (700) | Phrase | Interlignage = 1,1× la taille du caractère |
+| Œil | Proxima Nova | Bold (700) | MAJUSCULES | Petit, avec espacement des lettres |
+| Sous-titre / Intro | Neusa Wide | Medium (500) | Phrase | Ou Proxima Nova s'il est immédiatement suivi d'un corps de texte |
+| En-tête de section | Proxima Nova | Bold (700) | MAJUSCULES | Avec espacement des lettres |
+| Sous-sous-titre | Proxima Nova | Bold (700) | Phrase | |
+| Corps de texte | Proxima Nova | Regular (400) | Phrase | |
+| Points de liste | Proxima Nova | Regular (400) | Phrase | |
+| Citation extraite | Neusa Wide | Bold (700) | Phrase | Couleur Cloud Red ; grands guillemets rouges avec attribution en dessous |
+| Conclusion / CTA | Neusa Wide | Bold (700) | Phrase | Avec caret orienté vers la droite (›) en Cloud Red |
+
+### Traitements spécialisés
+
+| Contexte | Police | Graisse | Taille/Interlignage | Remarques |
+|----------|--------|---------|---------------------|-----------|
+| Citations extraites de supports | Neusa Wide | Bold (700) | 9pt / 14pt | Casse de phrase |
+| Citations extraites d'eBook | Neusa Wide | Regular (400) | 16pt / 19pt | Avec filet au-dessus |
+| Chiffres/infographies | Neusa Wide | Light (300) | — | Pour l'impact visuel en grande taille |
+| Chiffres de graphiques/barres | Neusa Wide | Regular (400) | — | Étiquetage standard de graphique |
+
+### Utilisation de la casse de titre
+
+La casse de titre peut être utilisée pour :
+- Les sous-titres
+- Les citations extraites
+- Les statistiques numériques
+- Les étiquettes
+
+Tous les autres éléments utilisent par défaut la casse de phrase.
+
+## Exemples en direct
+
+### Titres
+
+## Titre de niveau 2
+
+### Titre de niveau 3
+
+#### Titre de niveau 4
+
+##### Titre de niveau 5
+
+###### Titre de niveau 6
+
+### Styles de texte
+
+Ceci est du **texte en gras** pour mettre en évidence.
+
+Ceci est du *texte en italique* pour une mise en évidence subtile.
+
+Ceci est du ~~texte barré~~ pour le contenu déprécié.
+
+Ceci est du `code en ligne` pour les références techniques.
+
+Ceci est du ***texte en gras italique*** pour une mise en évidence forte.
+
+Ceci est une combinaison : **gras avec `code en ligne` à l'intérieur** et *italique avec `code` à l'intérieur*.
+
+### Liste ordonnée
+
+1. Premier élément de la liste ordonnée
+2. Deuxième élément avec **texte en gras**
+3. Troisième élément avec `code en ligne`
+4. Quatrième élément avec un [lien vers Astro](https://astro.build)
+
+### Liste non ordonnée
+
+- Premier point de liste
+- Deuxième point avec **emphase**
+- Troisième point avec `référence de code`
+- Quatrième point avec un [lien](https://starlight.astro.build)
+
+### Listes imbriquées
+
+1. Élément ordonné de premier niveau
+   - Élément non ordonné imbriqué A
+   - Élément non ordonné imbriqué B
+     1. Élément ordonné profondément imbriqué
+     2. Autre élément profondément imbriqué
+   - Retour au premier niveau d'imbrication
+2. Deuxième élément de premier niveau
+   - Autre élément imbriqué
+
+### Citations
+
+> Ceci est une citation sur une seule ligne.
+
+> Ceci est une citation sur plusieurs lignes.
+>
+> Elle s'étend sur plusieurs paragraphes et peut contenir du formatage **gras**, *italique* et `code`.
+
+> Citations imbriquées :
+>
+> > Ceci est une citation imbriquée à l'intérieur de la citation externe.
+> >
+> > Elle peut contenir son propre formatage.
+
+### Règle horizontale
+
+Contenu au-dessus de la règle.
+
+---
+
+Contenu en dessous de la règle.
+
+### Liens
+
+- Lien interne : [Retour à l'aperçu de la documentation](/)
+- Lien externe : [Documentation Starlight](https://starlight.astro.build)
+- Lien avec titre : [Astro](https://astro.build "Astro Framework Homepage")
+
+### Notes de bas de page
+
+Voici une phrase avec une référence de note de bas de page[^1].
+
+Et une autre phrase avec une note de bas de page différente[^2].
+
+[^1]: Ceci est le contenu de la première note de bas de page. Elle apparaît en bas de la page.
+
+[^2]: Ceci est la deuxième note de bas de page. Elle peut contenir du **formatage** et du `code`.
+
+## Ressources de polices
+
+Le thème est livré avec **10 fichiers woff2** dans le répertoire `fonts/` :
+
+### Neusa Next Pro Wide
+
+| Fichier | Graisse | Style | Taille |
+|---------|---------|-------|--------|
+| `neusaNextProWide-300.woff2` | 300 (Light) | Normal | ~49 Ko |
+| `neusaNextProWide-400.woff2` | 400 (Regular) | Normal | ~49 Ko |
+| `neusaNextProWide-400i.woff2` | 400 (Regular) | Italic | ~49 Ko |
+| `neusaNextProWide-500.woff2` | 500 (Medium) | Normal | ~49 Ko |
+| `neusaNextProWide-700.woff2` | 700 (Bold) | Normal | ~49 Ko |
+| `neusaNextProWide-700i.woff2` | 700 (Bold) | Italic | ~49 Ko |
+
+### Proxima Nova
+
+| Fichier | Graisse | Style | Taille |
+|---------|---------|-------|--------|
+| `proximaNova-400.woff2` | 400 (Regular) | Normal | ~18 Ko |
+| `proximaNova-500.woff2` | 500 (Medium) | Normal | ~18 Ko |
+| `proximaNova-600.woff2` | 600 (Semi-Bold) | Normal | ~18 Ko |
+| `proximaNova-700.woff2` | 700 (Bold) | Normal | ~18 Ko |
+
+### Convention de nommage
+
+Les fichiers de polices suivent le modèle `nomFamille-graisse.woff2`, avec un suffixe `i` pour les variantes italiques (par ex., `neusaNextProWide-400i.woff2`).
+
+### Lacunes de couverture
+
+Les variantes italiques suivantes ne sont pas encore disponibles dans le thème :
+
+| Variante manquante | Raison |
+|--------------------|--------|
+| Proxima Nova 400 italic | Fichier source non disponible dans les téléchargements actuels |
+| Proxima Nova 500 italic | Fichier source non disponible dans les téléchargements actuels |
+| Proxima Nova 600 italic (Semi-Bold) | Fichier source non disponible |
+| Proxima Nova 700 italic (Bold) | Fichier source non disponible |
+
+Pour ajouter des variantes italiques de Proxima Nova, obtenez des fichiers woff2 authentiques auprès d'une source sous licence, nommez-les selon la convention (par ex., `proximaNova-400i.woff2`) et ajoutez les règles `@font-face` correspondantes dans `font-face.css`.
+
+## Déclarations @font-face
+
+Toutes les déclarations de polices se trouvent dans `fonts/font-face.css`. Chaque déclaration utilise :
+
+- **`font-display: swap`** — le texte s'affiche immédiatement avec une police de substitution, puis permute lorsque la police personnalisée est chargée
+- **`format("woff2")`** — format compressé moderne pris en charge par tous les navigateurs actuels
+- **URLs relatives** — les chemins `./` sont résolus relativement à l'emplacement du fichier CSS
+
+Pour ajouter une nouvelle variante de police, ajoutez un bloc `@font-face` à `font-face.css` :
+
+```css
+@font-face {
+  font-family: "familyName";
+  font-weight: 400;
+  font-style: italic;  /* or normal */
+  font-display: swap;
+  src: url("./familyName-400i.woff2") format("woff2");
+}
+```
+
+## Intégration CSS
+
+Le plugin de thème (`index.ts`) injecte les deux fichiers CSS via le hook `config:setup` :
+
+```
+index.ts → fonts/font-face.css → styles/custom.css → Starlight renders
+```
+
+### Affectations de polices
+
+Dans `styles/custom.css` :
+
+```css
+:root {
+  --sl-font: "proximaNova", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "neusaNextProWide", system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+```
+
+- **`--sl-font`** (variable de police de corps Starlight) → Proxima Nova pour le corps de texte et l'interface
+- **`--sl-font-heading`** (jeton personnalisé) → Neusa Next Pro Wide pour la référence de police de titre
+- **`h1`–`h6`** → Famille de polices, graisse et casse appliquées selon la hiérarchie typographique Cloud
+- **Pile de substitution** : `system-ui, "Segoe UI", Helvetica, Arial, sans-serif` pour un rendu initial rapide avant le chargement des polices personnalisées
+
+### Jetons typographiques Starlight
+
+Le thème remplace ces propriétés CSS personnalisées de Starlight :
+
+| Jeton | Valeur | Objectif |
+|-------|--------|----------|
+| `--sl-font` | `"proximaNova", ...` | Corps de texte, éléments d'interface |
+| `--sl-font-heading` | `"neusaNextProWide", ...` | Jeton personnalisé pour la police de titre |
+| `--sl-line-height-headings` | `1.1` | Interlignage des titres de la marque Cloud |
+| `--sl-text-h1` | `var(--sl-text-5xl)` | Titre de 2,625rem |
+| `--sl-text-h2` | `var(--sl-text-3xl)` | Sous-titre de 1,8125rem |
+| `--sl-text-h3` | `var(--sl-text-2xl)` | Introduction de section de 1,5rem |
+| `--sl-text-h4` | `var(--sl-text-lg)` | Sous-section de 1,125rem |
+
+### Correspondance de la hiérarchie des titres
+
+| HTML | Famille de polices | Graisse | Casse | Rôle dans la marque |
+|------|--------------------|---------|-------|---------------------|
+| `h1` | Neusa Next Wide | 700 (Bold) | Phrase | Titre |
+| `h2` | Neusa Next Wide | 700 (Bold) | Phrase | Sous-titre |
+| `h3` | Neusa Next Wide | 500 (Medium) | Phrase | Intro / Sous-sous-titre |
+| `h4` | Proxima Nova | 700 (Bold) | MAJUSCULES | En-tête de section |
+| `h5` | Proxima Nova | 700 (Bold) | MAJUSCULES | En-tête de sous-section |
+| `h6` | Proxima Nova | 700 (Bold) | MAJUSCULES | En-tête de section mineure |
+
+## Remplacement des polices
+
+Pour utiliser des familles de polices différentes :
+
+1. **Ajoutez des fichiers woff2** dans `fonts/` en utilisant la convention de nommage `nomFamille-graisse.woff2` (ajoutez le suffixe `i` pour les italiques)
+2. **Mettez à jour `fonts/font-face.css`** avec de nouvelles règles `@font-face` correspondant à vos noms de fichiers, graisses et styles
+3. **Mettez à jour `styles/custom.css`** pour définir `--sl-font` et le `font-family` des titres avec vos nouveaux noms de familles
+4. **Conservez la pile de substitution** (`system-ui, "Segoe UI", Helvetica, Arial, sans-serif`) pour un rendu initial rapide
+
+## Vérifications du thème
+
+- H2 et H3 utilisent la famille de polices `neusaNextProWide` avec une graisse 700/500
+- H4, H5, H6 utilisent la police `proximaNova`, en majuscules, avec un espacement des lettres de 0,05em
+- La couleur d'accentuation des liens est `#f06680` en mode sombre, `#e4002b` en mode clair
+- Le code en ligne a une teinte de fond provenant de `--sl-color-gray-5`
+- La bordure gauche des citations est visible dans les deux thèmes
+- Les références de notes de bas de page sont en exposant et liées
+- La règle horizontale présente un contraste approprié

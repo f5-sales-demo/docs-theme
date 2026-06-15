@@ -1,0 +1,517 @@
+---
+title: Komponenten
+description: >-
+  Eingebaute Starlight-Komponenten — Hinweise, Tabs, Schritte, Karten,
+  Abzeichen, Tabellen, Bilder und Dateibaum.
+sidebar:
+  order: 9
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: aadd8fb32c48
+  translator: machine
+---
+
+import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+
+## Hinweise
+
+Jeder Hinweistyp verwendet die `:::`-Syntaxeinrahmung mit seinem Standardtitel.
+
+:::note
+Dies ist ein **Hinweis**-Aside. Er lenkt die Aufmerksamkeit auf ergänzende Informationen, die der Leser kennen sollte.
+:::
+
+:::tip
+Dies ist ein **Tipp**-Aside. Er hebt eine bewährte Methode oder eine nützliche Abkürzung hervor.
+:::
+
+:::caution
+Dies ist ein **Vorsicht**-Aside. Er warnt vor einer möglichen Fehlerquelle oder einem nicht offensichtlichen Verhalten.
+:::
+
+:::danger
+Dies ist ein **Gefahr**-Aside. Er kennzeichnet eine destruktive oder nicht umkehrbare Aktion.
+:::
+
+### Benutzerdefinierte Titel
+
+<Aside type="note" title="Benutzerdefinierter Hinweistitel">
+Dieser Aside verwendet die `<Aside>`-Komponente mit einem benutzerdefinierten Titelüberschreibung.
+</Aside>
+
+<Aside type="tip" title="Profi-Tipp">
+Sie können **Fett**, *Kursiv* und `Inline-Code` innerhalb von Aside-Komponenten verschachteln.
+</Aside>
+
+<Aside type="caution" title="Vorsicht">
+Seien Sie vorsichtig beim Aktualisieren von Abhängigkeiten — prüfen Sie zuerst das Änderungsprotokoll.
+</Aside>
+
+<Aside type="danger" title="Destruktive Aktion">
+Das Ausführen von `git reset --hard` verwirft dauerhaft nicht gespeicherte Änderungen.
+</Aside>
+
+### Umfangreiche Inhalte in Hinweisen
+
+:::tip[Aside mit gemischten Inhalten]
+Hier ist ein Codeblock innerhalb eines Asides:
+
+```bash
+npm install @astrojs/starlight
+```
+
+Eine Liste von Elementen:
+
+- Erstes Element mit **fettem Text**
+- Zweites Element mit `Inline-Code`
+- Drittes Element mit einem [Link zur Starlight-Dokumentation](https://starlight.astro.build)
+:::
+
+### Aside-CSS
+
+Die eingebauten Aside-Komponenten von Starlight erhalten abgerundete Ecken und einen mehrschichtigen Schatten:
+
+```css
+.starlight-aside {
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.12);
+}
+```
+
+## Tabs
+
+### Einfache Tabs
+
+<Tabs>
+  <TabItem label="Übersicht">
+    Dies ist der Inhalt des Übersicht-Tabs. Er enthält reinen Text zur Überprüfung der grundlegenden Tab-Darstellung.
+  </TabItem>
+  <TabItem label="Details">
+    Dies ist der Details-Tab. Das Wechseln zwischen Tabs sollte sofort ohne Seitenneuladen erfolgen.
+  </TabItem>
+</Tabs>
+
+### Tabs mit gemischten Inhalten
+
+<Tabs>
+  <TabItem label="Text">
+    Einfacher Absatzinhalt im ersten Tab.
+  </TabItem>
+  <TabItem label="Code">
+    ```javascript
+    const greeting = "Hello from a code block inside a tab!";
+    console.log(greeting);
+    ```
+  </TabItem>
+  <TabItem label="Liste">
+    - Element eins innerhalb eines Tabs
+    - Element zwei mit **fettem Text**
+    - Element drei mit `Inline-Code`
+  </TabItem>
+</Tabs>
+
+### Synchronisierte Tabs
+
+Diese beiden Tab-Gruppen teilen `syncKey="pkg"`. Die Auswahl eines Tabs in einer Gruppe sollte die andere aktualisieren.
+
+**Installationsbefehl:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm install @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @f5xc-salesdemos/docs-theme
+    ```
+  </TabItem>
+</Tabs>
+
+**Ausführungsbefehl:**
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">
+    ```bash
+    npm run dev
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm dev
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dev
+    ```
+  </TabItem>
+</Tabs>
+
+## Schritte
+
+<Steps>
+
+1. **Repository klonen**
+
+   ```bash
+   git clone https://github.com/example/repo.git
+   cd repo
+   ```
+
+2. **Abhängigkeiten installieren**
+
+   ```bash
+   npm install
+   ```
+
+3. **Entwicklungsserver starten**
+
+   ```bash
+   npm run dev
+   ```
+
+   Die Seite ist unter `http://localhost:4321` verfügbar.
+
+</Steps>
+
+## Karten
+
+### Einzelne Karte
+
+<Card title="Einzelne Karte" icon="star">
+  Dies ist eine eigenständige Karte mit einem Symbol. Karten eignen sich gut zum Hervorheben wichtiger Informationen oder Funktionen.
+</Card>
+
+### Kartenraster
+
+<CardGrid>
+  <Card title="Leistung" icon="rocket">
+    Astro liefert standardmäßig kein JavaScript für schnelle Seitenladevorgänge.
+  </Card>
+  <Card title="Anpassbar" icon="pencil">
+    Starlight bietet umfangreiche Design- und Plugin-Optionen.
+  </Card>
+  <Card title="Barrierefrei" icon="heart">
+    Eingebaute Barrierefreiheitsfunktionen stellen sicher, dass Inhalte jeden erreichen.
+  </Card>
+  <Card title="Dokumentiert" icon="open-book">
+    Eine umfassende Dokumentation macht den Einstieg unkompliziert.
+  </Card>
+</CardGrid>
+
+### Versetztes Layout
+
+<CardGrid stagger>
+  <Card title="Schritt eins" icon="setting">
+    Konfigurieren Sie Ihre Projekteinstellungen und Umgebungsvariablen.
+  </Card>
+  <Card title="Schritt zwei" icon="document">
+    Erstellen Sie Ihre Inhaltsseiten im MDX-Format.
+  </Card>
+  <Card title="Schritt drei" icon="laptop">
+    Lokale Vorschau mit dem Entwicklungsserver.
+  </Card>
+  <Card title="Schritt vier" icon="rocket">
+    Auf der Hosting-Plattform Ihrer Wahl bereitstellen.
+  </Card>
+</CardGrid>
+
+### Link-Karten
+
+Das Dokumentationsthema stellt eine `LinkCard`-Komponente bereit, die mit oder ohne Symbole funktioniert. Importieren Sie sie aus dem Dokumentationsthema:
+
+```mdx
+import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+```
+
+<CardGrid>
+  <LinkCard
+    title="Starlight Documentation"
+    description="Learn how to build documentation sites with Starlight."
+    href="https://starlight.astro.build"
+  />
+  <LinkCard
+    title="Astro Documentation"
+    description="Explore the Astro framework for content-driven websites."
+    href="https://docs.astro.build"
+  />
+</CardGrid>
+
+#### Mit Symbolen
+
+Fügen Sie eine `icon`-Eigenschaft mit der Syntax `prefix:name` hinzu. Alle acht Symbolpakete werden unterstützt — siehe die Dokumentation der [Symbolpakete](https://f5xc-salesdemos.github.io/docs-icons/) für den vollständigen Katalog.
+
+##### Lucide (`lucide:`)
+
+<CardGrid>
+  <LinkCard
+    icon="lucide:shield-check"
+    title="Web-App-Firewall (WAF)"
+    description="Firewall-Richtlinien und Konfiguration."
+    href="https://f5xc-salesdemos.github.io/waf/"
+  />
+  <LinkCard
+    icon="lucide:globe"
+    title="Multi-Cloud-Netzwerk"
+    description="Site-Konnektivität über mehrere Clouds hinweg."
+    href="https://f5xc-salesdemos.github.io/mcn/"
+  />
+</CardGrid>
+
+##### Carbon (`carbon:`)
+
+<CardGrid>
+  <LinkCard
+    icon="carbon:security"
+    title="Sicherheitsdienste"
+    description="IBM Carbon Sicherheitssymbolsatz."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="carbon:cloud"
+    title="Cloud-Dienste"
+    description="IBM Carbon Cloud-Symbolsatz."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Material Design Icons (`mdi:`)
+
+<CardGrid>
+  <LinkCard
+    icon="mdi:shield-lock"
+    title="Zugangskontrolle"
+    description="Material Design Schildschloss-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="mdi:database"
+    title="Datenverwaltung"
+    description="Material Design Datenbank-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Phosphor (`phosphor:`)
+
+<CardGrid>
+  <LinkCard
+    icon="phosphor:shield"
+    title="Bedrohungsabwehr"
+    description="Phosphor Schild-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="phosphor:globe"
+    title="Globales Netzwerk"
+    description="Phosphor Globus-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### Tabler (`tabler:`)
+
+<CardGrid>
+  <LinkCard
+    icon="tabler:cloud"
+    title="Cloud-Plattform"
+    description="Tabler Cloud-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="tabler:rocket"
+    title="Bereitstellung"
+    description="Tabler Raketen-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Brand (`f5-brand:`)
+
+<CardGrid>
+  <LinkCard
+    icon="f5-brand:cloud-shield-checkmark"
+    title="Cloud-Sicherheit"
+    description="F5-Marken-Cloud-Schild-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5-brand:security-firewall"
+    title="Firewall"
+    description="F5-Marken-Firewall-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### F5 Distributed Cloud (`f5xc:`)
+
+Diese Symbole sind mehrfarbig und verwenden benutzerdefinierte CSS-Eigenschaften für die Farbanpassung im Hell-/Dunkelmodus.
+
+<CardGrid>
+  <LinkCard
+    icon="f5xc:web-app-and-api-protection"
+    title="App- und API-Schutz"
+    description="F5 XC Web-App- und API-Schutz-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="f5xc:bot-defense"
+    title="Bot-Abwehr"
+    description="F5 XC Bot-Abwehr-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+##### HashiCorp Flight (`hashicorp-flight:`)
+
+<CardGrid>
+  <LinkCard
+    icon="hashicorp-flight:terraform-color"
+    title="Terraform"
+    description="HashiCorp Terraform-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+  <LinkCard
+    icon="hashicorp-flight:consul-color"
+    title="Consul"
+    description="HashiCorp Consul-Symbol."
+    href="https://f5xc-salesdemos.github.io/docs-icons/"
+  />
+</CardGrid>
+
+## Abzeichen
+
+### Inline-Abzeichenvarianten
+
+Alle sechs Abzeichenvarianten inline dargestellt:
+
+<Badge text="Standard" /> <Badge text="Hinweis" variant="note" /> <Badge text="Gefahr" variant="danger" /> <Badge text="Erfolg" variant="success" /> <Badge text="Tipp" variant="tip" /> <Badge text="Vorsicht" variant="caution" />
+
+### Abzeichengrößen
+
+<Badge text="Klein" size="small" /> <Badge text="Mittel" size="medium" /> <Badge text="Groß" size="large" />
+
+Jede Größe mit einer Variante:
+
+<Badge text="Kleiner Tipp" variant="tip" size="small" /> <Badge text="Mittlere Gefahr" variant="danger" size="medium" /> <Badge text="Großer Erfolg" variant="success" size="large" />
+
+### Überschriften-Abzeichen
+
+Die folgenden Überschriften verwenden die Plugin-Syntax `starlight-heading-badges`.
+
+#### Funktionsumfang vollständig :badge[Stabil]{variant=success}
+
+Diese Überschrift hat ein Erfolgs-Abzeichen, das angibt, dass die Funktion stabil ist.
+
+#### Experimentelle API :badge[Beta]{variant=caution}
+
+Diese Überschrift hat ein Vorsicht-Abzeichen, das angibt, dass die API experimentell ist.
+
+#### Legacy-System :badge[Veraltet]{variant=danger}
+
+Diese Überschrift hat ein Gefahr-Abzeichen, das auf die Veraltung hinweist.
+
+#### Neue Funktion :badge[Neu]{variant=tip}
+
+Diese Überschrift hat ein Tipp-Abzeichen, das eine neue Funktion anzeigt.
+
+#### Dokumentation :badge[Aktualisiert]{variant=note}
+
+Diese Überschrift hat ein Hinweis-Abzeichen, das auf aktuelle Aktualisierungen hinweist.
+
+#### Standard-Abzeichen :badge[Info]
+
+Diese Überschrift hat ein Standard-Abzeichen ohne angegebene Variante.
+
+### Seitenleisten-Abzeichen
+
+Überprüfen Sie die Seitenleiste: Diese Seite hat ein „Neu"-Abzeichen mit der `tip`-Variante, die über das Frontmatter angewendet wird.
+
+## Tabellen
+
+### Einfache Tabelle
+
+| Funktion | Status | Priorität |
+|---------|--------|----------|
+| Dunkelmodus | Unterstützt | Hoch |
+| Bild-Zoom | Unterstützt | Mittel |
+| Mermaid-Diagramme | Unterstützt | Mittel |
+| Überschriften-Abzeichen | Unterstützt | Niedrig |
+
+### Tabelle mit Ausrichtung und Code
+
+| Eigenschaft | Typ | Standard | Beschreibung |
+|:---------|:----:|--------:|:------------|
+| `title` | `string` | — | Seitentitel, der in der Kopfzeile angezeigt wird |
+| `description` | `string` | `""` | Meta-Beschreibung für SEO |
+| `sidebar.order` | `number` | `0` | Sortierreihenfolge in der Seitenleiste |
+| `sidebar.badge` | `object` | `null` | Abzeichen neben dem Seitenleistenlabel |
+| `template` | `"doc" \| "splash"` | `"doc"` | Seitenlayout-Vorlage |
+
+## Bilder
+
+Das folgende Bild testet das Plugin `starlight-image-zoom`. Klicken Sie zum Vergrößern.
+
+![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+
+## Dateibaum
+
+<FileTree>
+- src/
+  - content/
+    - docs/
+      - index.mdx
+      - 01-environment-variables.mdx
+      - 02-build-pipeline.mdx
+      - 03-astro-config.mdx
+      - 04-logo.mdx
+      - 05-colors.mdx
+      - 07-typography.mdx
+      - 08-code-blocks.mdx
+      - **09-components.mdx** Diese Seite
+      - 10-mermaid.mdx
+      - 11-footer.mdx
+      - 12-style-enhancement-guide.mdx
+  - plugins/
+    - remark-mermaid.mjs
+- styles/
+  - custom.css
+- astro.config.mjs
+- package.json
+</FileTree>
+
+## Designprüfungen
+
+- Die Farbe des linken Rahmens unterscheidet sich je nach Aside-Variante (blau, lila, gelb, rot)
+- Der Aside-Hintergrundton ist in Hell- und Dunkelmodus sichtbar
+- Der Kastenschatten ist subtil, aber um jeden Aside herum sichtbar
+- Abgerundete Ecken (0,75 rem) bei allen Asides
+- Die Farbe des aktiven Tab-Indikators verwendet die Akzentfarbe
+- Die Verbindungslinie zwischen nummerierten Schritten ist sichtbar
+- Synchronisierte Tabs bleiben beim Wechsel zwischen Gruppen synchronisiert
+- Codeblöcke innerhalb von Tabs werden mit korrekter Syntaxhervorhebung dargestellt
+- Die Kartenrahmenfarbe passt sich zwischen Hell- und Dunkelmodus an
+- Der Hover-Hintergrundeffekt ist auf Karten sichtbar
+- Die Pfeilsymbolfarbe der LinkCard entspricht der Akzentfarbe
+- Das versetzte Layout verschiebt abwechselnde Karten vertikal
+- Symbole werden korrekt in Kartenüberschriften dargestellt
+- Abzeichen-Hintergrundfarben pro Variante unterscheiden sich zwischen Dunkel- und Hellmodus
+- Dunkelmodus-Abzeichen verwenden dunkle Töne (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
+- Hellmodus-Abzeichen verwenden helle Töne (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
+- Überschriften-Abzeichen sind inline mit dem Überschriftentext ausgerichtet
+- Das Seitenleisten-Abzeichen wird neben dem Seitenlabel dargestellt
+- Tabellenrahmenfarben passen sich zwischen Hell- und Dunkelmodus an
+- Die Tabellenüberschriftenzeile hat einen deutlichen Hintergrund
+- Das Bild-Zoom-Overlay funktioniert beim Klicken (starlight-image-zoom)
+- Der Dateibaum-Hintergrund verwendet designgerechte Farben
+- Symbole übernehmen die aktuelle Textfarbe

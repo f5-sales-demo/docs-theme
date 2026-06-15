@@ -1,0 +1,131 @@
+---
+title: 빌드 파이프라인
+description: 콘텐츠 리포지토리가 Docker 빌더와 npm 패키지를 통해 빌드 시 테마를 사용하는 방법.
+sidebar:
+  order: 3
+i18n:
+  sourceHash: f305437613ca
+  translator: machine
+---
+
+이 페이지에서는 콘텐츠 리포지토리가 `@f5xc-salesdemos/docs-theme` npm 패키지를 사용하여 완전히 브랜딩된 문서 사이트를 생성하는 방법을 설명합니다.
+
+## 아키텍처
+
+```
+┌─────────────────┐
+│  Content Repo   │
+│  (docs/ folder) │
+└────────┬────────┘
+         │
+         ▼
+┌───────────────────────────┐
+│   f5xc-docs-builder       │
+│   (Docker image)          │
+│                           │
+│  npm install              │
+│  @f5xc-salesdemos/docs-theme ─────┐  │
+│                        ▼  │
+│  node_modules/            │
+│    @f5xc-salesdemos/docs-theme/       │
+│      ├── config.ts        │
+│      ├── index.ts         │
+│      ├── fonts/           │
+│      ├── styles/          │
+│      ├── assets/          │
+│      └── components/      │
+│                           │
+│  Astro Build              │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   Astro Build Output      │
+│   (static HTML/CSS)       │
+└─────────────┬─────────────┘
+              ▼
+┌───────────────────────────┐
+│   GitHub Pages            │
+└───────────────────────────┘
+```
+
+## 빌드 프로세스 단계별 설명
+
+1. **콘텐츠 리포지토리 푸시** — `main`으로의 푸시(또는 수동 디스패치)가 GitHub Pages 배포 워크플로를 트리거합니다.
+2. **재사용 가능한 워크플로** — 콘텐츠 리포지토리의 워크플로가 빌더를 호출합니다:
+   ```yaml
+   jobs:
+     docs:
+       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+   ```
+3. **Docker 빌더 실행** — `f5xc-docs-builder` Docker 이미지에는 npm을 통해 테마가 사전 설치되어 있습니다. 빌드 시 다음을 수행합니다:
+   - `node_modules/@f5xc-salesdemos/docs-theme/`에서 `astro.config.mjs` 및 `content.config.ts`를 Astro 프로젝트 루트로 복사합니다.
+   - 콘텐츠 리포지토리의 `docs/` 파일을 `src/content/docs/`로 복사합니다.
+4. **Astro 빌드** — Astro가 `createF5xcDocsConfig()`를 호출하는 설정 파일을 읽습니다. 팩토리는 npm 패키지 지정자(예: `@f5xc-salesdemos/docs-theme/styles/custom.css`)를 통해 모든 테마 에셋을 확인합니다.
+5. **배포** — 빌드된 정적 사이트가 GitHub Pages에 배포됩니다.
+
+## 콘텐츠 리포지토리 요구 사항
+
+콘텐츠 리포지토리에는 다음만 필요합니다:
+
+- Markdown(`.md`) 또는 MDX(`.mdx`) 파일을 포함하는 `docs/` 디렉터리
+- 빌더를 호출하는 GitHub Actions 워크플로
+
+### 최소 워크플로
+
+```yaml
+name: GitHub Pages Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+```
+
+이것은 이 테마 리포지토리 자체에서 현재 읽고 계신 문서를 빌드하는 데 사용하는 것과 동일한 워크플로입니다.
+
+## 경로 확인
+
+테마의 모든 경로는 `package.json`의 `exports` 맵을 통해 확인되는 npm 패키지 지정자를 사용합니다:
+
+```js
+// CSS — node_modules에서 확인
+'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
+'@f5xc-salesdemos/docs-theme/styles/custom.css'
+
+// Components — node_modules에서 확인
+'@f5xc-salesdemos/docs-theme/components/Footer.astro'
+'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+
+// Assets — node_modules에서 확인
+'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+```
+
+빌드 작업 공간에는 `./theme/` 디렉터리가 없습니다. Docker 빌더는 테마를 일반 npm 의존성으로 설치하고, Astro는 `node_modules`를 통해 모든 지정자를 확인합니다.
+
+:::note
+`font-face.css` 내부의 폰트 파일 경로는 `./`를 사용합니다(예: `url("./neusaNextProWide-300.woff2")`). 이 경로는 CSS 파일 자체에 대한 상대 경로이므로, 패키지 설치 방법에 관계없이 `fonts/` 디렉터리 내의 다른 파일로 확인됩니다.
+:::
+
+## 변경 사항 전파
+
+테마 변경 사항은 npm 패키지 업데이트를 통해 전파됩니다:
+
+1. `@f5xc-salesdemos/docs-theme`의 `main`에 변경 사항이 병합됩니다.
+2. 업데이트된 패키지로 Docker 빌더 이미지가 재빌드됩니다.
+3. 다음번에 콘텐츠 리포지토리의 워크플로가 실행될 때 업데이트된 빌더 이미지를 사용합니다.
+4. Astro 빌드가 업데이트된 폰트, 스타일, 로고, 구성 요소, 플러그인을 적용합니다.
+5. 콘텐츠 리포지토리의 사이트가 새로운 테마로 배포됩니다.
+
+콘텐츠 리포지토리는 항상 Docker 이미지에 번들된 최신 테마를 사용합니다. 이를 통해 모든 사이트에서 시각적 일관성이 보장되지만, 테마 변경 사항은 병합하기 전에 신중하게 테스트해야 합니다.

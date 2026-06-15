@@ -1,0 +1,78 @@
+---
+title: دفاع Bot
+description: >-
+  مخططات خط أنابيب كشف Bot تُغطي الدفاع ضد حشو بيانات الاعتماد، والحماية من جهة
+  العميل، وإدارة Bot في F5 XC.
+sidebar:
+  order: 18
+i18n:
+  sourceHash: 04371e8bb860
+  translator: machine
+---
+
+مخططات معمارية لدفاع Bot تُغطي خطوط أنابيب الكشف، والتخفيف من حشو بيانات الاعتماد، والدفاع من جهة العميل، وقدرات إدارة Bot في F5 Distributed Cloud.
+
+## خط أنابيب كشف Bot
+
+خط أنابيب متعدد المراحل لكشف Bot يتضمن تحدي JavaScript وتحليل السلوك والبصمة الرقمية قبل السماح بالوصول.
+
+```mermaid
+flowchart LR
+  req@{ icon: 'lucide:globe', label: 'Incoming Request' }
+  js@{ icon: 'lucide:bot', label: 'JS Challenge' }
+  fp@{ icon: 'lucide:shield-check', label: 'Fingerprinting' }
+  behavior@{ icon: 'carbon:application', label: 'Behavior Analysis' }
+  decision@{ icon: 'carbon:gateway-security', label: 'Decision Engine' }
+  allow@{ icon: 'carbon:application', label: 'Application' }
+  block@{ icon: 'lucide:shield', label: 'Block/Challenge' }
+
+  req --> js
+  js --> fp
+  fp --> behavior
+  behavior --> decision
+  decision -->|Human| allow
+  decision -->|Bot| block
+```
+
+## دفاع Bot في F5 XC والدفاع من جهة العميل
+
+دفاع Bot متكامل في F5 Distributed Cloud مع الحماية من جهة العميل للوقاية من حشو بيانات الاعتماد والاستيلاء على الحسابات.
+
+```mermaid
+flowchart TD
+  user@{ icon: 'lucide:user', label: 'End Users' }
+  attacker@{ icon: 'lucide:bot', label: 'Bot Attackers' }
+  csd@{ icon: 'f5xc:client-side-defense', label: 'Client-Side Defense' }
+  botdef@{ icon: 'f5xc:bot-defense', label: 'Bot Defense' }
+  waap@{ icon: 'f5xc:web-app-and-api-protection', label: 'WAAP' }
+  app@{ icon: 'carbon:application', label: 'Application' }
+
+  user --> csd
+  attacker --> csd
+  csd --> botdef
+  botdef --> waap
+  waap --> app
+```
+
+## معمارية الدفاع ضد حشو بيانات الاعتماد
+
+دفاع متعدد الطبقات ضد هجمات حشو بيانات الاعتماد يشمل بصمة الأجهزة وذكاء بيانات الاعتماد وحماية الحسابات.
+
+```mermaid
+architecture-beta
+  group defense(lucide:shield)[Defense Layers]
+  group app(carbon:cloud-services)[Application]
+
+  service edge(f5xc:bot-defense)[Bot Defense] in defense
+  service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
+  service intel(f5xc:data-intelligence)[Credential Intel] in defense
+  service login(carbon:application)[Login Service] in app
+  service account(carbon:security)[Account Service] in app
+  service db(carbon:data-base)[User Store] in app
+
+  edge:R --> L:csd
+  csd:R --> L:intel
+  intel:R --> L:login
+  login:R --> L:account
+  account:B --> T:db
+```

@@ -1,0 +1,111 @@
+---
+title: フッター
+description: ソーシャルメディアリンクを含むカスタム Starlight フッターコンポーネント。
+sidebar:
+  order: 11
+i18n:
+  sourceHash: 2dbcf6d139fd
+  translator: machine
+---
+
+このテーマは、デフォルトの Starlight フッターをカスタム `Footer.astro` コンポーネントに置き換え、標準フッターコンテンツの下にソーシャルメディアリンクを追加します。
+
+## コンポーネントパターン
+
+```astro
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<div class="social-links">
+  <!-- social link icons -->
+</div>
+```
+
+このパターンは、デフォルトのフッターを完全に置き換えるのではなく、**拡張**します。`<Default {...Astro.props}><slot /></Default>` によって元の Starlight フッター（前へ/次へナビゲーション）がレンダリングされ、その下にソーシャルリンクが追加されます。
+
+## 登録方法
+
+フッターのオーバーライドは、`index.ts` の Starlight プラグインによって登録されます。`config:setup` フック中に `Footer` コンポーネントのオーバーライドを設定します：
+
+```ts
+updateConfig({
+  components: {
+    ...config.components,
+    Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
+    // ... other component overrides
+  },
+});
+```
+
+コンテンツリポジトリでフッターを手動で登録する必要はありません。テーマプラグインの読み込み時に自動的に適用されます。
+
+## ソーシャルリンク
+
+| プラットフォーム | URL | アイコンカラー | Aria ラベル |
+|----------|-----|------------|------------|
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Facebook ブルー) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (継承) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (LinkedIn ブルー) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Instagram ピンク) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (YouTube レッド) | YouTube |
+
+各リンクは新しいタブで開き（`target="_blank"`）、セキュリティのために `rel="noopener noreferrer"` が設定されています。
+
+## CSS スタイリング
+
+```css
+.social-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+}
+```
+
+リンクはフレックス行に右揃えで配置され、ホバー時に控えめな不透明度エフェクトが適用されます。
+
+## カスタマイズ
+
+### URL の変更
+
+`@f5xc-salesdemos/docs-theme` パッケージ内の `components/Footer.astro` にある該当する `<a>` タグの `href` 属性を編集してください。
+
+### リンクの追加
+
+`.social-links` div 内に 24x24 の SVG アイコンを持つ新しい `<a>` 要素を追加してください。既存のパターンに従ってください：
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#COLOR">
+    <path d="..."/>
+  </svg>
+</a>
+```
+
+### リンクの削除
+
+削除したいプラットフォームの `<a>...</a>` ブロック全体を削除してください。
+
+### アイコンカラーの変更
+
+`<svg>` 要素の `fill` 属性を変更してください。テキストカラーを継承するには `currentColor` を使用し、ブランドカラーには特定の16進数値を指定してください。
+
+### レイアウトの変更
+
+`<style>` ブロック内の `.social-links` CSS を変更してください：
+- **中央揃え**: `justify-content` を `center` に変更
+- **間隔を広げる**: `gap` の値を増やす
+- **左揃え**: `justify-content` を `flex-start` に変更

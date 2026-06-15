@@ -1,0 +1,119 @@
+---
+title: スクリーンショット
+description: テーマ対応のライトモードとダークモードの画像ペア用スクリーンショットコンポーネント。
+sidebar:
+  order: 10
+  badge:
+    text: New
+    variant: tip
+i18n:
+  sourceHash: 0b677390b859
+  translator: machine
+---
+
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+`Screenshot` コンポーネントは、ユーザーがサイトテーマを切り替えると自動的にライトバリアントとダークバリアントを切り替えるテーマ対応画像をレンダリングします。読者の現在のカラースキームに合わせたUIスクリーンショットを表示する必要がある場合に使用してください。
+
+## プロパティリファレンス
+
+| プロパティ | 型 | 必須 | 説明 |
+| ---- | ---- | -------- | ----------- |
+| `light` | `string` | いいえ | ライトモード画像へのパス |
+| `dark` | `string` | いいえ | ダークモード画像へのパス |
+| `alt` | `string` | はい | アクセシビリティ用の代替テキスト |
+| `width` | `number` | いいえ | 画像の幅（ピクセル単位） |
+| `height` | `number` | いいえ | 画像の高さ（ピクセル単位） |
+
+:::note
+`light` または `dark` のいずれか一方は必ず指定する必要があります。
+両方を指定した場合、コンポーネントはアクティブなテーマに基づいて切り替えを行います。
+:::
+
+## デュアルモード（ライト＋ダーク）
+
+`light` と `dark` の両方のプロパティを指定することで、各テーマに対応した正しいバリアントを表示できます。
+右上のテーマセレクターを切り替えると、画像が変化する様子を確認できます。
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+
+```mdx
+import Screenshot from '@f5xc-salesdemos/docs-theme/components/Screenshot.astro';
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage"
+/>
+```
+
+:::tip
+UIのドキュメント作成時は、ライトとダーク両方のスクリーンショットを常に取得してください。
+これにより、読者のテーマ設定に関わらず正確な表示が提供されます。
+:::
+
+## 単一画像
+
+バリアントが1つしかない場合は、`light` または `dark` のいずれかのみを渡してください。
+画像は両方のテーマで切り替えなしにレンダリングされます。
+
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+
+```mdx
+<Screenshot
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage (dark only)"
+/>
+```
+
+## サイズ指定
+
+`width` と `height` を使用してレンダリングサイズを制御し、レイアウトシフトを防ぎます。
+
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+
+```mdx
+<Screenshot
+  light="/images/screenshot-example-light.png"
+  dark="/images/screenshot-example-dark.png"
+  alt="Docs theme homepage at fixed width"
+  width={600}
+  height={338}
+/>
+```
+
+## 動作の仕組み
+
+このコンポーネントは、`.screenshot-pair` ラッパー内に1つまたは2つの `<img>` 要素をレンダリングします。CSSルールがアクティブなテーマに基づいて表示を切り替えます。
+
+- **ダークモード**（デフォルト）— `.screenshot-light` 画像は `:root:not([data-theme="light"]) .screenshot-light \{ display: none \}` によって非表示になります。
+- **ライトモード**— `.screenshot-dark` 画像は `:root[data-theme="light"] .screenshot-dark \{ display: none \}` によって非表示になります。
+
+追加のセレクターは、`:has()` を使用して `starlight-image-zoom` ラッパーを処理するため、ズーム機能が両方のバリアントで正しく動作します。
+
+すべてのスクリーンショット画像には一貫したスタイルが適用されます。微妙なボーダー、角丸、およびホバー時に強調されるドロップシャドウです。
+
+## Markdownイメージとの比較
+
+| 機能 | `Screenshot` コンポーネント | Markdown `![](url)` |
+| ------- | ---------------------- | -------------------- |
+| テーマ対応の切り替え | あり | なし |
+| スタイル付きボーダーとシャドウ | 自動 | なし |
+| ホバー時のシャドウエフェクト | あり | なし |
+| ズームサポート | 画像ズームプラグインと連携 | 画像ズームプラグインと連携 |
+| 代替テキスト | `alt` プロパティ | `![alt text]()` |
+
+テーマ固有の画像バリアントがある場合、またはスタイル付きスクリーンショットの外観が必要な場合は `Screenshot` コンポーネントを使用してください。インライングラフィック、図、または両方のテーマで同じ見た目の画像には標準のMarkdown画像を使用してください。

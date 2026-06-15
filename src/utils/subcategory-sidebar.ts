@@ -6,7 +6,7 @@ import { sidebarTranslations } from '../i18n/translations.ts';
 /**
  * Starlight sidebar config types (simplified).
  */
-type SidebarLink = { label: string; link: string; translations?: Record<string, string> };
+type SidebarLink = { label: string; link?: string; slug?: string; translations?: Record<string, string> };
 type SidebarGroup = { label: string; items: SidebarItem[]; collapsed?: boolean; translations?: Record<string, string> };
 type SidebarItem = SidebarLink | SidebarGroup;
 
@@ -68,7 +68,7 @@ function cleanPageTitle(pageTitle: string, docType: DocType): string {
   return pageTitle.replace(/\s+(Resource|Data Source)\s*-\s*.*$/i, '').trim();
 }
 
-const KNOWN_ACRONYMS = new Set(['api', 'faq', 'dns', 'cli', 'sdk', 'ui', 'ip']);
+const KNOWN_ACRONYMS = new Set(['api', 'faq', 'dns', 'cli', 'sdk', 'ui', 'ip', 'mcp', 'tui']);
 
 function kebabToTitleCase(kebab: string): string {
   return kebab
@@ -209,7 +209,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
           if (!title) {
             title = baseName.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
           }
-          return { label: title, link: slug } as SidebarLink;
+          return { label: title, slug: slug.replace(/^\/|\/$/g, '') } as SidebarLink;
         })
         .filter((item): item is SidebarLink => item !== null)
         .sort((a, b) => a.label.localeCompare(b.label));
@@ -250,7 +250,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       label: 'Guides',
       collapsed: true,
       translations: sidebarTranslations.Guides,
-      items: guides.sort(byTitle).map((g) => ({ label: g.title, link: g.slug })),
+      items: guides.sort(byTitle).map((g) => ({ label: g.title, slug: g.slug.replace(/^\/|\/$/g, '') })),
     });
   }
 
@@ -260,7 +260,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       label: 'Functions',
       collapsed: true,
       translations: sidebarTranslations.Functions,
-      items: functions.sort(byTitle).map((f) => ({ label: f.title, link: f.slug })),
+      items: functions.sort(byTitle).map((f) => ({ label: f.title, slug: f.slug.replace(/^\/|\/$/g, '') })),
     });
   }
 
@@ -298,7 +298,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       groupItems.push({
         label: 'Resources',
         translations: sidebarTranslations.Resources,
-        items: catResources.sort(byTitle).map((r) => ({ label: r.title, link: r.slug })),
+        items: catResources.sort(byTitle).map((r) => ({ label: r.title, slug: r.slug.replace(/^\/|\/$/g, '') })),
       });
     }
 
@@ -306,7 +306,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       groupItems.push({
         label: 'Data Sources',
         translations: sidebarTranslations['Data Sources'],
-        items: catDataSources.sort(byTitle).map((d) => ({ label: d.title, link: d.slug })),
+        items: catDataSources.sort(byTitle).map((d) => ({ label: d.title, slug: d.slug.replace(/^\/|\/$/g, '') })),
       });
     }
 
