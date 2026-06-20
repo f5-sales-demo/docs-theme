@@ -83,11 +83,15 @@ function kebabToTitleCase(kebab: string): string {
  *      "guides/getting-started.md" → "/guides/getting-started/"
  *      "index.md" → "/"
  */
-function filePathToSlug(relativePath: string): string {
+export function filePathToSlug(relativePath: string): string {
   const normalized = relativePath
     .replace(/\\/g, '/')
     .replace(/\.mdx?$/, '')
-    .replace(/\/index$/, '');
+    .replace(/\/index$/, '')
+    // Starlight lowercases content-entry slugs, so the sidebar slug must be
+    // lowercased too — otherwise a capitalised path segment (e.g. "Enhancements/")
+    // produces a sidebar slug that matches no entry and fails the build.
+    .toLowerCase();
 
   if (normalized === 'index' || normalized === '') return '/';
   return `/${normalized}/`;
