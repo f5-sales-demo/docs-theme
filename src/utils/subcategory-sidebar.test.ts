@@ -6,9 +6,7 @@ describe('filePathToSlug', () => {
     // Regression: a capitalised directory (e.g. "Enhancements/") previously
     // produced a sidebar slug that matched no (lowercased) content entry,
     // failing the Starlight build with "slug does not exist".
-    expect(filePathToSlug('Enhancements/healthcheck-enhancements.mdx')).toBe(
-      '/enhancements/healthcheck-enhancements/',
-    );
+    expect(filePathToSlug('Enhancements/healthcheck-enhancements.mdx')).toBe('/enhancements/healthcheck-enhancements/');
   });
 
   it('leaves already-lowercase paths unchanged', () => {
