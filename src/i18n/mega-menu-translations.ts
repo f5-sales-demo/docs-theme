@@ -689,6 +689,20 @@ export const itemDescriptions: Record<string, I18nString> = {
     hi: 'F5 XC के लिए AI-संचालित CLI',
     th: 'CLI ที่ขับเคลื่อนด้วย AI สำหรับ F5 XC',
   },
+  'Drive the F5 XC console with xcsh': {
+    fr: 'Pilotez la console F5 XC avec xcsh',
+    es: 'Controla la consola de F5 XC con xcsh',
+    de: 'Steuern Sie die F5 XC-Konsole mit xcsh',
+    'pt-BR': 'Controle o console do F5 XC com o xcsh',
+    ja: 'xcsh で F5 XC コンソールを操作',
+    ko: 'xcsh로 F5 XC 콘솔 제어',
+    'zh-CN': '使用 xcsh 驱动 F5 XC 控制台',
+    'zh-TW': '使用 xcsh 驅動 F5 XC 主控台',
+    ar: 'تحكم في وحدة تحكم F5 XC باستخدام xcsh',
+    it: 'Controlla la console F5 XC con xcsh',
+    hi: 'xcsh के साथ F5 XC कंसोल चलाएं',
+    th: 'ควบคุมคอนโซล F5 XC ด้วย xcsh',
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -1303,5 +1317,19 @@ export const itemLabels: Record<string, I18nString> = {
     it: 'xcsh CLI',
     hi: 'xcsh CLI',
     th: 'xcsh CLI',
+  },
+  'xcsh Chrome Extension': {
+    fr: 'Extension Chrome xcsh',
+    es: 'Extensión de Chrome xcsh',
+    de: 'xcsh Chrome-Erweiterung',
+    'pt-BR': 'Extensão do Chrome xcsh',
+    ja: 'xcsh Chrome 拡張機能',
+    ko: 'xcsh Chrome 확장',
+    'zh-CN': 'xcsh Chrome 扩展',
+    'zh-TW': 'xcsh Chrome 擴充功能',
+    ar: 'إضافة xcsh لمتصفح Chrome',
+    it: 'Estensione Chrome xcsh',
+    hi: 'xcsh Chrome एक्सटेंशन',
+    th: 'ส่วนขยาย Chrome ของ xcsh',
   },
 };
