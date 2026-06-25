@@ -373,6 +373,14 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               href: 'https://f5xc-salesdemos.github.io/xcsh/',
               icon: resolveIcon('f5xc:ai_assistant_logo'),
             },
+            {
+              label: 'Console Catalog',
+              translations: itemLabels['Console Catalog'],
+              description: 'AI-driven browser automation for F5 XC UI',
+              descriptionTranslations: itemDescriptions['AI-driven browser automation for F5 XC UI'],
+              href: 'https://f5xc-salesdemos.github.io/console/',
+              icon: resolveIcon('f5xc:ai_assistant_logo'),
+            },
           ],
         },
       ],
@@ -575,6 +583,7 @@ const federatedSearchSites = [
   { repo: 'traffic-generator', label: 'Traffic Generator' },
   { repo: 'demo-resources', label: 'Demo Resources' },
   { repo: 'xcsh-chrome-extension', label: 'xcsh Chrome Extension' },
+  { repo: 'console', label: 'Console Catalog' },
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {

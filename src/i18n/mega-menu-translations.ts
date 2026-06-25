@@ -703,6 +703,20 @@ export const itemDescriptions: Record<string, I18nString> = {
     hi: 'xcsh के साथ F5 XC कंसोल चलाएं',
     th: 'ควบคุมคอนโซล F5 XC ด้วย xcsh',
   },
+  'AI-driven browser automation for F5 XC UI': {
+    fr: 'Automatisation du navigateur pilotée par IA pour la console F5 XC',
+    es: 'Automatización del navegador impulsada por IA para la consola F5 XC',
+    de: 'KI-gesteuerte Browser-Automatisierung für die F5 XC-Konsole',
+    'pt-BR': 'Automação de navegador orientada por IA para o console F5 XC',
+    ja: 'F5 XC コンソール向け AI 駆動ブラウザ自動化',
+    ko: 'F5 XC 콘솔용 AI 기반 브라우저 자동화',
+    'zh-CN': 'F5 XC 控制台的 AI 驱动浏览器自动化',
+    'zh-TW': 'F5 XC 控制台的 AI 驅動瀏覽器自動化',
+    ar: 'أتمتة المتصفح المدفوعة بالذكاء الاصطناعي لوحدة تحكم F5 XC',
+    it: 'Automazione del browser basata su IA per la console F5 XC',
+    hi: 'F5 XC कंसोल के लिए AI-संचालित ब्राउज़र स्वचालन',
+    th: 'การทำงานอัตโนมัติของเบราว์เซอร์ด้วย AI สำหรับคอนโซล F5 XC',
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -1331,5 +1345,19 @@ export const itemLabels: Record<string, I18nString> = {
     it: 'Estensione Chrome xcsh',
     hi: 'xcsh Chrome एक्सटेंशन',
     th: 'ส่วนขยาย Chrome ของ xcsh',
+  },
+  'Console Catalog': {
+    fr: 'Catalogue Console',
+    es: 'Catálogo de Consola',
+    de: 'Konsolen-Katalog',
+    'pt-BR': 'Catálogo do Console',
+    ja: 'コンソールカタログ',
+    ko: '콘솔 카탈로그',
+    'zh-CN': '控制台目录',
+    'zh-TW': '控制台目錄',
+    ar: 'كتالوج وحدة التحكم',
+    it: 'Catalogo Console',
+    hi: 'कंसोल कैटलॉग',
+    th: 'แคตตาล็อกคอนโซล',
   },
 };
