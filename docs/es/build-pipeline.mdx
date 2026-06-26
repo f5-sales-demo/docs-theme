@@ -10,7 +10,7 @@ i18n:
   translator: machine
 ---
 
-Esta página describe cómo los repositorios de contenido consumen el paquete npm `@f5xc-salesdemos/docs-theme` para producir sitios de documentación completamente personalizados con la marca.
+Esta página describe cómo los repositorios de contenido consumen el paquete npm `@f5-sales-demo/docs-theme` para producir sitios de documentación completamente personalizados con la marca.
 
 ## Arquitectura
 
@@ -26,10 +26,10 @@ Esta página describe cómo los repositorios de contenido consumen el paquete np
 │   (Docker image)          │
 │                           │
 │  npm install              │
-│  @f5xc-salesdemos/docs-theme ─────┐  │
+│  @f5-sales-demo/docs-theme ─────┐  │
 │                        ▼  │
 │  node_modules/            │
-│    @f5xc-salesdemos/docs-theme/       │
+│    @f5-sales-demo/docs-theme/       │
 │      ├── config.ts        │
 │      ├── index.ts         │
 │      ├── fonts/           │
@@ -57,12 +57,12 @@ Esta página describe cómo los repositorios de contenido consumen el paquete np
    ```yaml
    jobs:
      docs:
-       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+       uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
 3. **Ejecución del constructor Docker** — la imagen Docker `f5xc-docs-builder` ya tiene el tema preinstalado mediante npm. En tiempo de compilación:
-   - Copia `astro.config.mjs` y `content.config.ts` desde `node_modules/@f5xc-salesdemos/docs-theme/` hacia la raíz del proyecto Astro
+   - Copia `astro.config.mjs` y `content.config.ts` desde `node_modules/@f5-sales-demo/docs-theme/` hacia la raíz del proyecto Astro
    - Copia los archivos `docs/` del repositorio de contenido en `src/content/docs/`
-4. **Compilación con Astro** — Astro lee la configuración que llama a `createF5xcDocsConfig()`. La función de fábrica resuelve todos los recursos del tema mediante especificadores de paquetes npm (p. ej., `@f5xc-salesdemos/docs-theme/styles/custom.css`)
+4. **Compilación con Astro** — Astro lee la configuración que llama a `createF5xcDocsConfig()`. La función de fábrica resuelve todos los recursos del tema mediante especificadores de paquetes npm (p. ej., `@f5-sales-demo/docs-theme/styles/custom.css`)
 5. **Despliegue** — el sitio estático compilado se despliega en GitHub Pages
 
 ## Requisitos del repositorio de contenido
@@ -92,7 +92,7 @@ concurrency:
 
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
 Este es el mismo flujo de trabajo que utiliza el propio repositorio del tema para construir la documentación que está leyendo.
@@ -103,15 +103,15 @@ Todas las rutas en el tema utilizan especificadores de paquetes npm, resueltos a
 
 ```js
 // CSS — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
-'@f5xc-salesdemos/docs-theme/styles/custom.css'
+'@f5-sales-demo/docs-theme/fonts/font-face.css'
+'@f5-sales-demo/docs-theme/styles/custom.css'
 
 // Components — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/components/Footer.astro'
-'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+'@f5-sales-demo/docs-theme/components/Footer.astro'
+'@f5-sales-demo/docs-theme/components/Banner.astro'
 
 // Assets — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+'@f5-sales-demo/docs-theme/assets/github-avatar.png'
 ```
 
 No existe un directorio `./theme/` en el espacio de trabajo de compilación. El constructor Docker instala el tema como una dependencia npm regular y Astro resuelve todos los especificadores a través de `node_modules`.
@@ -124,7 +124,7 @@ Las rutas de los archivos de fuentes dentro de `font-face.css` utilizan `./` (p.
 
 Los cambios del tema se propagan mediante actualizaciones del paquete npm:
 
-1. Se fusiona un cambio en `main` dentro de `@f5xc-salesdemos/docs-theme`
+1. Se fusiona un cambio en `main` dentro de `@f5-sales-demo/docs-theme`
 2. La imagen del constructor Docker se reconstruye con el paquete actualizado
 3. La próxima vez que se ejecute el flujo de trabajo de cualquier repositorio de contenido, utilizará la imagen del constructor actualizada
 4. La compilación con Astro incorpora las fuentes, estilos, logotipo, componentes y plugins actualizados

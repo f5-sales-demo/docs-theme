@@ -12,7 +12,7 @@ i18n:
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 ## 참고 상자
 
@@ -120,17 +120,17 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
 <Tabs syncKey="pkg">
   <TabItem label="npm">
     ```bash
-    npm install @f5xc-salesdemos/docs-theme
+    npm install @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="pnpm">
     ```bash
-    pnpm add @f5xc-salesdemos/docs-theme
+    pnpm add @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="yarn">
     ```bash
-    yarn add @f5xc-salesdemos/docs-theme
+    yarn add @f5-sales-demo/docs-theme
     ```
   </TabItem>
 </Tabs>
@@ -229,7 +229,7 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
 테마는 아이콘 유무에 관계없이 작동하는 `LinkCard` 구성 요소를 제공합니다. 테마에서 가져오세요:
 
 ```mdx
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 ```
 
 <CardGrid>
@@ -247,7 +247,7 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
 
 #### 아이콘 포함
 
-`prefix:name` 구문을 사용하여 `icon` prop을 추가하세요. 8개의 아이콘 패키지가 모두 지원됩니다 — 전체 카탈로그는 [아이콘 패키지](https://f5xc-salesdemos.github.io/docs-icons/) 문서를 참조하세요.
+`prefix:name` 구문을 사용하여 `icon` prop을 추가하세요. 8개의 아이콘 패키지가 모두 지원됩니다 — 전체 카탈로그는 [아이콘 패키지](https://f5-sales-demo.github.io/docs-icons/) 문서를 참조하세요.
 
 ##### Lucide (`lucide:`)
 
@@ -256,13 +256,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="lucide:shield-check"
     title="Web App Firewall"
     description="Firewall policies and configuration."
-    href="https://f5xc-salesdemos.github.io/waf/"
+    href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
     title="Multi-Cloud Networking"
     description="Site connectivity across clouds."
-    href="https://f5xc-salesdemos.github.io/mcn/"
+    href="https://f5-sales-demo.github.io/mcn/"
   />
 </CardGrid>
 
@@ -273,13 +273,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="carbon:security"
     title="Security Services"
     description="IBM Carbon security icon set."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="carbon:cloud"
     title="Cloud Services"
     description="IBM Carbon cloud icon set."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -290,13 +290,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="mdi:shield-lock"
     title="Access Control"
     description="Material Design shield lock icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="mdi:database"
     title="Data Management"
     description="Material Design database icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -307,13 +307,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="phosphor:shield"
     title="Threat Defense"
     description="Phosphor shield icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="phosphor:globe"
     title="Global Network"
     description="Phosphor globe icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -324,13 +324,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="tabler:cloud"
     title="Cloud Platform"
     description="Tabler cloud icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="tabler:rocket"
     title="Deployment"
     description="Tabler rocket icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -341,13 +341,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="f5-brand:cloud-shield-checkmark"
     title="Cloud Security"
     description="F5 branded cloud shield icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5-brand:security-firewall"
     title="Firewall"
     description="F5 branded firewall icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -360,13 +360,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="f5xc:web-app-and-api-protection"
     title="App & API Protection"
     description="F5 XC web app and API protection icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5xc:bot-defense"
     title="Bot Defense"
     description="F5 XC bot defense icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -377,13 +377,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="hashicorp-flight:terraform-color"
     title="Terraform"
     description="HashiCorp Terraform icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="hashicorp-flight:consul-color"
     title="Consul"
     description="HashiCorp Consul icon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -460,7 +460,7 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
 
 아래 이미지는 `starlight-image-zoom` 플러그인을 테스트합니다. 클릭하여 확대하세요.
 
-![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+![GitHub Avatar](https://github.com/f5-sales-demo.png)
 
 ## 파일 트리
 

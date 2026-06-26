@@ -24,7 +24,7 @@ i18n:
 يُعيَّن الشعار الافتراضي في مصنع `createF5xcDocsConfig` داخل ملف `config.ts`:
 
 ```ts
-const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
 ```
 
 إذا لم يُقدَّم خيار `logo`، تُستخدم صورة PNG الرمزية لـ GitHub. المسار هو محدد حزمة npm يُحلَّل عبر خريطة `exports` في `package.json`.
@@ -36,10 +36,10 @@ const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-a
 مرّر خيار `logo` إلى `createF5xcDocsConfig`:
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
-  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+  logo: { src: '@f5-sales-demo/docs-theme/assets/f5-logo.svg' },
 });
 ```
 
@@ -48,7 +48,7 @@ export default createF5xcDocsConfig({
 ضع ملف الشعار في مستودع المحتوى وأشر إليه:
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: { src: './src/assets/my-logo.svg' },
@@ -60,7 +60,7 @@ export default createF5xcDocsConfig({
 يدعم Starlight شعاراً منفصلاً لكل من الوضع الفاتح والوضع الداكن:
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: {

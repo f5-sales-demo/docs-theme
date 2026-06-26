@@ -15,10 +15,10 @@ i18n:
 | चर | डिफ़ॉल्ट | उद्देश्य |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | हेडर और ब्राउज़र टैब में दिखाया जाने वाला साइट शीर्षक |
-| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | डिप्लॉय की गई साइट के लिए कैनोनिकल बेस URL |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | डिप्लॉय की गई साइट के लिए कैनोनिकल बेस URL |
 | `DOCS_BASE` | `/` | URL बेस पथ (जैसे, प्रोजेक्ट साइटों के लिए `/my-repo/`) |
 | `DOCS_DESCRIPTION` | _(रिक्त स्ट्रिंग)_ | मेटाडेटा और llms.txt प्लगइन के लिए साइट विवरण |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | साइट शीर्षक से लिंक किया गया होम पेज URL |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | साइट शीर्षक से लिंक किया गया होम पेज URL |
 | `GITHUB_REPOSITORY` | _(रिक्त स्ट्रिंग)_ | GitHub सोशल लिंक और एडिट लिंक बनाने के लिए उपयोग किया जाता है |
 | `LLMS_OPTIONAL_LINKS` | `[]` | llms.txt प्लगइन के लिए अतिरिक्त लिंक की JSON एरे |
 
@@ -37,7 +37,7 @@ Starlight के `title` विकल्प और `starlight-llms-txt` प्�
 
 ```ts
 // config.ts
-const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
 Astro की शीर्ष-स्तरीय `site` प्रॉपर्टी सेट करता है। कैनोनिकल URLs, साइटमैप जनरेशन और Open Graph मेटाडेटा के लिए उपयोग किया जाता है।
@@ -64,7 +64,7 @@ const description = options.description || process.env.DOCS_DESCRIPTION || '';
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
 कस्टम `SiteTitle.astro` घटक द्वारा पढ़ा जाता है। हेडर में साइट शीर्षक को इस URL के लिंक के साथ लपेटता है, जिससे उपयोगकर्ता एक केंद्रीय दस्तावेज़ीकरण होम पेज पर वापस नेविगेट कर सकते हैं। यह तब उपयोगी होता है जब कई कंटेंट रिपॉजिटरी एक ही थीम साझा करती हैं और आप सभी साइटों पर एक समान "होम" लिंक चाहते हैं।
@@ -101,7 +101,7 @@ const llmsOptionalLinks = options.llmsOptionalLinks
 ```yaml
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
       docs_site: "https://example.com"

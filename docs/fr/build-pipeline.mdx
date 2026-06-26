@@ -10,7 +10,7 @@ i18n:
   translator: machine
 ---
 
-Cette page décrit comment les référentiels de contenu consomment le paquet npm `@f5xc-salesdemos/docs-theme` pour produire des sites de documentation entièrement personnalisés.
+Cette page décrit comment les référentiels de contenu consomment le paquet npm `@f5-sales-demo/docs-theme` pour produire des sites de documentation entièrement personnalisés.
 
 ## Architecture
 
@@ -26,10 +26,10 @@ Cette page décrit comment les référentiels de contenu consomment le paquet np
 │   (Docker image)          │
 │                           │
 │  npm install              │
-│  @f5xc-salesdemos/docs-theme ─────┐  │
+│  @f5-sales-demo/docs-theme ─────┐  │
 │                        ▼  │
 │  node_modules/            │
-│    @f5xc-salesdemos/docs-theme/       │
+│    @f5-sales-demo/docs-theme/       │
 │      ├── config.ts        │
 │      ├── index.ts         │
 │      ├── fonts/           │
@@ -57,12 +57,12 @@ Cette page décrit comment les référentiels de contenu consomment le paquet np
    ```yaml
    jobs:
      docs:
-       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+       uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
 3. **Exécution du constructeur Docker** — l'image Docker `f5xc-docs-builder` contient déjà le thème préinstallé via npm. Au moment de la construction, elle :
-   - Copie `astro.config.mjs` et `content.config.ts` depuis `node_modules/@f5xc-salesdemos/docs-theme/` vers la racine du projet Astro
+   - Copie `astro.config.mjs` et `content.config.ts` depuis `node_modules/@f5-sales-demo/docs-theme/` vers la racine du projet Astro
    - Copie les fichiers `docs/` du référentiel de contenu dans `src/content/docs/`
-4. **Construction Astro** — Astro lit la configuration qui appelle `createF5xcDocsConfig()`. La fabrique résout tous les actifs du thème via les spécificateurs de paquet npm (ex. : `@f5xc-salesdemos/docs-theme/styles/custom.css`)
+4. **Construction Astro** — Astro lit la configuration qui appelle `createF5xcDocsConfig()`. La fabrique résout tous les actifs du thème via les spécificateurs de paquet npm (ex. : `@f5-sales-demo/docs-theme/styles/custom.css`)
 5. **Déploiement** — le site statique généré est déployé sur GitHub Pages
 
 ## Exigences du référentiel de contenu
@@ -92,7 +92,7 @@ concurrency:
 
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
 Il s'agit du même workflow utilisé par ce référentiel de thème pour générer la documentation que vous êtes en train de lire.
@@ -103,15 +103,15 @@ Tous les chemins dans le thème utilisent des spécificateurs de paquet npm, ré
 
 ```js
 // CSS — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
-'@f5xc-salesdemos/docs-theme/styles/custom.css'
+'@f5-sales-demo/docs-theme/fonts/font-face.css'
+'@f5-sales-demo/docs-theme/styles/custom.css'
 
 // Components — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/components/Footer.astro'
-'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+'@f5-sales-demo/docs-theme/components/Footer.astro'
+'@f5-sales-demo/docs-theme/components/Banner.astro'
 
 // Assets — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+'@f5-sales-demo/docs-theme/assets/github-avatar.png'
 ```
 
 Il n'existe aucun répertoire `./theme/` dans l'espace de travail de construction. Le constructeur Docker installe le thème en tant que dépendance npm ordinaire et Astro résout tous les spécificateurs via `node_modules`.
@@ -124,7 +124,7 @@ Les chemins des fichiers de polices dans `font-face.css` utilisent `./` (ex. : `
 
 Les modifications du thème se propagent via les mises à jour du paquet npm :
 
-1. Une modification est fusionnée dans `main` dans `@f5xc-salesdemos/docs-theme`
+1. Une modification est fusionnée dans `main` dans `@f5-sales-demo/docs-theme`
 2. L'image Docker du constructeur est reconstruite avec le paquet mis à jour
 3. La prochaine fois que le workflow d'un référentiel de contenu s'exécute, il utilise l'image du constructeur mise à jour
 4. La construction Astro récupère les polices, styles, logo, composants et plugins mis à jour

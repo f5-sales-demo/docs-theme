@@ -1,5 +1,5 @@
 {
-  "name": "@f5xc-salesdemos/docs-theme",
+  "name": "@f5-sales-demo/docs-theme",
   "version": "0.1.0",
   "description": "F5 Distributed Cloud branded Starlight documentation theme",
   "type": "module",
@@ -7,13 +7,13 @@
     "docs-translate": "./bin/translate.mjs"
   },
   "license": "MIT",
-  "homepage": "https://f5xc-salesdemos.github.io/docs-theme",
+  "homepage": "https://f5-sales-demo.github.io/docs-theme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/f5xc-salesdemos/docs-theme"
+    "url": "https://github.com/f5-sales-demo/docs-theme"
   },
   "bugs": {
-    "url": "https://github.com/f5xc-salesdemos/docs-theme/issues"
+    "url": "https://github.com/f5-sales-demo/docs-theme/issues"
   },
   "exports": {
     ".": "./index.ts",
@@ -78,9 +78,9 @@
   "peerDependencies": {
     "@astrojs/markdown-remark": ">=7.0.0",
     "@astrojs/starlight": ">=0.38.0",
-    "@f5xc-salesdemos/icons-f5-brand": "*",
-    "@f5xc-salesdemos/icons-f5xc": "*",
-    "@f5xc-salesdemos/icons-hashicorp-flight": "*",
+    "@f5-sales-demo/icons-f5-brand": "*",
+    "@f5-sales-demo/icons-f5xc": "*",
+    "@f5-sales-demo/icons-hashicorp-flight": "*",
     "@iconify-json/carbon": "*",
     "@iconify-json/lucide": "*",
     "@iconify-json/mdi": "*",
@@ -104,22 +104,22 @@
     "@iconify-json/tabler": {
       "optional": true
     },
-    "@f5xc-salesdemos/icons-f5-brand": {
+    "@f5-sales-demo/icons-f5-brand": {
       "optional": true
     },
-    "@f5xc-salesdemos/icons-f5xc": {
+    "@f5-sales-demo/icons-f5xc": {
       "optional": true
     },
-    "@f5xc-salesdemos/icons-hashicorp-flight": {
+    "@f5-sales-demo/icons-hashicorp-flight": {
       "optional": true
     }
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.106.0",
     "@astrojs/react": "^6.0.0",
-    "@f5xc-salesdemos/i18n-core": "^1.0.0",
-    "@f5xc-salesdemos/starlight-llms-txt": "1.3.1",
-    "@f5xc-salesdemos/starlight-mega-menu": "^2.0.0",
+    "@f5-sales-demo/i18n-core": "^1.0.0",
+    "@f5-sales-demo/starlight-llms-txt": "1.3.1",
+    "@f5-sales-demo/starlight-mega-menu": "^2.0.0",
     "gray-matter": "^4.0.3",
     "remark-code-import": "^1.2.0",
     "starlight-heading-badges": "^0.7.0",

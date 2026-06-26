@@ -8,7 +8,7 @@ i18n:
   translator: machine
 ---
 
-本頁說明內容儲存庫如何使用 `@f5xc-salesdemos/docs-theme` npm 套件，以產生完整品牌化的文件網站。
+本頁說明內容儲存庫如何使用 `@f5-sales-demo/docs-theme` npm 套件，以產生完整品牌化的文件網站。
 
 ## 架構
 
@@ -24,10 +24,10 @@ i18n:
 │   (Docker image)          │
 │                           │
 │  npm install              │
-│  @f5xc-salesdemos/docs-theme ─────┐  │
+│  @f5-sales-demo/docs-theme ─────┐  │
 │                        ▼  │
 │  node_modules/            │
-│    @f5xc-salesdemos/docs-theme/       │
+│    @f5-sales-demo/docs-theme/       │
 │      ├── config.ts        │
 │      ├── index.ts         │
 │      ├── fonts/           │
@@ -55,12 +55,12 @@ i18n:
    ```yaml
    jobs:
      docs:
-       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+       uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
 3. **Docker 建置器執行** — `f5xc-docs-builder` Docker 映像檔已透過 npm 預先安裝佈景主題。在建置時它會：
-   - 將 `astro.config.mjs` 和 `content.config.ts` 從 `node_modules/@f5xc-salesdemos/docs-theme/` 複製到 Astro 專案根目錄
+   - 將 `astro.config.mjs` 和 `content.config.ts` 從 `node_modules/@f5-sales-demo/docs-theme/` 複製到 Astro 專案根目錄
    - 將內容儲存庫的 `docs/` 檔案複製至 `src/content/docs/`
-4. **Astro 建置** — Astro 讀取設定檔，其中呼叫 `createF5xcDocsConfig()`。此工廠函式透過 npm 套件指定符（例如 `@f5xc-salesdemos/docs-theme/styles/custom.css`）解析所有佈景主題資源
+4. **Astro 建置** — Astro 讀取設定檔，其中呼叫 `createF5xcDocsConfig()`。此工廠函式透過 npm 套件指定符（例如 `@f5-sales-demo/docs-theme/styles/custom.css`）解析所有佈景主題資源
 5. **部署** — 建置完成的靜態網站部署至 GitHub Pages
 
 ## 內容儲存庫需求
@@ -90,7 +90,7 @@ concurrency:
 
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
 這與本佈景主題儲存庫本身用於建置您正在閱讀之文件的工作流程相同。
@@ -101,15 +101,15 @@ jobs:
 
 ```js
 // CSS — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
-'@f5xc-salesdemos/docs-theme/styles/custom.css'
+'@f5-sales-demo/docs-theme/fonts/font-face.css'
+'@f5-sales-demo/docs-theme/styles/custom.css'
 
 // Components — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/components/Footer.astro'
-'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+'@f5-sales-demo/docs-theme/components/Footer.astro'
+'@f5-sales-demo/docs-theme/components/Banner.astro'
 
 // Assets — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+'@f5-sales-demo/docs-theme/assets/github-avatar.png'
 ```
 
 建置工作區中不存在 `./theme/` 目錄。Docker 建置器將佈景主題作為一般 npm 相依套件安裝，Astro 透過 `node_modules` 解析所有指定符。
@@ -122,7 +122,7 @@ jobs:
 
 佈景主題變更透過 npm 套件更新傳遞：
 
-1. 變更合併至 `@f5xc-salesdemos/docs-theme` 的 `main` 分支
+1. 變更合併至 `@f5-sales-demo/docs-theme` 的 `main` 分支
 2. Docker 建置器映像檔以更新後的套件重新建置
 3. 下次任何內容儲存庫的工作流程執行時，將使用更新後的建置器映像檔
 4. Astro 建置取得更新後的字型、樣式、標誌、元件和插件

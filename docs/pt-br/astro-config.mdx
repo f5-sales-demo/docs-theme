@@ -8,14 +8,14 @@ i18n:
   translator: machine
 ---
 
-Os repositórios de conteúdo não mantêm seu próprio `astro.config.mjs`. Em vez disso, eles importam uma fábrica de configuração do pacote npm `@f5xc-salesdemos/docs-theme` que retorna uma configuração completa do Astro com Starlight, oito plugins empacotados e todos os padrões do tema.
+Os repositórios de conteúdo não mantêm seu próprio `astro.config.mjs`. Em vez disso, eles importam uma fábrica de configuração do pacote npm `@f5-sales-demo/docs-theme` que retorna uma configuração completa do Astro com Starlight, oito plugins empacotados e todos os padrões do tema.
 
 ## Consumindo o Tema
 
 O `astro.config.mjs` de um repositório de conteúdo (fornecido pelo builder Docker) é um invólucro simples:
 
 ```js
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig();
 ```
@@ -44,7 +44,7 @@ interface F5xcDocsConfigOptions {
 
 | Opção | Padrão / Fallback de Env | Finalidade |
 |-------|--------------------------|-----------|
-| `site` | `DOCS_SITE` ou `https://f5xc-salesdemos.github.io` | URL base canônica |
+| `site` | `DOCS_SITE` ou `https://f5-sales-demo.github.io` | URL base canônica |
 | `base` | `DOCS_BASE` ou `/` | Caminho base da URL para sites de projetos |
 | `title` | `DOCS_TITLE` ou `Documentation` | Título do site no cabeçalho e na aba do navegador |
 | `description` | `DOCS_DESCRIPTION` ou string vazia | Descrição do site para metadados e llms.txt |
@@ -54,7 +54,7 @@ interface F5xcDocsConfigOptions {
 | `additionalRemarkPlugins` | `[]` | Plugins remark extras adicionados após remark-mermaid |
 | `megaMenuItems` | Menu integrado de Produtos/Soluções/Docs/Suporte | Entradas de nível superior do mega menu |
 | `head` | Tag `<script>` da CDN do Mermaid | Entradas `<head>` personalizadas |
-| `logo` | `@f5xc-salesdemos/docs-theme/assets/github-avatar.png` | Logo da barra lateral (src único ou par claro/escuro) |
+| `logo` | `@f5-sales-demo/docs-theme/assets/github-avatar.png` | Logo da barra lateral (src único ou par claro/escuro) |
 
 ## Plugins Starlight Empacotados
 
@@ -65,14 +65,14 @@ A fábrica configura oito plugins Starlight automaticamente:
 | `starlight-mega-menu` | Mega menu de navegação superior com layouts em grade/lista |
 | `starlight-videos` | Incorporar vídeos em páginas de documentação |
 | `starlight-image-zoom` | Clique para ampliar imagens |
-| `@f5xc-salesdemos/docs-theme` (próprio) | Injeção de CSS, substituições de componentes, middleware de rota |
+| `@f5-sales-demo/docs-theme` (próprio) | Injeção de CSS, substituições de componentes, middleware de rota |
 | `starlight-scroll-to-top` | Botão de voltar ao topo com anel de progresso |
 | `starlight-heading-badges` | Anotações de badge em títulos |
 | `starlight-page-actions` | Botões de ação de página |
 | `starlight-plugin-icons` | Suporte a ícones no Starlight |
 | `starlight-llms-txt` | Gera `llms.txt` e `llms-full.txt` para consumo por LLMs |
 
-Estes são registrados em ordem dentro de `config.ts`. O plugin do tema (`@f5xc-salesdemos/docs-theme`) é em si um plugin Starlight que é executado nesta lista.
+Estes são registrados em ordem dentro de `config.ts`. O plugin do tema (`@f5-sales-demo/docs-theme`) é em si um plugin Starlight que é executado nesta lista.
 
 ## Hook do Plugin de Tema
 
@@ -91,26 +91,26 @@ O plugin do tema é definido em `index.ts` e registrado entre os plugins empacot
 // index.ts — Starlight plugin entry point
 export default function f5xcDocsTheme(): StarlightPlugin {
   return {
-    name: '@f5xc-salesdemos/docs-theme',
+    name: '@f5-sales-demo/docs-theme',
     hooks: {
       'config:setup'({ config, updateConfig, addRouteMiddleware }) {
         addRouteMiddleware({
-          entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
+          entrypoint: '@f5-sales-demo/docs-theme/route-middleware',
           order: 'pre',
         });
         updateConfig({
           customCss: [
             ...(config.customCss ?? []),
-            '@f5xc-salesdemos/docs-theme/fonts/font-face.css',
-            '@f5xc-salesdemos/docs-theme/styles/custom.css',
+            '@f5-sales-demo/docs-theme/fonts/font-face.css',
+            '@f5-sales-demo/docs-theme/styles/custom.css',
           ],
           components: {
             ...config.components,
-            Banner: '@f5xc-salesdemos/docs-theme/components/Banner.astro',
-            EditLink: '@f5xc-salesdemos/docs-theme/components/EditLink.astro',
-            Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
-            SiteTitle: '@f5xc-salesdemos/docs-theme/components/SiteTitle.astro',
-            MarkdownContent: '@f5xc-salesdemos/docs-theme/components/MarkdownContent.astro',
+            Banner: '@f5-sales-demo/docs-theme/components/Banner.astro',
+            EditLink: '@f5-sales-demo/docs-theme/components/EditLink.astro',
+            Footer: '@f5-sales-demo/docs-theme/components/Footer.astro',
+            SiteTitle: '@f5-sales-demo/docs-theme/components/SiteTitle.astro',
+            MarkdownContent: '@f5-sales-demo/docs-theme/components/MarkdownContent.astro',
           },
         });
       },
@@ -119,7 +119,7 @@ export default function f5xcDocsTheme(): StarlightPlugin {
 }
 ```
 
-Todos os caminhos utilizam especificadores de pacote npm (por exemplo, `@f5xc-salesdemos/docs-theme/styles/custom.css`), que são resolvidos por meio do mapa `exports` no `package.json`.
+Todos os caminhos utilizam especificadores de pacote npm (por exemplo, `@f5-sales-demo/docs-theme/styles/custom.css`), que são resolvidos por meio do mapa `exports` no `package.json`.
 
 ## Outras Integrações
 

@@ -10,7 +10,7 @@ i18n:
   translator: machine
 ---
 
-تصف هذه الصفحة كيفية استهلاك مستودعات المحتوى لحزمة npm الخاصة بـ `@f5xc-salesdemos/docs-theme` لإنتاج مواقع توثيق ذات علامة تجارية كاملة.
+تصف هذه الصفحة كيفية استهلاك مستودعات المحتوى لحزمة npm الخاصة بـ `@f5-sales-demo/docs-theme` لإنتاج مواقع توثيق ذات علامة تجارية كاملة.
 
 ## البنية المعمارية
 
@@ -26,10 +26,10 @@ i18n:
 │   (Docker image)          │
 │                           │
 │  npm install              │
-│  @f5xc-salesdemos/docs-theme ─────┐  │
+│  @f5-sales-demo/docs-theme ─────┐  │
 │                        ▼  │
 │  node_modules/            │
-│    @f5xc-salesdemos/docs-theme/       │
+│    @f5-sales-demo/docs-theme/       │
 │      ├── config.ts        │
 │      ├── index.ts         │
 │      ├── fonts/           │
@@ -57,12 +57,12 @@ i18n:
    ```yaml
    jobs:
      docs:
-       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+       uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
 3. **تشغيل مُنشئ Docker** — تتضمن صورة Docker الخاصة بـ `f5xc-docs-builder` السمةَ مثبَّتةً مسبقًا عبر npm. في وقت البناء تقوم بما يلي:
-   - نسخ `astro.config.mjs` و`content.config.ts` من `node_modules/@f5xc-salesdemos/docs-theme/` إلى جذر مشروع Astro
+   - نسخ `astro.config.mjs` و`content.config.ts` من `node_modules/@f5-sales-demo/docs-theme/` إلى جذر مشروع Astro
    - نسخ ملفات `docs/` الخاصة بمستودع المحتوى إلى `src/content/docs/`
-4. **بناء Astro** — يقرأ Astro التهيئة التي تستدعي `createF5xcDocsConfig()`. تحلّ هذه الدالة المصنع جميع أصول السمة من خلال محددات حزمة npm (مثلًا، `@f5xc-salesdemos/docs-theme/styles/custom.css`)
+4. **بناء Astro** — يقرأ Astro التهيئة التي تستدعي `createF5xcDocsConfig()`. تحلّ هذه الدالة المصنع جميع أصول السمة من خلال محددات حزمة npm (مثلًا، `@f5-sales-demo/docs-theme/styles/custom.css`)
 5. **النشر** — يُنشر الموقع الثابت المبني إلى GitHub Pages
 
 ## متطلبات مستودع المحتوى
@@ -92,7 +92,7 @@ concurrency:
 
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
 هذا هو نفس سير العمل الذي يستخدمه مستودع السمة هذا لبناء التوثيق الذي تقرأه الآن.
@@ -103,15 +103,15 @@ jobs:
 
 ```js
 // CSS — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
-'@f5xc-salesdemos/docs-theme/styles/custom.css'
+'@f5-sales-demo/docs-theme/fonts/font-face.css'
+'@f5-sales-demo/docs-theme/styles/custom.css'
 
 // Components — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/components/Footer.astro'
-'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+'@f5-sales-demo/docs-theme/components/Footer.astro'
+'@f5-sales-demo/docs-theme/components/Banner.astro'
 
 // Assets — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+'@f5-sales-demo/docs-theme/assets/github-avatar.png'
 ```
 
 لا يوجد دليل `./theme/` في مساحة عمل البناء. يُثبّت مُنشئ Docker السمةَ باعتبارها تبعية npm عادية ويحلّ Astro جميع المحددات من خلال `node_modules`.
@@ -124,7 +124,7 @@ jobs:
 
 تنتشر تغييرات السمة من خلال تحديثات حزمة npm:
 
-1. يُدمج تغيير في `main` ضمن `@f5xc-salesdemos/docs-theme`
+1. يُدمج تغيير في `main` ضمن `@f5-sales-demo/docs-theme`
 2. تُعاد إعادة بناء صورة Docker للمُنشئ بالحزمة المحدَّثة
 3. في المرة التالية التي يعمل فيها سير عمل أي مستودع محتوى، يستخدم صورة المُنشئ المحدَّثة
 4. يلتقط بناء Astro الخطوطَ والأنماطَ والشعارَ والمكوناتِ والإضافاتِ المحدَّثة
