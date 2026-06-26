@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 
-const baseURL = process.env.BASE_URL ?? 'https://f5xc-salesdemos.github.io/docs-theme';
+const baseURL = process.env.BASE_URL ?? 'https://f5-sales-demo.github.io/docs-theme';
 
 export default defineConfig({
   testDir: 'tests/visual',
