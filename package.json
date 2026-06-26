@@ -86,7 +86,7 @@
     "@iconify-json/mdi": "*",
     "@iconify-json/ph": "*",
     "@iconify-json/tabler": "*",
-    "astro": "^6.1.9"
+    "astro": ">=6.0.0"
   },
   "peerDependenciesMeta": {
     "@iconify-json/lucide": {
