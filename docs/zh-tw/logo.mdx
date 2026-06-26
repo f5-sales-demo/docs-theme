@@ -24,7 +24,7 @@ i18n:
 預設標誌設定於 `config.ts` 中的 `createF5xcDocsConfig` 工廠函式：
 
 ```ts
-const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
 ```
 
 若未提供 `logo` 選項，則使用 GitHub 頭像 PNG。該路徑為 npm 套件指定符，透過 `package.json` 中的 `exports` 對應表進行解析。
@@ -36,10 +36,10 @@ const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-a
 將 `logo` 選項傳遞給 `createF5xcDocsConfig`：
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
-  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+  logo: { src: '@f5-sales-demo/docs-theme/assets/f5-logo.svg' },
 });
 ```
 
@@ -48,7 +48,7 @@ export default createF5xcDocsConfig({
 將標誌檔案放置於內容儲存庫中並加以參照：
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: { src: './src/assets/my-logo.svg' },
@@ -60,7 +60,7 @@ export default createF5xcDocsConfig({
 Starlight 支援為淺色與深色模式分別設定標誌：
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: {

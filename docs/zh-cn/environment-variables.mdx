@@ -15,10 +15,10 @@ i18n:
 | 变量 | 默认值 | 用途 |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | 显示在页眉和浏览器标签页中的站点标题 |
-| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | 已部署站点的规范基础 URL |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | 已部署站点的规范基础 URL |
 | `DOCS_BASE` | `/` | URL 基础路径（例如，项目站点使用 `/my-repo/`） |
 | `DOCS_DESCRIPTION` | _（空字符串）_ | 用于元数据和 llms.txt 插件的站点描述 |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | 从站点标题链接的主页 URL |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | 从站点标题链接的主页 URL |
 | `GITHUB_REPOSITORY` | _（空字符串）_ | 用于构建 GitHub 社交链接和编辑链接 |
 | `LLMS_OPTIONAL_LINKS` | `[]` | 用于 llms.txt 插件的附加链接 JSON 数组 |
 
@@ -37,7 +37,7 @@ const title = options.title || process.env.DOCS_TITLE || 'Documentation';
 
 ```ts
 // config.ts
-const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
 设置 Astro 的顶级 `site` 属性。用于规范 URL、站点地图生成和 Open Graph 元数据。
@@ -64,7 +64,7 @@ const description = options.description || process.env.DOCS_DESCRIPTION || '';
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
 由自定义 `SiteTitle.astro` 组件读取。将页眉中的站点标题包装为指向此 URL 的链接，允许用户导航回集中的文档主页。当多个内容仓库共享同一主题，且您希望在所有站点中保持一致的"主页"链接时，此变量非常有用。
@@ -101,7 +101,7 @@ const llmsOptionalLinks = options.llmsOptionalLinks
 ```yaml
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
       docs_site: "https://example.github.io"

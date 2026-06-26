@@ -10,7 +10,7 @@ i18n:
   translator: machine
 ---
 
-Diese Seite beschreibt, wie Content-Repositories das npm-Paket `@f5xc-salesdemos/docs-theme` konsumieren, um vollständig gebrandete Dokumentationsseiten zu erstellen.
+Diese Seite beschreibt, wie Content-Repositories das npm-Paket `@f5-sales-demo/docs-theme` konsumieren, um vollständig gebrandete Dokumentationsseiten zu erstellen.
 
 ## Architektur
 
@@ -26,10 +26,10 @@ Diese Seite beschreibt, wie Content-Repositories das npm-Paket `@f5xc-salesdemos
 │   (Docker image)          │
 │                           │
 │  npm install              │
-│  @f5xc-salesdemos/docs-theme ─────┐  │
+│  @f5-sales-demo/docs-theme ─────┐  │
 │                        ▼  │
 │  node_modules/            │
-│    @f5xc-salesdemos/docs-theme/       │
+│    @f5-sales-demo/docs-theme/       │
 │      ├── config.ts        │
 │      ├── index.ts         │
 │      ├── fonts/           │
@@ -57,12 +57,12 @@ Diese Seite beschreibt, wie Content-Repositories das npm-Paket `@f5xc-salesdemos
    ```yaml
    jobs:
      docs:
-       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+       uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
 3. **Docker-Builder wird ausgeführt** — das Docker-Image `f5xc-docs-builder` hat das Theme bereits über npm vorinstalliert. Zur Build-Zeit wird Folgendes ausgeführt:
-   - Kopiert `astro.config.mjs` und `content.config.ts` aus `node_modules/@f5xc-salesdemos/docs-theme/` in das Astro-Projektstammverzeichnis
+   - Kopiert `astro.config.mjs` und `content.config.ts` aus `node_modules/@f5-sales-demo/docs-theme/` in das Astro-Projektstammverzeichnis
    - Kopiert die `docs/`-Dateien des Content-Repos nach `src/content/docs/`
-4. **Astro-Build** — Astro liest die Konfiguration, die `createF5xcDocsConfig()` aufruft. Die Factory löst alle Theme-Assets über npm-Paket-Spezifikatoren auf (z. B. `@f5xc-salesdemos/docs-theme/styles/custom.css`)
+4. **Astro-Build** — Astro liest die Konfiguration, die `createF5xcDocsConfig()` aufruft. Die Factory löst alle Theme-Assets über npm-Paket-Spezifikatoren auf (z. B. `@f5-sales-demo/docs-theme/styles/custom.css`)
 5. **Deployment** — die erstellte statische Website wird auf GitHub Pages bereitgestellt
 
 ## Anforderungen an das Content-Repo
@@ -92,7 +92,7 @@ concurrency:
 
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
 Dies ist derselbe Workflow, den dieses Theme-Repository selbst verwendet, um die Dokumentation zu erstellen, die Sie gerade lesen.
@@ -103,15 +103,15 @@ Alle Pfade im Theme verwenden npm-Paket-Spezifikatoren, die über die `exports`-
 
 ```js
 // CSS — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
-'@f5xc-salesdemos/docs-theme/styles/custom.css'
+'@f5-sales-demo/docs-theme/fonts/font-face.css'
+'@f5-sales-demo/docs-theme/styles/custom.css'
 
 // Components — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/components/Footer.astro'
-'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+'@f5-sales-demo/docs-theme/components/Footer.astro'
+'@f5-sales-demo/docs-theme/components/Banner.astro'
 
 // Assets — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+'@f5-sales-demo/docs-theme/assets/github-avatar.png'
 ```
 
 Im Build-Workspace gibt es kein `./theme/`-Verzeichnis. Der Docker-Builder installiert das Theme als reguläre npm-Abhängigkeit, und Astro löst alle Spezifikatoren über `node_modules` auf.
@@ -124,7 +124,7 @@ Schriftartdateipfade innerhalb von `font-face.css` verwenden `./` (z. B. `url(".
 
 Theme-Änderungen werden über npm-Paketaktualisierungen weitergegeben:
 
-1. Eine Änderung wird in `@f5xc-salesdemos/docs-theme` in `main` zusammengeführt
+1. Eine Änderung wird in `@f5-sales-demo/docs-theme` in `main` zusammengeführt
 2. Das Docker-Builder-Image wird mit dem aktualisierten Paket neu erstellt
 3. Beim nächsten Ausführen des Workflows eines Content-Repos wird das aktualisierte Builder-Image verwendet
 4. Der Astro-Build übernimmt die aktualisierten Schriftarten, Stile, Logos, Komponenten und Plugins

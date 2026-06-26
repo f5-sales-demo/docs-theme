@@ -12,7 +12,7 @@ i18n:
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 ## 提示框
 
@@ -120,17 +120,17 @@ Starlight 內建提示框元件具有圓角與多層陰影效果：
 <Tabs syncKey="pkg">
   <TabItem label="npm">
     ```bash
-    npm install @f5xc-salesdemos/docs-theme
+    npm install @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="pnpm">
     ```bash
-    pnpm add @f5xc-salesdemos/docs-theme
+    pnpm add @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="yarn">
     ```bash
-    yarn add @f5xc-salesdemos/docs-theme
+    yarn add @f5-sales-demo/docs-theme
     ```
   </TabItem>
 </Tabs>
@@ -229,7 +229,7 @@ Starlight 內建提示框元件具有圓角與多層陰影效果：
 此主題提供一個 `LinkCard` 元件，可搭配或不搭配圖示使用。從主題匯入：
 
 ```mdx
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 ```
 
 <CardGrid>
@@ -247,7 +247,7 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
 
 #### 搭配圖示
 
-使用 `prefix:name` 語法添加 `icon` 屬性。支援全部八個圖示套件 — 完整目錄請參閱 [圖示套件](https://f5xc-salesdemos.github.io/docs-icons/) 說明文件。
+使用 `prefix:name` 語法添加 `icon` 屬性。支援全部八個圖示套件 — 完整目錄請參閱 [圖示套件](https://f5-sales-demo.github.io/docs-icons/) 說明文件。
 
 ##### Lucide (`lucide:`)
 
@@ -256,13 +256,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="lucide:shield-check"
     title="Web 應用程式防火牆"
     description="防火牆政策與設定。"
-    href="https://f5xc-salesdemos.github.io/waf/"
+    href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
     title="多雲網路"
     description="跨雲端的站點連線。"
-    href="https://f5xc-salesdemos.github.io/mcn/"
+    href="https://f5-sales-demo.github.io/mcn/"
   />
 </CardGrid>
 
@@ -273,13 +273,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="carbon:security"
     title="安全服務"
     description="IBM Carbon 安全圖示集。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="carbon:cloud"
     title="雲端服務"
     description="IBM Carbon 雲端圖示集。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -290,13 +290,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="mdi:shield-lock"
     title="存取控制"
     description="Material Design 盾牌鎖定圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="mdi:database"
     title="資料管理"
     description="Material Design 資料庫圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -307,13 +307,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="phosphor:shield"
     title="威脅防禦"
     description="Phosphor 盾牌圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="phosphor:globe"
     title="全球網路"
     description="Phosphor 地球圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -324,13 +324,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="tabler:cloud"
     title="雲端平台"
     description="Tabler 雲端圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="tabler:rocket"
     title="部署"
     description="Tabler 火箭圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -341,13 +341,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="f5-brand:cloud-shield-checkmark"
     title="雲端安全"
     description="F5 品牌雲端盾牌圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5-brand:security-firewall"
     title="防火牆"
     description="F5 品牌防火牆圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -360,13 +360,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="f5xc:web-app-and-api-protection"
     title="應用程式與 API 保護"
     description="F5 XC Web 應用程式與 API 保護圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5xc:bot-defense"
     title="機器人防禦"
     description="F5 XC 機器人防禦圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -377,13 +377,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="hashicorp-flight:terraform-color"
     title="Terraform"
     description="HashiCorp Terraform 圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="hashicorp-flight:consul-color"
     title="Consul"
     description="HashiCorp Consul 圖示。"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -460,7 +460,7 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
 
 下方圖片用於測試 `starlight-image-zoom` 外掛。點擊可放大。
 
-![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+![GitHub Avatar](https://github.com/f5-sales-demo.png)
 
 ## 檔案樹
 

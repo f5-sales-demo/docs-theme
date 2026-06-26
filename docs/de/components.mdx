@@ -14,7 +14,7 @@ i18n:
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 ## Hinweise
 
@@ -122,17 +122,17 @@ Diese beiden Tab-Gruppen teilen `syncKey="pkg"`. Die Auswahl eines Tabs in einer
 <Tabs syncKey="pkg">
   <TabItem label="npm">
     ```bash
-    npm install @f5xc-salesdemos/docs-theme
+    npm install @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="pnpm">
     ```bash
-    pnpm add @f5xc-salesdemos/docs-theme
+    pnpm add @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="yarn">
     ```bash
-    yarn add @f5xc-salesdemos/docs-theme
+    yarn add @f5-sales-demo/docs-theme
     ```
   </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ Diese beiden Tab-Gruppen teilen `syncKey="pkg"`. Die Auswahl eines Tabs in einer
 Das Dokumentationsthema stellt eine `LinkCard`-Komponente bereit, die mit oder ohne Symbole funktioniert. Importieren Sie sie aus dem Dokumentationsthema:
 
 ```mdx
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 ```
 
 <CardGrid>
@@ -249,7 +249,7 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
 
 #### Mit Symbolen
 
-Fügen Sie eine `icon`-Eigenschaft mit der Syntax `prefix:name` hinzu. Alle acht Symbolpakete werden unterstützt — siehe die Dokumentation der [Symbolpakete](https://f5xc-salesdemos.github.io/docs-icons/) für den vollständigen Katalog.
+Fügen Sie eine `icon`-Eigenschaft mit der Syntax `prefix:name` hinzu. Alle acht Symbolpakete werden unterstützt — siehe die Dokumentation der [Symbolpakete](https://f5-sales-demo.github.io/docs-icons/) für den vollständigen Katalog.
 
 ##### Lucide (`lucide:`)
 
@@ -258,13 +258,13 @@ Fügen Sie eine `icon`-Eigenschaft mit der Syntax `prefix:name` hinzu. Alle acht
     icon="lucide:shield-check"
     title="Web-App-Firewall (WAF)"
     description="Firewall-Richtlinien und Konfiguration."
-    href="https://f5xc-salesdemos.github.io/waf/"
+    href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
     title="Multi-Cloud-Netzwerk"
     description="Site-Konnektivität über mehrere Clouds hinweg."
-    href="https://f5xc-salesdemos.github.io/mcn/"
+    href="https://f5-sales-demo.github.io/mcn/"
   />
 </CardGrid>
 
@@ -275,13 +275,13 @@ Fügen Sie eine `icon`-Eigenschaft mit der Syntax `prefix:name` hinzu. Alle acht
     icon="carbon:security"
     title="Sicherheitsdienste"
     description="IBM Carbon Sicherheitssymbolsatz."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="carbon:cloud"
     title="Cloud-Dienste"
     description="IBM Carbon Cloud-Symbolsatz."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -292,13 +292,13 @@ Fügen Sie eine `icon`-Eigenschaft mit der Syntax `prefix:name` hinzu. Alle acht
     icon="mdi:shield-lock"
     title="Zugangskontrolle"
     description="Material Design Schildschloss-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="mdi:database"
     title="Datenverwaltung"
     description="Material Design Datenbank-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -309,13 +309,13 @@ Fügen Sie eine `icon`-Eigenschaft mit der Syntax `prefix:name` hinzu. Alle acht
     icon="phosphor:shield"
     title="Bedrohungsabwehr"
     description="Phosphor Schild-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="phosphor:globe"
     title="Globales Netzwerk"
     description="Phosphor Globus-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -326,13 +326,13 @@ Fügen Sie eine `icon`-Eigenschaft mit der Syntax `prefix:name` hinzu. Alle acht
     icon="tabler:cloud"
     title="Cloud-Plattform"
     description="Tabler Cloud-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="tabler:rocket"
     title="Bereitstellung"
     description="Tabler Raketen-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -343,13 +343,13 @@ Fügen Sie eine `icon`-Eigenschaft mit der Syntax `prefix:name` hinzu. Alle acht
     icon="f5-brand:cloud-shield-checkmark"
     title="Cloud-Sicherheit"
     description="F5-Marken-Cloud-Schild-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5-brand:security-firewall"
     title="Firewall"
     description="F5-Marken-Firewall-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -362,13 +362,13 @@ Diese Symbole sind mehrfarbig und verwenden benutzerdefinierte CSS-Eigenschaften
     icon="f5xc:web-app-and-api-protection"
     title="App- und API-Schutz"
     description="F5 XC Web-App- und API-Schutz-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5xc:bot-defense"
     title="Bot-Abwehr"
     description="F5 XC Bot-Abwehr-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -379,13 +379,13 @@ Diese Symbole sind mehrfarbig und verwenden benutzerdefinierte CSS-Eigenschaften
     icon="hashicorp-flight:terraform-color"
     title="Terraform"
     description="HashiCorp Terraform-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="hashicorp-flight:consul-color"
     title="Consul"
     description="HashiCorp Consul-Symbol."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -462,7 +462,7 @@ Diese Überschrift hat ein Standard-Abzeichen ohne angegebene Variante.
 
 Das folgende Bild testet das Plugin `starlight-image-zoom`. Klicken Sie zum Vergrößern.
 
-![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+![GitHub Avatar](https://github.com/f5-sales-demo.png)
 
 ## Dateibaum
 

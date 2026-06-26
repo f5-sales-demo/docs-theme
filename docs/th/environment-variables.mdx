@@ -15,10 +15,10 @@ i18n:
 | ตัวแปร | ค่าเริ่มต้น | วัตถุประสงค์ |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | ชื่อไซต์ที่แสดงในส่วนหัวและแท็บเบราว์เซอร์ |
-| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | URL ฐานแบบ Canonical สำหรับไซต์ที่ปรับใช้งาน |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL ฐานแบบ Canonical สำหรับไซต์ที่ปรับใช้งาน |
 | `DOCS_BASE` | `/` | เส้นทางฐาน URL (เช่น `/my-repo/` สำหรับไซต์โปรเจกต์) |
 | `DOCS_DESCRIPTION` | _(สตริงว่าง)_ | คำอธิบายไซต์สำหรับ metadata และปลั๊กอิน llms.txt |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | URL หน้าแรกที่เชื่อมโยงจากชื่อไซต์ |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL หน้าแรกที่เชื่อมโยงจากชื่อไซต์ |
 | `GITHUB_REPOSITORY` | _(สตริงว่าง)_ | ใช้สร้างลิงก์โซเชียล GitHub และลิงก์แก้ไข |
 | `LLMS_OPTIONAL_LINKS` | `[]` | อาร์เรย์ JSON ของลิงก์เพิ่มเติมสำหรับปลั๊กอิน llms.txt |
 
@@ -37,7 +37,7 @@ const title = options.title || process.env.DOCS_TITLE || 'Documentation';
 
 ```ts
 // config.ts
-const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
 กำหนดคุณสมบัติ `site` ระดับบนสุดของ Astro ใช้สำหรับ URL แบบ Canonical การสร้าง sitemap และ metadata ของ Open Graph
@@ -64,7 +64,7 @@ const description = options.description || process.env.DOCS_DESCRIPTION || '';
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
 อ่านโดยส่วนประกอบ `SiteTitle.astro` ที่กำหนดเอง ครอบชื่อไซต์ในส่วนหัวด้วยลิงก์ไปยัง URL นี้ ช่วยให้ผู้ใช้สามารถนำทางกลับไปยังหน้าแรกของเอกสารส่วนกลางได้ มีประโยชน์เมื่อคลังเนื้อหาหลายแห่งใช้ธีมเดียวกันและคุณต้องการลิงก์ "home" ที่สอดคล้องกันในทุกไซต์
@@ -101,7 +101,7 @@ const llmsOptionalLinks = options.llmsOptionalLinks
 ```yaml
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
       docs_site: "https://example.github.io"

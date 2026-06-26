@@ -14,7 +14,7 @@ i18n:
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 ## Asides
 
@@ -122,17 +122,17 @@ Esses dois grupos de abas compartilham `syncKey="pkg"`. Selecionar uma aba em um
 <Tabs syncKey="pkg">
   <TabItem label="npm">
     ```bash
-    npm install @f5xc-salesdemos/docs-theme
+    npm install @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="pnpm">
     ```bash
-    pnpm add @f5xc-salesdemos/docs-theme
+    pnpm add @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="yarn">
     ```bash
-    yarn add @f5xc-salesdemos/docs-theme
+    yarn add @f5-sales-demo/docs-theme
     ```
   </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ Esses dois grupos de abas compartilham `syncKey="pkg"`. Selecionar uma aba em um
 O tema fornece um componente `LinkCard` que funciona com ou sem ícones. Importe-o do tema:
 
 ```mdx
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 ```
 
 <CardGrid>
@@ -249,7 +249,7 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
 
 #### Com Ícones
 
-Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes de ícones são suportados — consulte a documentação de [Pacotes de Ícones](https://f5xc-salesdemos.github.io/docs-icons/) para o catálogo completo.
+Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes de ícones são suportados — consulte a documentação de [Pacotes de Ícones](https://f5-sales-demo.github.io/docs-icons/) para o catálogo completo.
 
 ##### Lucide (`lucide:`)
 
@@ -258,13 +258,13 @@ Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes 
     icon="lucide:shield-check"
     title="Firewall de Aplicação Web"
     description="Políticas e configuração de firewall."
-    href="https://f5xc-salesdemos.github.io/waf/"
+    href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
     title="Redes Multi-Cloud"
     description="Conectividade de sites entre nuvens."
-    href="https://f5xc-salesdemos.github.io/mcn/"
+    href="https://f5-sales-demo.github.io/mcn/"
   />
 </CardGrid>
 
@@ -275,13 +275,13 @@ Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes 
     icon="carbon:security"
     title="Serviços de Segurança"
     description="Conjunto de ícones de segurança IBM Carbon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="carbon:cloud"
     title="Serviços em Nuvem"
     description="Conjunto de ícones de nuvem IBM Carbon."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -292,13 +292,13 @@ Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes 
     icon="mdi:shield-lock"
     title="Controle de Acesso"
     description="Ícone de cadeado e escudo do Material Design."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="mdi:database"
     title="Gerenciamento de Dados"
     description="Ícone de banco de dados do Material Design."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -309,13 +309,13 @@ Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes 
     icon="phosphor:shield"
     title="Defesa contra Ameaças"
     description="Ícone de escudo Phosphor."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="phosphor:globe"
     title="Rede Global"
     description="Ícone de globo Phosphor."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -326,13 +326,13 @@ Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes 
     icon="tabler:cloud"
     title="Plataforma em Nuvem"
     description="Ícone de nuvem Tabler."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="tabler:rocket"
     title="Implantação"
     description="Ícone de foguete Tabler."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -343,13 +343,13 @@ Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes 
     icon="f5-brand:cloud-shield-checkmark"
     title="Segurança em Nuvem"
     description="Ícone de escudo em nuvem da marca F5."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5-brand:security-firewall"
     title="Firewall"
     description="Ícone de firewall da marca F5."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -362,13 +362,13 @@ Esses ícones são multicoloridos e utilizam propriedades CSS personalizadas par
     icon="f5xc:web-app-and-api-protection"
     title="Proteção de App e API"
     description="Ícone de proteção de aplicação web e API do F5 XC."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5xc:bot-defense"
     title="Defesa contra Bots"
     description="Ícone de defesa contra bots do F5 XC."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -379,13 +379,13 @@ Esses ícones são multicoloridos e utilizam propriedades CSS personalizadas par
     icon="hashicorp-flight:terraform-color"
     title="Terraform"
     description="Ícone HashiCorp Terraform."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="hashicorp-flight:consul-color"
     title="Consul"
     description="Ícone HashiCorp Consul."
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -462,7 +462,7 @@ Verifique a barra lateral: esta página possui um badge "Novo" com a variante `t
 
 A imagem abaixo testa o plugin `starlight-image-zoom`. Clique para ampliar.
 
-![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+![GitHub Avatar](https://github.com/f5-sales-demo.png)
 
 ## Árvore de Arquivos
 
