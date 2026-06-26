@@ -1,4 +1,4 @@
-import type { I18nString } from '@f5xc-salesdemos/starlight-mega-menu';
+import type { I18nString } from '@f5-sales-demo/starlight-mega-menu';
 
 // ---------------------------------------------------------------------------
 // Top-level menu label translations

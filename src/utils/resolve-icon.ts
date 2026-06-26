@@ -43,13 +43,13 @@ export function resolveIcon(name: string): string {
       iconData = require('@iconify-json/tabler/icons.json');
       break;
     case 'f5-brand':
-      iconData = require('@f5xc-salesdemos/icons-f5-brand/icons.json');
+      iconData = require('@f5-sales-demo/icons-f5-brand/icons.json');
       break;
     case 'f5xc':
-      iconData = require('@f5xc-salesdemos/icons-f5xc/icons.json');
+      iconData = require('@f5-sales-demo/icons-f5xc/icons.json');
       break;
     case 'hashicorp-flight':
-      iconData = require('@f5xc-salesdemos/icons-hashicorp-flight/icons.json');
+      iconData = require('@f5-sales-demo/icons-hashicorp-flight/icons.json');
       break;
     default:
       throw new Error(

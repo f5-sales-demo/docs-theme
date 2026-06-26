@@ -1,4 +1,4 @@
-import { DEFAULT_LOCALE, type StarlightLocaleConfig, toStarlightLocales } from '@f5xc-salesdemos/i18n-core';
+import { DEFAULT_LOCALE, type StarlightLocaleConfig, toStarlightLocales } from '@f5-sales-demo/i18n-core';
 
 export type LocaleConfig = StarlightLocaleConfig;
 

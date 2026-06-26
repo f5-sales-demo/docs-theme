@@ -17,8 +17,8 @@ async function main() {
     process.exit(0);
   }
 
-  const { f5xcDefaultLocales } = await import('@f5xc-salesdemos/docs-theme/src/i18n/locales.ts');
-  const { translateFile } = await import('@f5xc-salesdemos/docs-theme/src/i18n/translator.ts');
+  const { f5xcDefaultLocales } = await import('@f5-sales-demo/docs-theme/src/i18n/locales.ts');
+  const { translateFile } = await import('@f5-sales-demo/docs-theme/src/i18n/translator.ts');
 
   const contentDir = process.env.CONTENT_DIR || 'src/content/docs';
   const resolvedContentDir = path.resolve(process.cwd(), contentDir);
