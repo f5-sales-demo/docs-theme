@@ -15,10 +15,10 @@ i18n:
 | المتغير | القيمة الافتراضية | الغرض |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | عنوان الموقع المعروض في الترويسة وعلامة تبويب المتصفح |
-| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | عنوان URL الأساسي الكنسي للموقع المنشور |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | عنوان URL الأساسي الكنسي للموقع المنشور |
 | `DOCS_BASE` | `/` | مسار URL الأساسي (مثل `/my-repo/` لمواقع المشاريع) |
 | `DOCS_DESCRIPTION` | _(سلسلة فارغة)_ | وصف الموقع للبيانات الوصفية وإضافة llms.txt |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | عنوان URL للصفحة الرئيسية المرتبط من عنوان الموقع |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | عنوان URL للصفحة الرئيسية المرتبط من عنوان الموقع |
 | `GITHUB_REPOSITORY` | _(سلسلة فارغة)_ | يُستخدم لبناء رابط GitHub الاجتماعي وروابط التحرير |
 | `LLMS_OPTIONAL_LINKS` | `[]` | مصفوفة JSON من روابط إضافية لإضافة llms.txt |
 
@@ -37,7 +37,7 @@ const title = options.title || process.env.DOCS_TITLE || 'Documentation';
 
 ```ts
 // config.ts
-const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
 يضبط خاصية Astro `site` على المستوى الأعلى. يُستخدم لعناوين URL الكنسية وتوليد خريطة الموقع وبيانات Open Graph الوصفية.
@@ -64,7 +64,7 @@ const description = options.description || process.env.DOCS_DESCRIPTION || '';
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
 يُقرأ بواسطة المكوّن المخصص `SiteTitle.astro`. يُغلِّف عنوان الموقع في الترويسة برابط إلى عنوان URL هذا، مما يتيح للمستخدمين التنقل إلى صفحة رئيسية مركزية للتوثيق. مفيد عندما تشترك مستودعات محتوى متعددة في نفس السمة وتريد رابط "رئيسي" متسقًا عبر جميع المواقع.
@@ -101,7 +101,7 @@ const llmsOptionalLinks = options.llmsOptionalLinks
 ```yaml
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
       docs_site: "https://example.github.io"

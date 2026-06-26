@@ -24,7 +24,7 @@ i18n:
 デフォルトのロゴは `config.ts` 内の `createF5xcDocsConfig` ファクトリで設定されています：
 
 ```ts
-const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
 ```
 
 `logo` オプションが指定されていない場合、GitHub アバターの PNG が使用されます。パスは `package.json` の `exports` マップを通じて解決される npm パッケージ指定子です。
@@ -36,10 +36,10 @@ const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-a
 `createF5xcDocsConfig` に `logo` オプションを渡します：
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
-  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+  logo: { src: '@f5-sales-demo/docs-theme/assets/f5-logo.svg' },
 });
 ```
 
@@ -48,7 +48,7 @@ export default createF5xcDocsConfig({
 ロゴファイルをコンテンツリポジトリに配置し、参照します：
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: { src: './src/assets/my-logo.svg' },
@@ -60,7 +60,7 @@ export default createF5xcDocsConfig({
 Starlight はライトモードとダークモードで別々のロゴをサポートしています：
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: {

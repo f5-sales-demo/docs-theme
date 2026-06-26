@@ -14,7 +14,7 @@ i18n:
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 ## Asides
 
@@ -122,17 +122,17 @@ Starlight के अंतर्निहित aside घटकों में 
 <Tabs syncKey="pkg">
   <TabItem label="npm">
     ```bash
-    npm install @f5xc-salesdemos/docs-theme
+    npm install @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="pnpm">
     ```bash
-    pnpm add @f5xc-salesdemos/docs-theme
+    pnpm add @f5-sales-demo/docs-theme
     ```
   </TabItem>
   <TabItem label="yarn">
     ```bash
-    yarn add @f5xc-salesdemos/docs-theme
+    yarn add @f5-sales-demo/docs-theme
     ```
   </TabItem>
 </Tabs>
@@ -231,7 +231,7 @@ Starlight के अंतर्निहित aside घटकों में 
 थीम एक `LinkCard` घटक प्रदान करता है जो आइकन के साथ या बिना काम करता है। इसे थीम से इम्पोर्ट करें:
 
 ```mdx
-import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
+import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 ```
 
 <CardGrid>
@@ -249,7 +249,7 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
 
 #### आइकन के साथ
 
-`prefix:name` सिंटैक्स का उपयोग करके `icon` prop जोड़ें। सभी आठ आइकन पैक समर्थित हैं — पूर्ण कैटलॉग के लिए [आइकन पैकेज](https://f5xc-salesdemos.github.io/docs-icons/) दस्तावेज़ीकरण देखें।
+`prefix:name` सिंटैक्स का उपयोग करके `icon` prop जोड़ें। सभी आठ आइकन पैक समर्थित हैं — पूर्ण कैटलॉग के लिए [आइकन पैकेज](https://f5-sales-demo.github.io/docs-icons/) दस्तावेज़ीकरण देखें।
 
 ##### Lucide (`lucide:`)
 
@@ -258,13 +258,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="lucide:shield-check"
     title="Web App Firewall"
     description="फ़ायरवॉल नीतियाँ और कॉन्फ़िगरेशन।"
-    href="https://f5xc-salesdemos.github.io/waf/"
+    href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
     title="Multi-Cloud Networking"
     description="क्लाउड के पार साइट कनेक्टिविटी।"
-    href="https://f5xc-salesdemos.github.io/mcn/"
+    href="https://f5-sales-demo.github.io/mcn/"
   />
 </CardGrid>
 
@@ -275,13 +275,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="carbon:security"
     title="Security Services"
     description="IBM Carbon सुरक्षा आइकन सेट।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="carbon:cloud"
     title="Cloud Services"
     description="IBM Carbon क्लाउड आइकन सेट।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -292,13 +292,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="mdi:shield-lock"
     title="Access Control"
     description="Material Design shield lock आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="mdi:database"
     title="Data Management"
     description="Material Design database आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -309,13 +309,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="phosphor:shield"
     title="Threat Defense"
     description="Phosphor shield आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="phosphor:globe"
     title="Global Network"
     description="Phosphor globe आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -326,13 +326,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="tabler:cloud"
     title="Cloud Platform"
     description="Tabler cloud आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="tabler:rocket"
     title="Deployment"
     description="Tabler rocket आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -343,13 +343,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="f5-brand:cloud-shield-checkmark"
     title="Cloud Security"
     description="F5 ब्रांडेड cloud shield आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5-brand:security-firewall"
     title="Firewall"
     description="F5 ब्रांडेड firewall आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -362,13 +362,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="f5xc:web-app-and-api-protection"
     title="App & API Protection"
     description="F5 XC web app और API सुरक्षा आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5xc:bot-defense"
     title="Bot Defense"
     description="F5 XC bot defense आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -379,13 +379,13 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
     icon="hashicorp-flight:terraform-color"
     title="Terraform"
     description="HashiCorp Terraform आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="hashicorp-flight:consul-color"
     title="Consul"
     description="HashiCorp Consul आइकन।"
-    href="https://f5xc-salesdemos.github.io/docs-icons/"
+    href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
@@ -462,7 +462,7 @@ import LinkCard from '@f5xc-salesdemos/docs-theme/components/LinkCard.astro';
 
 नीचे दी गई छवि `starlight-image-zoom` प्लगइन का परीक्षण करती है। ज़ूम करने के लिए क्लिक करें।
 
-![GitHub Avatar](https://github.com/f5xc-salesdemos.png)
+![GitHub Avatar](https://github.com/f5-sales-demo.png)
 
 ## File Tree
 

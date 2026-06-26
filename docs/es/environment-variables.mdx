@@ -15,10 +15,10 @@ El tema lee las variables de entorno en tiempo de compilación desde `config.ts`
 | Variable | Valor predeterminado | Propósito |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | Título del sitio mostrado en el encabezado y la pestaña del navegador |
-| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | URL base canónica del sitio desplegado |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL base canónica del sitio desplegado |
 | `DOCS_BASE` | `/` | Ruta base de la URL (p. ej., `/my-repo/` para sitios de proyectos) |
 | `DOCS_DESCRIPTION` | _(cadena vacía)_ | Descripción del sitio para metadatos y el complemento llms.txt |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | URL de la página de inicio vinculada desde el título del sitio |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL de la página de inicio vinculada desde el título del sitio |
 | `GITHUB_REPOSITORY` | _(cadena vacía)_ | Se utiliza para construir el enlace social de GitHub y los enlaces de edición |
 | `LLMS_OPTIONAL_LINKS` | `[]` | Arreglo JSON de enlaces adicionales para el complemento llms.txt |
 
@@ -37,7 +37,7 @@ Se pasa a la opción `title` de Starlight y al complemento `starlight-llms-txt`.
 
 ```ts
 // config.ts
-const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
 Establece la propiedad de nivel superior `site` de Astro. Se utiliza para URLs canónicas, generación de mapas del sitio y metadatos de Open Graph.
@@ -64,7 +64,7 @@ Se pasa al complemento `starlight-llms-txt` como descripción del sitio. Se util
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
 Es leído por el componente personalizado `SiteTitle.astro`. Envuelve el título del sitio en el encabezado con un enlace a esta URL, lo que permite a los usuarios navegar de regreso a una página de inicio central de la documentación. Es útil cuando varios repositorios de contenido comparten el mismo tema y se desea un enlace de "inicio" coherente en todos los sitios.
@@ -101,7 +101,7 @@ Los repositorios de contenido pasan estas variables a través de su flujo de tra
 ```yaml
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
       docs_site: "https://example.github.io"

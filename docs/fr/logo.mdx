@@ -24,7 +24,7 @@ Le thème est livré avec deux fichiers de logo dans le répertoire `assets/` :
 Le logo par défaut est défini dans la fabrique `createF5xcDocsConfig` dans `config.ts` :
 
 ```ts
-const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
 ```
 
 Si aucune option `logo` n'est fournie, le PNG de l'avatar GitHub est utilisé. Le chemin est un spécificateur de paquet npm résolu via la carte `exports` dans `package.json`.
@@ -36,10 +36,10 @@ Si aucune option `logo` n'est fournie, le PNG de l'avatar GitHub est utilisé. L
 Passez l'option `logo` à `createF5xcDocsConfig` :
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
-  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+  logo: { src: '@f5-sales-demo/docs-theme/assets/f5-logo.svg' },
 });
 ```
 
@@ -48,7 +48,7 @@ export default createF5xcDocsConfig({
 Placez votre fichier de logo dans le dépôt de contenu et référencez-le :
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: { src: './src/assets/my-logo.svg' },
@@ -60,7 +60,7 @@ export default createF5xcDocsConfig({
 Starlight prend en charge des logos distincts pour les modes clair et sombre :
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: {

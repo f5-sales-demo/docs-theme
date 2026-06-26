@@ -12,10 +12,10 @@ The theme reads environment variables at build time from `config.ts` and custom 
 | Variable | Default | Purpose |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | Site title shown in the header and browser tab |
-| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | Canonical base URL for the deployed site |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | Canonical base URL for the deployed site |
 | `DOCS_BASE` | `/` | URL base path (e.g., `/my-repo/` for project sites) |
 | `DOCS_DESCRIPTION` | _(empty string)_ | Site description for metadata and the llms.txt plugin |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | Home page URL linked from the site title |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | Home page URL linked from the site title |
 | `GITHUB_REPOSITORY` | _(empty string)_ | Used to build the GitHub social link and edit links |
 | `LLMS_OPTIONAL_LINKS` | `[]` | JSON array of additional links for the llms.txt plugin |
 
@@ -34,7 +34,7 @@ Passed to the Starlight `title` option and the `starlight-llms-txt` plugin. Appe
 
 ```ts
 // config.ts
-const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
 Sets Astro's top-level `site` property. Used for canonical URLs, sitemap generation, and Open Graph metadata.
@@ -61,7 +61,7 @@ Passed to the `starlight-llms-txt` plugin as the site description. Used in the g
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
 Read by the custom `SiteTitle.astro` component. Wraps the site title in the header with a link to this URL, allowing users to navigate back to a central documentation home page. Useful when multiple content repositories share the same theme and you want a consistent "home" link across all sites.
@@ -98,7 +98,7 @@ Content repositories pass these variables through their workflow:
 ```yaml
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
       docs_site: "https://example.github.io"

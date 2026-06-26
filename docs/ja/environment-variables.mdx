@@ -15,10 +15,10 @@ i18n:
 | 変数 | デフォルト | 目的 |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | ヘッダーおよびブラウザタブに表示されるサイトタイトル |
-| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | デプロイされたサイトの正規ベース URL |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | デプロイされたサイトの正規ベース URL |
 | `DOCS_BASE` | `/` | URL ベースパス（例：プロジェクトサイトの場合 `/my-repo/`） |
 | `DOCS_DESCRIPTION` | _(空文字列)_ | メタデータおよび llms.txt プラグイン用のサイト説明 |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | サイトタイトルからリンクされるホームページ URL |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | サイトタイトルからリンクされるホームページ URL |
 | `GITHUB_REPOSITORY` | _(空文字列)_ | GitHub ソーシャルリンクおよび編集リンクの生成に使用 |
 | `LLMS_OPTIONAL_LINKS` | `[]` | llms.txt プラグイン用の追加リンクの JSON 配列 |
 
@@ -37,7 +37,7 @@ Starlight の `title` オプションおよび `starlight-llms-txt` プラグイ
 
 ```ts
 // config.ts
-const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
 Astro のトップレベル `site` プロパティを設定します。正規 URL、サイトマップ生成、および Open Graph メタデータに使用されます。
@@ -64,7 +64,7 @@ const description = options.description || process.env.DOCS_DESCRIPTION || '';
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
 カスタム `SiteTitle.astro` コンポーネントによって読み取られます。ヘッダーのサイトタイトルをこの URL へのリンクでラップし、ユーザーが中央のドキュメントホームページに戻れるようにします。複数のコンテンツリポジトリが同じテーマを共有しており、すべてのサイトで一貫した「ホーム」リンクを持たせたい場合に便利です。
@@ -101,7 +101,7 @@ const llmsOptionalLinks = options.llmsOptionalLinks
 ```yaml
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
       docs_site: "https://example.github.io"

@@ -15,10 +15,10 @@ Das Dokumentationsthema liest Umgebungsvariablen zur Build-Zeit aus `config.ts` 
 | Variable | Standard | Zweck |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | Seitentitel, der in der Kopfzeile und im Browser-Tab angezeigt wird |
-| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | Kanonische Basis-URL für die bereitgestellte Website |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | Kanonische Basis-URL für die bereitgestellte Website |
 | `DOCS_BASE` | `/` | URL-Basispfad (z. B. `/my-repo/` für Projektseiten) |
 | `DOCS_DESCRIPTION` | _(leere Zeichenkette)_ | Website-Beschreibung für Metadaten und das llms.txt-Plugin |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | URL der Startseite, die über den Website-Titel verlinkt wird |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL der Startseite, die über den Website-Titel verlinkt wird |
 | `GITHUB_REPOSITORY` | _(leere Zeichenkette)_ | Wird verwendet, um den GitHub-Social-Link und Bearbeitungslinks zu erstellen |
 | `LLMS_OPTIONAL_LINKS` | `[]` | JSON-Array mit zusätzlichen Links für das llms.txt-Plugin |
 
@@ -37,7 +37,7 @@ Wird an die Starlight-Option `title` und das Plugin `starlight-llms-txt` überge
 
 ```ts
 // config.ts
-const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
 Setzt die Astro-Eigenschaft `site` auf oberster Ebene. Wird für kanonische URLs, die Sitemap-Generierung und Open-Graph-Metadaten verwendet.
@@ -64,7 +64,7 @@ Wird als Website-Beschreibung an das Plugin `starlight-llms-txt` übergeben. Wir
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
 Wird von der benutzerdefinierten Komponente `SiteTitle.astro` gelesen. Verknüpft den Website-Titel in der Kopfzeile mit dieser URL, sodass Benutzer zu einer zentralen Dokumentations-Startseite zurücknavigieren können. Nützlich, wenn mehrere Inhalts-Repositorys dasselbe Dokumentationsthema verwenden und ein einheitlicher „Home"-Link auf allen Websites gewünscht wird.
@@ -101,7 +101,7 @@ Inhalts-Repositorys übergeben diese Variablen über ihren Workflow:
 ```yaml
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
       docs_site: "https://example.github.io"

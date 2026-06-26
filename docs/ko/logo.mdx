@@ -24,7 +24,7 @@ i18n:
 기본 로고는 `config.ts`의 `createF5xcDocsConfig` 팩토리에서 설정됩니다:
 
 ```ts
-const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
 ```
 
 `logo` 옵션이 제공되지 않으면 GitHub 아바타 PNG가 사용됩니다. 경로는 `package.json`의 `exports` 맵을 통해 해석되는 npm 패키지 지정자입니다.
@@ -36,10 +36,10 @@ const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-a
 `createF5xcDocsConfig`에 `logo` 옵션을 전달합니다:
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
-  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+  logo: { src: '@f5-sales-demo/docs-theme/assets/f5-logo.svg' },
 });
 ```
 
@@ -48,7 +48,7 @@ export default createF5xcDocsConfig({
 콘텐츠 저장소에 로고 파일을 배치하고 참조합니다:
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: { src: './src/assets/my-logo.svg' },
@@ -60,7 +60,7 @@ export default createF5xcDocsConfig({
 Starlight는 라이트 모드와 다크 모드에 대해 별도의 로고를 지원합니다:
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: {

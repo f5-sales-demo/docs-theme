@@ -15,10 +15,10 @@ Il tema legge le variabili di ambiente in fase di build da `config.ts` e dai com
 | Variabile | Predefinito | Scopo |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | Titolo del sito mostrato nell'intestazione e nella scheda del browser |
-| `DOCS_SITE` | `https://f5xc-salesdemos.github.io` | URL base canonico per il sito distribuito |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL base canonico per il sito distribuito |
 | `DOCS_BASE` | `/` | Percorso base dell'URL (es. `/my-repo/` per i siti di progetto) |
 | `DOCS_DESCRIPTION` | _(stringa vuota)_ | Descrizione del sito per i metadati e il plugin llms.txt |
-| `DOCS_HOME` | `https://f5xc-salesdemos.github.io/docs/` | URL della home page collegata dal titolo del sito |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL della home page collegata dal titolo del sito |
 | `GITHUB_REPOSITORY` | _(stringa vuota)_ | Utilizzato per costruire il link social GitHub e i link di modifica |
 | `LLMS_OPTIONAL_LINKS` | `[]` | Array JSON di link aggiuntivi per il plugin llms.txt |
 
@@ -37,7 +37,7 @@ Passata all'opzione `title` di Starlight e al plugin `starlight-llms-txt`. Appar
 
 ```ts
 // config.ts
-const site = options.site || process.env.DOCS_SITE || 'https://f5xc-salesdemos.github.io';
+const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
 Imposta la proprietà `site` di primo livello di Astro. Utilizzata per gli URL canonici, la generazione della sitemap e i metadati Open Graph.
@@ -64,7 +64,7 @@ Passata al plugin `starlight-llms-txt` come descrizione del sito. Utilizzata nel
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5xc-salesdemos.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
 Letta dal componente personalizzato `SiteTitle.astro`. Racchiude il titolo del sito nell'intestazione con un link a questo URL, consentendo agli utenti di tornare a una home page centrale della documentazione. Utile quando più repository di contenuti condividono lo stesso tema e si desidera un link "home" coerente su tutti i siti.
@@ -101,7 +101,7 @@ I repository di contenuti passano queste variabili tramite il proprio workflow:
 ```yaml
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
       docs_site: "https://example.github.io"

@@ -10,7 +10,7 @@ i18n:
   translator: machine
 ---
 
-यह पृष्ठ बताता है कि कंटेंट रिपॉज़िटरी `@f5xc-salesdemos/docs-theme` npm पैकेज का उपयोग करके पूरी तरह से ब्रांडेड दस्तावेज़ीकरण साइटें कैसे तैयार करती हैं।
+यह पृष्ठ बताता है कि कंटेंट रिपॉज़िटरी `@f5-sales-demo/docs-theme` npm पैकेज का उपयोग करके पूरी तरह से ब्रांडेड दस्तावेज़ीकरण साइटें कैसे तैयार करती हैं।
 
 ## आर्किटेक्चर
 
@@ -26,10 +26,10 @@ i18n:
 │   (Docker image)          │
 │                           │
 │  npm install              │
-│  @f5xc-salesdemos/docs-theme ─────┐  │
+│  @f5-sales-demo/docs-theme ─────┐  │
 │                        ▼  │
 │  node_modules/            │
-│    @f5xc-salesdemos/docs-theme/       │
+│    @f5-sales-demo/docs-theme/       │
 │      ├── config.ts        │
 │      ├── index.ts         │
 │      ├── fonts/           │
@@ -57,12 +57,12 @@ i18n:
    ```yaml
    jobs:
      docs:
-       uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+       uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
 3. **Docker बिल्डर चलता है** — `f5xc-docs-builder` Docker इमेज में पहले से ही npm के माध्यम से थीम पूर्व-स्थापित है। बिल्ड समय पर यह:
-   - `node_modules/@f5xc-salesdemos/docs-theme/` से `astro.config.mjs` और `content.config.ts` को Astro प्रोजेक्ट रूट में कॉपी करता है
+   - `node_modules/@f5-sales-demo/docs-theme/` से `astro.config.mjs` और `content.config.ts` को Astro प्रोजेक्ट रूट में कॉपी करता है
    - कंटेंट रिपो की `docs/` फ़ाइलें `src/content/docs/` में कॉपी करता है
-4. **Astro बिल्ड** — Astro कॉन्फ़िग पढ़ता है जो `createF5xcDocsConfig()` को कॉल करता है। फ़ैक्टरी सभी थीम एसेट्स को npm पैकेज स्पेसिफ़ायर्स (जैसे, `@f5xc-salesdemos/docs-theme/styles/custom.css`) के माध्यम से रिज़ॉल्व करता है
+4. **Astro बिल्ड** — Astro कॉन्फ़िग पढ़ता है जो `createF5xcDocsConfig()` को कॉल करता है। फ़ैक्टरी सभी थीम एसेट्स को npm पैकेज स्पेसिफ़ायर्स (जैसे, `@f5-sales-demo/docs-theme/styles/custom.css`) के माध्यम से रिज़ॉल्व करता है
 5. **डिप्लॉय** — बना हुआ स्टेटिक साइट GitHub Pages पर डिप्लॉय किया जाता है
 
 ## कंटेंट रिपो की आवश्यकताएँ
@@ -92,7 +92,7 @@ concurrency:
 
 jobs:
   docs:
-    uses: f5xc-salesdemos/docs-control/.github/workflows/github-pages-deploy.yml@main
+    uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
 यह वही वर्कफ़्लो है जो इस थीम रिपॉज़िटरी द्वारा स्वयं आप जो दस्तावेज़ीकरण पढ़ रहे हैं उसे बनाने के लिए उपयोग किया जाता है।
@@ -103,15 +103,15 @@ jobs:
 
 ```js
 // CSS — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/fonts/font-face.css'
-'@f5xc-salesdemos/docs-theme/styles/custom.css'
+'@f5-sales-demo/docs-theme/fonts/font-face.css'
+'@f5-sales-demo/docs-theme/styles/custom.css'
 
 // Components — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/components/Footer.astro'
-'@f5xc-salesdemos/docs-theme/components/Banner.astro'
+'@f5-sales-demo/docs-theme/components/Footer.astro'
+'@f5-sales-demo/docs-theme/components/Banner.astro'
 
 // Assets — resolved from node_modules
-'@f5xc-salesdemos/docs-theme/assets/github-avatar.png'
+'@f5-sales-demo/docs-theme/assets/github-avatar.png'
 ```
 
 बिल्ड वर्कस्पेस में कोई `./theme/` डायरेक्टरी नहीं है। Docker बिल्डर थीम को एक सामान्य npm निर्भरता के रूप में इंस्टॉल करता है और Astro सभी स्पेसिफ़ायर्स को `node_modules` के माध्यम से रिज़ॉल्व करता है।
@@ -124,7 +124,7 @@ jobs:
 
 थीम परिवर्तन npm पैकेज अपडेट के माध्यम से प्रचारित होते हैं:
 
-1. `@f5xc-salesdemos/docs-theme` में `main` पर एक परिवर्तन मर्ज किया जाता है
+1. `@f5-sales-demo/docs-theme` में `main` पर एक परिवर्तन मर्ज किया जाता है
 2. Docker बिल्डर इमेज को अपडेटेड पैकेज के साथ पुनः बनाया जाता है
 3. अगली बार जब किसी कंटेंट रिपो का वर्कफ़्लो चलता है, तो वह अपडेटेड बिल्डर इमेज का उपयोग करता है
 4. Astro बिल्ड अपडेटेड फ़ॉन्ट, स्टाइल, लोगो, घटक और प्लगइन प्राप्त करता है

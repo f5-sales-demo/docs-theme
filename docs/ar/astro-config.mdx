@@ -8,14 +8,14 @@ i18n:
   translator: machine
 ---
 
-لا تحتفظ مستودعات المحتوى بملف `astro.config.mjs` الخاص بها. بدلاً من ذلك، تستورد مصنع إعداد من حزمة npm الخاصة بـ `@f5xc-salesdemos/docs-theme` والذي يُعيد إعداد Astro كاملاً مع Starlight وثمانية مكونات إضافية مدمجة وجميع الإعدادات الافتراضية للسمة.
+لا تحتفظ مستودعات المحتوى بملف `astro.config.mjs` الخاص بها. بدلاً من ذلك، تستورد مصنع إعداد من حزمة npm الخاصة بـ `@f5-sales-demo/docs-theme` والذي يُعيد إعداد Astro كاملاً مع Starlight وثمانية مكونات إضافية مدمجة وجميع الإعدادات الافتراضية للسمة.
 
 ## استخدام السمة
 
 ملف `astro.config.mjs` في مستودع المحتوى (المُقدَّم بواسطة منشئ Docker) هو غلاف خفيف:
 
 ```js
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig();
 ```
@@ -44,7 +44,7 @@ interface F5xcDocsConfigOptions {
 
 | الخيار | القيمة الافتراضية / متغير البيئة البديل | الغرض |
 |--------|----------------------|---------|
-| `site` | `DOCS_SITE` أو `https://f5xc-salesdemos.github.io` | عنوان URL الأساسي الكنسي |
+| `site` | `DOCS_SITE` أو `https://f5-sales-demo.github.io` | عنوان URL الأساسي الكنسي |
 | `base` | `DOCS_BASE` أو `/` | مسار URL الأساسي لمواقع المشاريع |
 | `title` | `DOCS_TITLE` أو `Documentation` | عنوان الموقع في الرأس وعلامة تبويب المتصفح |
 | `description` | `DOCS_DESCRIPTION` أو سلسلة فارغة | وصف الموقع للبيانات الوصفية وملف llms.txt |
@@ -54,7 +54,7 @@ interface F5xcDocsConfigOptions {
 | `additionalRemarkPlugins` | `[]` | مكونات remark إضافية تُضاف بعد remark-mermaid |
 | `megaMenuItems` | قائمة Products/Solutions/Docs/Support المدمجة | مدخلات القائمة المنسدلة الكبيرة على المستوى الأعلى |
 | `head` | وسم `<script>` لـ Mermaid CDN | إدخالات `<head>` مخصصة |
-| `logo` | `@f5xc-salesdemos/docs-theme/assets/github-avatar.png` | شعار الشريط الجانبي (مصدر واحد أو زوج فاتح/داكن) |
+| `logo` | `@f5-sales-demo/docs-theme/assets/github-avatar.png` | شعار الشريط الجانبي (مصدر واحد أو زوج فاتح/داكن) |
 
 ## مكونات Starlight الإضافية المدمجة
 
@@ -65,14 +65,14 @@ interface F5xcDocsConfigOptions {
 | `starlight-mega-menu` | قائمة تنقل منسدلة كبيرة بتخطيطات شبكية وقائمية |
 | `starlight-videos` | تضمين مقاطع الفيديو في صفحات التوثيق |
 | `starlight-image-zoom` | تكبير الصور عند النقر عليها |
-| `@f5xc-salesdemos/docs-theme` (ذاتي) | حقن CSS وتجاوزات المكونات ووسيط المسارات |
+| `@f5-sales-demo/docs-theme` (ذاتي) | حقن CSS وتجاوزات المكونات ووسيط المسارات |
 | `starlight-scroll-to-top` | زر التمرير إلى الأعلى مع حلقة التقدم |
 | `starlight-heading-badges` | تعليقات الشارات على العناوين |
 | `starlight-page-actions` | أزرار إجراءات الصفحة |
 | `starlight-plugin-icons` | دعم الأيقونات في Starlight |
 | `starlight-llms-txt` | يُنشئ ملفَي `llms.txt` و`llms-full.txt` لاستهلاك LLM |
 
-تُسجَّل هذه المكونات بالترتيب داخل `config.ts`. المكوِّن الإضافي للسمة (`@f5xc-salesdemos/docs-theme`) هو نفسه مكوِّن Starlight إضافي يعمل ضمن هذه القائمة.
+تُسجَّل هذه المكونات بالترتيب داخل `config.ts`. المكوِّن الإضافي للسمة (`@f5-sales-demo/docs-theme`) هو نفسه مكوِّن Starlight إضافي يعمل ضمن هذه القائمة.
 
 ## خطاف مكوِّن السمة الإضافي
 
@@ -91,26 +91,26 @@ interface F5xcDocsConfigOptions {
 // index.ts — Starlight plugin entry point
 export default function f5xcDocsTheme(): StarlightPlugin {
   return {
-    name: '@f5xc-salesdemos/docs-theme',
+    name: '@f5-sales-demo/docs-theme',
     hooks: {
       'config:setup'({ config, updateConfig, addRouteMiddleware }) {
         addRouteMiddleware({
-          entrypoint: '@f5xc-salesdemos/docs-theme/route-middleware',
+          entrypoint: '@f5-sales-demo/docs-theme/route-middleware',
           order: 'pre',
         });
         updateConfig({
           customCss: [
             ...(config.customCss ?? []),
-            '@f5xc-salesdemos/docs-theme/fonts/font-face.css',
-            '@f5xc-salesdemos/docs-theme/styles/custom.css',
+            '@f5-sales-demo/docs-theme/fonts/font-face.css',
+            '@f5-sales-demo/docs-theme/styles/custom.css',
           ],
           components: {
             ...config.components,
-            Banner: '@f5xc-salesdemos/docs-theme/components/Banner.astro',
-            EditLink: '@f5xc-salesdemos/docs-theme/components/EditLink.astro',
-            Footer: '@f5xc-salesdemos/docs-theme/components/Footer.astro',
-            SiteTitle: '@f5xc-salesdemos/docs-theme/components/SiteTitle.astro',
-            MarkdownContent: '@f5xc-salesdemos/docs-theme/components/MarkdownContent.astro',
+            Banner: '@f5-sales-demo/docs-theme/components/Banner.astro',
+            EditLink: '@f5-sales-demo/docs-theme/components/EditLink.astro',
+            Footer: '@f5-sales-demo/docs-theme/components/Footer.astro',
+            SiteTitle: '@f5-sales-demo/docs-theme/components/SiteTitle.astro',
+            MarkdownContent: '@f5-sales-demo/docs-theme/components/MarkdownContent.astro',
           },
         });
       },
@@ -119,7 +119,7 @@ export default function f5xcDocsTheme(): StarlightPlugin {
 }
 ```
 
-تستخدم جميع المسارات مُحدِّدات حزم npm (مثل `@f5xc-salesdemos/docs-theme/styles/custom.css`) التي يتم حلها من خلال خريطة `exports` في `package.json`.
+تستخدم جميع المسارات مُحدِّدات حزم npm (مثل `@f5-sales-demo/docs-theme/styles/custom.css`) التي يتم حلها من خلال خريطة `exports` في `package.json`.
 
 ## التكاملات الأخرى
 

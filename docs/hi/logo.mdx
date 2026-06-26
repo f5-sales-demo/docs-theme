@@ -24,7 +24,7 @@ i18n:
 डिफ़ॉल्ट लोगो `config.ts` में `createF5xcDocsConfig` फ़ैक्ट्री में सेट किया गया है:
 
 ```ts
-const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-avatar.png' };
+const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
 ```
 
 यदि कोई `logo` विकल्प प्रदान नहीं किया जाता, तो GitHub अवतार PNG का उपयोग किया जाता है। पाथ एक npm पैकेज स्पेसिफ़ायर है जिसे `package.json` के `exports` मैप के माध्यम से रिज़ॉल्व किया जाता है।
@@ -36,10 +36,10 @@ const logo = options.logo || { src: '@f5xc-salesdemos/docs-theme/assets/github-a
 `createF5xcDocsConfig` को `logo` विकल्प पास करें:
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
-  logo: { src: '@f5xc-salesdemos/docs-theme/assets/f5-logo.svg' },
+  logo: { src: '@f5-sales-demo/docs-theme/assets/f5-logo.svg' },
 });
 ```
 
@@ -48,7 +48,7 @@ export default createF5xcDocsConfig({
 अपनी लोगो फ़ाइल को कंटेंट रेपो में रखें और उसे संदर्भित करें:
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: { src: './src/assets/my-logo.svg' },
@@ -60,7 +60,7 @@ export default createF5xcDocsConfig({
 Starlight लाइट और डार्क मोड के लिए अलग-अलग लोगो का समर्थन करता है:
 
 ```ts
-import { createF5xcDocsConfig } from '@f5xc-salesdemos/docs-theme/config';
+import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 
 export default createF5xcDocsConfig({
   logo: {
