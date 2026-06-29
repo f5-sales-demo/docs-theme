@@ -1,6 +1,6 @@
 {
   "name": "@f5-sales-demo/docs-theme",
-  "_scope_migrated": true, "version": "0.1.0",
+  "version": "3.9.1",
   "description": "F5 Distributed Cloud branded Starlight documentation theme",
   "type": "module",
   "bin": {
