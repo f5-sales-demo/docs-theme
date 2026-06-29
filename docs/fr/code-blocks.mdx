@@ -2,15 +2,15 @@
 title: Blocs de code
 description: >-
   Coloration syntaxique, mode terminal, surlignage de lignes, blocs diff et
-  référence CSS pour le style Expressive Code.
+  référence CSS pour la mise en forme Expressive Code.
 sidebar:
   order: 8
 i18n:
-  sourceHash: b458d0378db1
+  sourceHash: b71ea33850c1
   translator: machine
 ---
 
-Tous les blocs de code utilisent [Expressive Code](https://expressive-code.com/) avec un style personnalisé défini dans `styles/custom.css`.
+Tous les blocs de code utilisent [Expressive Code](https://expressive-code.com/) avec une mise en forme personnalisée définie dans `styles/custom.css`.
 
 ## Exemples de langages
 
@@ -114,7 +114,7 @@ const config: Config = {
 
 ## Mode terminal
 
-Les blocs de code en mode terminal (délimités par ` ```bash ` ou ` ```sh `) reçoivent un cadre de fenêtre inspiré d'iTerm avec les boutons de contrôle macOS.
+Les blocs de code en style terminal (délimités par ` ```bash ` ou ` ```sh `) reçoivent un cadre de fenêtre inspiré d'iTerm avec des points lumineux macOS.
 
 ```bash title="Terminal"
 npm install @f5-sales-demo/docs-theme
@@ -130,7 +130,7 @@ npx astro preview
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* En-tête sombre avec points SVG de type traffic light */
+/* En-tête sombre avec points SVG style feux de circulation */
 .expressive-code .frame.is-terminal .header {
   background: #323232 !important;
   color: #ccc !important;
@@ -141,13 +141,13 @@ npx astro preview
   background: #1a1b26 !important;
 }
 
-/* Remplacement de bordure en mode clair */
+/* Remplacement de la bordure en mode clair */
 :root[data-theme="light"] .expressive-code .frame.is-terminal {
   border-color: rgba(0, 0, 0, 0.2);
 }
 ```
 
-## Titres de noms de fichiers
+## Titres de nom de fichier
 
 ```ts title="src/config.ts"
 export default {
@@ -171,8 +171,8 @@ const d = "normal again";
 
 ```js ins={2} del={3}
 const config = {
-  theme: "dark", // insérée
-  theme: "light", // supprimée
+  theme: "dark", // inserted
+  theme: "light", // deleted
   lang: "en",
 };
 ```
@@ -189,7 +189,7 @@ const config = {
 
 ## Référence CSS
 
-### Style du cadre
+### Mise en forme du cadre
 
 Tous les blocs de code ont des coins arrondis et une ombre en couches :
 
@@ -218,11 +218,11 @@ Tous les blocs de code ont des coins arrondis et une ombre en couches :
 
 ## Vérifications du thème
 
-- La couleur de fond des blocs de code s'adapte au thème
-- L'en-tête du terminal a un fond `#323232` avec les boutons de contrôle macOS
+- La couleur d'arrière-plan des blocs de code s'adapte au thème
+- L'arrière-plan de l'en-tête du terminal est `#323232` avec des points lumineux macOS
 - La bordure du terminal utilise `rgba(255, 255, 255, 0.15)` en mode sombre et `rgba(0, 0, 0, 0.2)` en mode clair
 - Le corps du terminal en mode sombre utilise `#1a1b26`
 - Les couleurs de syntaxe restent lisibles dans les deux thèmes
-- Les surlignages de lignes ont une teinte de fond visible
-- Les lignes insérées affichent une teinte verte, les lignes supprimées affichent une teinte rouge
-- Les blocs de code ont un rayon de bordure de 0,75 rem et une ombre portée
+- Les surlignages de lignes ont une teinte d'arrière-plan visible
+- Les lignes insérées affichent une teinte verte, les lignes supprimées une teinte rouge
+- Les blocs de code ont un rayon de bordure de 0.75rem et une ombre portée

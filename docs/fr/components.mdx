@@ -1,7 +1,7 @@
 ---
 title: Composants
 description: >-
-  Composants intégrés de Starlight — encadrés, onglets, étapes, cartes, badges,
+  Composants intégrés Starlight — apartés, onglets, étapes, cartes, badges,
   tableaux, images et arborescence de fichiers.
 sidebar:
   order: 9
@@ -9,55 +9,55 @@ sidebar:
     text: New
     variant: tip
 i18n:
-  sourceHash: aadd8fb32c48
+  sourceHash: fe9a5a6b7301
   translator: machine
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
 import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
-## Encadrés
+## Apartés
 
-Chaque type d'encadré utilise la syntaxe de délimitation `:::` avec son titre par défaut.
+Chaque type d'aparté utilise la syntaxe de délimiteur `:::` avec son titre par défaut.
 
 :::note
-Ceci est un encadré de type **note**. Il attire l'attention sur des informations complémentaires dont le lecteur doit être conscient.
+Ceci est un aparté de type **note**. Il attire l'attention sur des informations complémentaires dont le lecteur doit avoir connaissance.
 :::
 
 :::tip
-Ceci est un encadré de type **conseil**. Il met en avant une bonne pratique ou un raccourci utile.
+Ceci est un aparté de type **conseil**. Il met en avant une bonne pratique ou un raccourci utile.
 :::
 
 :::caution
-Ceci est un encadré de type **avertissement**. Il prévient d'un piège potentiel ou d'un comportement non évident.
+Ceci est un aparté de type **mise en garde**. Il avertit d'un écueil potentiel ou d'un comportement non évident.
 :::
 
 :::danger
-Ceci est un encadré de type **danger**. Il signale une action destructrice ou irréversible.
+Ceci est un aparté de type **danger**. Il signale une action destructive ou irréversible.
 :::
 
 ### Titres personnalisés
 
 <Aside type="note" title="Custom Note Title">
-Cet encadré utilise le composant `<Aside>` avec un titre personnalisé.
+Cet aparté utilise le composant `<Aside>` avec un titre personnalisé.
 </Aside>
 
 <Aside type="tip" title="Pro Tip">
-Vous pouvez imbriquer du texte **en gras**, en *italique* et du `code en ligne` à l'intérieur des composants d'encadré.
+Vous pouvez imbriquer du **gras**, de l'*italique* et du `code en ligne` à l'intérieur des composants d'aparté.
 </Aside>
 
 <Aside type="caution" title="Watch Out">
-Soyez prudent lors de la mise à jour des dépendances — vérifiez d'abord le journal des modifications.
+Soyez prudent lors de la mise à jour des dépendances — consultez d'abord le journal des modifications.
 </Aside>
 
 <Aside type="danger" title="Destructive Action">
 L'exécution de `git reset --hard` supprimera définitivement les modifications non validées.
 </Aside>
 
-### Contenu enrichi dans les encadrés
+### Contenu enrichi dans les apartés
 
-:::tip[Encadré avec contenu mixte]
-Voici un bloc de code à l'intérieur d'un encadré :
+:::tip[Aparté avec contenu mixte]
+Voici un bloc de code à l'intérieur d'un aparté :
 
 ```bash
 npm install @astrojs/starlight
@@ -65,14 +65,14 @@ npm install @astrojs/starlight
 
 Une liste d'éléments :
 
-- Premier élément avec du texte **en gras**
+- Premier élément avec du **texte en gras**
 - Deuxième élément avec du `code en ligne`
 - Troisième élément avec un [lien vers la documentation Starlight](https://starlight.astro.build)
 :::
 
-### CSS des encadrés
+### CSS des apartés
 
-Les composants d'encadré intégrés de Starlight ont des coins arrondis et une ombre superposée :
+Les composants d'aparté intégrés de Starlight reçoivent des coins arrondis et une ombre superposée :
 
 ```css
 .starlight-aside {
@@ -87,10 +87,10 @@ Les composants d'encadré intégrés de Starlight ont des coins arrondis et une 
 
 <Tabs>
   <TabItem label="Overview">
-    Voici le contenu de l'onglet Vue d'ensemble. Il contient du texte brut pour vérifier le rendu de base des onglets.
+    Voici le contenu de l'onglet aperçu. Il contient du texte brut pour vérifier le rendu de base des onglets.
   </TabItem>
   <TabItem label="Details">
-    Voici l'onglet Détails. Le passage d'un onglet à l'autre doit être instantané, sans rechargement de la page.
+    Voici l'onglet détails. Le basculement entre les onglets doit être instantané sans rechargement de page.
   </TabItem>
 </Tabs>
 
@@ -98,7 +98,7 @@ Les composants d'encadré intégrés de Starlight ont des coins arrondis et une 
 
 <Tabs>
   <TabItem label="Text">
-    Contenu de paragraphe brut dans le premier onglet.
+    Contenu de paragraphe simple dans le premier onglet.
   </TabItem>
   <TabItem label="Code">
     ```javascript
@@ -107,9 +107,9 @@ Les composants d'encadré intégrés de Starlight ont des coins arrondis et une 
     ```
   </TabItem>
   <TabItem label="List">
-    - Premier élément dans un onglet
-    - Deuxième élément avec du texte **en gras**
-    - Troisième élément avec du `code en ligne`
+    - Élément un dans un onglet
+    - Élément deux avec du **texte en gras**
+    - Élément trois avec du `code en ligne`
   </TabItem>
 </Tabs>
 
@@ -196,10 +196,10 @@ Ces deux groupes d'onglets partagent `syncKey="pkg"`. La sélection d'un onglet 
 
 <CardGrid>
   <Card title="Performance" icon="rocket">
-    Astro ne génère aucun JavaScript par défaut pour des chargements de pages rapides.
+    Astro délivre zéro JS par défaut pour des chargements de page rapides.
   </Card>
   <Card title="Customizable" icon="pencil">
-    Starlight offre de nombreuses options de thématisation et d'extension.
+    Starlight offre de nombreuses options de thématisation et d'extensions.
   </Card>
   <Card title="Accessible" icon="heart">
     Les fonctionnalités d'accessibilité intégrées garantissent que le contenu est accessible à tous.
@@ -242,14 +242,14 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   />
   <LinkCard
     title="Astro Documentation"
-    description="Explorez le framework Astro pour les sites orientés contenu."
+    description="Explorez le framework Astro pour les sites web axés sur le contenu."
     href="https://docs.astro.build"
   />
 </CardGrid>
 
-#### Avec des icônes
+#### Avec icônes
 
-Ajoutez une propriété `icon` en utilisant la syntaxe `prefix:name`. Les huit packs d'icônes sont pris en charge — consultez la documentation des [Paquets d'icônes](https://f5-sales-demo.github.io/docs-icons/) pour le catalogue complet.
+Ajoutez une prop `icon` en utilisant la syntaxe `préfixe:nom`. Les huit paquets d'icônes sont pris en charge — consultez la documentation des [Paquets d'icônes](https://f5-sales-demo.github.io/docs-icons/) pour le catalogue complet.
 
 ##### Lucide (`lucide:`)
 
@@ -257,13 +257,13 @@ Ajoutez une propriété `icon` en utilisant la syntaxe `prefix:name`. Les huit p
   <LinkCard
     icon="lucide:shield-check"
     title="Web App Firewall"
-    description="Politiques et configuration du pare-feu applicatif."
+    description="Politiques de pare-feu et configuration."
     href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
     title="Multi-Cloud Networking"
-    description="Connectivité des sites entre les clouds."
+    description="Connectivité de site entre les clouds."
     href="https://f5-sales-demo.github.io/mcn/"
   />
 </CardGrid>
@@ -291,7 +291,7 @@ Ajoutez une propriété `icon` en utilisant la syntaxe `prefix:name`. Les huit p
   <LinkCard
     icon="mdi:shield-lock"
     title="Contrôle d'accès"
-    description="Icône verrou de bouclier Material Design."
+    description="Icône cadenas de bouclier Material Design."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
@@ -342,13 +342,13 @@ Ajoutez une propriété `icon` en utilisant la syntaxe `prefix:name`. Les huit p
   <LinkCard
     icon="f5-brand:cloud-shield-checkmark"
     title="Sécurité Cloud"
-    description="Icône bouclier cloud de la marque F5."
+    description="Icône bouclier cloud de marque F5."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5-brand:security-firewall"
     title="Pare-feu"
-    description="Icône pare-feu de la marque F5."
+    description="Icône pare-feu de marque F5."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -366,7 +366,7 @@ Ces icônes sont multicolores et utilisent des propriétés CSS personnalisées 
   />
   <LinkCard
     icon="f5xc:bot-defense"
-    title="Bot Defense"
+    title="Défense Bot"
     description="Icône de défense bot F5 XC."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
@@ -415,11 +415,11 @@ Ce titre comporte un badge de succès indiquant que la fonctionnalité est stabl
 
 #### API expérimentale :badge[Beta]{variant=caution}
 
-Ce titre comporte un badge d'avertissement indiquant que l'API est expérimentale.
+Ce titre comporte un badge de mise en garde indiquant que l'API est expérimentale.
 
 #### Système hérité :badge[Deprecated]{variant=danger}
 
-Ce titre comporte un badge de danger indiquant une dépréciation.
+Ce titre comporte un badge de danger indiquant la dépréciation.
 
 #### Nouvelle fonctionnalité :badge[New]{variant=tip}
 
@@ -435,7 +435,7 @@ Ce titre comporte un badge par défaut sans variante spécifiée.
 
 ### Badge dans la barre latérale
 
-Vérifiez la barre latérale : cette page possède un badge « New » avec la variante `tip` appliquée via le frontmatter.
+Consultez la barre latérale : cette page comporte un badge « New » avec la variante `tip` appliquée via le frontmatter.
 
 ## Tableaux
 
@@ -444,7 +444,7 @@ Vérifiez la barre latérale : cette page possède un badge « New » avec la va
 | Fonctionnalité | Statut | Priorité |
 |---------|--------|----------|
 | Mode sombre | Pris en charge | Haute |
-| Zoom d'image | Pris en charge | Moyenne |
+| Zoom sur les images | Pris en charge | Moyenne |
 | Diagrammes Mermaid | Pris en charge | Moyenne |
 | Badges dans les titres | Pris en charge | Basse |
 
@@ -455,12 +455,12 @@ Vérifiez la barre latérale : cette page possède un badge « New » avec la va
 | `title` | `string` | — | Titre de la page affiché dans l'en-tête |
 | `description` | `string` | `""` | Méta-description pour le référencement |
 | `sidebar.order` | `number` | `0` | Ordre de tri dans la barre latérale |
-| `sidebar.badge` | `object` | `null` | Badge affiché à côté du libellé dans la barre latérale |
-| `template` | `"doc" \| "splash"` | `"doc"` | Modèle de mise en page de la page |
+| `sidebar.badge` | `object` | `null` | Badge affiché à côté du libellé de la barre latérale |
+| `template` | `"doc" \| "splash"` | `"doc"` | Modèle de mise en page |
 
 ## Images
 
-L'image ci-dessous teste le plugin `starlight-image-zoom`. Cliquez pour zoomer.
+L'image ci-dessous teste le plugin `starlight-image-zoom`. Cliquez pour agrandir.
 
 ![GitHub Avatar](https://github.com/f5-sales-demo.png)
 
@@ -492,26 +492,26 @@ L'image ci-dessous teste le plugin `starlight-image-zoom`. Cliquez pour zoomer.
 
 ## Vérifications du thème
 
-- La couleur de la bordure gauche diffère selon la variante d'encadré (bleu, violet, jaune, rouge)
-- La teinte de fond de l'encadré est visible en mode clair et en mode sombre
-- L'ombre portée est subtile mais visible autour de chaque encadré
-- Coins arrondis (0.75rem) sur tous les encadrés
-- La couleur de l'indicateur d'onglet actif utilise la couleur d'accent
+- La couleur de la bordure gauche diffère selon la variante d'aparté (bleu, violet, jaune, rouge)
+- La teinte de fond des apartés est visible en mode clair et en mode sombre
+- L'ombre portée est subtile mais visible autour de chaque aparté
+- Coins arrondis (0.75rem) sur tous les apartés
+- La couleur de l'indicateur d'onglet actif utilise la couleur d'accentuation
 - La ligne de connexion des étapes est visible entre les étapes numérotées
-- Les onglets synchronisés restent synchronisés lors du passage d'un groupe à l'autre
-- Les blocs de code à l'intérieur des onglets s'affichent avec la coloration syntaxique appropriée
-- La couleur de bordure des cartes s'adapte entre le mode clair et le mode sombre
-- L'effet de fond au survol est visible sur les cartes
-- La couleur de l'icône de flèche des LinkCard correspond à la couleur d'accent
-- La disposition décalée décale les cartes alternées verticalement
+- Les onglets synchronisés restent synchronisés lors du basculement entre les groupes
+- Les blocs de code à l'intérieur des onglets sont rendus avec la coloration syntaxique appropriée
+- La couleur de bordure des cartes s'adapte entre les modes clair et sombre
+- L'effet de survol est visible sur les cartes
+- La couleur de l'icône de flèche des cartes avec liens correspond à la couleur d'accentuation
+- La disposition décalée décale verticalement les cartes alternées
 - Les icônes s'affichent correctement dans les en-têtes de cartes
-- Les couleurs de fond des badges par variante diffèrent entre le mode sombre et le mode clair
+- Les couleurs de fond des badges par variante diffèrent entre les modes sombre et clair
 - Les badges en mode sombre utilisent des tons profonds (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
 - Les badges en mode clair utilisent des tons clairs (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
-- Les badges dans les titres sont alignés en ligne avec le texte du titre
+- Les badges dans les titres s'alignent en ligne avec le texte du titre
 - Le badge de la barre latérale s'affiche à côté du libellé de la page
-- Les couleurs de bordure des tableaux s'adaptent entre le mode clair et le mode sombre
-- La ligne d'en-tête du tableau a un fond distinct
-- Le zoom d'image avec superposition fonctionne au clic (starlight-image-zoom)
-- Le fond de l'arborescence de fichiers utilise des couleurs adaptées au thème
+- Les couleurs de bordure des tableaux s'adaptent entre les modes clair et sombre
+- La ligne d'en-tête du tableau a un arrière-plan distinct
+- L'effet de zoom des images fonctionne au clic (starlight-image-zoom)
+- L'arborescence de fichiers utilise des couleurs adaptées au thème
 - Les icônes héritent de la couleur de texte courante

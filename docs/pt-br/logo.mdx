@@ -1,37 +1,37 @@
 ---
 title: Logo
-description: Como o logo é configurado e como substituí-lo.
+description: Como o logotipo é configurado e como substituí-lo.
 sidebar:
   order: 5
 i18n:
-  sourceHash: 2902004c3464
+  sourceHash: a1802e45a3a5
   translator: machine
 ---
 
-O tema exibe um logo no cabeçalho de todos os sites de documentação.
+O tema exibe um logotipo no cabeçalho de cada site de documentação.
 
-## Arquivos de Logo Disponíveis
+## Ativos de Logotipo Disponíveis
 
-O tema inclui dois arquivos de logo no diretório `assets/`:
+O tema inclui dois arquivos de logotipo no diretório `assets/`:
 
 | Arquivo | Formato | Descrição |
 |---------|---------|-----------|
-| `assets/f5-logo.svg` | SVG | Logo F5 em Cloud Red (`#e4002b`) |
+| `assets/f5-logo.svg` | SVG | Logotipo F5 em Cloud Red (`#e4002b`) |
 | `assets/github-avatar.png` | PNG | Avatar da organização no GitHub (padrão) |
 
-## Logo Padrão
+## Logotipo Padrão
 
-O logo padrão é definido na factory `createF5xcDocsConfig` em `config.ts`:
+O logotipo padrão é definido na fábrica `createF5xcDocsConfig` em `config.ts`:
 
 ```ts
 const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
 ```
 
-Se nenhuma opção `logo` for fornecida, o PNG do avatar do GitHub será utilizado. O caminho é um especificador de pacote npm resolvido por meio do mapa `exports` no `package.json`.
+Se nenhuma opção `logo` for fornecida, o PNG do avatar do GitHub será utilizado. O caminho é um especificador de pacote npm resolvido por meio do mapa `exports` em `package.json`.
 
-## Substituindo o Logo
+## Substituindo o Logotipo
 
-### Opção 1: Usar o logo SVG do F5
+### Opção 1: Usar o logotipo SVG do F5
 
 Passe a opção `logo` para `createF5xcDocsConfig`:
 
@@ -43,9 +43,9 @@ export default createF5xcDocsConfig({
 });
 ```
 
-### Opção 2: Usar um logo personalizado
+### Opção 2: Usar um logotipo personalizado
 
-Coloque o arquivo de logo no repositório de conteúdo e referencie-o:
+Coloque o arquivo de logotipo no repositório de conteúdo e faça referência a ele:
 
 ```ts
 import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
@@ -55,9 +55,9 @@ export default createF5xcDocsConfig({
 });
 ```
 
-### Opção 3: Logos separados para modo claro e escuro
+### Opção 3: Logotipos separados para modo claro e escuro
 
-O Starlight suporta logos separados para os modos claro e escuro:
+O Starlight suporta logotipos separados para o modo claro e escuro:
 
 ```ts
 import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
@@ -72,7 +72,7 @@ export default createF5xcDocsConfig({
 
 ## Diretrizes
 
-- **Use o formato SVG** — imagens rasterizadas (PNG, JPG) funcionarão, mas não escalarão com qualidade em todos os tamanhos
-- **Inclua um `viewBox`** — garante que o logo seja dimensionado proporcionalmente (ex.: `viewBox="0 0 100 100"`)
-- **Mantenha o tamanho do arquivo pequeno** — o logo é carregado em todas as páginas; procure manter abaixo de 10 KB
-- **Teste em ambos os temas** — verifique se o logo está correto nos modos claro e escuro
+- **Use o formato SVG** — imagens raster (PNG, JPG) funcionarão, mas não escalarão corretamente em todos os tamanhos
+- **Inclua um `viewBox`** — garante que o logotipo seja dimensionado proporcionalmente (ex.: `viewBox="0 0 100 100"`)
+- **Mantenha o tamanho do arquivo pequeno** — o logotipo é carregado em todas as páginas; procure manter abaixo de 10 KB
+- **Teste nos dois temas** — verifique se o logotipo aparece corretamente nos modos claro e escuro

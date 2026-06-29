@@ -1,10 +1,10 @@
 ---
 title: 로고
-description: 로고 설정 방법 및 교체 방법
+description: 로고 구성 방법 및 교체 방법.
 sidebar:
   order: 5
 i18n:
-  sourceHash: 2902004c3464
+  sourceHash: a1802e45a3a5
   translator: machine
 ---
 
@@ -12,7 +12,7 @@ i18n:
 
 ## 사용 가능한 로고 에셋
 
-테마는 `assets/` 디렉토리에 두 개의 로고 파일을 제공합니다:
+테마는 `assets/` 디렉터리에 두 개의 로고 파일을 제공합니다:
 
 | 파일 | 형식 | 설명 |
 |------|--------|-------------|
@@ -21,7 +21,7 @@ i18n:
 
 ## 기본 로고
 
-기본 로고는 `config.ts`의 `createF5xcDocsConfig` 팩토리에서 설정됩니다:
+기본 로고는 `config.ts`의 `createF5xcDocsConfig` 팩토리에 설정되어 있습니다:
 
 ```ts
 const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
@@ -57,7 +57,7 @@ export default createF5xcDocsConfig({
 
 ### 옵션 3: 라이트 및 다크 로고 분리
 
-Starlight는 라이트 모드와 다크 모드에 대해 별도의 로고를 지원합니다:
+Starlight는 라이트 모드와 다크 모드에 대한 별도 로고를 지원합니다:
 
 ```ts
 import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
@@ -72,7 +72,7 @@ export default createF5xcDocsConfig({
 
 ## 가이드라인
 
-- **SVG 형식 사용** — 래스터 이미지(PNG, JPG)도 작동하지만 모든 크기에서 깔끔하게 확대·축소되지 않습니다
-- **`viewBox` 포함** — 로고가 비례적으로 확대·축소되도록 합니다 (예: `viewBox="0 0 100 100"`)
+- **SVG 형식 사용** — 래스터 이미지(PNG, JPG)도 작동하지만 모든 크기에서 깔끔하게 확대/축소되지 않습니다
+- **`viewBox` 포함** — 로고가 비례적으로 확대/축소되도록 보장합니다 (예: `viewBox="0 0 100 100"`)
 - **파일 크기를 작게 유지** — 로고는 모든 페이지에서 로드되므로 10 KB 미만을 목표로 합니다
-- **두 테마에서 모두 테스트** — 라이트 모드와 다크 모드 모두에서 로고가 올바르게 표시되는지 확인합니다
+- **두 테마에서 테스트** — 라이트 모드와 다크 모드 모두에서 로고가 올바르게 표시되는지 확인합니다

@@ -1,18 +1,18 @@
 ---
 title: Blocos de Código
 description: >-
-  Destaque de sintaxe, modo terminal, realce de linhas, blocos diff e referência
+  Realce de sintaxe, modo terminal, destaque de linhas, blocos diff e referência
   CSS para estilização com Expressive Code.
 sidebar:
   order: 8
 i18n:
-  sourceHash: b458d0378db1
+  sourceHash: b71ea33850c1
   translator: machine
 ---
 
 Todos os blocos de código utilizam o [Expressive Code](https://expressive-code.com/) com estilização personalizada definida em `styles/custom.css`.
 
-## Exemplos de Linguagens
+## Exemplos por Linguagem
 
 ### JavaScript
 
@@ -114,7 +114,7 @@ const config: Config = {
 
 ## Modo Terminal
 
-Blocos de código no estilo terminal (delimitados com ` ```bash ` ou ` ```sh `) recebem um quadro de janela inspirado no iTerm com os botões de semáforo do macOS.
+Blocos de código no estilo terminal (delimitados com ` ```bash ` ou ` ```sh `) recebem um quadro de janela inspirado no iTerm com os pontos de semáforo do macOS.
 
 ```bash title="Terminal"
 npm install @f5-sales-demo/docs-theme
@@ -156,12 +156,12 @@ export default {
 };
 ```
 
-## Realce de Linhas
+## Destaque de Linhas
 
 ```js {1,3-5}
-const name = "highlighted"; // linha 1 realçada
+const name = "highlighted"; // linha 1 destacada
 const other = "normal";
-const a = 1; // linhas 3-5 realçadas
+const a = 1; // linhas 3-5 destacadas
 const b = 2;
 const c = 3;
 const d = "normal again";
@@ -202,7 +202,7 @@ Todos os blocos de código recebem cantos arredondados e uma sombra em camadas:
 }
 ```
 
-### Bordas Adaptadas ao Tema
+### Bordas Adaptáveis ao Tema
 
 ```css
 /* Modo escuro (padrão) */
@@ -219,10 +219,10 @@ Todos os blocos de código recebem cantos arredondados e uma sombra em camadas:
 ## Verificações de Tema
 
 - A cor de fundo do bloco de código se adapta ao tema
-- O cabeçalho do terminal tem fundo `#323232` com os botões de semáforo do macOS
-- A borda do terminal usa `rgba(255, 255, 255, 0.15)` no modo escuro e `rgba(0, 0, 0, 0.2)` no modo claro
-- O corpo do terminal no modo escuro usa `#1a1b26`
+- O cabeçalho do terminal tem fundo `#323232` com os pontos de semáforo do macOS
+- A borda do terminal utiliza `rgba(255, 255, 255, 0.15)` no modo escuro e `rgba(0, 0, 0, 0.2)` no modo claro
+- O corpo do terminal no modo escuro utiliza `#1a1b26`
 - As cores de sintaxe permanecem legíveis em ambos os temas
-- Os realces de linha possuem tonalidade de fundo visível
+- Os destaques de linha possuem uma tonalidade de fundo visível
 - Linhas inseridas exibem tonalidade verde; linhas removidas exibem tonalidade vermelha
-- Os blocos de código têm raio de borda de 0,75rem e sombra de caixa
+- Os blocos de código possuem raio de borda de 0,75rem e sombra

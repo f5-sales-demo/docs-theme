@@ -6,7 +6,7 @@ description: >-
 sidebar:
   order: 11
 i18n:
-  sourceHash: 2dbcf6d139fd
+  sourceHash: c53ea076f073
   translator: machine
 ---
 
@@ -26,11 +26,11 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 </div>
 ```
 
-Ce modèle **étend** le pied de page par défaut plutôt que de le remplacer entièrement. `<Default {...Astro.props}><slot /></Default>` affiche le pied de page Starlight d'origine (navigation précédent/suivant), puis les liens sociaux sont ajoutés en dessous.
+Ce modèle **étend** le pied de page par défaut plutôt que de le remplacer entièrement. `<Default {...Astro.props}><slot /></Default>` restitue le pied de page Starlight original (navigation précédent/suivant), puis les liens vers les réseaux sociaux sont ajoutés en dessous.
 
-## Méthode d'enregistrement
+## Modalités d'enregistrement
 
-Le remplacement du pied de page est enregistré par le plugin Starlight dans `index.ts`. Lors du hook `config:setup`, il définit le remplacement du composant `Footer` :
+La substitution du pied de page est enregistrée par le plugin Starlight dans `index.ts`. Lors du hook `config:setup`, il définit la substitution du composant `Footer` :
 
 ```ts
 updateConfig({
@@ -42,19 +42,19 @@ updateConfig({
 });
 ```
 
-Les dépôts de contenu n'ont pas besoin d'enregistrer le pied de page manuellement — il est appliqué automatiquement lors du chargement du plugin de thème.
+Les référentiels de contenu n'ont pas besoin d'enregistrer le pied de page manuellement — il est appliqué automatiquement lors du chargement du plugin de thème.
 
-## Liens sociaux
+## Liens vers les réseaux sociaux
 
-| Plateforme | URL | Couleur de l'icône | Libellé aria |
+| Plateforme | URL | Couleur de l'icône | Libellé Aria |
 |------------|-----|-------------------|--------------|
 | Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Bleu Facebook) | Facebook |
-| X | `https://x.com/F5` | `currentColor` (hérité) | X |
+| X | `https://x.com/F5` | `currentColor` (héritée) | X |
 | LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (Bleu LinkedIn) | LinkedIn |
 | Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Rose Instagram) | Instagram |
 | YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (Rouge YouTube) | YouTube |
 
-Chaque lien s'ouvre dans un nouvel onglet (`target="_blank"`) avec `rel="noopener noreferrer"` pour la Sécurité.
+Chaque lien s'ouvre dans un nouvel onglet (`target="_blank"`) avec `rel="noopener noreferrer"` pour des raisons de Sécurité.
 
 ## Style CSS
 
@@ -77,13 +77,13 @@ Chaque lien s'ouvre dans un nouvel onglet (`target="_blank"`) avec `rel="noopene
 }
 ```
 
-Les liens sont alignés à droite dans une rangée flex avec un effet de survol d'opacité subtil.
+Les liens sont alignés à droite dans une rangée flexible avec un subtil effet d'opacité au survol.
 
 ## Personnalisation
 
 ### Modifier une URL
 
-Éditez l'attribut `href` sur la balise `<a>` correspondante dans `components/Footer.astro` au sein du package `@f5-sales-demo/docs-theme`.
+Modifiez l'attribut `href` sur la balise `<a>` correspondante dans `components/Footer.astro` au sein du package `@f5-sales-demo/docs-theme`.
 
 ### Ajouter un lien
 
@@ -108,6 +108,6 @@ Modifiez l'attribut `fill` sur l'élément `<svg>`. Utilisez `currentColor` pour
 ### Modifier la mise en page
 
 Modifiez le CSS `.social-links` dans le bloc `<style>` :
-- **Alignement centré** : Remplacez `justify-content` par `center`
+- **Alignement centré** : Changez `justify-content` en `center`
 - **Espacement plus large** : Augmentez la valeur de `gap`
-- **Alignement à gauche** : Remplacez `justify-content` par `flex-start`
+- **Alignement à gauche** : Changez `justify-content` en `flex-start`

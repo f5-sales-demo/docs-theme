@@ -1,23 +1,21 @@
 ---
 title: Screenshots
-description: >-
-  Componente Screenshot para pares de imagens com suporte a modos claro e
-  escuro.
+description: Componente Screenshot para pares de imagens com suporte a tema claro e escuro.
 sidebar:
   order: 10
   badge:
     text: New
     variant: tip
 i18n:
-  sourceHash: 0b677390b859
+  sourceHash: 2ac551cefb91
   translator: machine
 ---
 
 import Screenshot from '@f5-sales-demo/docs-theme/components/Screenshot.astro';
 
-O componente `Screenshot` renderiza imagens com suporte a temas que alternam automaticamente
-entre variantes claras e escuras quando o usuário muda o tema do site. Utilize-o
-sempre que precisar exibir capturas de tela de interface que devam corresponder ao
+O componente `Screenshot` renderiza imagens com reconhecimento de tema que alternam automaticamente
+entre as variantes clara e escura quando o usuário muda o tema do site. Utilize-o
+sempre que precisar exibir capturas de tela de interface que devem corresponder ao
 esquema de cores atual do leitor.
 
 ## Referência de Props
@@ -35,9 +33,9 @@ Pelo menos uma das props `light` ou `dark` deve ser fornecida.
 Quando ambas são informadas, o componente alterna entre elas com base no tema ativo.
 :::
 
-## Modo Duplo (Claro + Escuro)
+## Modo Dual (Claro + Escuro)
 
-Forneça ambas as props `light` e `dark` para exibir a variante correta para cada tema.
+Forneça as props `light` e `dark` para exibir a variante correta para cada tema.
 Alterne o seletor de tema no canto superior direito para ver a imagem mudar.
 
 <Screenshot
@@ -58,7 +56,7 @@ import Screenshot from '@f5-sales-demo/docs-theme/components/Screenshot.astro';
 
 :::tip
 Sempre capture capturas de tela nos modos claro e escuro ao documentar interfaces.
-Isso oferece ao leitor uma representação precisa independentemente da preferência de tema.
+Isso oferece aos leitores uma representação precisa independentemente da preferência de tema.
 :::
 
 ## Imagem Única
@@ -110,7 +108,7 @@ Regras CSS alternam a visibilidade com base no tema ativo:
 - **Modo claro** — a imagem `.screenshot-dark` é ocultada via
   `:root[data-theme="light"] .screenshot-dark \{ display: none \}`
 
-Seletores adicionais gerenciam o wrapper `starlight-image-zoom` usando `:has()`
+Seletores adicionais tratam o wrapper `starlight-image-zoom` utilizando `:has()`
 para que a funcionalidade de zoom funcione corretamente com ambas as variantes.
 
 Todas as imagens de captura de tela recebem estilização consistente: uma borda sutil, cantos
@@ -118,14 +116,14 @@ arredondados e uma sombra que se intensifica ao passar o cursor.
 
 ## Comparação com Imagens Markdown
 
-| Funcionalidade | Componente `Screenshot` | Markdown `![](url)` |
-| -------------- | ----------------------- | -------------------- |
+| Recurso | Componente `Screenshot` | Markdown `![](url)` |
+| ------- | ----------------------- | -------------------- |
 | Alternância por tema | Sim | Não |
 | Borda e sombra estilizadas | Automático | Não |
 | Efeito de sombra ao passar o cursor | Sim | Não |
 | Suporte a zoom | Funciona com o plugin de zoom de imagem | Funciona com o plugin de zoom de imagem |
 | Texto alternativo | Prop `alt` | `![texto alternativo]()` |
 
-Use o componente `Screenshot` quando tiver variantes de imagem específicas por tema ou
-quiser a aparência estilizada de captura de tela. Use imagens Markdown padrão para gráficos
-inline, diagramas ou imagens que sejam idênticas em ambos os temas.
+Use o componente `Screenshot` quando tiver variantes de imagem específicas para cada tema ou
+desejar a aparência estilizada de captura de tela. Use imagens Markdown padrão para gráficos
+inline, diagramas ou imagens que têm a mesma aparência em ambos os temas.

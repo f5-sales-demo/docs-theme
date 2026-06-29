@@ -4,11 +4,11 @@ description: Componente footer personalizzato di Starlight con link ai social me
 sidebar:
   order: 11
 i18n:
-  sourceHash: 2dbcf6d139fd
+  sourceHash: c53ea076f073
   translator: machine
 ---
 
-Il tema sostituisce il footer predefinito di Starlight con un componente personalizzato `Footer.astro` che aggiunge link ai social media sotto il contenuto standard del footer.
+Il tema sostituisce il footer predefinito di Starlight con un componente `Footer.astro` personalizzato che aggiunge link ai social media sotto il contenuto standard del footer.
 
 ## Pattern del componente
 
@@ -28,7 +28,7 @@ Questo pattern **estende** il footer predefinito anziché sostituirlo interament
 
 ## Come viene registrato
 
-L'override del footer viene registrato dal plugin di Starlight in `index.ts`. Durante il hook `config:setup`, viene impostato l'override del componente `Footer`:
+L'override del footer viene registrato dal plugin Starlight in `index.ts`. Durante l'hook `config:setup`, imposta l'override del componente `Footer`:
 
 ```ts
 updateConfig({
@@ -42,15 +42,15 @@ updateConfig({
 
 I repository di contenuto non devono registrare il footer manualmente — viene applicato automaticamente al caricamento del plugin del tema.
 
-## Link ai social
+## Link social
 
 | Piattaforma | URL | Colore icona | Aria Label |
 |-------------|-----|--------------|------------|
-| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Blu Facebook) | Facebook |
-| X | `https://x.com/F5` | `currentColor` (ereditato) | X |
-| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (Blu LinkedIn) | LinkedIn |
-| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Rosa Instagram) | Instagram |
-| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (Rosso YouTube) | YouTube |
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Facebook Blue) | Facebook |
+| X | `https://x.com/F5` | `currentColor` (eredita) | X |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (LinkedIn Blue) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Instagram Pink) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (YouTube Red) | YouTube |
 
 Ogni link si apre in una nuova scheda (`target="_blank"`) con `rel="noopener noreferrer"` per la Sicurezza.
 
@@ -75,7 +75,7 @@ Ogni link si apre in una nuova scheda (`target="_blank"`) con `rel="noopener nor
 }
 ```
 
-I link sono allineati a destra in una riga flex con un sottile effetto di opacità al passaggio del mouse.
+I link sono allineati a destra in una riga flex con un sottile effetto di opacità al passaggio del cursore.
 
 ## Personalizzazione
 
@@ -101,11 +101,11 @@ Eliminare l'intero blocco `<a>...</a>` per la piattaforma che si desidera rimuov
 
 ### Modificare i colori delle icone
 
-Modificare l'attributo `fill` sull'elemento `<svg>`. Utilizzare `currentColor` per ereditare il colore del testo, oppure un valore esadecimale specifico per i colori del brand.
+Modificare l'attributo `fill` sull'elemento `<svg>`. Usare `currentColor` per ereditare il colore del testo, oppure un valore esadecimale specifico per i colori del brand.
 
 ### Modificare il layout
 
 Modificare il CSS `.social-links` nel blocco `<style>`:
-- **Allineamento centrato**: Cambiare `justify-content` in `center`
+- **Allineamento centrato**: Modificare `justify-content` in `center`
 - **Spaziatura più ampia**: Aumentare il valore di `gap`
-- **Allineamento a sinistra**: Cambiare `justify-content` in `flex-start`
+- **Allineamento a sinistra**: Modificare `justify-content` in `flex-start`

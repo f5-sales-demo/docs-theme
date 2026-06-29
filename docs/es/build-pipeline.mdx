@@ -1,16 +1,16 @@
 ---
-title: Pipeline de construcción
+title: Proceso de compilación
 description: >-
-  Cómo los repositorios de contenido consumen el tema en tiempo de compilación a
-  través del constructor Docker y el paquete npm.
+  Cómo los repositorios de contenido consumen el tema en el momento de la
+  compilación a través del constructor Docker y el paquete npm.
 sidebar:
   order: 3
 i18n:
-  sourceHash: f305437613ca
+  sourceHash: 27cd573154dc
   translator: machine
 ---
 
-Esta página describe cómo los repositorios de contenido consumen el paquete npm `@f5-sales-demo/docs-theme` para producir sitios de documentación completamente personalizados con la marca.
+Esta página describe cómo los repositorios de contenido consumen el paquete npm `@f5-sales-demo/docs-theme` para producir sitios de documentación completamente personalizados con la marca correspondiente.
 
 ## Arquitectura
 
@@ -50,19 +50,19 @@ Esta página describe cómo los repositorios de contenido consumen el paquete np
 └───────────────────────────┘
 ```
 
-## Proceso de construcción paso a paso
+## Proceso de compilación paso a paso
 
-1. **Push al repositorio de contenido** — un push a `main` (o despacho manual) activa el flujo de trabajo de despliegue en GitHub Pages
+1. **Envío al repositorio de contenido** — un envío a `main` (o despacho manual) activa el flujo de trabajo de despliegue en GitHub Pages
 2. **Flujo de trabajo reutilizable** — el flujo de trabajo del repositorio de contenido llama al constructor:
    ```yaml
    jobs:
      docs:
        uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
-3. **Ejecución del constructor Docker** — la imagen Docker `f5xc-docs-builder` ya tiene el tema preinstalado mediante npm. En tiempo de compilación:
+3. **Ejecución del constructor Docker** — la imagen Docker `f5xc-docs-builder` ya tiene el tema preinstalado mediante npm. En el momento de la compilación:
    - Copia `astro.config.mjs` y `content.config.ts` desde `node_modules/@f5-sales-demo/docs-theme/` hacia la raíz del proyecto Astro
    - Copia los archivos `docs/` del repositorio de contenido en `src/content/docs/`
-4. **Compilación con Astro** — Astro lee la configuración que llama a `createF5xcDocsConfig()`. La función de fábrica resuelve todos los recursos del tema mediante especificadores de paquetes npm (p. ej., `@f5-sales-demo/docs-theme/styles/custom.css`)
+4. **Compilación de Astro** — Astro lee la configuración que invoca `createF5xcDocsConfig()`. La función de fábrica resuelve todos los recursos del tema mediante especificadores de paquetes npm (p. ej., `@f5-sales-demo/docs-theme/styles/custom.css`)
 5. **Despliegue** — el sitio estático compilado se despliega en GitHub Pages
 
 ## Requisitos del repositorio de contenido
@@ -95,11 +95,11 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
-Este es el mismo flujo de trabajo que utiliza el propio repositorio del tema para construir la documentación que está leyendo.
+Este es el mismo flujo de trabajo que utiliza este repositorio del tema para compilar la documentación que está leyendo.
 
 ## Resolución de rutas
 
-Todas las rutas en el tema utilizan especificadores de paquetes npm, resueltos a través del mapa `exports` en `package.json`:
+Todas las rutas del tema utilizan especificadores de paquetes npm, resueltos a través del mapa `exports` en `package.json`:
 
 ```js
 // CSS — resolved from node_modules
@@ -117,17 +117,17 @@ Todas las rutas en el tema utilizan especificadores de paquetes npm, resueltos a
 No existe un directorio `./theme/` en el espacio de trabajo de compilación. El constructor Docker instala el tema como una dependencia npm regular y Astro resuelve todos los especificadores a través de `node_modules`.
 
 :::note
-Las rutas de los archivos de fuentes dentro de `font-face.css` utilizan `./` (p. ej., `url("./neusaNextProWide-300.woff2")`). Estas son relativas al propio archivo CSS, por lo que se resuelven a otros archivos dentro del directorio `fonts/` independientemente de cómo esté instalado el paquete.
+Las rutas de archivos de fuentes dentro de `font-face.css` utilizan `./` (p. ej., `url("./neusaNextProWide-300.woff2")`). Estas son relativas al propio archivo CSS, por lo que se resuelven hacia otros archivos dentro del directorio `fonts/` independientemente de cómo esté instalado el paquete.
 :::
 
 ## Propagación de cambios
 
-Los cambios del tema se propagan mediante actualizaciones del paquete npm:
+Los cambios en el tema se propagan a través de actualizaciones del paquete npm:
 
-1. Se fusiona un cambio en `main` dentro de `@f5-sales-demo/docs-theme`
+1. Un cambio se fusiona en `main` dentro de `@f5-sales-demo/docs-theme`
 2. La imagen del constructor Docker se reconstruye con el paquete actualizado
 3. La próxima vez que se ejecute el flujo de trabajo de cualquier repositorio de contenido, utilizará la imagen del constructor actualizada
-4. La compilación con Astro incorpora las fuentes, estilos, logotipo, componentes y plugins actualizados
+4. La compilación de Astro incorpora las fuentes, estilos, logotipo, componentes y complementos actualizados
 5. El sitio del repositorio de contenido se despliega con el nuevo tema
 
-Los repositorios de contenido siempre obtienen el tema más reciente incluido en la imagen Docker. Esto garantiza la coherencia visual entre todos los sitios, pero significa que los cambios en el tema deben probarse cuidadosamente antes de fusionarse.
+Los repositorios de contenido siempre obtienen el tema más reciente incluido en la imagen Docker. Esto garantiza la coherencia visual en todos los sitios, pero significa que los cambios en el tema deben probarse con cuidado antes de fusionarse.

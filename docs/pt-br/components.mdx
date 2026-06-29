@@ -1,7 +1,7 @@
 ---
 title: Componentes
 description: >-
-  Componentes integrados do Starlight — asides, abas, passos, cards, badges,
+  Componentes integrados do Starlight — avisos, abas, etapas, cartões, emblemas,
   tabelas, imagens e árvore de arquivos.
 sidebar:
   order: 9
@@ -9,41 +9,41 @@ sidebar:
     text: New
     variant: tip
 i18n:
-  sourceHash: aadd8fb32c48
+  sourceHash: fe9a5a6b7301
   translator: machine
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
 import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
-## Asides
+## Avisos
 
-Cada tipo de aside utiliza a sintaxe de cerca `:::` com seu título padrão.
+Cada tipo de aviso utiliza a sintaxe de cerca `:::` com seu título padrão.
 
 :::note
-Este é um aside do tipo **nota**. Ele chama atenção para informações complementares que o leitor deve conhecer.
+Este é um aviso de **nota**. Chama atenção para informações complementares que o leitor deve conhecer.
 :::
 
 :::tip
-Este é um aside do tipo **dica**. Ele destaca uma boa prática ou atalho útil.
+Este é um aviso de **dica**. Destaca uma boa prática ou atalho útil.
 :::
 
 :::caution
-Este é um aside do tipo **cuidado**. Ele alerta sobre uma armadilha potencial ou comportamento não óbvio.
+Este é um aviso de **cuidado**. Alerta sobre uma armadilha potencial ou comportamento não óbvio.
 :::
 
 :::danger
-Este é um aside do tipo **perigo**. Ele sinaliza uma ação destrutiva ou irreversível.
+Este é um aviso de **perigo**. Sinaliza uma ação destrutiva ou irreversível.
 :::
 
 ### Títulos Personalizados
 
 <Aside type="note" title="Título de Nota Personalizado">
-Este aside utiliza o componente `<Aside>` com um título personalizado.
+Este aviso usa o componente `<Aside>` com um título personalizado.
 </Aside>
 
 <Aside type="tip" title="Dica Profissional">
-É possível aninhar **negrito**, *itálico* e `código inline` dentro de componentes aside.
+Você pode aninhar **negrito**, *itálico* e `código inline` dentro de componentes de aviso.
 </Aside>
 
 <Aside type="caution" title="Atenção">
@@ -54,10 +54,10 @@ Tenha cuidado ao atualizar dependências — verifique o changelog primeiro.
 Executar `git reset --hard` descartará permanentemente as alterações não confirmadas.
 </Aside>
 
-### Conteúdo Rico Dentro de Asides
+### Conteúdo Rico Dentro de Avisos
 
-:::tip[Aside com conteúdo misto]
-Aqui está um bloco de código dentro de um aside:
+:::tip[Aviso com conteúdo misto]
+Aqui está um bloco de código dentro de um aviso:
 
 ```bash
 npm install @astrojs/starlight
@@ -70,9 +70,9 @@ Uma lista de itens:
 - Terceiro item com um [link para a documentação do Starlight](https://starlight.astro.build)
 :::
 
-### CSS dos Asides
+### CSS dos Avisos
 
-Os componentes aside integrados do Starlight recebem cantos arredondados e uma sombra em camadas:
+Os componentes de aviso integrados do Starlight recebem cantos arredondados e uma sombra em camadas:
 
 ```css
 .starlight-aside {
@@ -98,7 +98,7 @@ Os componentes aside integrados do Starlight recebem cantos arredondados e uma s
 
 <Tabs>
   <TabItem label="Texto">
-    Conteúdo em parágrafo simples na primeira aba.
+    Conteúdo de parágrafo simples na primeira aba.
   </TabItem>
   <TabItem label="Código">
     ```javascript
@@ -157,7 +157,7 @@ Esses dois grupos de abas compartilham `syncKey="pkg"`. Selecionar uma aba em um
   </TabItem>
 </Tabs>
 
-## Passos
+## Etapas
 
 <Steps>
 
@@ -168,7 +168,7 @@ Esses dois grupos de abas compartilham `syncKey="pkg"`. Selecionar uma aba em um
    cd repo
    ```
 
-2. **Instalar dependências**
+2. **Instalar as dependências**
 
    ```bash
    npm install
@@ -184,15 +184,15 @@ Esses dois grupos de abas compartilham `syncKey="pkg"`. Selecionar uma aba em um
 
 </Steps>
 
-## Cards
+## Cartões
 
-### Card Único
+### Cartão Único
 
-<Card title="Card Único" icon="star">
-  Este é um card independente com um ícone. Cards são úteis para destacar informações ou funcionalidades importantes.
+<Card title="Cartão Único" icon="star">
+  Este é um cartão independente com um ícone. Cartões são úteis para destacar informações ou funcionalidades importantes.
 </Card>
 
-### Grade de Cards
+### Grade de Cartões
 
 <CardGrid>
   <Card title="Desempenho" icon="rocket">
@@ -202,31 +202,31 @@ Esses dois grupos de abas compartilham `syncKey="pkg"`. Selecionar uma aba em um
     O Starlight oferece amplas opções de temas e plugins.
   </Card>
   <Card title="Acessível" icon="heart">
-    Recursos de acessibilidade integrados garantem que o conteúdo alcance todos.
+    Recursos de acessibilidade integrados garantem que o conteúdo chegue a todos.
   </Card>
   <Card title="Documentado" icon="open-book">
-    Uma documentação abrangente torna o início simples e direto.
+    A documentação abrangente torna o início fácil e direto.
   </Card>
 </CardGrid>
 
-### Layout em Escalonamento
+### Layout Escalonado
 
 <CardGrid stagger>
-  <Card title="Passo Um" icon="setting">
+  <Card title="Etapa Um" icon="setting">
     Configure as definições do seu projeto e as variáveis de ambiente.
   </Card>
-  <Card title="Passo Dois" icon="document">
+  <Card title="Etapa Dois" icon="document">
     Crie suas páginas de conteúdo usando o formato MDX.
   </Card>
-  <Card title="Passo Três" icon="laptop">
+  <Card title="Etapa Três" icon="laptop">
     Visualize localmente com o servidor de desenvolvimento.
   </Card>
-  <Card title="Passo Quatro" icon="rocket">
-    Faça o deploy na plataforma de hospedagem de sua escolha.
+  <Card title="Etapa Quatro" icon="rocket">
+    Implante na plataforma de hospedagem de sua escolha.
   </Card>
 </CardGrid>
 
-### Cards com Link
+### Cartões com Link
 
 O tema fornece um componente `LinkCard` que funciona com ou sem ícones. Importe-o do tema:
 
@@ -256,13 +256,13 @@ Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes 
 <CardGrid>
   <LinkCard
     icon="lucide:shield-check"
-    title="Firewall de Aplicação Web"
+    title="Firewall de Aplicações Web"
     description="Políticas e configuração de firewall."
     href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
-    title="Redes Multi-Cloud"
+    title="Redes Multi-Nuvem"
     description="Conectividade de sites entre nuvens."
     href="https://f5-sales-demo.github.io/mcn/"
   />
@@ -291,13 +291,13 @@ Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes 
   <LinkCard
     icon="mdi:shield-lock"
     title="Controle de Acesso"
-    description="Ícone de cadeado e escudo do Material Design."
+    description="Ícone de cadeado Material Design."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="mdi:database"
     title="Gerenciamento de Dados"
-    description="Ícone de banco de dados do Material Design."
+    description="Ícone de banco de dados Material Design."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -355,13 +355,13 @@ Adicione uma prop `icon` usando a sintaxe `prefixo:nome`. Todos os oito pacotes 
 
 ##### F5 Distributed Cloud (`f5xc:`)
 
-Esses ícones são multicoloridos e utilizam propriedades CSS personalizadas para adaptação de cores nos modos claro/escuro.
+Esses ícones são multicoloridos e usam propriedades CSS personalizadas para adaptação de cores nos modos claro/escuro.
 
 <CardGrid>
   <LinkCard
     icon="f5xc:web-app-and-api-protection"
     title="Proteção de App e API"
-    description="Ícone de proteção de aplicação web e API do F5 XC."
+    description="Ícone de proteção de aplicações web e API do F5 XC."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
@@ -378,26 +378,26 @@ Esses ícones são multicoloridos e utilizam propriedades CSS personalizadas par
   <LinkCard
     icon="hashicorp-flight:terraform-color"
     title="Terraform"
-    description="Ícone HashiCorp Terraform."
+    description="Ícone do Terraform HashiCorp."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="hashicorp-flight:consul-color"
     title="Consul"
-    description="Ícone HashiCorp Consul."
+    description="Ícone do Consul HashiCorp."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
-## Badges
+## Emblemas
 
-### Variantes de Badge Inline
+### Variantes de Emblemas Inline
 
-Todas as seis variantes de badge renderizadas inline:
+Todas as seis variantes de emblemas renderizadas inline:
 
 <Badge text="Padrão" /> <Badge text="Nota" variant="note" /> <Badge text="Perigo" variant="danger" /> <Badge text="Sucesso" variant="success" /> <Badge text="Dica" variant="tip" /> <Badge text="Cuidado" variant="caution" />
 
-### Tamanhos de Badge
+### Tamanhos de Emblemas
 
 <Badge text="Pequeno" size="small" /> <Badge text="Médio" size="medium" /> <Badge text="Grande" size="large" />
 
@@ -405,37 +405,37 @@ Cada tamanho com uma variante:
 
 <Badge text="Dica Pequena" variant="tip" size="small" /> <Badge text="Perigo Médio" variant="danger" size="medium" /> <Badge text="Sucesso Grande" variant="success" size="large" />
 
-### Badges em Títulos
+### Emblemas em Títulos
 
-Os títulos a seguir utilizam a sintaxe do plugin `starlight-heading-badges`.
+Os títulos a seguir usam a sintaxe do plugin `starlight-heading-badges`.
 
 #### Funcionalidade Completa :badge[Estável]{variant=success}
 
-Este título possui um badge de sucesso indicando que a funcionalidade é estável.
+Este título tem um emblema de sucesso indicando que a funcionalidade é estável.
 
 #### API Experimental :badge[Beta]{variant=caution}
 
-Este título possui um badge de cuidado indicando que a API é experimental.
+Este título tem um emblema de cuidado indicando que a API é experimental.
 
 #### Sistema Legado :badge[Descontinuado]{variant=danger}
 
-Este título possui um badge de perigo indicando descontinuação.
+Este título tem um emblema de perigo indicando descontinuação.
 
 #### Nova Funcionalidade :badge[Novo]{variant=tip}
 
-Este título possui um badge de dica indicando uma nova funcionalidade.
+Este título tem um emblema de dica indicando uma nova funcionalidade.
 
 #### Documentação :badge[Atualizado]{variant=note}
 
-Este título possui um badge de nota indicando atualizações recentes.
+Este título tem um emblema de nota indicando atualizações recentes.
 
-#### Badge Padrão :badge[Info]
+#### Emblema Padrão :badge[Info]
 
-Este título possui um badge padrão sem variante especificada.
+Este título tem um emblema padrão sem variante especificada.
 
-### Badge na Barra Lateral
+### Emblema na Barra Lateral
 
-Verifique a barra lateral: esta página possui um badge "Novo" com a variante `tip` aplicada via frontmatter.
+Verifique a barra lateral: esta página tem um emblema "Novo" com a variante `tip` aplicada via frontmatter.
 
 ## Tabelas
 
@@ -446,7 +446,7 @@ Verifique a barra lateral: esta página possui um badge "Novo" com a variante `t
 | Modo escuro | Suportado | Alta |
 | Zoom de imagem | Suportado | Média |
 | Diagramas Mermaid | Suportado | Média |
-| Badges em títulos | Suportado | Baixa |
+| Emblemas em títulos | Suportado | Baixa |
 
 ### Tabela com Alinhamento e Código
 
@@ -455,8 +455,8 @@ Verifique a barra lateral: esta página possui um badge "Novo" com a variante `t
 | `title` | `string` | — | Título da página exibido no cabeçalho |
 | `description` | `string` | `""` | Meta descrição para SEO |
 | `sidebar.order` | `number` | `0` | Ordem de classificação na barra lateral |
-| `sidebar.badge` | `object` | `null` | Badge exibido ao lado do rótulo na barra lateral |
-| `template` | `"doc" \| "splash"` | `"doc"` | Template de layout da página |
+| `sidebar.badge` | `object` | `null` | Emblema exibido ao lado do rótulo da barra lateral |
+| `template` | `"doc" \| "splash"` | `"doc"` | Modelo de layout da página |
 
 ## Imagens
 
@@ -490,28 +490,28 @@ A imagem abaixo testa o plugin `starlight-image-zoom`. Clique para ampliar.
 - package.json
 </FileTree>
 
-## Verificações de Tema
+## Verificações do Tema
 
-- A cor da borda esquerda difere por variante de aside (azul, roxo, amarelo, vermelho)
-- O matiz de fundo do aside é visível nos modos claro e escuro
-- A sombra (box-shadow) é sutil, mas visível ao redor de cada aside
-- Cantos arredondados (0.75rem) em todos os asides
-- A cor do indicador ativo da aba utiliza a cor de destaque
-- A linha conectora dos passos é visível entre os passos numerados
-- As abas sincronizadas permanecem em sincronia ao alternar entre grupos
+- A cor da borda esquerda difere por variante de aviso (azul, roxo, amarelo, vermelho)
+- O tom de fundo do aviso é visível nos modos claro e escuro
+- A sombra é sutil, mas visível ao redor de cada aviso
+- Cantos arredondados (0,75rem) em todos os avisos
+- A cor do indicador de aba ativa usa a cor de destaque
+- A linha conectora das etapas é visível entre as etapas numeradas
+- As abas sincronizadas permanecem sincronizadas ao alternar entre grupos
 - Os blocos de código dentro das abas são renderizados com realce de sintaxe adequado
-- A cor da borda dos cards se adapta entre os modos claro e escuro
-- O efeito de fundo ao passar o mouse é visível nos cards
+- A cor da borda do cartão se adapta entre os modos claro e escuro
+- O efeito de fundo ao passar o cursor é visível nos cartões
 - A cor do ícone de seta do LinkCard corresponde à cor de destaque
-- O layout em escalonamento desloca os cards alternados verticalmente
-- Os ícones são renderizados corretamente nos cabeçalhos dos cards
-- As cores de fundo dos badges por variante diferem entre os modos escuro e claro
-- Os badges no modo escuro utilizam tons profundos (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
-- Os badges no modo claro utilizam tons claros (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
-- Os badges nos títulos se alinham inline com o texto do título
-- O badge da barra lateral é renderizado ao lado do rótulo da página
+- O layout escalonado desloca verticalmente os cartões alternados
+- Os ícones são renderizados corretamente dentro dos cabeçalhos dos cartões
+- As cores de fundo dos emblemas por variante diferem entre os modos escuro e claro
+- Os emblemas no modo escuro usam tons profundos (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
+- Os emblemas no modo claro usam tons claros (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
+- Os emblemas em títulos se alinham inline com o texto do título
+- O emblema da barra lateral é renderizado ao lado do rótulo da página
 - As cores das bordas das tabelas se adaptam entre os modos claro e escuro
-- A linha do cabeçalho da tabela possui um fundo distinto
+- A linha de cabeçalho da tabela tem um fundo distinto
 - O overlay de zoom de imagem funciona ao clicar (starlight-image-zoom)
-- O fundo da árvore de arquivos utiliza cores adequadas ao tema
+- O fundo da árvore de arquivos usa cores apropriadas ao tema
 - Os ícones herdam a cor do texto atual

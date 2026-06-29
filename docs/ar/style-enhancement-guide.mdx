@@ -1,55 +1,55 @@
 ---
-title: دليل تحسين الأنماط
+title: دليل تحسين الأسلوب
 description: مرجع رموز نظام التصميم لـ @f5-sales-demo/docs-theme
 sidebar:
   order: 12
 i18n:
-  sourceHash: f0fb4524cc1c
+  sourceHash: eb78d654eb4b
   translator: machine
 ---
 
-يوثّق هذا الدليل رموز نظام التصميم وفئات المكونات المنفّذة في `styles/custom.css`. ويُشكّل مرجعًا للرموز المستخدمة عبر السمة، تشمل: الحدود، والأسطح، والظلال، ونصف القطر، والأزرار، والتدرجات، والانتقالات، والتركيز، ورموز الطباعة.
+يوثّق هذا الدليل رموز نظام التصميم وفئات المكونات المُطبَّقة في `styles/custom.css`. يُعدّ مرجعًا للرموز المتعلقة بالحدود، والأسطح، والظلال، ونصف القطر، والأزرار، والتدرجات، والانتقالات، والتركيز، والطباعة المستخدمة عبر السمة.
 
-> **الحالة**: جميع رموز التصميم وفئات المكونات الموضّحة أدناه منفّذة ومتاحة للاستخدام.
+> **الحالة**: جميع رموز التصميم وفئات المكونات الموضحة أدناه مُطبَّقة ومتاحة للاستخدام.
 
 ## كيفية قراءة هذا الدليل
 
 يوثّق كل قسم فئة من فئات الرموز:
 
-1. **تعريفات الرموز** — خصائص CSS المخصصة مع قيم الوضع الفاتح/الداكن
-2. **ربط المكونات** — مكونات السمة التي تستخدم كل رمز
-3. **ملاحظات التنفيذ** — إرشادات الاستخدام واعتبارات إمكانية الوصول
+1. **تعريفات الرموز** — خصائص CSS المخصصة بقيم الوضع الفاتح/الداكن
+2. **تعيين المكونات** — مكونات السمة التي تستخدم كل رمز
+3. **ملاحظات التطبيق** — إرشادات الاستخدام واعتبارات إمكانية الوصول
 
-تُقسَّم جداول الرموز حسب **الوضع الفاتح** و**الوضع الداكن** عند اختلاف القيم.
+تنقسم جداول الرموز بين **الوضع الفاتح** و**الوضع الداكن** عند اختلاف القيم.
 
 ---
 
 ## 1. نظام الألوان
 
-### الحدود شبه الشفافة
+### الحدود الشفافة بقناة ألفا
 
-تستخدم السمة **حدودًا شبه شفافة** بدلًا من الألوان الرمادية الصلبة. يتيح ذلك للحدود التكيّف بشكل طبيعي مع أي خلفية.
+تستخدم السمة **الحدود الشفافة بقناة ألفا** بدلًا من الألوان الرمادية الصلبة، مما يُتيح للحدود التكيّف بصورة طبيعية مع أي خلفية.
 
 ```css
-/* نمط الحدود شبه الشفافة */
-border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
+/* نمط الحدود الشفافة بقناة ألفا */
+border: 1px solid var(--f5-border-default);  /* محايد عند شفافية 20% */
 ```
 
 #### رموز الحدود
 
 ```css
-/* Light mode */
+/* الوضع الفاتح */
 :root[data-theme='light'] {
-  --f5-border-faint: #3434341a;    /* --f5-black-3 at 10% */
-  --f5-border-default: #34343433;  /* --f5-black-3 at 20% */
-  --f5-border-strong: #22222266;   /* --f5-black-4 at 40% */
+  --f5-border-faint: #3434341a;    /* --f5-black-3 عند شفافية 10% */
+  --f5-border-default: #34343433;  /* --f5-black-3 عند شفافية 20% */
+  --f5-border-strong: #22222266;   /* --f5-black-4 عند شفافية 40% */
 }
 
-/* Dark mode */
+/* الوضع الداكن */
 :root {
-  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 at 10% */
-  --f5-border-default: #f5f5f533;  /* --f5-white-2 at 20% */
-  --f5-border-strong: #cccccc66;   /* --f5-white-4 at 40% */
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 عند شفافية 10% */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2 عند شفافية 20% */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4 عند شفافية 40% */
 }
 ```
 
@@ -57,15 +57,15 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 
 | الرمز | الشفافية | حالة الاستخدام |
 |---|---|---|
-| `--f5-border-faint` | 10% | فواصل خفية، صفوف الجداول |
-| `--f5-border-default` | 20% | الحدود الافتراضية، محيط البطاقات |
-| `--f5-border-strong` | 40% | حدود بارزة، حالات نشطة |
+| `--f5-border-faint` | 10% | الفواصل الخفية، صفوف الجداول |
+| `--f5-border-default` | 20% | الحدود الافتراضية، حدود البطاقات |
+| `--f5-border-strong` | 40% | الحدود البارزة، الحالات النشطة |
 
-> **الحالة**: مكتمل — منفّذ في `styles/custom.css`.
+> **الحالة**: مكتمل — مُطبَّق في `styles/custom.css`.
 
 ### ألوان الأسطح التفاعلية
 
-رموز الأسطح الدلالية لحالات التحويم والنشاط.
+رموز الأسطح الدلالية لحالتَي التحوّم والنشاط.
 
 #### أسطح الوضع الفاتح
 
@@ -74,7 +74,7 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 | `--f5-white` | `#ffffff` | الخلفيات الرئيسية |
 | `--f5-white-1` | `#faf9f7` | الشريط الجانبي، المناطق الخفية |
 | `--f5-white-2` | `#f5f5f5` | الأسطح المرتفعة |
-| `--f5-surface-hover` | `var(--f5-white-2)` | تعبئة التحويم |
+| `--f5-surface-hover` | `var(--f5-white-2)` | تعبئة التحوّم |
 | `--f5-surface-active` | `var(--f5-white-3)` | تعبئة الضغط/النشاط |
 
 #### أسطح الوضع الداكن
@@ -83,7 +83,7 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 |---|---|---|
 | `--f5-black` | `#000000` | الخلفيات الرئيسية |
 | `--f5-black-4` | `#222222` | الشريط الجانبي، المناطق الخفية |
-| `--f5-surface-hover` | `var(--f5-black-3)` | تعبئة التحويم |
+| `--f5-surface-hover` | `var(--f5-black-3)` | تعبئة التحوّم |
 | `--f5-surface-active` | `var(--f5-black-2)` | تعبئة الضغط/النشاط |
 
 #### تعريفات رموز الأسطح
@@ -100,7 +100,7 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 }
 ```
 
-> **الحالة**: مكتمل — منفّذ في `styles/custom.css`.
+> **الحالة**: مكتمل — مُطبَّق في `styles/custom.css`.
 
 ---
 
@@ -108,7 +108,7 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 
 ### مقياس الظلال
 
-تستخدم السمة **ظلالًا شبه شفافة ذات درجة محايدة** بقيم مزدوجة الطبقة للعمق الطبيعي. يستخدم الوضع الفاتح `--f5-black-3` (`#343434`) كقاعدة للدرجة اللونية؛ أما الوضع الداكن فيستخدم `#cccccc`.
+تستخدم السمة **ظلالًا بقناة ألفا ذات تدرج محايد** بقيم مزدوجة الطبقات لإضفاء عمق طبيعي. يستخدم الوضع الفاتح `--f5-black-3` (`#343434`) كقاعدة للتدرج؛ بينما يستخدم الوضع الداكن `#cccccc`.
 
 #### ظلال الوضع الفاتح
 
@@ -150,19 +150,19 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 }
 ```
 
-### ربط ظلال المكونات
+### تعيين ظلال المكونات
 
 | المكوّن | مستوى الظل |
 |---|---|
-| `.swatch`, `.icon-card` | `--f5-shadow-low` (في حالة الراحة) |
+| `.swatch`، `.icon-card` | `--f5-shadow-low` (في حالة الراحة) |
 | `.starlight-aside` | `--f5-shadow-low` |
 | `.expressive-code .frame` | `--f5-shadow-mid` |
 | `.mermaid-container` | `--f5-shadow-mid` |
-| البطاقات عند التحويم | `--f5-shadow-mid` |
+| البطاقات عند التحوّم | `--f5-shadow-mid` |
 | القوائم المنسدلة، النوافذ المنبثقة | `--f5-shadow-high` |
 | النوافذ الحوارية | `--f5-shadow-higher` |
 
-> **الحالة**: مكتمل — جميع مستويات الظل (`inset`، `low`، `mid`، `high`، `higher`) منفّذة في `styles/custom.css`.
+> **الحالة**: مكتمل — جميع مستويات الظل (`inset`، `low`، `mid`، `high`، `higher`) مُطبَّقة في `styles/custom.css`.
 
 ---
 
@@ -172,15 +172,15 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 
 ```css
 :root {
-  --f5-radius-xs: 0.1875rem;   /* 3px — badges, tags */
-  --f5-radius-sm: 0.3125rem;   /* 5px — nav items, small controls */
-  --f5-radius-md: 0.375rem;    /* 6px — cards, code blocks */
-  --f5-radius-lg: 0.5rem;      /* 8px — modals, large containers */
-  --f5-radius-full: 999px;     /* pills, fully rounded */
+  --f5-radius-xs: 0.1875rem;   /* 3px — الشارات، التسميات */
+  --f5-radius-sm: 0.3125rem;   /* 5px — عناصر التنقل، عناصر التحكم الصغيرة */
+  --f5-radius-md: 0.375rem;    /* 6px — البطاقات، كتل الكود */
+  --f5-radius-lg: 0.5rem;      /* 8px — النوافذ الحوارية، الحاويات الكبيرة */
+  --f5-radius-full: 999px;     /* حبوب، تدوير كامل */
 }
 ```
 
-### ربط نصف قطر المكونات
+### تعيين نصف قطر المكونات
 
 | المكوّن | رمز نصف القطر |
 |---|---|
@@ -189,11 +189,11 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 | `.starlight-aside` | `--f5-radius-md` (6px) |
 | `.expressive-code .frame` | `--f5-radius-md` (6px) |
 | `.mermaid-container` | `--f5-radius-lg` (8px) |
-| `.edit-link` | `--f5-radius-full` (pill) |
+| `.edit-link` | `--f5-radius-full` (حبة) |
 | عناصر تنقل الشريط الجانبي | `--f5-radius-sm` (5px) |
 | الشارات | `--f5-radius-xs` (3px) |
 
-> **الحالة**: مكتمل — مقياس نصف القطر (`xs`، `sm`، `md`، `lg`، `full`) منفّذ في `styles/custom.css`.
+> **الحالة**: مكتمل — مقياس نصف القطر (`xs`، `sm`، `md`، `lg`، `full`) مُطبَّق في `styles/custom.css`.
 
 ---
 
@@ -202,7 +202,7 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 ### أنماط عناصر الشريط الجانبي
 
 ```css
-/* Sidebar navigation items */
+/* عناصر تنقل الشريط الجانبي */
 nav.sidebar a {
   border-radius: var(--f5-radius-sm);    /* 5px */
   padding: 0.25rem 0.5rem;               /* 4px 8px */
@@ -212,37 +212,37 @@ nav.sidebar a {
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-/* Light mode hover */
+/* تحوّم الوضع الفاتح */
 :root[data-theme='light'] nav.sidebar a:hover {
   background-color: var(--f5-white-2);   /* #f5f5f5 */
 }
 
-/* Dark mode hover */
+/* تحوّم الوضع الداكن */
 :root nav.sidebar a:hover {
   background-color: var(--f5-black-3);   /* #343434 */
 }
 
-/* Active page indicator */
+/* مؤشر الصفحة النشطة */
 nav.sidebar a[aria-current="page"] {
-  background-color: var(--f5-white-3);   /* #e6e6e6 light */
+  background-color: var(--f5-white-3);   /* #e6e6e6 فاتح */
   font-weight: 600;
 }
 
 :root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
-  background-color: var(--f5-black-2);   /* #666666 → adjust for readability */
+  background-color: var(--f5-black-2);   /* #666666 → اضبط للقراءة */
 }
 ```
 
-### مؤشر الحد الأيسر
+### مؤشر التأكيد الأيسر
 
 ```css
 nav.sidebar a[aria-current="page"] {
   border-left: 3px solid var(--sl-color-accent);
-  padding-left: calc(0.5rem - 3px);  /* compensate for border */
+  padding-left: calc(0.5rem - 3px);  /* تعويض عن الحد */
 }
 ```
 
-> **الحالة**: مكتمل — تحويم الشريط الجانبي والحالة النشطة ومؤشر الحد البارز منفّذة في `styles/custom.css`.
+> **الحالة**: مكتمل — تحوّم الشريط الجانبي والحالة النشطة ومؤشر التأكيد مُطبَّقة في `styles/custom.css`.
 
 ---
 
@@ -251,7 +251,7 @@ nav.sidebar a[aria-current="page"] {
 ### متغيرات الأزرار
 
 ```css
-/* Primary — using F5 Red as brand action */
+/* الأساسي — استخدام الأحمر F5 كإجراء علامة تجارية */
 .btn-primary {
   background: var(--f5-red);
   color: var(--f5-white);
@@ -267,7 +267,7 @@ nav.sidebar a[aria-current="page"] {
   box-shadow: var(--f5-shadow-low);
 }
 
-/* Secondary — outline style */
+/* الثانوي — نمط مخطط تفصيلي */
 .btn-secondary {
   background: transparent;
   color: var(--sl-color-gray-2);
@@ -283,7 +283,7 @@ nav.sidebar a[aria-current="page"] {
   border-color: var(--f5-border-strong);
 }
 
-/* Tertiary — ghost/text-only */
+/* الثالثي — شبح/نص فقط */
 .btn-tertiary {
   background: transparent;
   color: var(--sl-color-accent);
@@ -299,7 +299,7 @@ nav.sidebar a[aria-current="page"] {
 }
 ```
 
-### مقياس أحجام الأزرار
+### مقياس حجم الأزرار
 
 | الحجم | الحشو | حجم الخط | الحد الأدنى للارتفاع |
 |---|---|---|---|
@@ -307,24 +307,24 @@ nav.sidebar a[aria-current="page"] {
 | متوسط (افتراضي) | `0.625rem 1rem` | `0.875rem` (14px) | `40px` |
 | كبير | `0.75rem 1.5rem` | `1rem` (16px) | `48px` |
 
-> **الحالة**: مكتمل — جميع متغيرات الأزرار (`primary`، `secondary`، `tertiary`، `critical`) ومقياس الأحجام (`sm`، افتراضي، `lg`) منفّذة في `styles/custom.css`.
+> **الحالة**: مكتمل — جميع متغيرات الأزرار (`primary`، `secondary`، `tertiary`، `critical`) ومقياس الحجم (`sm`، افتراضي، `lg`) مُطبَّقة في `styles/custom.css`.
 
 ---
 
-## 6. خلفيات البطل والترويسة
+## 6. خلفيات Hero والرأس
 
-### تدرجات البطل
+### تدرجات Hero
 
-باستخدام لوحة ألوان علامة F5 التجارية:
+باستخدام لوحة ألوان العلامة التجارية F5:
 
 ```css
-/* Primary hero gradient — River blue */
+/* تدرج hero الأساسي — أزرق River */
 .hero-gradient-primary {
   background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
   /* #6e8dcc → #0e41aa */
 }
 
-/* Faint page wash — subtle warm tone */
+/* غسيل صفحة خفيف — نبرة دافئة خفية */
 :root[data-theme='light'] .hero-gradient-faint {
   background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
 }
@@ -332,23 +332,23 @@ nav.sidebar a[aria-current="page"] {
   background: linear-gradient(180deg, #222222 0%, #000000 100%);
 }
 
-/* Eggplant variant for feature pages */
+/* متغير Eggplant لصفحات الميزات */
 .hero-gradient-eggplant {
   background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
   /* #9c59c9 → #62228b */
 }
 
-/* Red brand variant for announcements */
+/* متغير العلامة التجارية الأحمر للإعلانات */
 .hero-gradient-red {
   background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
   /* #f06680 → #e4002b */
 }
 ```
 
-### تقنيات طبقة التدرج
+### تقنيات تراكب التدرج
 
 ```css
-/* Radial vignette for depth */
+/* تأثير الظل الشعاعي للعمق */
 .hero-vignette::after {
   content: '';
   position: absolute;
@@ -357,7 +357,7 @@ nav.sidebar a[aria-current="page"] {
   pointer-events: none;
 }
 
-/* Bottom fade to page background */
+/* تلاشٍ سفلي إلى خلفية الصفحة */
 .hero-fade::after {
   content: '';
   position: absolute;
@@ -370,13 +370,13 @@ nav.sidebar a[aria-current="page"] {
 }
 ```
 
-> **الحالة**: مكتمل — تدرجات البطل (`primary`، `eggplant`، `red`، `faint`) والطبقات الفوقية (`hero-fade`، `hero-vignette`) منفّذة في `styles/custom.css`.
+> **الحالة**: مكتمل — تدرجات hero (`primary`، `eggplant`، `red`، `faint`) والتراكبات (`hero-fade`، `hero-vignette`) مُطبَّقة في `styles/custom.css`.
 
 ---
 
-## 7. تأثيرات التحويم والانتقالات
+## 7. تأثيرات التحوّم والانتقالات
 
-### رموز الانتقالات
+### رموز الانتقال
 
 ```css
 :root {
@@ -388,37 +388,37 @@ nav.sidebar a[aria-current="page"] {
 }
 ```
 
-| الرمز | المدة | التوقيت | حالة الاستخدام |
+| الرمز | المدة | التخفيف | حالة الاستخدام |
 |---|---|---|---|
-| `--f5-transition-fast` | `0.15s` | `ease` | معظم حالات التحويم، تغييرات الألوان |
+| `--f5-transition-fast` | `0.15s` | `ease` | معظم حالات التحوّم، تغييرات الألوان |
 | `--f5-transition-base` | `0.2s` | `ease` | تعبئة الخلفية، تغييرات الحدود |
-| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | المفاتيح، عناصر التبديل |
-| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | مؤشرات التبويب، اللوحات المنزلقة |
-| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | تلميحات الأدوات، ظهور النوافذ المنبثقة |
+| `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | المفاتيح، التبديل |
+| `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | مؤشرات علامات التبويب، اللوحات الانزلاقية |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | التلميحات، دخول النوافذ المنبثقة |
 
-### ما الذي يمكن تحريكه
+### ما يجب تحريكه
 
 | الخاصية | آمن للتحريك | ملاحظات |
 |---|---|---|
-| `background-color` | نعم | قياسي لتعبئة التحويم |
+| `background-color` | نعم | معياري لتعبئة التحوّم |
 | `color` | نعم | تغييرات لون النص |
-| `border-color` | نعم | إبراز الحدود عند التحويم |
-| `box-shadow` | نعم | تغييرات الارتفاع (استخدم `will-change` عند الاهتزاز) |
+| `border-color` | نعم | تأكيد الحد عند التحوّم |
+| `box-shadow` | نعم | تغييرات الارتفاع (استخدم `will-change` عند التقطع) |
 | `transform` | نعم | التحجيم، الإزاحة للتغذية الراجعة |
-| `opacity` | نعم | الظهور/الاختفاء التدريجي |
-| `width`، `height` | تجنّب | يُسبّب إعادة تدفق التخطيط |
-| `padding`، `margin` | تجنّب | يُسبّب إعادة تدفق التخطيط |
+| `opacity` | نعم | التلاشي للداخل/الخارج |
+| `width`، `height` | تجنّب | يسبب إعادة تدفق التخطيط |
+| `padding`، `margin` | تجنّب | يسبب إعادة تدفق التخطيط |
 
-### ربط انتقالات المكونات
+### تعيين انتقالات المكونات
 
 ```css
-/* Sidebar nav items */
+/* عناصر تنقل الشريط الجانبي */
 nav.sidebar a {
   transition: background-color var(--f5-transition-fast),
               color var(--f5-transition-fast);
 }
 
-/* Cards — shadow lift on hover */
+/* البطاقات — رفع الظل عند التحوّم */
 .swatch, .icon-card {
   transition: box-shadow var(--f5-transition-base),
               transform var(--f5-transition-base);
@@ -428,20 +428,20 @@ nav.sidebar a {
   transform: translateY(-1px);
 }
 
-/* Buttons */
+/* الأزرار */
 .btn-primary, .btn-secondary, .btn-tertiary {
   transition: background-color var(--f5-transition-fast),
               border-color var(--f5-transition-fast),
               box-shadow var(--f5-transition-fast);
 }
 
-/* Links */
+/* الروابط */
 a {
   transition: color var(--f5-transition-fast);
 }
 ```
 
-> **الحالة**: مكتمل — جميع رموز الانتقالات الخمسة (`fast`، `base`، `bounce`، `decelerate`، `spring`) وانتقالات المكونات منفّذة في `styles/custom.css`.
+> **الحالة**: مكتمل — جميع رموز الانتقال الخمسة (`fast`، `base`، `bounce`، `decelerate`، `spring`) وانتقالات المكونات مُطبَّقة في `styles/custom.css`.
 
 ---
 
@@ -449,10 +449,10 @@ a {
 
 ### رموز حلقة التركيز
 
-تستخدم السمة نمط **الحلقة المزدوجة** مع حلقة داخلية منغمسة وتوهج خارجي:
+تستخدم السمة نمط **الحلقة المزدوجة** مع حلقة داخلية مدمجة وتوهّج خارجي:
 
 ```css
-/* Action focus — using F5 River blue */
+/* تركيز الإجراء — باستخدام الأزرق F5 River */
 :root {
   --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
   /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
@@ -461,7 +461,7 @@ a {
   /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
 }
 
-/* Apply to interactive elements */
+/* تطبيق على العناصر التفاعلية */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -471,7 +471,7 @@ textarea:focus-visible {
   box-shadow: var(--f5-focus-action);
 }
 
-/* Critical variant for destructive buttons */
+/* المتغير الحرج للأزرار التدميرية */
 .btn-critical:focus-visible {
   box-shadow: var(--f5-focus-critical);
 }
@@ -479,17 +479,17 @@ textarea:focus-visible {
 
 ### ملاحظات إمكانية الوصول
 
-- يستوفي نمط الحلقة المزدوجة متطلبات **WCAG 2.2 لمظهر التركيز** (حد تباين أدنى 2 بكسل)
-- استخدام `box-shadow` بدلًا من `outline` يسمح باحترام نصف قطر الحدود
-- يضمن `:focus-visible` ظهور الحلقة للتنقل بلوحة المفاتيح فقط، دون نقرات الفأرة
+- يستوفي نمط الحلقة المزدوجة متطلبات **WCAG 2.2 لمظهر التركيز** (حد أدنى 2px مخطط تفصيلي متباين)
+- يتيح استخدام `box-shadow` بدلًا من `outline` احترام نصف قطر الحدود
+- يضمن `:focus-visible` ظهور الحلقة للتنقل بلوحة المفاتيح فقط، دون النقر بالفأرة
 
-> **الحالة**: مكتمل — نمط التركيز المزدوج الحلقة (`action`، `critical`) وأنماط `:focus-visible` منفّذة في `styles/custom.css`.
+> **الحالة**: مكتمل — نمط التركيز ذو الحلقة المزدوجة (`action`، `critical`) وأنماط `:focus-visible` مُطبَّقة في `styles/custom.css`.
 
 ---
 
 ## 9. الطباعة
 
-### مجموعة الخطوط
+### مكدس الخطوط
 
 ```css
 :root {
@@ -499,7 +499,7 @@ textarea:focus-visible {
 }
 ```
 
-### مقياس الأحجام النصية
+### مقياس النص
 
 | المقياس | الحجم | ارتفاع السطر | الاستخدام |
 |---|---|---|---|
@@ -507,91 +507,91 @@ textarea:focus-visible {
 | Display 400 | `1.5rem` (24px) | 1.333 | `--sl-text-h2` |
 | Display 300 | `1.125rem` (18px) | 1.333 | `--sl-text-h3` |
 | Display 200 | `1rem` (16px) | 1.5 | `--sl-text-h4` |
-| Display 100 | `0.8125rem` (13px) | 1.385 | نص العنوان الفوقي |
-| Body 300 | `1rem` (16px) | 1.5 | نص الجسم الرئيسي |
+| Display 100 | `0.8125rem` (13px) | 1.385 | نص العنوان العلوي |
+| Body 300 | `1rem` (16px) | 1.5 | النص الأساسي |
 | Body 200 | `0.875rem` (14px) | 1.429 | نص الشريط الجانبي، التعليقات التوضيحية |
-| Body 100 | `0.8125rem` (13px) | 1.385 | النص الدقيق |
+| Body 100 | `0.8125rem` (13px) | 1.385 | النص الصغير |
 
 ### الخصائص الرئيسية
 
 | الجانب | القيمة | ملاحظات |
 |---|---|---|
-| ارتفاع سطر العناوين | `1.1` | عناوين مضغوطة لتأثير العلامة التجارية؛ فكر في `1.2` لتحسين القراءة |
+| ارتفاع سطر العناوين | `1.1` | عناوين مضغوطة لتأثير العلامة التجارية؛ فكّر في `1.2` للقراءة |
 | ارتفاع سطر النص | `1.5` (افتراضي Starlight) | مناسب جدًا للقراءة |
 | عائلة الخطوط | خطوط العلامة التجارية المخصصة | proximaNova (النص)، neusaNextProWide (العناوين) |
-| أوزان العناوين | `h1-h2: 700, h3: 500, h4-h6: 700 uppercase` | مُعتمَد لاتساق العلامة التجارية |
+| أوزان العناوين | `h1-h2: 700، h3: 500، h4-h6: 700 بالأحرف الكبيرة` | مدروس لاتساق العلامة التجارية |
 
-> **الأولوية**: لا تغييرات مطلوبة. الطباعة الحالية محددة جيدًا ومناسبة للعلامة التجارية. التعديل الطفيف لارتفاع سطر العنوان (من `1.1` إلى `1.2`) اختياري.
+> **الأولوية**: لا توجد تغييرات مطلوبة. الطباعة الحالية محددة جيدًا ومناسبة للعلامة التجارية. التعديل الطفيف لارتفاع سطر العنوان (`1.1` إلى `1.2`) اختياري.
 
 ---
 
-## 10. سجل تغييرات التنفيذ
+## 10. سجل التغييرات التطبيقية
 
-نُفّذت جميع رموز التصميم عبر خمسة سرعات:
+طُبِّقت جميع رموز التصميم عبر خمسة سباقات:
 
-| السرعة | النطاق | الرموز المضافة |
+| السباق | النطاق | الرموز المضافة |
 |---|---|---|
 | 1. الأساس | الظلال + نصف قطر الحدود | `--f5-shadow-*` (5 مستويات)، `--f5-radius-*` (5 مستويات) |
 | 2. الشريط الجانبي + الأسطح | التنقل + الرموز التفاعلية | `--f5-surface-hover`، `--f5-surface-active`، `--f5-border-*` (3 مستويات)، `--f5-transition-fast` |
-| 3. الأزرار | نظام المكونات | `.btn-primary`، `.btn-secondary`، `.btn-tertiary`، `.btn-critical`، متغيرات الأحجام |
-| 4. تدرجات البطل | أدوات الخلفية | `.hero-gradient-primary`، `-eggplant`، `-red`، `-faint`، `.hero-vignette`، `.hero-fade` |
-| 5. التركيز + الانتقالات | إمكانية الوصول + الصقل | `--f5-focus-action`، `--f5-focus-critical`، `--f5-transition-*` (5 رموز)، تأثيرات تحويم البطاقات |
+| 3. الأزرار | نظام المكونات | `.btn-primary`، `.btn-secondary`، `.btn-tertiary`، `.btn-critical`، متغيرات الحجم |
+| 4. تدرجات Hero | أدوات الخلفية | `.hero-gradient-primary`، `-eggplant`، `-red`، `-faint`، `.hero-vignette`، `.hero-fade` |
+| 5. التركيز + الانتقالات | إمكانية الوصول + التلميع | `--f5-focus-action`، `--f5-focus-critical`، `--f5-transition-*` (5 رموز)، تأثيرات تحوّم البطاقة |
 
 ---
 
-## مرجع سريع: ملخص الرموز
+## المرجع السريع: ملخص الرموز
 
 ### جميع الخصائص المخصصة
 
 ```css
 :root {
-  /* Border radius scale */
+  /* مقياس نصف قطر الحدود */
   --f5-radius-xs: 0.1875rem;     /* 3px */
   --f5-radius-sm: 0.3125rem;     /* 5px */
   --f5-radius-md: 0.375rem;      /* 6px */
   --f5-radius-lg: 0.5rem;        /* 8px */
   --f5-radius-full: 999px;
 
-  /* Transition timing */
+  /* توقيت الانتقال */
   --f5-transition-fast: 0.15s ease;
   --f5-transition-base: 0.2s ease;
   --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
   --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
   --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
 
-  /* Focus rings */
+  /* حلقات التركيز */
   --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
   --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
 
-  /* Dark mode shadows (default) */
+  /* ظلال الوضع الداكن (افتراضي) */
   --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
   --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
   --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
   --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
 
-  /* Dark mode borders */
+  /* حدود الوضع الداكن */
   --f5-border-faint: #f5f5f51a;
   --f5-border-default: #f5f5f533;
   --f5-border-strong: #cccccc66;
 
-  /* Dark mode surfaces */
+  /* أسطح الوضع الداكن */
   --f5-surface-hover: var(--f5-black-3);
   --f5-surface-active: var(--f5-black-2);
 }
 
 :root[data-theme='light'] {
-  /* Light mode shadows */
+  /* ظلال الوضع الفاتح */
   --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
   --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
   --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
   --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
 
-  /* Light mode borders */
+  /* حدود الوضع الفاتح */
   --f5-border-faint: #3434341a;
   --f5-border-default: #34343433;
   --f5-border-strong: #22222266;
 
-  /* Light mode surfaces */
+  /* أسطح الوضع الفاتح */
   --f5-surface-hover: var(--f5-white-2);
   --f5-surface-active: var(--f5-white-3);
 }

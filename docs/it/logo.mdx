@@ -4,13 +4,13 @@ description: Come viene configurato il logo e come sostituirlo.
 sidebar:
   order: 5
 i18n:
-  sourceHash: 2902004c3464
+  sourceHash: a1802e45a3a5
   translator: machine
 ---
 
-Il tema visualizza un logo nell'intestazione del sito di ogni sito di documentazione.
+Il tema visualizza un logo nell'intestazione del sito di ogni documentazione.
 
-## Asset Logo Disponibili
+## Asset logo disponibili
 
 Il tema include due file logo nella directory `assets/`:
 
@@ -19,7 +19,7 @@ Il tema include due file logo nella directory `assets/`:
 | `assets/f5-logo.svg` | SVG | Logo F5 in Cloud Red (`#e4002b`) |
 | `assets/github-avatar.png` | PNG | Avatar dell'organizzazione GitHub (predefinito) |
 
-## Logo Predefinito
+## Logo predefinito
 
 Il logo predefinito è impostato nella factory `createF5xcDocsConfig` in `config.ts`:
 
@@ -27,11 +27,11 @@ Il logo predefinito è impostato nella factory `createF5xcDocsConfig` in `config
 const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
 ```
 
-Se non viene fornita alcuna opzione `logo`, viene utilizzato il PNG dell'avatar GitHub. Il percorso è un identificatore di pacchetto npm risolto tramite la mappa `exports` in `package.json`.
+Se non viene fornita alcuna opzione `logo`, viene utilizzato il PNG dell'avatar GitHub. Il percorso è uno specificatore di pacchetto npm risolto tramite la mappa `exports` in `package.json`.
 
-## Sostituzione del Logo
+## Sostituzione del logo
 
-### Opzione 1: Utilizzare il logo SVG F5
+### Opzione 1: Usare il logo SVG F5
 
 Passare l'opzione `logo` a `createF5xcDocsConfig`:
 
@@ -43,9 +43,9 @@ export default createF5xcDocsConfig({
 });
 ```
 
-### Opzione 2: Utilizzare un logo personalizzato
+### Opzione 2: Usare un logo personalizzato
 
-Inserire il file logo nel repository dei contenuti e fare riferimento ad esso:
+Posizionare il file logo nel repository dei contenuti e farvi riferimento:
 
 ```ts
 import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
@@ -70,9 +70,9 @@ export default createF5xcDocsConfig({
 });
 ```
 
-## Linee Guida
+## Linee guida
 
-- **Utilizzare il formato SVG** — le immagini raster (PNG, JPG) funzioneranno ma non si ridimensioneranno correttamente a tutte le dimensioni
-- **Includere un `viewBox`** — assicura che il logo si ridimensioni proporzionalmente (ad es., `viewBox="0 0 100 100"`)
+- **Usare il formato SVG** — le immagini raster (PNG, JPG) funzioneranno ma non si ridimensioneranno correttamente a tutte le dimensioni
+- **Includere un `viewBox`** — garantisce che il logo si ridimensioni proporzionalmente (es. `viewBox="0 0 100 100"`)
 - **Mantenere le dimensioni del file ridotte** — il logo viene caricato su ogni pagina; puntare a meno di 10 KB
-- **Testare in entrambi i temi** — verificare che il logo appaia correttamente sia in modalità chiara che scura
+- **Testare in entrambi i temi** — verificare che il logo appaia correttamente sia nella modalità chiara che in quella scura

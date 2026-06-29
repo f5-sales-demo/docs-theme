@@ -4,19 +4,19 @@ description: テーマがサポートするすべての環境変数のリファ�
 sidebar:
   order: 2
 i18n:
-  sourceHash: 43298dddbd74
+  sourceHash: 1c33fa01b69f
   translator: machine
 ---
 
-テーマはビルド時に `config.ts` およびカスタムコンポーネントから環境変数を読み取ります。コンテンツリポジトリは、設定を変更せずに各サイトをカスタマイズするために、GitHub Actions ワークフロー内でこれらを設定します。
+テーマはビルド時に `config.ts` およびカスタムコンポーネントから環境変数を読み込みます。コンテンツリポジトリは、設定を変更することなく各サイトをカスタマイズするために、GitHub Actions ワークフローでこれらの変数を設定します。
 
 ## 変数リファレンス
 
 | 変数 | デフォルト | 目的 |
 |----------|---------|---------|
-| `DOCS_TITLE` | `Documentation` | ヘッダーおよびブラウザタブに表示されるサイトタイトル |
+| `DOCS_TITLE` | `Documentation` | ヘッダーおよびブラウザのタブに表示されるサイトタイトル |
 | `DOCS_SITE` | `https://f5-sales-demo.github.io` | デプロイされたサイトの正規ベース URL |
-| `DOCS_BASE` | `/` | URL ベースパス（例：プロジェクトサイトの場合 `/my-repo/`） |
+| `DOCS_BASE` | `/` | URL ベースパス（例：プロジェクトサイトの場合は `/my-repo/`） |
 | `DOCS_DESCRIPTION` | _(空文字列)_ | メタデータおよび llms.txt プラグイン用のサイト説明 |
 | `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | サイトタイトルからリンクされるホームページ URL |
 | `GITHUB_REPOSITORY` | _(空文字列)_ | GitHub ソーシャルリンクおよび編集リンクの生成に使用 |
@@ -49,7 +49,7 @@ Astro のトップレベル `site` プロパティを設定します。正規 UR
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Astro のトップレベル `base` プロパティを設定します。サブディレクトリへのデプロイ時に必要です（例：`https://example.com/my-repo/`）。
+Astro のトップレベル `base` プロパティを設定します。サブディレクトリへのデプロイ時（例：`https://example.com/my-repo/`）に必要です。
 
 ### DOCS_DESCRIPTION
 
@@ -58,7 +58,7 @@ Astro のトップレベル `base` プロパティを設定します。サブデ
 const description = options.description || process.env.DOCS_DESCRIPTION || '';
 ```
 
-サイト説明として `starlight-llms-txt` プラグインに渡されます。生成された `llms.txt` ファイルで使用されます。
+サイトの説明として `starlight-llms-txt` プラグインに渡されます。生成された `llms.txt` ファイルで使用されます。
 
 ### DOCS_HOME
 
@@ -67,7 +67,7 @@ const description = options.description || process.env.DOCS_DESCRIPTION || '';
 const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
-カスタム `SiteTitle.astro` コンポーネントによって読み取られます。ヘッダーのサイトタイトルをこの URL へのリンクでラップし、ユーザーが中央のドキュメントホームページに戻れるようにします。複数のコンテンツリポジトリが同じテーマを共有しており、すべてのサイトで一貫した「ホーム」リンクを持たせたい場合に便利です。
+カスタムの `SiteTitle.astro` コンポーネントによって読み込まれます。ヘッダー内のサイトタイトルをこの URL へのリンクでラップし、ユーザーが中央のドキュメントホームページに戻れるようにします。複数のコンテンツリポジトリが同じテーマを共有している場合に、すべてのサイトで一貫した「ホーム」リンクを設定したいときに便利です。
 
 ### GITHUB_REPOSITORY
 
@@ -86,7 +86,7 @@ const llmsOptionalLinks = options.llmsOptionalLinks
   || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
 ```
 
-`starlight-llms-txt` プラグインに渡される `{ title, url }` オブジェクトの JSON エンコードされた配列です。これらは生成された `llms.txt` ファイルの追加リンクとして表示されます。
+`starlight-llms-txt` プラグインに渡される `{ title, url }` オブジェクトの JSON エンコードされた配列です。生成された `llms.txt` ファイルに追加リンクとして表示されます。
 
 値の例：
 

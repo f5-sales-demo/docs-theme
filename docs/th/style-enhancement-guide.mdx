@@ -1,26 +1,26 @@
 ---
-title: คู่มือการปรับแต่งสไตล์
+title: คู่มือการปรับปรุงสไตล์
 description: เอกสารอ้างอิง design system token สำหรับ @f5-sales-demo/docs-theme
 sidebar:
   order: 12
 i18n:
-  sourceHash: f0fb4524cc1c
+  sourceHash: eb78d654eb4b
   translator: machine
 ---
 
-คู่มือนี้จัดทำเอกสารเกี่ยวกับ design system token และ component class ที่นำไปใช้งานใน `styles/custom.css` โดยเป็นเอกสารอ้างอิงสำหรับ token ด้าน border, surface, shadow, radius, button, gradient, transition, focus และ typography ที่ใช้ทั่วทั้งธีม
+คู่มือนี้จัดทำเอกสารสำหรับ design system token และ component class ที่ใช้งานใน `styles/custom.css` โดยทำหน้าที่เป็นเอกสารอ้างอิงสำหรับ token ของ border, surface, shadow, radius, button, gradient, transition, focus และ typography ที่ใช้ทั่วทั้งธีม
 
-> **สถานะ**: design token และ component class ทั้งหมดที่อธิบายไว้ด้านล่างได้รับการนำไปใช้งานแล้วและพร้อมใช้งาน
+> **สถานะ**: design token และ component class ทั้งหมดที่อธิบายไว้ด้านล่างได้รับการนำไปใช้งานแล้วและพร้อมให้ใช้งาน
 
 ## วิธีอ่านคู่มือนี้
 
-แต่ละส่วนจะจัดทำเอกสารสำหรับหมวดหมู่ token:
+แต่ละส่วนจะจัดทำเอกสารสำหรับประเภท token:
 
-1. **นิยาม token** — CSS custom properties พร้อมค่าโหมดสว่าง/มืด
-2. **การแมปกับ component** — component ธีมใดที่ใช้แต่ละ token
-3. **หมายเหตุการนำไปใช้** — แนวทางการใช้งานและข้อพิจารณาด้านการเข้าถึง
+1. **คำจำกัดความของ token** — CSS custom properties พร้อมค่าสำหรับโหมดสว่าง/มืด
+2. **การแมป component** — component ของธีมที่ใช้แต่ละ token
+3. **หมายเหตุการนำไปใช้** — คำแนะนำการใช้งานและข้อควรพิจารณาด้านการเข้าถึง
 
-ตาราง token แบ่งตาม **โหมดสว่าง** และ **โหมดมืด** ในกรณีที่ค่าต่างกัน
+ตาราง token จะแยกตาม **โหมดสว่าง** และ **โหมดมืด** ในกรณีที่ค่าแตกต่างกัน
 
 ---
 
@@ -28,40 +28,40 @@ i18n:
 
 ### Border แบบ Alpha-Transparent
 
-ธีมนี้ใช้ **border แบบ alpha-transparent** แทนการใช้สีเทาทึบ ซึ่งช่วยให้ border ปรับตัวได้ตามธรรมชาติกับพื้นหลังทุกประเภท
+ธีมใช้ **border แบบ alpha-transparent** แทนสีเทาทึบ ซึ่งช่วยให้ border ปรับตัวได้อย่างเป็นธรรมชาติกับพื้นหลังทุกประเภท
 
 ```css
-/* Alpha-transparent border pattern */
-border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
+/* รูปแบบ border แบบ alpha-transparent */
+border: 1px solid var(--f5-border-default);  /* neutral ที่ alpha 20% */
 ```
 
 #### Border Token
 
 ```css
-/* Light mode */
+/* โหมดสว่าง */
 :root[data-theme='light'] {
-  --f5-border-faint: #3434341a;    /* --f5-black-3 at 10% */
-  --f5-border-default: #34343433;  /* --f5-black-3 at 20% */
-  --f5-border-strong: #22222266;   /* --f5-black-4 at 40% */
+  --f5-border-faint: #3434341a;    /* --f5-black-3 ที่ 10% */
+  --f5-border-default: #34343433;  /* --f5-black-3 ที่ 20% */
+  --f5-border-strong: #22222266;   /* --f5-black-4 ที่ 40% */
 }
 
-/* Dark mode */
+/* โหมดมืด */
 :root {
-  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 at 10% */
-  --f5-border-default: #f5f5f533;  /* --f5-white-2 at 20% */
-  --f5-border-strong: #cccccc66;   /* --f5-white-4 at 40% */
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 ที่ 10% */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2 ที่ 20% */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4 ที่ 40% */
 }
 ```
 
 #### กรณีการใช้งาน Border
 
-| Token | ความโปร่งใส | กรณีการใช้งาน |
+| Token | ความทึบแสง | กรณีการใช้งาน |
 |---|---|---|
-| `--f5-border-faint` | 10% | ตัวแบ่งที่บางเบา, แถวตาราง |
-| `--f5-border-default` | 20% | border ทั่วไป, เส้นขอบการ์ด |
-| `--f5-border-strong` | 40% | border ที่เน้นย้ำ, สถานะที่ใช้งานอยู่ |
+| `--f5-border-faint` | 10% | ตัวแบ่งที่ละเอียด, แถวตาราง |
+| `--f5-border-default` | 20% | border ค่าเริ่มต้น, กรอบ card |
+| `--f5-border-strong` | 40% | border ที่เน้นชัดเจน, สถานะ active |
 
-> **สถานะ**: สมบูรณ์ — นำไปใช้งานใน `styles/custom.css` แล้ว
+> **สถานะ**: เสร็จสมบูรณ์ — นำไปใช้งานแล้วใน `styles/custom.css`
 
 ### สี Surface แบบ Interactive
 
@@ -72,21 +72,21 @@ Semantic surface token สำหรับสถานะ hover และ active
 | Token | ค่า | วัตถุประสงค์ |
 |---|---|---|
 | `--f5-white` | `#ffffff` | พื้นหลังหลัก |
-| `--f5-white-1` | `#faf9f7` | Sidebar, พื้นที่ที่ละเอียดอ่อน |
-| `--f5-white-2` | `#f5f5f5` | Surface ที่ยกขึ้น |
-| `--f5-surface-hover` | `var(--f5-white-2)` | สีเติมเมื่อ hover |
-| `--f5-surface-active` | `var(--f5-white-3)` | สีเติมเมื่อกด/active |
+| `--f5-white-1` | `#faf9f7` | Sidebar, พื้นที่ที่ละเอียด |
+| `--f5-white-2` | `#f5f5f5` | Surface ที่ยกสูง |
+| `--f5-surface-hover` | `var(--f5-white-2)` | การเติมสีเมื่อ hover |
+| `--f5-surface-active` | `var(--f5-white-3)` | การเติมสีเมื่อกด/active |
 
 #### Surface โหมดมืด
 
 | Token | ค่า | วัตถุประสงค์ |
 |---|---|---|
 | `--f5-black` | `#000000` | พื้นหลังหลัก |
-| `--f5-black-4` | `#222222` | Sidebar, พื้นที่ที่ละเอียดอ่อน |
-| `--f5-surface-hover` | `var(--f5-black-3)` | สีเติมเมื่อ hover |
-| `--f5-surface-active` | `var(--f5-black-2)` | สีเติมเมื่อกด/active |
+| `--f5-black-4` | `#222222` | Sidebar, พื้นที่ที่ละเอียด |
+| `--f5-surface-hover` | `var(--f5-black-3)` | การเติมสีเมื่อ hover |
+| `--f5-surface-active` | `var(--f5-black-2)` | การเติมสีเมื่อกด/active |
 
-#### นิยาม Surface Token
+#### คำจำกัดความของ Surface Token
 
 ```css
 :root[data-theme='light'] {
@@ -100,7 +100,7 @@ Semantic surface token สำหรับสถานะ hover และ active
 }
 ```
 
-> **สถานะ**: สมบูรณ์ — นำไปใช้งานใน `styles/custom.css` แล้ว
+> **สถานะ**: เสร็จสมบูรณ์ — นำไปใช้งานแล้วใน `styles/custom.css`
 
 ---
 
@@ -108,7 +108,7 @@ Semantic surface token สำหรับสถานะ hover และ active
 
 ### ระดับ Shadow
 
-ธีมนี้ใช้ **shadow แบบ alpha ที่มีโทนกลาง** โดยมีค่าสองชั้นเพื่อให้ดูมีความลึกเป็นธรรมชาติ โหมดสว่างใช้ `--f5-black-3` (`#343434`) เป็นฐานโทนสี ส่วนโหมดมืดใช้ `#cccccc`
+ธีมใช้ **shadow แบบ alpha ที่มีสีกลาง** พร้อมค่าสองชั้นเพื่อความลึกที่เป็นธรรมชาติ โหมดสว่างใช้ `--f5-black-3` (`#343434`) เป็นฐานสี ส่วนโหมดมืดใช้ `#cccccc`
 
 #### Shadow โหมดสว่าง
 
@@ -150,19 +150,19 @@ Semantic surface token สำหรับสถานะ hover และ active
 }
 ```
 
-### การแมป Shadow กับ Component
+### การแมป Shadow ของ Component
 
 | Component | ระดับ Shadow |
 |---|---|
-| `.swatch`, `.icon-card` | `--f5-shadow-low` (สถานะพักผ่อน) |
+| `.swatch`, `.icon-card` | `--f5-shadow-low` (ขณะพัก) |
 | `.starlight-aside` | `--f5-shadow-low` |
 | `.expressive-code .frame` | `--f5-shadow-mid` |
 | `.mermaid-container` | `--f5-shadow-mid` |
-| การ์ดเมื่อ hover | `--f5-shadow-mid` |
+| Card เมื่อ hover | `--f5-shadow-mid` |
 | Dropdown, popover | `--f5-shadow-high` |
 | Modal | `--f5-shadow-higher` |
 
-> **สถานะ**: สมบูรณ์ — ระดับ shadow ทั้งหมด (`inset`, `low`, `mid`, `high`, `higher`) นำไปใช้งานใน `styles/custom.css` แล้ว
+> **สถานะ**: เสร็จสมบูรณ์ — ระดับ shadow ทั้งหมด (`inset`, `low`, `mid`, `high`, `higher`) นำไปใช้งานแล้วใน `styles/custom.css`
 
 ---
 
@@ -172,15 +172,15 @@ Semantic surface token สำหรับสถานะ hover และ active
 
 ```css
 :root {
-  --f5-radius-xs: 0.1875rem;   /* 3px — badges, tags */
-  --f5-radius-sm: 0.3125rem;   /* 5px — nav items, small controls */
-  --f5-radius-md: 0.375rem;    /* 6px — cards, code blocks */
-  --f5-radius-lg: 0.5rem;      /* 8px — modals, large containers */
-  --f5-radius-full: 999px;     /* pills, fully rounded */
+  --f5-radius-xs: 0.1875rem;   /* 3px — badge, tag */
+  --f5-radius-sm: 0.3125rem;   /* 5px — รายการ nav, control ขนาดเล็ก */
+  --f5-radius-md: 0.375rem;    /* 6px — card, code block */
+  --f5-radius-lg: 0.5rem;      /* 8px — modal, container ขนาดใหญ่ */
+  --f5-radius-full: 999px;     /* pill, มนเต็มรูปแบบ */
 }
 ```
 
-### การแมป Radius กับ Component
+### การแมป Radius ของ Component
 
 | Component | Radius Token |
 |---|---|
@@ -190,10 +190,10 @@ Semantic surface token สำหรับสถานะ hover และ active
 | `.expressive-code .frame` | `--f5-radius-md` (6px) |
 | `.mermaid-container` | `--f5-radius-lg` (8px) |
 | `.edit-link` | `--f5-radius-full` (pill) |
-| รายการนำทาง Sidebar | `--f5-radius-sm` (5px) |
+| รายการ nav ของ Sidebar | `--f5-radius-sm` (5px) |
 | Badge | `--f5-radius-xs` (3px) |
 
-> **สถานะ**: สมบูรณ์ — ระดับ radius (`xs`, `sm`, `md`, `lg`, `full`) นำไปใช้งานใน `styles/custom.css` แล้ว
+> **สถานะ**: เสร็จสมบูรณ์ — ระดับ radius (`xs`, `sm`, `md`, `lg`, `full`) นำไปใช้งานแล้วใน `styles/custom.css`
 
 ---
 
@@ -202,7 +202,7 @@ Semantic surface token สำหรับสถานะ hover และ active
 ### สไตล์รายการ Sidebar
 
 ```css
-/* Sidebar navigation items */
+/* รายการนำทางของ Sidebar */
 nav.sidebar a {
   border-radius: var(--f5-radius-sm);    /* 5px */
   padding: 0.25rem 0.5rem;               /* 4px 8px */
@@ -212,46 +212,46 @@ nav.sidebar a {
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-/* Light mode hover */
+/* hover โหมดสว่าง */
 :root[data-theme='light'] nav.sidebar a:hover {
   background-color: var(--f5-white-2);   /* #f5f5f5 */
 }
 
-/* Dark mode hover */
+/* hover โหมดมืด */
 :root nav.sidebar a:hover {
   background-color: var(--f5-black-3);   /* #343434 */
 }
 
-/* Active page indicator */
+/* ตัวบ่งชี้หน้าที่ active */
 nav.sidebar a[aria-current="page"] {
-  background-color: var(--f5-white-3);   /* #e6e6e6 light */
+  background-color: var(--f5-white-3);   /* #e6e6e6 สำหรับโหมดสว่าง */
   font-weight: 600;
 }
 
 :root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
-  background-color: var(--f5-black-2);   /* #666666 → adjust for readability */
+  background-color: var(--f5-black-2);   /* #666666 → ปรับเพื่อความสามารถในการอ่าน */
 }
 ```
 
-### ตัวบ่งชี้เน้นด้านซ้าย
+### ตัวบ่งชี้ accent ด้านซ้าย
 
 ```css
 nav.sidebar a[aria-current="page"] {
   border-left: 3px solid var(--sl-color-accent);
-  padding-left: calc(0.5rem - 3px);  /* compensate for border */
+  padding-left: calc(0.5rem - 3px);  /* ชดเชยสำหรับ border */
 }
 ```
 
-> **สถานะ**: สมบูรณ์ — สถานะ hover, active และตัวบ่งชี้เน้นของ sidebar นำไปใช้งานใน `styles/custom.css` แล้ว
+> **สถานะ**: เสร็จสมบูรณ์ — hover, active และตัวบ่งชี้ accent ของ sidebar นำไปใช้งานแล้วใน `styles/custom.css`
 
 ---
 
 ## 5. ระบบ Button
 
-### รูปแบบ Button
+### ตัวแปรของ Button
 
 ```css
-/* Primary — using F5 Red as brand action */
+/* Primary — ใช้ F5 Red เป็น brand action */
 .btn-primary {
   background: var(--f5-red);
   color: var(--f5-white);
@@ -267,7 +267,7 @@ nav.sidebar a[aria-current="page"] {
   box-shadow: var(--f5-shadow-low);
 }
 
-/* Secondary — outline style */
+/* Secondary — สไตล์ outline */
 .btn-secondary {
   background: transparent;
   color: var(--sl-color-gray-2);
@@ -283,7 +283,7 @@ nav.sidebar a[aria-current="page"] {
   border-color: var(--f5-border-strong);
 }
 
-/* Tertiary — ghost/text-only */
+/* Tertiary — ghost/text เท่านั้น */
 .btn-tertiary {
   background: transparent;
   color: var(--sl-color-accent);
@@ -301,30 +301,30 @@ nav.sidebar a[aria-current="page"] {
 
 ### ระดับขนาด Button
 
-| ขนาด | Padding | ขนาดตัวอักษร | ความสูงขั้นต่ำ |
+| ขนาด | Padding | ขนาดฟอนต์ | ความสูงต่ำสุด |
 |---|---|---|---|
 | เล็ก | `0.375rem 0.75rem` | `0.8125rem` (13px) | `32px` |
 | กลาง (ค่าเริ่มต้น) | `0.625rem 1rem` | `0.875rem` (14px) | `40px` |
 | ใหญ่ | `0.75rem 1.5rem` | `1rem` (16px) | `48px` |
 
-> **สถานะ**: สมบูรณ์ — รูปแบบ button ทั้งหมด (`primary`, `secondary`, `tertiary`, `critical`) และระดับขนาด (`sm`, ค่าเริ่มต้น, `lg`) นำไปใช้งานใน `styles/custom.css` แล้ว
+> **สถานะ**: เสร็จสมบูรณ์ — ตัวแปร button ทั้งหมด (`primary`, `secondary`, `tertiary`, `critical`) และระดับขนาด (`sm`, ค่าเริ่มต้น, `lg`) นำไปใช้งานแล้วใน `styles/custom.css`
 
 ---
 
 ## 6. พื้นหลัง Hero และ Header
 
-### Gradient สำหรับ Hero
+### Gradient ของ Hero
 
-ใช้ชุดสีแบรนด์ F5:
+ใช้จานสี F5 brand:
 
 ```css
-/* Primary hero gradient — River blue */
+/* gradient hero หลัก — River blue */
 .hero-gradient-primary {
   background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
   /* #6e8dcc → #0e41aa */
 }
 
-/* Faint page wash — subtle warm tone */
+/* การล้างหน้าแบบจาง — โทนอบอุ่นที่ละเอียด */
 :root[data-theme='light'] .hero-gradient-faint {
   background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
 }
@@ -332,13 +332,13 @@ nav.sidebar a[aria-current="page"] {
   background: linear-gradient(180deg, #222222 0%, #000000 100%);
 }
 
-/* Eggplant variant for feature pages */
+/* ตัวแปร eggplant สำหรับหน้า feature */
 .hero-gradient-eggplant {
   background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
   /* #9c59c9 → #62228b */
 }
 
-/* Red brand variant for announcements */
+/* ตัวแปร brand red สำหรับประกาศ */
 .hero-gradient-red {
   background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
   /* #f06680 → #e4002b */
@@ -348,7 +348,7 @@ nav.sidebar a[aria-current="page"] {
 ### เทคนิค Gradient Overlay
 
 ```css
-/* Radial vignette for depth */
+/* vignette แบบ radial เพื่อความลึก */
 .hero-vignette::after {
   content: '';
   position: absolute;
@@ -357,7 +357,7 @@ nav.sidebar a[aria-current="page"] {
   pointer-events: none;
 }
 
-/* Bottom fade to page background */
+/* การจางลงสู่พื้นหลังของหน้าที่ด้านล่าง */
 .hero-fade::after {
   content: '';
   position: absolute;
@@ -370,7 +370,7 @@ nav.sidebar a[aria-current="page"] {
 }
 ```
 
-> **สถานะ**: สมบูรณ์ — hero gradient (`primary`, `eggplant`, `red`, `faint`) และ overlay (`hero-fade`, `hero-vignette`) นำไปใช้งานใน `styles/custom.css` แล้ว
+> **สถานะ**: เสร็จสมบูรณ์ — hero gradient (`primary`, `eggplant`, `red`, `faint`) และ overlay (`hero-fade`, `hero-vignette`) นำไปใช้งานแล้วใน `styles/custom.css`
 
 ---
 
@@ -394,31 +394,31 @@ nav.sidebar a[aria-current="page"] {
 | `--f5-transition-base` | `0.2s` | `ease` | การเติมพื้นหลัง, การเปลี่ยน border |
 | `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | Switch, toggle |
 | `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | ตัวบ่งชี้ tab, แผงเลื่อน |
-| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | Tooltip, การแสดง popover |
+| `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | Tooltip, การเข้า popover |
 
 ### สิ่งที่ควร Animate
 
-| Property | ปลอดภัยที่จะ Animate | หมายเหตุ |
+| Property | ปลอดภัยสำหรับ Animate | หมายเหตุ |
 |---|---|---|
-| `background-color` | ใช่ | มาตรฐานสำหรับสีเติม hover |
+| `background-color` | ใช่ | มาตรฐานสำหรับการเติมสีเมื่อ hover |
 | `color` | ใช่ | การเปลี่ยนสีข้อความ |
 | `border-color` | ใช่ | การเน้น border เมื่อ hover |
-| `box-shadow` | ใช่ | การเปลี่ยน elevation (ใช้ `will-change` หากมีการกระตุก) |
-| `transform` | ใช่ | Scale, translate เพื่อให้ feedback |
+| `box-shadow` | ใช่ | การเปลี่ยน elevation (ใช้ `will-change` หากกระตุก) |
+| `transform` | ใช่ | Scale, translate เพื่อ feedback |
 | `opacity` | ใช่ | Fade in/out |
 | `width`, `height` | หลีกเลี่ยง | ทำให้เกิด layout reflow |
 | `padding`, `margin` | หลีกเลี่ยง | ทำให้เกิด layout reflow |
 
-### การแมป Transition กับ Component
+### การแมป Transition ของ Component
 
 ```css
-/* Sidebar nav items */
+/* รายการ nav ของ Sidebar */
 nav.sidebar a {
   transition: background-color var(--f5-transition-fast),
               color var(--f5-transition-fast);
 }
 
-/* Cards — shadow lift on hover */
+/* Card — shadow ยกสูงเมื่อ hover */
 .swatch, .icon-card {
   transition: box-shadow var(--f5-transition-base),
               transform var(--f5-transition-base);
@@ -428,20 +428,20 @@ nav.sidebar a {
   transform: translateY(-1px);
 }
 
-/* Buttons */
+/* Button */
 .btn-primary, .btn-secondary, .btn-tertiary {
   transition: background-color var(--f5-transition-fast),
               border-color var(--f5-transition-fast),
               box-shadow var(--f5-transition-fast);
 }
 
-/* Links */
+/* ลิงก์ */
 a {
   transition: color var(--f5-transition-fast);
 }
 ```
 
-> **สถานะ**: สมบูรณ์ — transition token ทั้งห้า (`fast`, `base`, `bounce`, `decelerate`, `spring`) และ transition ของ component นำไปใช้งานใน `styles/custom.css` แล้ว
+> **สถานะ**: เสร็จสมบูรณ์ — transition token ทั้งห้า (`fast`, `base`, `bounce`, `decelerate`, `spring`) และ transition ของ component นำไปใช้งานแล้วใน `styles/custom.css`
 
 ---
 
@@ -449,10 +449,10 @@ a {
 
 ### Focus Ring Token
 
-ธีมนี้ใช้รูปแบบ **วงแหวนคู่** โดยมี inner ring แบบ inset และ outer glow:
+ธีมใช้รูปแบบ **double-ring** พร้อม inner ring แบบ inset และ outer glow:
 
 ```css
-/* Action focus — using F5 River blue */
+/* Action focus — ใช้ F5 River blue */
 :root {
   --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
   /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
@@ -461,7 +461,7 @@ a {
   /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
 }
 
-/* Apply to interactive elements */
+/* ใช้กับ element แบบ interactive */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -471,7 +471,7 @@ textarea:focus-visible {
   box-shadow: var(--f5-focus-action);
 }
 
-/* Critical variant for destructive buttons */
+/* ตัวแปร critical สำหรับปุ่มที่ทำลายข้อมูล */
 .btn-critical:focus-visible {
   box-shadow: var(--f5-focus-critical);
 }
@@ -479,17 +479,17 @@ textarea:focus-visible {
 
 ### หมายเหตุด้านการเข้าถึง
 
-- รูปแบบวงแหวนคู่ตรงตามข้อกำหนด **WCAG 2.2 Focus Appearance** (เส้นขอบที่มีความคมชัดขั้นต่ำ 2px)
-- การใช้ `box-shadow` แทน `outline` ช่วยให้ border-radius ถูกนำไปใช้ได้อย่างถูกต้อง
-- `:focus-visible` ทำให้วงแหวนแสดงเฉพาะเมื่อนำทางด้วยแป้นพิมพ์ ไม่ใช่เมื่อคลิกด้วยเมาส์
+- รูปแบบ double-ring ตรงตามข้อกำหนด **WCAG 2.2 Focus Appearance** (outline ที่มีความคมชัดขั้นต่ำ 2px)
+- การใช้ `box-shadow` แทน `outline` ช่วยให้ border-radius ถูกนำมาพิจารณา
+- `:focus-visible` ทำให้ ring ปรากฏเฉพาะสำหรับการนำทางด้วยแป้นพิมพ์ ไม่ใช่การคลิกเมาส์
 
-> **สถานะ**: สมบูรณ์ — รูปแบบ focus วงแหวนคู่ (`action`, `critical`) และสไตล์ `:focus-visible` นำไปใช้งานใน `styles/custom.css` แล้ว
+> **สถานะ**: เสร็จสมบูรณ์ — รูปแบบ focus double-ring (`action`, `critical`) และสไตล์ `:focus-visible` นำไปใช้งานแล้วใน `styles/custom.css`
 
 ---
 
 ## 9. Typography
 
-### ชุดฟอนต์
+### Font Stack
 
 ```css
 :root {
@@ -499,7 +499,7 @@ textarea:focus-visible {
 }
 ```
 
-### ระดับขนาดตัวอักษร
+### ระดับ Type
 
 | ระดับ | ขนาด | ความสูงบรรทัด | การใช้งาน |
 |---|---|---|---|
@@ -507,25 +507,25 @@ textarea:focus-visible {
 | Display 400 | `1.5rem` (24px) | 1.333 | `--sl-text-h2` |
 | Display 300 | `1.125rem` (18px) | 1.333 | `--sl-text-h3` |
 | Display 200 | `1rem` (16px) | 1.5 | `--sl-text-h4` |
-| Display 100 | `0.8125rem` (13px) | 1.385 | ข้อความ Overline |
+| Display 100 | `0.8125rem` (13px) | 1.385 | Overline text |
 | Body 300 | `1rem` (16px) | 1.5 | เนื้อหาหลัก |
-| Body 200 | `0.875rem` (14px) | 1.429 | ข้อความ sidebar, คำบรรยาย |
-| Body 100 | `0.8125rem` (13px) | 1.385 | ตัวอักษรขนาดเล็ก |
+| Body 200 | `0.875rem` (14px) | 1.429 | ข้อความ Sidebar, คำอธิบายภาพ |
+| Body 100 | `0.8125rem` (13px) | 1.385 | ตัวพิมพ์เล็ก |
 
 ### ลักษณะสำคัญ
 
 | ด้าน | ค่า | หมายเหตุ |
 |---|---|---|
-| ความสูงบรรทัดหัวข้อ | `1.1` | หัวข้อแบบแน่นเพื่อผลกระทบของแบรนด์; พิจารณา `1.2` เพื่อการอ่านง่าย |
-| ความสูงบรรทัดเนื้อหา | `1.5` (ค่าเริ่มต้น Starlight) | เหมาะสมสำหรับการอ่าน |
-| ชุดฟอนต์ | ฟอนต์แบรนด์ที่กำหนดเอง | proximaNova (เนื้อหา), neusaNextProWide (หัวข้อ) |
-| น้ำหนักหัวข้อ | `h1-h2: 700, h3: 500, h4-h6: 700 uppercase` | มีความคิดเห็นชัดเจนเพื่อความสอดคล้องของแบรนด์ |
+| ความสูงบรรทัดหัวเรื่อง | `1.1` | หัวเรื่องแบบแน่นเพื่อผลกระทบ brand; พิจารณา `1.2` เพื่อความสามารถในการอ่าน |
+| ความสูงบรรทัดเนื้อหา | `1.5` (ค่าเริ่มต้น Starlight) | เหมาะสำหรับการอ่าน |
+| ฟอนต์ | ฟอนต์ brand แบบกำหนดเอง | proximaNova (เนื้อหา), neusaNextProWide (หัวเรื่อง) |
+| น้ำหนักหัวเรื่อง | `h1-h2: 700, h3: 500, h4-h6: 700 uppercase` | มีความเห็นชัดเจนเพื่อความสอดคล้องของ brand |
 
-> **ลำดับความสำคัญ**: ไม่จำเป็นต้องเปลี่ยนแปลง typography ปัจจุบันกำหนดไว้ชัดเจนและเหมาะสมกับแบรนด์ การปรับความสูงบรรทัดหัวข้อเล็กน้อย (จาก `1.1` เป็น `1.2`) เป็นทางเลือก
+> **ลำดับความสำคัญ**: ไม่จำเป็นต้องเปลี่ยนแปลง typography ปัจจุบันมีการกำหนดไว้อย่างชัดเจนและเหมาะสมกับ brand การปรับ heading line height เล็กน้อย (`1.1` เป็น `1.2`) เป็นตัวเลือกที่ไม่บังคับ
 
 ---
 
-## 10. บันทึกการเปลี่ยนแปลงการนำไปใช้
+## 10. บันทึกการเปลี่ยนแปลงการนำไปใช้งาน
 
 design token ทั้งหมดถูกนำไปใช้งานใน 5 sprint:
 
@@ -533,65 +533,65 @@ design token ทั้งหมดถูกนำไปใช้งานใน 
 |---|---|---|
 | 1. รากฐาน | Shadow + border radius | `--f5-shadow-*` (5 ระดับ), `--f5-radius-*` (5 ระดับ) |
 | 2. Sidebar + Surface | Navigation + interactive token | `--f5-surface-hover`, `--f5-surface-active`, `--f5-border-*` (3 ระดับ), `--f5-transition-fast` |
-| 3. Button | ระบบ component | `.btn-primary`, `.btn-secondary`, `.btn-tertiary`, `.btn-critical`, รูปแบบขนาด |
+| 3. Button | ระบบ component | `.btn-primary`, `.btn-secondary`, `.btn-tertiary`, `.btn-critical`, ตัวแปรขนาด |
 | 4. Hero Gradient | Background utility | `.hero-gradient-primary`, `-eggplant`, `-red`, `-faint`, `.hero-vignette`, `.hero-fade` |
-| 5. Focus + Transition | การเข้าถึง + การขัดเกลา | `--f5-focus-action`, `--f5-focus-critical`, `--f5-transition-*` (5 token), เอฟเฟกต์ hover ของการ์ด |
+| 5. Focus + Transition | การเข้าถึง + การขัดเกลา | `--f5-focus-action`, `--f5-focus-critical`, `--f5-transition-*` (5 token), เอฟเฟกต์ hover ของ card |
 
 ---
 
 ## อ้างอิงด่วน: สรุป Token
 
-### Custom Property ทั้งหมด
+### Custom Properties ทั้งหมด
 
 ```css
 :root {
-  /* Border radius scale */
+  /* ระดับ border radius */
   --f5-radius-xs: 0.1875rem;     /* 3px */
   --f5-radius-sm: 0.3125rem;     /* 5px */
   --f5-radius-md: 0.375rem;      /* 6px */
   --f5-radius-lg: 0.5rem;        /* 8px */
   --f5-radius-full: 999px;
 
-  /* Transition timing */
+  /* ระยะเวลา transition */
   --f5-transition-fast: 0.15s ease;
   --f5-transition-base: 0.2s ease;
   --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
   --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
   --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
 
-  /* Focus rings */
+  /* Focus ring */
   --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
   --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
 
-  /* Dark mode shadows (default) */
+  /* Shadow โหมดมืด (ค่าเริ่มต้น) */
   --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
   --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
   --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
   --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
 
-  /* Dark mode borders */
+  /* Border โหมดมืด */
   --f5-border-faint: #f5f5f51a;
   --f5-border-default: #f5f5f533;
   --f5-border-strong: #cccccc66;
 
-  /* Dark mode surfaces */
+  /* Surface โหมดมืด */
   --f5-surface-hover: var(--f5-black-3);
   --f5-surface-active: var(--f5-black-2);
 }
 
 :root[data-theme='light'] {
-  /* Light mode shadows */
+  /* Shadow โหมดสว่าง */
   --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
   --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
   --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
   --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
 
-  /* Light mode borders */
+  /* Border โหมดสว่าง */
   --f5-border-faint: #3434341a;
   --f5-border-default: #34343433;
   --f5-border-strong: #22222266;
 
-  /* Light mode surfaces */
+  /* Surface โหมดสว่าง */
   --f5-surface-hover: var(--f5-white-2);
   --f5-surface-active: var(--f5-white-3);
 }

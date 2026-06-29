@@ -6,25 +6,25 @@ description: >-
 sidebar:
   order: 2
 i18n:
-  sourceHash: 43298dddbd74
+  sourceHash: 1c33fa01b69f
   translator: machine
 ---
 
-Le thème lit les variables d'environnement au moment de la compilation depuis `config.ts` et les composants personnalisés. Les dépôts de contenu les définissent dans leur workflow GitHub Actions pour personnaliser chaque site sans modifier la configuration.
+Le thème lit les variables d'environnement au moment de la compilation à partir de `config.ts` et des composants personnalisés. Les dépôts de contenu les définissent dans leur workflow GitHub Actions pour personnaliser chaque site sans modifier la configuration.
 
 ## Référence des variables
 
-| Variable | Valeur par défaut | Objectif |
+| Variable | Valeur par défaut | Utilité |
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | Titre du site affiché dans l'en-tête et l'onglet du navigateur |
 | `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL de base canonique du site déployé |
 | `DOCS_BASE` | `/` | Chemin de base de l'URL (ex. : `/my-repo/` pour les sites de projet) |
 | `DOCS_DESCRIPTION` | _(chaîne vide)_ | Description du site pour les métadonnées et le plugin llms.txt |
 | `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL de la page d'accueil liée depuis le titre du site |
-| `GITHUB_REPOSITORY` | _(chaîne vide)_ | Utilisé pour générer le lien social GitHub et les liens d'édition |
+| `GITHUB_REPOSITORY` | _(chaîne vide)_ | Utilisé pour construire le lien social GitHub et les liens d'édition |
 | `LLMS_OPTIONAL_LINKS` | `[]` | Tableau JSON de liens supplémentaires pour le plugin llms.txt |
 
-## Où chaque variable est utilisée
+## Utilisation de chaque variable
 
 ### DOCS_TITLE
 
@@ -33,7 +33,7 @@ Le thème lit les variables d'environnement au moment de la compilation depuis `
 const title = options.title || process.env.DOCS_TITLE || 'Documentation';
 ```
 
-Transmis à l'option Starlight `title` et au plugin `starlight-llms-txt`. Apparaît dans l'en-tête du site et la balise HTML `<title>`.
+Transmis à l'option `title` de Starlight et au plugin `starlight-llms-txt`. Apparaît dans l'en-tête du site et dans la balise HTML `<title>`.
 
 ### DOCS_SITE
 
@@ -42,7 +42,7 @@ Transmis à l'option Starlight `title` et au plugin `starlight-llms-txt`. Appara
 const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
-Définit la propriété `site` de niveau supérieur d'Astro. Utilisé pour les URL canoniques, la génération du sitemap et les métadonnées Open Graph.
+Définit la propriété `site` de premier niveau d'Astro. Utilisé pour les URL canoniques, la génération du plan du site et les métadonnées Open Graph.
 
 ### DOCS_BASE
 
@@ -51,7 +51,7 @@ Définit la propriété `site` de niveau supérieur d'Astro. Utilisé pour les U
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Définit la propriété `base` de niveau supérieur d'Astro. Requis lors du déploiement dans un sous-répertoire (ex. : `https://example.com/my-repo/`).
+Définit la propriété `base` de premier niveau d'Astro. Requise lors du déploiement dans un sous-répertoire (ex. : `https://example.com/my-repo/`).
 
 ### DOCS_DESCRIPTION
 
@@ -60,7 +60,7 @@ Définit la propriété `base` de niveau supérieur d'Astro. Requis lors du dép
 const description = options.description || process.env.DOCS_DESCRIPTION || '';
 ```
 
-Transmis au plugin `starlight-llms-txt` comme description du site. Utilisé dans le fichier `llms.txt` généré.
+Transmis au plugin `starlight-llms-txt` en tant que description du site. Utilisé dans le fichier `llms.txt` généré.
 
 ### DOCS_HOME
 
@@ -69,7 +69,7 @@ Transmis au plugin `starlight-llms-txt` comme description du site. Utilisé dans
 const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
-Lu par le composant personnalisé `SiteTitle.astro`. Entoure le titre du site dans l'en-tête d'un lien vers cette URL, permettant aux utilisateurs de revenir à une page d'accueil centrale de la documentation. Utile lorsque plusieurs dépôts de contenu partagent le même thème et que vous souhaitez un lien « accueil » cohérent sur tous les sites.
+Lu par le composant personnalisé `SiteTitle.astro`. Entoure le titre du site dans l'en-tête d'un lien vers cette URL, permettant aux utilisateurs de revenir à une page d'accueil de documentation centrale. Utile lorsque plusieurs dépôts de contenu partagent le même thème et que vous souhaitez un lien « accueil » cohérent sur tous les sites.
 
 ### GITHUB_REPOSITORY
 
@@ -88,7 +88,7 @@ const llmsOptionalLinks = options.llmsOptionalLinks
   || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
 ```
 
-Un tableau encodé en JSON d'objets `{ title, url }` transmis au plugin `starlight-llms-txt`. Ces éléments apparaissent comme liens supplémentaires dans le fichier `llms.txt` généré.
+Un tableau d'objets `{ title, url }` encodé en JSON, transmis au plugin `starlight-llms-txt`. Ces éléments apparaissent comme liens supplémentaires dans le fichier `llms.txt` généré.
 
 Exemple de valeur :
 

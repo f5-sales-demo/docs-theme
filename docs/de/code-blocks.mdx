@@ -2,11 +2,11 @@
 title: Code-Blöcke
 description: >-
   Syntaxhervorhebung, Terminal-Modus, Zeilenhervorhebungen, Diff-Blöcke und
-  CSS-Referenz für das Expressive Code Styling.
+  CSS-Referenz für Expressive Code Styling.
 sidebar:
   order: 8
 i18n:
-  sourceHash: b458d0378db1
+  sourceHash: b71ea33850c1
   translator: machine
 ---
 
@@ -114,7 +114,7 @@ const config: Config = {
 
 ## Terminal-Modus
 
-Terminal-ähnliche Code-Blöcke (eingegrenzt mit ` ```bash ` oder ` ```sh `) erhalten einen von iTerm inspirierten Fensterrahmen mit macOS-Ampelpunkten.
+Terminal-artige Code-Blöcke (begrenzt mit ` ```bash ` oder ` ```sh `) erhalten einen iTerm-inspirierten Fensterrahmen mit macOS-Ampelpunkten.
 
 ```bash title="Terminal"
 npm install @f5-sales-demo/docs-theme
@@ -125,23 +125,23 @@ npx astro preview
 ### Terminal-CSS-Referenz
 
 ```css
-/* Frame border */
+/* Rahmenumrandung */
 .expressive-code .frame.is-terminal {
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Dark header with traffic light SVG dots */
+/* Dunkle Kopfzeile mit Ampel-SVG-Punkten */
 .expressive-code .frame.is-terminal .header {
   background: #323232 !important;
   color: #ccc !important;
 }
 
-/* Dark mode terminal body — Tokyo Night-inspired */
+/* Dunkler Terminal-Körper im Dunkelmodus — Tokyo Night-inspiriert */
 :root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
   background: #1a1b26 !important;
 }
 
-/* Light mode border override */
+/* Rahmenfarbe im Hellmodus überschreiben */
 :root[data-theme="light"] .expressive-code .frame.is-terminal {
   border-color: rgba(0, 0, 0, 0.2);
 }
@@ -189,7 +189,7 @@ const config = {
 
 ## CSS-Referenz
 
-### Frame-Styling
+### Rahmen-Styling
 
 Alle Code-Blöcke erhalten abgerundete Ecken und einen mehrschichtigen Schatten:
 
@@ -202,27 +202,27 @@ Alle Code-Blöcke erhalten abgerundete Ecken und einen mehrschichtigen Schatten:
 }
 ```
 
-### Thema-bewusste Rahmen
+### Themen-abhängige Rahmen
 
 ```css
-/* Dark mode (default) */
+/* Dunkelmodus (Standard) */
 .expressive-code .frame.is-terminal {
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Light mode */
+/* Hellmodus */
 :root[data-theme="light"] .expressive-code .frame.is-terminal {
   border-color: rgba(0, 0, 0, 0.2);
 }
 ```
 
-## Thema-Überprüfungen
+## Themenprüfungen
 
-- Die Hintergrundfarbe des Code-Blocks passt sich dem Thema an
-- Der Terminal-Header-Hintergrund ist `#323232` mit macOS-Ampelpunkten
+- Die Hintergrundfarbe von Code-Blöcken passt sich dem Thema an
+- Der Terminal-Kopfzeilenhintergrund ist `#323232` mit macOS-Ampelpunkten
 - Der Terminal-Rahmen verwendet `rgba(255, 255, 255, 0.15)` im Dunkelmodus und `rgba(0, 0, 0, 0.2)` im Hellmodus
 - Der Terminal-Körper im Dunkelmodus verwendet `#1a1b26`
 - Syntaxfarben bleiben in beiden Themen lesbar
 - Zeilenhervorhebungen haben eine sichtbare Hintergrundtönung
-- Eingefügte Zeilen zeigen eine grüne Tönung, gelöschte Zeilen eine rote Tönung
-- Code-Blöcke haben einen Rahmenradius von 0,75 rem und einen Box-Schatten
+- Eingefügte Zeilen erscheinen grün getönt, gelöschte Zeilen rot getönt
+- Code-Blöcke haben einen Rahmenradius von 0,75 rem und einen Boxschatten

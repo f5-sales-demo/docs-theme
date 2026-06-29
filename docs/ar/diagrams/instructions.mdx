@@ -6,11 +6,11 @@ description: >-
 sidebar:
   order: 2
 i18n:
-  sourceHash: 5ce5851823d9
+  sourceHash: 9e62b1dcd036
   translator: machine
 ---
 
-تتضمن السمة مكوناً إضافياً مخصصاً `remark-mermaid` (`plugins/remark-mermaid.mjs`) يحوّل كتل الكود المسوّرة ` ```mermaid ` إلى أغلفة `<div class="mermaid-container">`. يقوم سكريبت Mermaid CDN بعرض مخططات SVG عند تحميل الصفحة.
+تتضمن السمة مكوناً إضافياً مخصصاً باسم `remark-mermaid` (الملف `plugins/remark-mermaid.mjs`) يقوم بتحويل كتل الكود المسوّرة ` ```mermaid ` إلى مغلّفات `<div class="mermaid-container">`. يقوم سكريبت Mermaid CDN بعرض مخططات SVG عند تحميل الصفحة.
 
 ## صياغة الأيقونات
 
@@ -33,7 +33,7 @@ group myGroup(pack:icon-name)[Label]
 
 ## حزم الأيقونات المتاحة
 
-حزم الأيقونات التالية مسجّلة ومتاحة في مخططات Mermaid. يتم تحميل الأيقونات بشكل كسول من CDN عند الإشارة إليها فقط.
+حزم الأيقونات التالية مسجّلة ومتاحة في مخططات Mermaid. يتم تحميل الأيقونات بشكل كسول من CDN فقط عند الإشارة إليها.
 
 | اسم الحزمة | حزمة npm | الأيقونات الرئيسية |
 |-----------|-------------|-----------|
@@ -51,7 +51,7 @@ group myGroup(pack:icon-name)[Label]
 
 ### تنسيق الحاوية
 
-يتم تغليف مخططات Mermaid في حاوية منسّقة بزوايا مستديرة وظل صندوق متعدد الطبقات:
+يتم تغليف مخططات Mermaid في حاوية منسّقة ذات زوايا مدوّرة وظل صندوقي متعدد الطبقات:
 
 ```css
 .mermaid-container {
@@ -66,7 +66,7 @@ group myGroup(pack:icon-name)[Label]
 
 ### إعادة ضبط عنصر Pre
 
-يتم تجريد تنسيق `<pre>` الافتراضي الخاص بـ Starlight من غلاف mermaid بحيث يظهر حدود الحاوية الخارجية فقط:
+يتم تجريد تنسيق `<pre>` الافتراضي لـ Starlight من مغلّف Mermaid بحيث يظهر حد الحاوية الخارجية فقط:
 
 ```css
 .mermaid-container pre.mermaid {
@@ -92,6 +92,6 @@ group myGroup(pack:icon-name)[Label]
 
 - تمتلك `.mermaid-container` خلفية SVG بيضاء في الوضع الداكن
 - يستخدم حد الحاوية `--sl-color-gray-5`
-- تمتلك الحاوية نصف قطر حد 0.75rem وظل صندوق متعدد الطبقات
+- تمتلك الحاوية نصف قطر حد 0.75rem وظل صندوقي متعدد الطبقات
 - المخططات قابلة للقراءة في السمتين الفاتحة والداكنة
 - يتم تحميل سكريبت Mermaid CDN وعرض مخططات SVG عند تحميل الصفحة

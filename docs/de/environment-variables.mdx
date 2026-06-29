@@ -1,14 +1,14 @@
 ---
 title: Umgebungsvariablen
-description: Referenz aller vom Theme unterstützten Umgebungsvariablen.
+description: Referenz für alle vom Theme unterstützten Umgebungsvariablen.
 sidebar:
   order: 2
 i18n:
-  sourceHash: 43298dddbd74
+  sourceHash: 1c33fa01b69f
   translator: machine
 ---
 
-Das Dokumentationsthema liest Umgebungsvariablen zur Build-Zeit aus `config.ts` und benutzerdefinierten Komponenten. Inhalts-Repositorys setzen diese in ihren GitHub Actions-Workflows, um jede Website anzupassen, ohne die Konfiguration zu ändern.
+Das Dokumentationsthema liest Umgebungsvariablen zur Build-Zeit aus `config.ts` und benutzerdefinierten Komponenten. Inhalts-Repositories setzen diese in ihrem GitHub Actions-Workflow, um jede Website anzupassen, ohne die Konfiguration zu ändern.
 
 ## Variablenreferenz
 
@@ -16,9 +16,9 @@ Das Dokumentationsthema liest Umgebungsvariablen zur Build-Zeit aus `config.ts` 
 |----------|---------|---------|
 | `DOCS_TITLE` | `Documentation` | Seitentitel, der in der Kopfzeile und im Browser-Tab angezeigt wird |
 | `DOCS_SITE` | `https://f5-sales-demo.github.io` | Kanonische Basis-URL für die bereitgestellte Website |
-| `DOCS_BASE` | `/` | URL-Basispfad (z. B. `/my-repo/` für Projektseiten) |
-| `DOCS_DESCRIPTION` | _(leere Zeichenkette)_ | Website-Beschreibung für Metadaten und das llms.txt-Plugin |
-| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL der Startseite, die über den Website-Titel verlinkt wird |
+| `DOCS_BASE` | `/` | URL-Basispfad (z. B. `/my-repo/` für Projektwebsites) |
+| `DOCS_DESCRIPTION` | _(leere Zeichenkette)_ | Websitebeschreibung für Metadaten und das llms.txt-Plugin |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | Startseiten-URL, die vom Seitentitel verlinkt wird |
 | `GITHUB_REPOSITORY` | _(leere Zeichenkette)_ | Wird verwendet, um den GitHub-Social-Link und Bearbeitungslinks zu erstellen |
 | `LLMS_OPTIONAL_LINKS` | `[]` | JSON-Array mit zusätzlichen Links für das llms.txt-Plugin |
 
@@ -31,7 +31,7 @@ Das Dokumentationsthema liest Umgebungsvariablen zur Build-Zeit aus `config.ts` 
 const title = options.title || process.env.DOCS_TITLE || 'Documentation';
 ```
 
-Wird an die Starlight-Option `title` und das Plugin `starlight-llms-txt` übergeben. Erscheint in der Seitenkopfzeile und im HTML-Tag `<title>`.
+Wird an die Starlight-Option `title` und das Plugin `starlight-llms-txt` übergeben. Erscheint in der Kopfzeile der Website und im HTML-Tag `<title>`.
 
 ### DOCS_SITE
 
@@ -40,7 +40,7 @@ Wird an die Starlight-Option `title` und das Plugin `starlight-llms-txt` überge
 const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
-Setzt die Astro-Eigenschaft `site` auf oberster Ebene. Wird für kanonische URLs, die Sitemap-Generierung und Open-Graph-Metadaten verwendet.
+Legt die übergeordnete Eigenschaft `site` von Astro fest. Wird für kanonische URLs, die Sitemap-Generierung und Open-Graph-Metadaten verwendet.
 
 ### DOCS_BASE
 
@@ -49,7 +49,7 @@ Setzt die Astro-Eigenschaft `site` auf oberster Ebene. Wird für kanonische URLs
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Setzt die Astro-Eigenschaft `base` auf oberster Ebene. Erforderlich bei der Bereitstellung in einem Unterverzeichnis (z. B. `https://example.com/my-repo/`).
+Legt die übergeordnete Eigenschaft `base` von Astro fest. Erforderlich bei der Bereitstellung in einem Unterverzeichnis (z. B. `https://example.com/my-repo/`).
 
 ### DOCS_DESCRIPTION
 
@@ -58,7 +58,7 @@ Setzt die Astro-Eigenschaft `base` auf oberster Ebene. Erforderlich bei der Bere
 const description = options.description || process.env.DOCS_DESCRIPTION || '';
 ```
 
-Wird als Website-Beschreibung an das Plugin `starlight-llms-txt` übergeben. Wird in der generierten Datei `llms.txt` verwendet.
+Wird dem Plugin `starlight-llms-txt` als Websitebeschreibung übergeben. Wird in der generierten Datei `llms.txt` verwendet.
 
 ### DOCS_HOME
 
@@ -67,7 +67,7 @@ Wird als Website-Beschreibung an das Plugin `starlight-llms-txt` übergeben. Wir
 const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
-Wird von der benutzerdefinierten Komponente `SiteTitle.astro` gelesen. Verknüpft den Website-Titel in der Kopfzeile mit dieser URL, sodass Benutzer zu einer zentralen Dokumentations-Startseite zurücknavigieren können. Nützlich, wenn mehrere Inhalts-Repositorys dasselbe Dokumentationsthema verwenden und ein einheitlicher „Home"-Link auf allen Websites gewünscht wird.
+Wird von der benutzerdefinierten Komponente `SiteTitle.astro` gelesen. Umschließt den Seitentitel in der Kopfzeile mit einem Link zu dieser URL, sodass Benutzer zu einer zentralen Dokumentations-Startseite zurücknavigieren können. Nützlich, wenn mehrere Inhalts-Repositories dasselbe Dokumentationsthema verwenden und ein einheitlicher „Startseiten"-Link auf allen Websites gewünscht wird.
 
 ### GITHUB_REPOSITORY
 
@@ -76,7 +76,7 @@ Wird von der benutzerdefinierten Komponente `SiteTitle.astro` gelesen. Verknüpf
 const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
 ```
 
-Wird verwendet, um das GitHub-Social-Symbol in der Seitenkopfzeile und die Basis-URL für Bearbeitungslinks zu generieren. GitHub Actions setzt diese Variable automatisch (z. B. `owner/repo`).
+Wird verwendet, um das GitHub-Social-Symbol in der Kopfzeile der Website und die Basis-URL des Bearbeitungslinks zu generieren. GitHub Actions setzt diese Variable automatisch (z. B. `owner/repo`).
 
 ### LLMS_OPTIONAL_LINKS
 
@@ -96,7 +96,7 @@ Beispielwert:
 
 ## Variablen in GitHub Actions setzen
 
-Inhalts-Repositorys übergeben diese Variablen über ihren Workflow:
+Inhalts-Repositories übergeben diese Variablen über ihren Workflow:
 
 ```yaml
 jobs:

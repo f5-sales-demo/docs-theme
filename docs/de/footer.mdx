@@ -1,14 +1,14 @@
 ---
 title: Footer
-description: Benutzerdefinierte Starlight-Footer-Komponente mit Social-Media-Links.
+description: Benutzerdefinierte Starlight-Footer-Komponente mit Links zu sozialen Medien.
 sidebar:
   order: 11
 i18n:
-  sourceHash: 2dbcf6d139fd
+  sourceHash: c53ea076f073
   translator: machine
 ---
 
-Das Dokumentationsthema ersetzt den Standard-Starlight-Footer durch eine benutzerdefinierte `Footer.astro`-Komponente, die Social-Media-Links unterhalb des Standard-Footer-Inhalts hinzufügt.
+Das Thema ersetzt den standardmäßigen Starlight-Footer durch eine benutzerdefinierte `Footer.astro`-Komponente, die unterhalb des Standard-Footer-Inhalts Links zu sozialen Medien hinzufügt.
 
 ## Komponentenmuster
 
@@ -24,11 +24,11 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 </div>
 ```
 
-Dieses Muster **erweitert** den Standard-Footer, anstatt ihn vollständig zu ersetzen. `<Default {...Astro.props}><slot /></Default>` rendert den ursprünglichen Starlight-Footer (Vorherige/Nächste-Navigation), anschließend werden die Social-Links darunter eingefügt.
+Dieses Muster **erweitert** den Standard-Footer, anstatt ihn vollständig zu ersetzen. `<Default {...Astro.props}><slot /></Default>` rendert den ursprünglichen Starlight-Footer (Vor-/Zurück-Navigation), anschließend werden die Links zu sozialen Medien darunter angehängt.
 
 ## Registrierung
 
-Die Footer-Überschreibung wird vom Starlight-Plugin in `index.ts` registriert. Während des `config:setup`-Hooks wird die `Footer`-Komponentenüberschreibung gesetzt:
+Die Footer-Überschreibung wird vom Starlight-Plugin in `index.ts` registriert. Während des `config:setup`-Hooks wird die `Footer`-Komponenten-Überschreibung gesetzt:
 
 ```ts
 updateConfig({
@@ -40,9 +40,9 @@ updateConfig({
 });
 ```
 
-Inhalts-Repositorys müssen den Footer nicht manuell registrieren — er wird automatisch angewendet, wenn das Dokumentationsthema-Plugin geladen wird.
+Inhalts-Repositorys müssen den Footer nicht manuell registrieren – er wird automatisch angewendet, wenn das Theme-Plugin geladen wird.
 
-## Social-Links
+## Links zu sozialen Medien
 
 | Plattform | URL | Symbolfarbe | Aria-Label |
 |-----------|-----|-------------|------------|
@@ -52,9 +52,9 @@ Inhalts-Repositorys müssen den Footer nicht manuell registrieren — er wird au
 | Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Instagram-Pink) | Instagram |
 | YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (YouTube-Rot) | YouTube |
 
-Jeder Link wird in einem neuen Tab geöffnet (`target="_blank"`) mit `rel="noopener noreferrer"` aus Sicherheitsgründen.
+Jeder Link öffnet sich in einem neuen Tab (`target="_blank"`) mit `rel="noopener noreferrer"` aus Sicherheitsgründen.
 
-## CSS-Styling
+## CSS-Gestaltung
 
 ```css
 .social-links {
@@ -81,11 +81,11 @@ Die Links sind in einer Flex-Zeile rechtsbündig ausgerichtet mit einem dezenten
 
 ### URL ändern
 
-Bearbeiten Sie das `href`-Attribut am entsprechenden `<a>`-Tag in `components/Footer.astro` innerhalb des `@f5-sales-demo/docs-theme`-Pakets.
+Bearbeiten Sie das `href`-Attribut des entsprechenden `<a>`-Tags in `components/Footer.astro` innerhalb des `@f5-sales-demo/docs-theme`-Pakets.
 
 ### Link hinzufügen
 
-Fügen Sie ein neues `<a>`-Element innerhalb des `.social-links`-Divs mit einem 24×24-SVG-Symbol hinzu. Folgen Sie dem bestehenden Muster:
+Fügen Sie ein neues `<a>`-Element innerhalb des `.social-links`-Divs mit einem 24x24-SVG-Symbol hinzu. Folgen Sie dem bestehenden Muster:
 
 ```html
 <a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
@@ -101,11 +101,11 @@ Löschen Sie den gesamten `<a>...</a>`-Block für die Plattform, die Sie entfern
 
 ### Symbolfarben ändern
 
-Ändern Sie das `fill`-Attribut am `<svg>`-Element. Verwenden Sie `currentColor`, um die Textfarbe zu erben, oder einen bestimmten Hex-Wert für Markenfarben.
+Ändern Sie das `fill`-Attribut des `<svg>`-Elements. Verwenden Sie `currentColor`, um die Textfarbe zu erben, oder einen bestimmten Hex-Wert für Markenfarben.
 
 ### Layout ändern
 
 Ändern Sie das `.social-links`-CSS im `<style>`-Block:
-- **Zentrierte Ausrichtung**: Ändern Sie `justify-content` zu `center`
+- **Mittige Ausrichtung**: Ändern Sie `justify-content` zu `center`
 - **Größerer Abstand**: Erhöhen Sie den `gap`-Wert
 - **Linksbündige Ausrichtung**: Ändern Sie `justify-content` zu `flex-start`

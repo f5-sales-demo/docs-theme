@@ -4,11 +4,11 @@ description: ソーシャルメディアリンクを含むカスタム Starlight
 sidebar:
   order: 11
 i18n:
-  sourceHash: 2dbcf6d139fd
+  sourceHash: c53ea076f073
   translator: machine
 ---
 
-このテーマは、デフォルトの Starlight フッターをカスタム `Footer.astro` コンポーネントに置き換え、標準フッターコンテンツの下にソーシャルメディアリンクを追加します。
+テーマはデフォルトの Starlight フッターを、標準フッターコンテンツの下にソーシャルメディアリンクを追加するカスタム `Footer.astro` コンポーネントに置き換えます。
 
 ## コンポーネントパターン
 
@@ -24,11 +24,11 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 </div>
 ```
 
-このパターンは、デフォルトのフッターを完全に置き換えるのではなく、**拡張**します。`<Default {...Astro.props}><slot /></Default>` によって元の Starlight フッター（前へ/次へナビゲーション）がレンダリングされ、その下にソーシャルリンクが追加されます。
+このパターンはデフォルトのフッターを完全に置き換えるのではなく、**拡張**します。`<Default {...Astro.props}><slot /></Default>` は元の Starlight フッター（前へ/次へナビゲーション）をレンダリングし、その下にソーシャルリンクが追加されます。
 
 ## 登録方法
 
-フッターのオーバーライドは、`index.ts` の Starlight プラグインによって登録されます。`config:setup` フック中に `Footer` コンポーネントのオーバーライドを設定します：
+フッターのオーバーライドは、Starlight プラグインによって `index.ts` に登録されます。`config:setup` フック中に `Footer` コンポーネントのオーバーライドを設定します。
 
 ```ts
 updateConfig({
@@ -40,7 +40,7 @@ updateConfig({
 });
 ```
 
-コンテンツリポジトリでフッターを手動で登録する必要はありません。テーマプラグインの読み込み時に自動的に適用されます。
+コンテンツリポジトリはフッターを手動で登録する必要はありません。テーマプラグインがロードされると自動的に適用されます。
 
 ## ソーシャルリンク
 
@@ -75,17 +75,17 @@ updateConfig({
 }
 ```
 
-リンクはフレックス行に右揃えで配置され、ホバー時に控えめな不透明度エフェクトが適用されます。
+リンクはフレックス行内に右揃えで配置され、ホバー時にわずかな透明度効果が適用されます。
 
 ## カスタマイズ
 
 ### URL の変更
 
-`@f5-sales-demo/docs-theme` パッケージ内の `components/Footer.astro` にある該当する `<a>` タグの `href` 属性を編集してください。
+`@f5-sales-demo/docs-theme` パッケージ内の `components/Footer.astro` にある対応する `<a>` タグの `href` 属性を編集します。
 
 ### リンクの追加
 
-`.social-links` div 内に 24x24 の SVG アイコンを持つ新しい `<a>` 要素を追加してください。既存のパターンに従ってください：
+`.social-links` div 内に 24x24 の SVG アイコンを含む新しい `<a>` 要素を追加します。既存のパターンに従ってください：
 
 ```html
 <a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
@@ -97,15 +97,15 @@ updateConfig({
 
 ### リンクの削除
 
-削除したいプラットフォームの `<a>...</a>` ブロック全体を削除してください。
+削除したいプラットフォームの `<a>...</a>` ブロック全体を削除します。
 
 ### アイコンカラーの変更
 
-`<svg>` 要素の `fill` 属性を変更してください。テキストカラーを継承するには `currentColor` を使用し、ブランドカラーには特定の16進数値を指定してください。
+`<svg>` 要素の `fill` 属性を変更します。テキストカラーを継承するには `currentColor` を使用し、ブランドカラーには特定の16進数値を使用します。
 
 ### レイアウトの変更
 
-`<style>` ブロック内の `.social-links` CSS を変更してください：
+`<style>` ブロック内の `.social-links` CSS を変更します：
 - **中央揃え**: `justify-content` を `center` に変更
-- **間隔を広げる**: `gap` の値を増やす
+- **間隔を広げる**: `gap` の値を増加
 - **左揃え**: `justify-content` を `flex-start` に変更

@@ -6,7 +6,7 @@ description: >-
 sidebar:
   order: 8
 i18n:
-  sourceHash: b458d0378db1
+  sourceHash: b71ea33850c1
   translator: machine
 ---
 
@@ -114,7 +114,7 @@ const config: Config = {
 
 ## Modo terminal
 
-Los bloques de código en estilo terminal (delimitados con ` ```bash ` o ` ```sh `) reciben un marco de ventana inspirado en iTerm con los puntos de semáforo de macOS.
+Los bloques de código en modo terminal (delimitados con ` ```bash ` o ` ```sh `) reciben un marco de ventana inspirado en iTerm con los puntos de semáforo de macOS.
 
 ```bash title="Terminal"
 npm install @f5-sales-demo/docs-theme
@@ -125,29 +125,29 @@ npx astro preview
 ### Referencia CSS del terminal
 
 ```css
-/* Borde del marco */
+/* Frame border */
 .expressive-code .frame.is-terminal {
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Encabezado oscuro con puntos SVG de semáforo */
+/* Dark header with traffic light SVG dots */
 .expressive-code .frame.is-terminal .header {
   background: #323232 !important;
   color: #ccc !important;
 }
 
-/* Cuerpo del terminal en modo oscuro — inspirado en Tokyo Night */
+/* Dark mode terminal body — Tokyo Night-inspired */
 :root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
   background: #1a1b26 !important;
 }
 
-/* Anulación del borde en modo claro */
+/* Light mode border override */
 :root[data-theme="light"] .expressive-code .frame.is-terminal {
   border-color: rgba(0, 0, 0, 0.2);
 }
 ```
 
-## Títulos de nombre de archivo
+## Títulos con nombre de archivo
 
 ```ts title="src/config.ts"
 export default {
@@ -159,9 +159,9 @@ export default {
 ## Resaltado de líneas
 
 ```js {1,3-5}
-const name = "highlighted"; // línea 1 resaltada
+const name = "highlighted"; // line 1 highlighted
 const other = "normal";
-const a = 1; // líneas 3-5 resaltadas
+const a = 1; // lines 3-5 highlighted
 const b = 2;
 const c = 3;
 const d = "normal again";
@@ -171,8 +171,8 @@ const d = "normal again";
 
 ```js ins={2} del={3}
 const config = {
-  theme: "dark", // insertado
-  theme: "light", // eliminado
+  theme: "dark", // inserted
+  theme: "light", // deleted
   lang: "en",
 };
 ```
@@ -202,15 +202,15 @@ Todos los bloques de código tienen esquinas redondeadas y una sombra en capas:
 }
 ```
 
-### Bordes adaptados al tema
+### Bordes adaptables al tema
 
 ```css
-/* Modo oscuro (predeterminado) */
+/* Dark mode (default) */
 .expressive-code .frame.is-terminal {
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Modo claro */
+/* Light mode */
 :root[data-theme="light"] .expressive-code .frame.is-terminal {
   border-color: rgba(0, 0, 0, 0.2);
 }
@@ -219,10 +219,10 @@ Todos los bloques de código tienen esquinas redondeadas y una sombra en capas:
 ## Verificaciones de tema
 
 - El color de fondo del bloque de código se adapta al tema
-- El encabezado del terminal tiene fondo `#323232` con los puntos de semáforo de macOS
-- El borde del terminal utiliza `rgba(255, 255, 255, 0.15)` en modo oscuro y `rgba(0, 0, 0, 0.2)` en modo claro
-- El cuerpo del terminal en modo oscuro utiliza `#1a1b26`
-- Los colores de sintaxis se mantienen legibles en ambos temas
+- El fondo del encabezado del terminal es `#323232` con los puntos de semáforo de macOS
+- El borde del terminal usa `rgba(255, 255, 255, 0.15)` en modo oscuro y `rgba(0, 0, 0, 0.2)` en modo claro
+- El cuerpo del terminal en modo oscuro usa `#1a1b26`
+- Los colores de sintaxis permanecen legibles en ambos temas
 - Los resaltados de línea tienen un tinte de fondo visible
-- Las líneas insertadas muestran un tinte verde y las eliminadas un tinte rojo
+- Las líneas insertadas muestran un tinte verde, las líneas eliminadas muestran un tinte rojo
 - Los bloques de código tienen un radio de borde de 0.75rem y sombra de caja

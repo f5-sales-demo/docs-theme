@@ -1,24 +1,24 @@
 ---
-title: Leitfaden zur Stilverbesserung
-description: Referenz für Design-System-Tokens des @f5-sales-demo/docs-theme
+title: Stilverbesserungs-Leitfaden
+description: Design-System-Token-Referenz für das @f5-sales-demo/docs-theme
 sidebar:
   order: 12
 i18n:
-  sourceHash: f0fb4524cc1c
+  sourceHash: eb78d654eb4b
   translator: machine
 ---
 
-Dieser Leitfaden dokumentiert die Design-System-Tokens und Komponentenklassen, die in `styles/custom.css` implementiert sind. Er dient als Referenz für Rahmen-, Oberflächen-, Schatten-, Radius-, Schaltflächen-, Verlauf-, Übergangs-, Fokus- und Typografie-Tokens, die im gesamten Dokumentationsthema verwendet werden.
+Dieser Leitfaden dokumentiert die Design-System-Tokens und Komponentenklassen, die in `styles/custom.css` implementiert sind. Er dient als Referenz für Rahmen-, Oberflächen-, Schatten-, Radius-, Schaltflächen-, Verlaufs-, Übergangs-, Fokus- und Typografie-Tokens, die im gesamten Dokumentationsthema verwendet werden.
 
-> **Status**: Alle nachfolgend beschriebenen Design-Tokens und Komponentenklassen sind implementiert und einsatzbereit.
+> **Status**: Alle unten beschriebenen Design-Tokens und Komponentenklassen sind implementiert und einsatzbereit.
 
 ## So lesen Sie diesen Leitfaden
 
 Jeder Abschnitt dokumentiert eine Token-Kategorie:
 
 1. **Token-Definitionen** — CSS-benutzerdefinierte Eigenschaften mit Hell-/Dunkel-Modus-Werten
-2. **Komponentenzuordnung** — welche Dokumentationsthema-Komponenten welche Tokens verwenden
-3. **Implementierungshinweise** — Nutzungsrichtlinien und Barrierefreiheitsaspekte
+2. **Komponenten-Zuordnung** — welche Dokumentationsthema-Komponenten welchen Token verwenden
+3. **Implementierungshinweise** — Verwendungsanleitung und Barrierefreiheitsüberlegungen
 
 Token-Tabellen sind nach **Hellmodus** und **Dunkelmodus** aufgeteilt, wenn sich die Werte unterscheiden.
 
@@ -28,40 +28,40 @@ Token-Tabellen sind nach **Hellmodus** und **Dunkelmodus** aufgeteilt, wenn sich
 
 ### Alpha-transparente Rahmen
 
-Das Dokumentationsthema verwendet **alpha-transparente Rahmen** anstelle von einfarbigen Grautönen. Dadurch passen sich Rahmen auf natürliche Weise an jeden Hintergrund an.
+Das Dokumentationsthema verwendet **alpha-transparente Rahmen** anstelle von einfarbigen Grautönen. Dies ermöglicht es den Rahmen, sich natürlich an jeden Hintergrund anzupassen.
 
 ```css
 /* Alpha-transparentes Rahmenmuster */
-border: 1px solid var(--f5-border-default);  /* neutral bei 20% Alpha */
+border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 ```
 
 #### Rahmen-Tokens
 
 ```css
-/* Hellmodus */
+/* Light mode */
 :root[data-theme='light'] {
-  --f5-border-faint: #3434341a;    /* --f5-black-3 bei 10% */
-  --f5-border-default: #34343433;  /* --f5-black-3 bei 20% */
-  --f5-border-strong: #22222266;   /* --f5-black-4 bei 40% */
+  --f5-border-faint: #3434341a;    /* --f5-black-3 at 10% */
+  --f5-border-default: #34343433;  /* --f5-black-3 at 20% */
+  --f5-border-strong: #22222266;   /* --f5-black-4 at 40% */
 }
 
-/* Dunkelmodus */
+/* Dark mode */
 :root {
-  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 bei 10% */
-  --f5-border-default: #f5f5f533;  /* --f5-white-2 bei 20% */
-  --f5-border-strong: #cccccc66;   /* --f5-white-4 bei 40% */
+  --f5-border-faint: #f5f5f51a;    /* --f5-white-2 at 10% */
+  --f5-border-default: #f5f5f533;  /* --f5-white-2 at 20% */
+  --f5-border-strong: #cccccc66;   /* --f5-white-4 at 40% */
 }
 ```
 
-#### Anwendungsfälle für Rahmen-Tokens
+#### Rahmen-Anwendungsfälle
 
 | Token | Deckkraft | Anwendungsfall |
 |---|---|---|
 | `--f5-border-faint` | 10% | Dezente Trennlinien, Tabellenzeilen |
 | `--f5-border-default` | 20% | Standardrahmen, Kartenumrisse |
-| `--f5-border-strong` | 40% | Hervorgehobene Rahmen, aktive Zustände |
+| `--f5-border-strong` | 40% | Betonte Rahmen, aktive Zustände |
 
-> **Status**: Vollständig — implementiert in `styles/custom.css`.
+> **Status**: Abgeschlossen — implementiert in `styles/custom.css`.
 
 ### Interaktive Oberflächenfarben
 
@@ -86,7 +86,7 @@ Semantische Oberflächen-Tokens für Hover- und Aktivzustände.
 | `--f5-surface-hover` | `var(--f5-black-3)` | Hover-Füllung |
 | `--f5-surface-active` | `var(--f5-black-2)` | Gedrückte/aktive Füllung |
 
-#### Definitionen der Oberflächen-Tokens
+#### Oberflächen-Token-Definitionen
 
 ```css
 :root[data-theme='light'] {
@@ -100,15 +100,15 @@ Semantische Oberflächen-Tokens für Hover- und Aktivzustände.
 }
 ```
 
-> **Status**: Vollständig — implementiert in `styles/custom.css`.
+> **Status**: Abgeschlossen — implementiert in `styles/custom.css`.
 
 ---
 
-## 2. Erhebungs- und Schattensystem
+## 2. Erhöhungs- und Schattensystem
 
 ### Schattenskala
 
-Das Dokumentationsthema verwendet **neutral-getönte Alpha-Schatten** mit doppellagigen Werten für natürliche Tiefe. Der Hellmodus verwendet `--f5-black-3` (`#343434`) als Farbtonbasis; der Dunkelmodus verwendet `#cccccc`.
+Das Dokumentationsthema verwendet **neutral getönte Alpha-Schatten** mit doppelschichtigen Werten für natürliche Tiefe. Der Hellmodus verwendet `--f5-black-3` (`#343434`) als Tönnungsbasis; der Dunkelmodus verwendet `#cccccc`.
 
 #### Hellmodus-Schatten
 
@@ -150,7 +150,7 @@ Das Dokumentationsthema verwendet **neutral-getönte Alpha-Schatten** mit doppel
 }
 ```
 
-### Komponentenschatten-Zuordnung
+### Komponenten-Schatten-Zuordnung
 
 | Komponente | Schattenebene |
 |---|---|
@@ -160,9 +160,9 @@ Das Dokumentationsthema verwendet **neutral-getönte Alpha-Schatten** mit doppel
 | `.mermaid-container` | `--f5-shadow-mid` |
 | Karten beim Hover | `--f5-shadow-mid` |
 | Dropdowns, Popovers | `--f5-shadow-high` |
-| Modale Fenster | `--f5-shadow-higher` |
+| Modals | `--f5-shadow-higher` |
 
-> **Status**: Vollständig — alle Schattenebenen (`inset`, `low`, `mid`, `high`, `higher`) implementiert in `styles/custom.css`.
+> **Status**: Abgeschlossen — alle Schattenebenen (`inset`, `low`, `mid`, `high`, `higher`) implementiert in `styles/custom.css`.
 
 ---
 
@@ -172,15 +172,15 @@ Das Dokumentationsthema verwendet **neutral-getönte Alpha-Schatten** mit doppel
 
 ```css
 :root {
-  --f5-radius-xs: 0.1875rem;   /* 3px — Badges, Tags */
+  --f5-radius-xs: 0.1875rem;   /* 3px — Abzeichen, Tags */
   --f5-radius-sm: 0.3125rem;   /* 5px — Navigationselemente, kleine Steuerelemente */
   --f5-radius-md: 0.375rem;    /* 6px — Karten, Codeblöcke */
-  --f5-radius-lg: 0.5rem;      /* 8px — Modale Fenster, große Container */
-  --f5-radius-full: 999px;     /* Pills, vollständig abgerundet */
+  --f5-radius-lg: 0.5rem;      /* 8px — Modals, große Container */
+  --f5-radius-full: 999px;     /* Pillen, vollständig gerundet */
 }
 ```
 
-### Komponentenradius-Zuordnung
+### Komponenten-Radius-Zuordnung
 
 | Komponente | Radius-Token |
 |---|---|
@@ -189,20 +189,20 @@ Das Dokumentationsthema verwendet **neutral-getönte Alpha-Schatten** mit doppel
 | `.starlight-aside` | `--f5-radius-md` (6px) |
 | `.expressive-code .frame` | `--f5-radius-md` (6px) |
 | `.mermaid-container` | `--f5-radius-lg` (8px) |
-| `.edit-link` | `--f5-radius-full` (Pill) |
+| `.edit-link` | `--f5-radius-full` (Pille) |
 | Seitenleisten-Navigationselemente | `--f5-radius-sm` (5px) |
-| Badges | `--f5-radius-xs` (3px) |
+| Abzeichen | `--f5-radius-xs` (3px) |
 
-> **Status**: Vollständig — Radius-Skala (`xs`, `sm`, `md`, `lg`, `full`) implementiert in `styles/custom.css`.
+> **Status**: Abgeschlossen — Radius-Skala (`xs`, `sm`, `md`, `lg`, `full`) implementiert in `styles/custom.css`.
 
 ---
 
 ## 4. Seitenleisten-Navigationsstil
 
-### Stile für Seitenleistenelemente
+### Seitenleisten-Element-Stile
 
 ```css
-/* Seitenleisten-Navigationselemente */
+/* Sidebar navigation items */
 nav.sidebar a {
   border-radius: var(--f5-radius-sm);    /* 5px */
   padding: 0.25rem 0.5rem;               /* 4px 8px */
@@ -212,24 +212,24 @@ nav.sidebar a {
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-/* Hellmodus Hover */
+/* Light mode hover */
 :root[data-theme='light'] nav.sidebar a:hover {
   background-color: var(--f5-white-2);   /* #f5f5f5 */
 }
 
-/* Dunkelmodus Hover */
+/* Dark mode hover */
 :root nav.sidebar a:hover {
   background-color: var(--f5-black-3);   /* #343434 */
 }
 
-/* Aktiver Seitenindikator */
+/* Active page indicator */
 nav.sidebar a[aria-current="page"] {
-  background-color: var(--f5-white-3);   /* #e6e6e6 hell */
+  background-color: var(--f5-white-3);   /* #e6e6e6 light */
   font-weight: 600;
 }
 
 :root:not([data-theme='light']) nav.sidebar a[aria-current="page"] {
-  background-color: var(--f5-black-2);   /* #666666 → für Lesbarkeit anpassen */
+  background-color: var(--f5-black-2);   /* #666666 → adjust for readability */
 }
 ```
 
@@ -238,11 +238,11 @@ nav.sidebar a[aria-current="page"] {
 ```css
 nav.sidebar a[aria-current="page"] {
   border-left: 3px solid var(--sl-color-accent);
-  padding-left: calc(0.5rem - 3px);  /* Ausgleich für den Rahmen */
+  padding-left: calc(0.5rem - 3px);  /* compensate for border */
 }
 ```
 
-> **Status**: Vollständig — Seitenleisten-Hover, aktiver Zustand und Akzentindikator implementiert in `styles/custom.css`.
+> **Status**: Abgeschlossen — Seitenleisten-Hover, Aktivzustand und Akzentindikator implementiert in `styles/custom.css`.
 
 ---
 
@@ -251,7 +251,7 @@ nav.sidebar a[aria-current="page"] {
 ### Schaltflächenvarianten
 
 ```css
-/* Primär — F5-Rot als Marken-Aktion */
+/* Primary — using F5 Red as brand action */
 .btn-primary {
   background: var(--f5-red);
   color: var(--f5-white);
@@ -267,7 +267,7 @@ nav.sidebar a[aria-current="page"] {
   box-shadow: var(--f5-shadow-low);
 }
 
-/* Sekundär — Outline-Stil */
+/* Secondary — outline style */
 .btn-secondary {
   background: transparent;
   color: var(--sl-color-gray-2);
@@ -283,7 +283,7 @@ nav.sidebar a[aria-current="page"] {
   border-color: var(--f5-border-strong);
 }
 
-/* Tertiär — Ghost/nur Text */
+/* Tertiary — ghost/text-only */
 .btn-tertiary {
   background: transparent;
   color: var(--sl-color-accent);
@@ -307,24 +307,24 @@ nav.sidebar a[aria-current="page"] {
 | Mittel (Standard) | `0.625rem 1rem` | `0.875rem` (14px) | `40px` |
 | Groß | `0.75rem 1.5rem` | `1rem` (16px) | `48px` |
 
-> **Status**: Vollständig — alle Schaltflächenvarianten (`primary`, `secondary`, `tertiary`, `critical`) und die Größenskala (`sm`, Standard, `lg`) implementiert in `styles/custom.css`.
+> **Status**: Abgeschlossen — alle Schaltflächenvarianten (`primary`, `secondary`, `tertiary`, `critical`) und Größenskala (`sm`, Standard, `lg`) implementiert in `styles/custom.css`.
 
 ---
 
-## 6. Hero- und Kopfzeilenhintergründe
+## 6. Hero- und Kopfzeilen-Hintergründe
 
 ### Hero-Verläufe
 
 Unter Verwendung der F5-Markenpalette:
 
 ```css
-/* Primärer Hero-Verlauf — River-Blau */
+/* Primary hero gradient — River blue */
 .hero-gradient-primary {
   background: linear-gradient(135deg, var(--f5-river-2) 0%, var(--f5-river) 100%);
   /* #6e8dcc → #0e41aa */
 }
 
-/* Dezente Seitentönung — subtiler Warmton */
+/* Faint page wash — subtle warm tone */
 :root[data-theme='light'] .hero-gradient-faint {
   background: linear-gradient(180deg, #faf9f7 0%, #f5f5f5 100%);
 }
@@ -332,23 +332,23 @@ Unter Verwendung der F5-Markenpalette:
   background: linear-gradient(180deg, #222222 0%, #000000 100%);
 }
 
-/* Aubergine-Variante für Feature-Seiten */
+/* Eggplant variant for feature pages */
 .hero-gradient-eggplant {
   background: linear-gradient(135deg, var(--f5-eggplant-2) 0%, var(--f5-eggplant) 100%);
   /* #9c59c9 → #62228b */
 }
 
-/* Rote Markenvariante für Ankündigungen */
+/* Red brand variant for announcements */
 .hero-gradient-red {
   background: linear-gradient(135deg, var(--f5-red-2) 0%, var(--f5-red) 100%);
   /* #f06680 → #e4002b */
 }
 ```
 
-### Verlaufsüberlagerungstechniken
+### Verlaufsüberlagerungs-Techniken
 
 ```css
-/* Radiale Vignette für Tiefe */
+/* Radial vignette for depth */
 .hero-vignette::after {
   content: '';
   position: absolute;
@@ -357,7 +357,7 @@ Unter Verwendung der F5-Markenpalette:
   pointer-events: none;
 }
 
-/* Unterer Übergang zum Seitenhintergrund */
+/* Bottom fade to page background */
 .hero-fade::after {
   content: '';
   position: absolute;
@@ -370,7 +370,7 @@ Unter Verwendung der F5-Markenpalette:
 }
 ```
 
-> **Status**: Vollständig — Hero-Verläufe (`primary`, `eggplant`, `red`, `faint`) und Überlagerungen (`hero-fade`, `hero-vignette`) implementiert in `styles/custom.css`.
+> **Status**: Abgeschlossen — Hero-Verläufe (`primary`, `eggplant`, `red`, `faint`) und Überlagerungen (`hero-fade`, `hero-vignette`) implementiert in `styles/custom.css`.
 
 ---
 
@@ -396,29 +396,29 @@ Unter Verwendung der F5-Markenpalette:
 | `--f5-transition-decelerate` | `0.6s` | `cubic-bezier(0.5, 1, 0.89, 1)` | Tab-Indikatoren, gleitende Panels |
 | `--f5-transition-spring` | `0.2s` | `cubic-bezier(0.54, 1.5, 0.38, 1.11)` | Tooltips, Popover-Einblendung |
 
-### Was animiert werden sollte
+### Was animiert werden soll
 
 | Eigenschaft | Sicher zu animieren | Hinweise |
 |---|---|---|
 | `background-color` | Ja | Standard für Hover-Füllungen |
-| `color` | Ja | Textfarbenänderungen |
+| `color` | Ja | Textfarbänderungen |
 | `border-color` | Ja | Rahmenbetonung beim Hover |
-| `box-shadow` | Ja | Erhebungsänderungen (`will-change` bei Ruckeln verwenden) |
-| `transform` | Ja | Skalierung, Verschiebung als Feedback |
+| `box-shadow` | Ja | Erhöhungsänderungen (`will-change` bei Ruckeln verwenden) |
+| `transform` | Ja | Skalierung, Verschiebung für Rückmeldung |
 | `opacity` | Ja | Ein-/Ausblenden |
-| `width`, `height` | Vermeiden | Verursacht Layout-Reflow |
-| `padding`, `margin` | Vermeiden | Verursacht Layout-Reflow |
+| `width`, `height` | Vermeiden | Verursacht Layout-Neuberechnung |
+| `padding`, `margin` | Vermeiden | Verursacht Layout-Neuberechnung |
 
-### Komponentenübergangs-Zuordnung
+### Komponenten-Übergangs-Zuordnung
 
 ```css
-/* Seitenleisten-Navigationselemente */
+/* Sidebar nav items */
 nav.sidebar a {
   transition: background-color var(--f5-transition-fast),
               color var(--f5-transition-fast);
 }
 
-/* Karten — Schattenanhebung beim Hover */
+/* Cards — shadow lift on hover */
 .swatch, .icon-card {
   transition: box-shadow var(--f5-transition-base),
               transform var(--f5-transition-base);
@@ -428,7 +428,7 @@ nav.sidebar a {
   transform: translateY(-1px);
 }
 
-/* Schaltflächen */
+/* Buttons */
 .btn-primary, .btn-secondary, .btn-tertiary {
   transition: background-color var(--f5-transition-fast),
               border-color var(--f5-transition-fast),
@@ -441,7 +441,7 @@ a {
 }
 ```
 
-> **Status**: Vollständig — alle fünf Übergangs-Tokens (`fast`, `base`, `bounce`, `decelerate`, `spring`) und Komponentenübergänge implementiert in `styles/custom.css`.
+> **Status**: Abgeschlossen — alle fünf Übergangs-Tokens (`fast`, `base`, `bounce`, `decelerate`, `spring`) und Komponentenübergänge implementiert in `styles/custom.css`.
 
 ---
 
@@ -449,10 +449,10 @@ a {
 
 ### Fokusring-Tokens
 
-Das Dokumentationsthema verwendet ein **Doppelring**-Muster mit einem eingesetzten Innenring und einem äußeren Leuchten:
+Das Dokumentationsthema verwendet ein **Doppelring**-Muster mit einem inneren Einsatzring und einem äußeren Leuchten:
 
 ```css
-/* Aktionsfokus — F5-River-Blau */
+/* Action focus — using F5 River blue */
 :root {
   --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
   /* inset 0 0 0 1px #0e41aa, 0 0 0 3px #6e8dcc */
@@ -461,7 +461,7 @@ Das Dokumentationsthema verwendet ein **Doppelring**-Muster mit einem eingesetzt
   /* inset 0 0 0 1px #a70020, 0 0 0 3px #f06680 */
 }
 
-/* Auf interaktive Elemente anwenden */
+/* Apply to interactive elements */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -471,19 +471,19 @@ textarea:focus-visible {
   box-shadow: var(--f5-focus-action);
 }
 
-/* Kritische Variante für destruktive Schaltflächen */
+/* Critical variant for destructive buttons */
 .btn-critical:focus-visible {
   box-shadow: var(--f5-focus-critical);
 }
 ```
 
-### Hinweise zur Barrierefreiheit
+### Barrierefreiheitshinweise
 
-- Das Doppelring-Muster erfüllt die Anforderungen der **WCAG 2.2 Fokusdarstellung** (mindestens 2px kontrastreiche Umrandung)
+- Das Doppelring-Muster erfüllt die **WCAG 2.2 Fokusdarstellungs**-Anforderungen (mindestens 2px kontrastierender Umriss)
 - Die Verwendung von `box-shadow` anstelle von `outline` ermöglicht die Berücksichtigung des Rahmenradius
-- `:focus-visible` stellt sicher, dass der Ring nur bei Tastaturnavigation erscheint, nicht bei Mausklicks
+- `:focus-visible` stellt sicher, dass der Ring nur bei der Tastaturnavigation erscheint, nicht bei Mausklicks
 
-> **Status**: Vollständig — Doppelring-Fokusmuster (`action`, `critical`) und `:focus-visible`-Stile implementiert in `styles/custom.css`.
+> **Status**: Abgeschlossen — Doppelring-Fokusmuster (`action`, `critical`) und `:focus-visible`-Stile implementiert in `styles/custom.css`.
 
 ---
 
@@ -507,21 +507,21 @@ textarea:focus-visible {
 | Display 400 | `1.5rem` (24px) | 1,333 | `--sl-text-h2` |
 | Display 300 | `1.125rem` (18px) | 1,333 | `--sl-text-h3` |
 | Display 200 | `1rem` (16px) | 1,5 | `--sl-text-h4` |
-| Display 100 | `0.8125rem` (13px) | 1,385 | Overline-Text |
+| Display 100 | `0.8125rem` (13px) | 1,385 | Oberzeilen-Text |
 | Body 300 | `1rem` (16px) | 1,5 | Primärer Fließtext |
 | Body 200 | `0.875rem` (14px) | 1,429 | Seitenleistentext, Bildunterschriften |
-| Body 100 | `0.8125rem` (13px) | 1,385 | Kleindruck |
+| Body 100 | `0.8125rem` (13px) | 1,385 | Kleingedrucktes |
 
 ### Wesentliche Merkmale
 
 | Aspekt | Wert | Hinweise |
 |---|---|---|
-| Überschriftenzeilenhöhe | `1.1` | Enge Überschriften für Markenwirkung; `1.2` für bessere Lesbarkeit möglich |
-| Textzeilenhöhe | `1.5` (Starlight-Standard) | Gut geeignet zum Lesen |
-| Schriftfamilie | Eigene Markenschriften | proximaNova (Fließtext), neusaNextProWide (Überschriften) |
-| Überschriftengewichte | `h1-h2: 700, h3: 500, h4-h6: 700 Großbuchstaben` | Bewusst für einheitliche Markengestaltung |
+| Überschriften-Zeilenhöhe | `1.1` | Enge Überschriften für Markenauftritt; `1.2` für bessere Lesbarkeit erwägen |
+| Fließtext-Zeilenhöhe | `1.5` (Starlight-Standard) | Gut geeignet zum Lesen |
+| Schriftfamilie | Benutzerdefinierte Markenschriften | proximaNova (Fließtext), neusaNextProWide (Überschriften) |
+| Überschriftengewichtungen | `h1-h2: 700, h3: 500, h4-h6: 700 Großbuchstaben` | Ausdrücklich für Markenkonsistenz |
 
-> **Priorität**: Keine Änderungen erforderlich. Die aktuelle Typografie ist klar definiert und markenwürdig. Eine geringfügige Anpassung der Überschriftenzeilenhöhe (`1.1` auf `1.2`) ist optional.
+> **Priorität**: Keine Änderungen erforderlich. Die aktuelle Typografie ist gut definiert und markengerecht. Eine geringfügige Anpassung der Überschriften-Zeilenhöhe (von `1.1` auf `1.2`) ist optional.
 
 ---
 
@@ -534,64 +534,64 @@ Alle Design-Tokens wurden in fünf Sprints implementiert:
 | 1. Grundlage | Schatten + Rahmenradius | `--f5-shadow-*` (5 Ebenen), `--f5-radius-*` (5 Ebenen) |
 | 2. Seitenleiste + Oberflächen | Navigation + interaktive Tokens | `--f5-surface-hover`, `--f5-surface-active`, `--f5-border-*` (3 Ebenen), `--f5-transition-fast` |
 | 3. Schaltflächen | Komponentensystem | `.btn-primary`, `.btn-secondary`, `.btn-tertiary`, `.btn-critical`, Größenvarianten |
-| 4. Hero-Verläufe | Hintergrunddienstprogramme | `.hero-gradient-primary`, `-eggplant`, `-red`, `-faint`, `.hero-vignette`, `.hero-fade` |
-| 5. Fokus + Übergänge | Barrierefreiheit + Verfeinerung | `--f5-focus-action`, `--f5-focus-critical`, `--f5-transition-*` (5 Tokens), Karten-Hover-Effekte |
+| 4. Hero-Verläufe | Hintergrund-Hilfsprogramme | `.hero-gradient-primary`, `-eggplant`, `-red`, `-faint`, `.hero-vignette`, `.hero-fade` |
+| 5. Fokus + Übergänge | Barrierefreiheit + Politur | `--f5-focus-action`, `--f5-focus-critical`, `--f5-transition-*` (5 Tokens), Karten-Hover-Effekte |
 
 ---
 
-## Kurzreferenz: Token-Zusammenfassung
+## Kurzreferenz: Token-Übersicht
 
 ### Alle benutzerdefinierten Eigenschaften
 
 ```css
 :root {
-  /* Rahmenradius-Skala */
+  /* Border radius scale */
   --f5-radius-xs: 0.1875rem;     /* 3px */
   --f5-radius-sm: 0.3125rem;     /* 5px */
   --f5-radius-md: 0.375rem;      /* 6px */
   --f5-radius-lg: 0.5rem;        /* 8px */
   --f5-radius-full: 999px;
 
-  /* Übergangstiming */
+  /* Transition timing */
   --f5-transition-fast: 0.15s ease;
   --f5-transition-base: 0.2s ease;
   --f5-transition-bounce: 0.2s cubic-bezier(0.68, -0.2, 0.265, 1.15);
   --f5-transition-decelerate: 0.6s cubic-bezier(0.5, 1, 0.89, 1);
   --f5-transition-spring: 0.2s cubic-bezier(0.54, 1.5, 0.38, 1.11);
 
-  /* Fokusringe */
+  /* Focus rings */
   --f5-focus-action: inset 0 0 0 1px var(--f5-river), 0 0 0 3px var(--f5-river-2);
   --f5-focus-critical: inset 0 0 0 1px var(--f5-red-3), 0 0 0 3px var(--f5-red-2);
 
-  /* Dunkelmodus-Schatten (Standard) */
+  /* Dark mode shadows (default) */
   --f5-shadow-low: 0px 1px 1px 0px #cccccc0a, 0px 2px 2px 0px #cccccc0a;
   --f5-shadow-mid: 0px 2px 3px 0px #cccccc0d, 0px 8px 16px -10px #cccccc1a;
   --f5-shadow-high: 0px 2px 3px 0px #cccccc1a, 0px 16px 16px -10px #cccccc1a;
   --f5-shadow-higher: 0px 2px 3px 0px #cccccc0d, 0px 12px 28px 0px #cccccc26;
 
-  /* Dunkelmodus-Rahmen */
+  /* Dark mode borders */
   --f5-border-faint: #f5f5f51a;
   --f5-border-default: #f5f5f533;
   --f5-border-strong: #cccccc66;
 
-  /* Dunkelmodus-Oberflächen */
+  /* Dark mode surfaces */
   --f5-surface-hover: var(--f5-black-3);
   --f5-surface-active: var(--f5-black-2);
 }
 
 :root[data-theme='light'] {
-  /* Hellmodus-Schatten */
+  /* Light mode shadows */
   --f5-shadow-low: 0px 1px 1px 0px #3434340d, 0px 2px 2px 0px #3434340d;
   --f5-shadow-mid: 0px 2px 3px 0px #3434341a, 0px 8px 16px -10px #34343433;
   --f5-shadow-high: 0px 2px 3px 0px #34343426, 0px 16px 16px -10px #34343433;
   --f5-shadow-higher: 0px 2px 3px 0px #3434341a, 0px 12px 28px 0px #34343440;
 
-  /* Hellmodus-Rahmen */
+  /* Light mode borders */
   --f5-border-faint: #3434341a;
   --f5-border-default: #34343433;
   --f5-border-strong: #22222266;
 
-  /* Hellmodus-Oberflächen */
+  /* Light mode surfaces */
   --f5-surface-hover: var(--f5-white-2);
   --f5-surface-active: var(--f5-white-3);
 }

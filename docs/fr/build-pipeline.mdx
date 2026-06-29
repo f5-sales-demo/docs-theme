@@ -1,16 +1,16 @@
 ---
-title: Pipeline de construction
+title: Pipeline de build
 description: >-
-  Comment les référentiels de contenu consomment le thème au moment de la
-  construction via le constructeur Docker et le paquet npm.
+  Comment les dépôts de contenu consomment le thème au moment du build via le
+  builder Docker et le paquet npm.
 sidebar:
   order: 3
 i18n:
-  sourceHash: f305437613ca
+  sourceHash: 27cd573154dc
   translator: machine
 ---
 
-Cette page décrit comment les référentiels de contenu consomment le paquet npm `@f5-sales-demo/docs-theme` pour produire des sites de documentation entièrement personnalisés.
+Cette page décrit comment les dépôts de contenu consomment le paquet npm `@f5-sales-demo/docs-theme` pour produire des sites de documentation entièrement personnalisés.
 
 ## Architecture
 
@@ -50,27 +50,27 @@ Cette page décrit comment les référentiels de contenu consomment le paquet np
 └───────────────────────────┘
 ```
 
-## Processus de construction étape par étape
+## Étapes du processus de build
 
-1. **Push du référentiel de contenu** — un push vers `main` (ou un déclenchement manuel) active le workflow de déploiement GitHub Pages
-2. **Workflow réutilisable** — le workflow du référentiel de contenu appelle le constructeur :
+1. **Push sur le dépôt de contenu** — un push sur `main` (ou un déclenchement manuel) lance le workflow de déploiement GitHub Pages
+2. **Workflow réutilisable** — le workflow du dépôt de contenu appelle le builder :
    ```yaml
    jobs:
      docs:
        uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
-3. **Exécution du constructeur Docker** — l'image Docker `f5xc-docs-builder` contient déjà le thème préinstallé via npm. Au moment de la construction, elle :
+3. **Exécution du builder Docker** — l'image Docker `f5xc-docs-builder` dispose déjà du thème préinstallé via npm. Au moment du build, elle :
    - Copie `astro.config.mjs` et `content.config.ts` depuis `node_modules/@f5-sales-demo/docs-theme/` vers la racine du projet Astro
-   - Copie les fichiers `docs/` du référentiel de contenu dans `src/content/docs/`
-4. **Construction Astro** — Astro lit la configuration qui appelle `createF5xcDocsConfig()`. La fabrique résout tous les actifs du thème via les spécificateurs de paquet npm (ex. : `@f5-sales-demo/docs-theme/styles/custom.css`)
+   - Copie les fichiers `docs/` du dépôt de contenu dans `src/content/docs/`
+4. **Build Astro** — Astro lit la configuration qui appelle `createF5xcDocsConfig()`. La factory résout tous les assets du thème via les spécificateurs de paquet npm (par exemple, `@f5-sales-demo/docs-theme/styles/custom.css`)
 5. **Déploiement** — le site statique généré est déployé sur GitHub Pages
 
-## Exigences du référentiel de contenu
+## Prérequis du dépôt de contenu
 
-Un référentiel de contenu n'a besoin que de :
+Un dépôt de contenu n'a besoin que de :
 
 - Un répertoire `docs/` contenant des fichiers Markdown (`.md`) ou MDX (`.mdx`)
-- Un workflow GitHub Actions qui appelle le constructeur
+- Un workflow GitHub Actions qui appelle le builder
 
 ### Workflow minimal
 
@@ -95,7 +95,7 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
-Il s'agit du même workflow utilisé par ce référentiel de thème pour générer la documentation que vous êtes en train de lire.
+Il s'agit du même workflow utilisé par ce dépôt de thème pour générer la documentation que vous lisez actuellement.
 
 ## Résolution des chemins
 
@@ -114,10 +114,10 @@ Tous les chemins dans le thème utilisent des spécificateurs de paquet npm, ré
 '@f5-sales-demo/docs-theme/assets/github-avatar.png'
 ```
 
-Il n'existe aucun répertoire `./theme/` dans l'espace de travail de construction. Le constructeur Docker installe le thème en tant que dépendance npm ordinaire et Astro résout tous les spécificateurs via `node_modules`.
+Il n'existe pas de répertoire `./theme/` dans l'espace de travail de build. Le builder Docker installe le thème en tant que dépendance npm ordinaire et Astro résout tous les spécificateurs via `node_modules`.
 
 :::note
-Les chemins des fichiers de polices dans `font-face.css` utilisent `./` (ex. : `url("./neusaNextProWide-300.woff2")`). Ceux-ci sont relatifs au fichier CSS lui-même, de sorte qu'ils se résolvent vers d'autres fichiers dans le répertoire `fonts/`, quelle que soit la manière dont le paquet est installé.
+Les chemins des fichiers de polices dans `font-face.css` utilisent `./` (par exemple, `url("./neusaNextProWide-300.woff2")`). Ces chemins sont relatifs au fichier CSS lui-même, ils se résolvent donc vers d'autres fichiers du répertoire `fonts/`, quelle que soit la manière dont le paquet est installé.
 :::
 
 ## Propagation des modifications
@@ -125,9 +125,9 @@ Les chemins des fichiers de polices dans `font-face.css` utilisent `./` (ex. : `
 Les modifications du thème se propagent via les mises à jour du paquet npm :
 
 1. Une modification est fusionnée dans `main` dans `@f5-sales-demo/docs-theme`
-2. L'image Docker du constructeur est reconstruite avec le paquet mis à jour
-3. La prochaine fois que le workflow d'un référentiel de contenu s'exécute, il utilise l'image du constructeur mise à jour
-4. La construction Astro récupère les polices, styles, logo, composants et plugins mis à jour
-5. Le site du référentiel de contenu est déployé avec le nouveau thème
+2. L'image Docker du builder est reconstruite avec le paquet mis à jour
+3. La prochaine fois que le workflow d'un dépôt de contenu s'exécute, il utilise l'image du builder mise à jour
+4. Le build Astro intègre les polices, styles, logo, composants et plugins mis à jour
+5. Le site du dépôt de contenu est déployé avec le nouveau thème
 
-Les référentiels de contenu reçoivent toujours la dernière version du thème intégrée dans l'image Docker. Cela garantit une cohérence visuelle sur tous les sites, mais implique que les modifications du thème doivent être soigneusement testées avant d'être fusionnées.
+Les dépôts de contenu reçoivent toujours le dernier thème inclus dans l'image Docker. Cela garantit une cohérence visuelle sur tous les sites, mais signifie que les modifications du thème doivent être soigneusement testées avant d'être fusionnées.

@@ -1,14 +1,14 @@
 ---
 title: 构建流水线
-description: 内容仓库如何在构建时通过 Docker 构建器和 npm 包消费主题。
+description: 内容仓库如何在构建时通过 Docker 构建器和 npm 包使用主题。
 sidebar:
   order: 3
 i18n:
-  sourceHash: f305437613ca
+  sourceHash: 27cd573154dc
   translator: machine
 ---
 
-本页描述内容仓库如何消费 `@f5-sales-demo/docs-theme` npm 包，以生成完整品牌化的文档站点。
+本页面介绍内容仓库如何使用 `@f5-sales-demo/docs-theme` npm 包来生成完整品牌的文档站点。
 
 ## 架构
 
@@ -48,24 +48,24 @@ i18n:
 └───────────────────────────┘
 ```
 
-## 构建流程逐步说明
+## 构建过程详解
 
-1. **内容仓库推送** — 推送到 `main`（或手动触发）会启动 GitHub Pages 部署工作流
+1. **内容仓库推送** — 推送到 `main` 分支（或手动触发）时，GitHub Pages 部署工作流被触发
 2. **可复用工作流** — 内容仓库的工作流调用构建器：
    ```yaml
    jobs:
      docs:
        uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
-3. **Docker 构建器运行** — `f5xc-docs-builder` Docker 镜像已通过 npm 预安装主题。在构建时它会：
+3. **Docker 构建器运行** — `f5xc-docs-builder` Docker 镜像已通过 npm 预安装了主题。在构建时，它将：
    - 将 `astro.config.mjs` 和 `content.config.ts` 从 `node_modules/@f5-sales-demo/docs-theme/` 复制到 Astro 项目根目录
    - 将内容仓库的 `docs/` 文件复制到 `src/content/docs/`
-4. **Astro 构建** — Astro 读取配置，该配置调用 `createF5xcDocsConfig()`。工厂函数通过 npm 包说明符解析所有主题资源（例如 `@f5-sales-demo/docs-theme/styles/custom.css`）
+4. **Astro 构建** — Astro 读取配置，配置中调用 `createF5xcDocsConfig()`。该工厂函数通过 npm 包说明符（例如 `@f5-sales-demo/docs-theme/styles/custom.css`）解析所有主题资源
 5. **部署** — 构建好的静态站点部署到 GitHub Pages
 
 ## 内容仓库要求
 
-内容仓库只需要：
+内容仓库仅需具备：
 
 - 一个包含 Markdown（`.md`）或 MDX（`.mdx`）文件的 `docs/` 目录
 - 一个调用构建器的 GitHub Actions 工作流
@@ -93,7 +93,7 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
 ```
 
-这与本主题仓库自身用于构建您正在阅读的文档的工作流相同。
+这与本主题仓库用于构建您正在阅读的文档所使用的工作流完全相同。
 
 ## 路径解析
 
@@ -104,28 +104,28 @@ jobs:
 '@f5-sales-demo/docs-theme/fonts/font-face.css'
 '@f5-sales-demo/docs-theme/styles/custom.css'
 
-// Components — 从 node_modules 解析
+// 组件 — 从 node_modules 解析
 '@f5-sales-demo/docs-theme/components/Footer.astro'
 '@f5-sales-demo/docs-theme/components/Banner.astro'
 
-// Assets — 从 node_modules 解析
+// 资源 — 从 node_modules 解析
 '@f5-sales-demo/docs-theme/assets/github-avatar.png'
 ```
 
-构建工作区中不存在 `./theme/` 目录。Docker 构建器将主题作为常规 npm 依赖项安装，Astro 通过 `node_modules` 解析所有说明符。
+构建工作区中不存在 `./theme/` 目录。Docker 构建器将主题作为常规 npm 依赖安装，Astro 通过 `node_modules` 解析所有说明符。
 
 :::note
-`font-face.css` 中的字体文件路径使用 `./`（例如 `url("./neusaNextProWide-300.woff2")`）。这些路径相对于 CSS 文件本身，因此无论包如何安装，它们都会解析到 `fonts/` 目录中的其他文件。
+`font-face.css` 中的字体文件路径使用 `./`（例如 `url("./neusaNextProWide-300.woff2")`）。这些路径相对于 CSS 文件本身，因此无论包以何种方式安装，它们都会解析到 `fonts/` 目录中的其他文件。
 :::
 
 ## 变更传播
 
 主题变更通过 npm 包更新进行传播：
 
-1. 变更合并到 `@f5-sales-demo/docs-theme` 的 `main` 分支
+1. 变更被合并到 `@f5-sales-demo/docs-theme` 的 `main` 分支
 2. Docker 构建器镜像使用更新后的包重新构建
 3. 下次任意内容仓库的工作流运行时，将使用更新后的构建器镜像
 4. Astro 构建获取更新后的字体、样式、Logo、组件和插件
-5. 内容仓库的站点以新主题部署
+5. 内容仓库的站点以新主题完成部署
 
-内容仓库始终获取 Docker 镜像中捆绑的最新主题。这确保了所有站点的视觉一致性，但也意味着主题变更在合并之前应经过仔细测试。
+内容仓库始终获取 Docker 镜像中捆绑的最新主题。这确保了所有站点的视觉一致性，但也意味着主题变更在合并前应经过仔细测试。

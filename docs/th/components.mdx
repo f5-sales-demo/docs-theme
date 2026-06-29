@@ -9,7 +9,7 @@ sidebar:
     text: New
     variant: tip
 i18n:
-  sourceHash: aadd8fb32c48
+  sourceHash: fe9a5a6b7301
   translator: machine
 ---
 
@@ -18,43 +18,43 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 ## Asides
 
-Aside แต่ละประเภทใช้ไวยากรณ์ fence `:::` พร้อมชื่อเริ่มต้น
+Aside แต่ละประเภทใช้ไวยากรณ์ `:::` พร้อมชื่อเริ่มต้น
 
 :::note
-นี่คือ aside แบบ **note** ใช้เพื่อดึงความสนใจไปยังข้อมูลเสริมที่ผู้อ่านควรทราบ
+นี่คือ aside ประเภท **note** ใช้เพื่อดึงความสนใจไปยังข้อมูลเสริมที่ผู้อ่านควรทราบ
 :::
 
 :::tip
-นี่คือ aside แบบ **tip** ใช้เพื่อเน้นแนวทางปฏิบัติที่ดีที่สุดหรือทางลัดที่มีประโยชน์
+นี่คือ aside ประเภท **tip** ใช้เพื่อเน้นแนวปฏิบัติที่ดีที่สุดหรือทางลัดที่มีประโยชน์
 :::
 
 :::caution
-นี่คือ aside แบบ **caution** ใช้เพื่อเตือนเกี่ยวกับข้อผิดพลาดที่อาจเกิดขึ้นหรือพฤติกรรมที่ไม่ชัดเจน
+นี่คือ aside ประเภท **caution** ใช้เพื่อเตือนเกี่ยวกับข้อผิดพลาดที่อาจเกิดขึ้นหรือพฤติกรรมที่ไม่ชัดเจน
 :::
 
 :::danger
-นี่คือ aside แบบ **danger** ใช้เพื่อแจ้งเตือนการดำเนินการที่ทำลายข้อมูลหรือไม่สามารถย้อนกลับได้
+นี่คือ aside ประเภท **danger** ใช้เพื่อแจ้งเตือนการดำเนินการที่ทำลายข้อมูลหรือไม่สามารถย้อนกลับได้
 :::
 
 ### ชื่อที่กำหนดเอง
 
-<Aside type="note" title="Custom Note Title">
-Aside นี้ใช้คอมโพเนนต์ `<Aside>` พร้อมการกำหนดชื่อที่กำหนดเอง
+<Aside type="note" title="ชื่อ Note ที่กำหนดเอง">
+Aside นี้ใช้คอมโพเนนต์ `<Aside>` พร้อมชื่อที่กำหนดเองแทนที่ค่าเริ่มต้น
 </Aside>
 
-<Aside type="tip" title="Pro Tip">
-คุณสามารถซ้อน **ตัวหนา**, *ตัวเอียง* และ `inline code` ภายในคอมโพเนนต์ aside ได้
+<Aside type="tip" title="เคล็ดลับสำหรับมืออาชีพ">
+คุณสามารถฝัง **ตัวหนา**, *ตัวเอียง* และ `inline code` ไว้ภายในคอมโพเนนต์ aside ได้
 </Aside>
 
-<Aside type="caution" title="Watch Out">
-ระวังเมื่ออัปเกรด dependencies — ตรวจสอบ changelog ก่อนเสมอ
+<Aside type="caution" title="โปรดระวัง">
+ควรระมัดระวังเมื่ออัปเกรด dependencies — ตรวจสอบ changelog ก่อนเสมอ
 </Aside>
 
-<Aside type="danger" title="Destructive Action">
-การรัน `git reset --hard` จะลบการเปลี่ยนแปลงที่ยังไม่ได้ commit อย่างถาวร
+<Aside type="danger" title="การดำเนินการที่ทำลายข้อมูล">
+การรัน `git reset --hard` จะละทิ้งการเปลี่ยนแปลงที่ยังไม่ได้ commit อย่างถาวร
 </Aside>
 
-### เนื้อหาหลากหลายภายใน Asides
+### เนื้อหาแบบผสมภายใน Asides
 
 :::tip[Aside ที่มีเนื้อหาผสม]
 นี่คือ code block ภายใน aside:
@@ -63,16 +63,16 @@ Aside นี้ใช้คอมโพเนนต์ `<Aside>` พร้อม
 npm install @astrojs/starlight
 ```
 
-รายการสิ่งที่ต้องทำ:
+รายการสิ่งต่าง ๆ:
 
-- รายการแรกพร้อม**ข้อความตัวหนา**
+- รายการแรกพร้อม **ข้อความตัวหนา**
 - รายการที่สองพร้อม `inline code`
 - รายการที่สามพร้อม [ลิงก์ไปยังเอกสาร Starlight](https://starlight.astro.build)
 :::
 
 ### CSS ของ Aside
 
-คอมโพเนนต์ aside ในตัวของ Starlight มีมุมโค้งและเงาแบบหลายชั้น:
+คอมโพเนนต์ aside ในตัวของ Starlight มีมุมโค้งและเงาแบบเลเยอร์:
 
 ```css
 .starlight-aside {
@@ -87,10 +87,10 @@ npm install @astrojs/starlight
 
 <Tabs>
   <TabItem label="Overview">
-    นี่คือเนื้อหาของแท็บ overview ประกอบด้วยข้อความธรรมดาเพื่อตรวจสอบการแสดงผลแท็บเบื้องต้น
+    นี่คือเนื้อหาในแท็บ overview ประกอบด้วยข้อความธรรมดาเพื่อตรวจสอบการแสดงผล tab เบื้องต้น
   </TabItem>
   <TabItem label="Details">
-    นี่คือแท็บ details การสลับระหว่างแท็บควรเป็นไปอย่างทันทีโดยไม่ต้องโหลดหน้าใหม่
+    นี่คือแท็บ details การสลับระหว่างแท็บควรเกิดขึ้นทันทีโดยไม่ต้องโหลดหน้าใหม่
   </TabItem>
 </Tabs>
 
@@ -107,15 +107,15 @@ npm install @astrojs/starlight
     ```
   </TabItem>
   <TabItem label="List">
-    - รายการที่หนึ่งภายในแท็บ
-    - รายการที่สองพร้อม**ข้อความตัวหนา**
+    - รายการที่หนึ่งภายใน tab
+    - รายการที่สองพร้อม **ข้อความตัวหนา**
     - รายการที่สามพร้อม `inline code`
   </TabItem>
 </Tabs>
 
-### Tabs ที่ซิงค์กัน
+### Tabs ที่ซิงก์กัน
 
-กลุ่มแท็บสองกลุ่มนี้ใช้ `syncKey="pkg"` ร่วมกัน การเลือกแท็บในกลุ่มหนึ่งจะอัปเดตอีกกลุ่มด้วย
+กลุ่ม tab สองกลุ่มนี้ใช้ `syncKey="pkg"` ร่วมกัน การเลือก tab ในกลุ่มหนึ่งจะอัปเดตอีกกลุ่มด้วย
 
 **คำสั่งติดตั้ง:**
 
@@ -161,7 +161,7 @@ npm install @astrojs/starlight
 
 <Steps>
 
-1. **โคลน repository**
+1. **Clone repository**
 
    ```bash
    git clone https://github.com/example/repo.git
@@ -174,7 +174,7 @@ npm install @astrojs/starlight
    npm install
    ```
 
-3. **เริ่มต้น dev server**
+3. **เริ่ม dev server**
 
    ```bash
    npm run dev
@@ -189,46 +189,46 @@ npm install @astrojs/starlight
 ### Card เดี่ยว
 
 <Card title="Single Card" icon="star">
-  นี่คือ card แบบ standalone พร้อมไอคอน Cards มีประโยชน์สำหรับการเน้นข้อมูลหรือฟีเจอร์สำคัญ
+  นี่คือ card แบบเดี่ยวที่มีไอคอน Cards มีประโยชน์สำหรับเน้นข้อมูลหรือฟีเจอร์สำคัญ
 </Card>
 
 ### Card Grid
 
 <CardGrid>
   <Card title="Performance" icon="rocket">
-    Astro ส่งมอบ zero-JS ตามค่าเริ่มต้นเพื่อการโหลดหน้าที่รวดเร็ว
+    Astro ส่งมอบหน้าเว็บโดยไม่มี JS เป็นค่าเริ่มต้นเพื่อให้โหลดหน้าได้รวดเร็ว
   </Card>
   <Card title="Customizable" icon="pencil">
-    Starlight มีตัวเลือกธีมและปลั๊กอินที่หลากหลาย
+    Starlight มีตัวเลือกการปรับธีมและปลั๊กอินที่ครอบคลุม
   </Card>
   <Card title="Accessible" icon="heart">
-    ฟีเจอร์ accessibility ในตัวช่วยให้เนื้อหาเข้าถึงได้สำหรับทุกคน
+    ฟีเจอร์การเข้าถึงในตัวช่วยให้เนื้อหาเข้าถึงได้สำหรับทุกคน
   </Card>
   <Card title="Documented" icon="open-book">
     เอกสารที่ครอบคลุมทำให้การเริ่มต้นใช้งานเป็นเรื่องง่าย
   </Card>
 </CardGrid>
 
-### Stagger Layout
+### รูปแบบ Stagger
 
 <CardGrid stagger>
-  <Card title="Step One" icon="setting">
-    กำหนดค่าการตั้งค่าโปรเจกต์และ environment variables
+  <Card title="ขั้นตอนที่หนึ่ง" icon="setting">
+    กำหนดค่าการตั้งค่าโปรเจกต์และตัวแปรสภาพแวดล้อมของคุณ
   </Card>
-  <Card title="Step Two" icon="document">
-    สร้างหน้าเนื้อหาโดยใช้รูปแบบ MDX
+  <Card title="ขั้นตอนที่สอง" icon="document">
+    สร้างหน้าเนื้อหาของคุณโดยใช้รูปแบบ MDX
   </Card>
-  <Card title="Step Three" icon="laptop">
+  <Card title="ขั้นตอนที่สาม" icon="laptop">
     ดูตัวอย่างในเครื่องด้วย development server
   </Card>
-  <Card title="Step Four" icon="rocket">
+  <Card title="ขั้นตอนที่สี่" icon="rocket">
     Deploy ไปยังแพลตฟอร์มโฮสติ้งที่คุณเลือก
   </Card>
 </CardGrid>
 
 ### Link Cards
 
-ธีมมีคอมโพเนนต์ `LinkCard` ที่ทำงานได้ทั้งแบบมีและไม่มีไอคอน นำเข้าจากธีม:
+ธีมมีคอมโพเนนต์ `LinkCard` ที่ใช้งานได้ทั้งแบบมีหรือไม่มีไอคอน นำเข้าจากธีม:
 
 ```mdx
 import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
@@ -249,21 +249,21 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 #### พร้อมไอคอน
 
-เพิ่ม prop `icon` โดยใช้ไวยากรณ์ `prefix:name` รองรับ icon pack ทั้งแปดชุด — ดูที่เอกสาร [แพ็กเกจไอคอน](https://f5-sales-demo.github.io/docs-icons/) สำหรับรายการทั้งหมด
+เพิ่ม prop `icon` โดยใช้ไวยากรณ์ `prefix:name` รองรับชุดไอคอนทั้งแปดชุด — ดู เอกสาร [แพ็กเกจไอคอน](https://f5-sales-demo.github.io/docs-icons/) สำหรับแคตตาล็อกทั้งหมด
 
 ##### Lucide (`lucide:`)
 
 <CardGrid>
   <LinkCard
     icon="lucide:shield-check"
-    title="Web App Firewall"
-    description="นโยบายและการกำหนดค่าไฟร์วอลล์"
+    title="ไฟร์วอลล์แอปเว็บ (WAF)"
+    description="นโยบาย Firewall และการกำหนดค่า"
     href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
-    title="Multi-Cloud Networking"
-    description="การเชื่อมต่อไซต์ข้ามคลาวด์"
+    title="เครือข่ายมัลติคลาวด์"
+    description="การเชื่อมต่อ Site ข้ามคลาวด์"
     href="https://f5-sales-demo.github.io/mcn/"
   />
 </CardGrid>
@@ -273,14 +273,14 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="carbon:security"
-    title="Security Services"
-    description="ชุดไอคอน security ของ IBM Carbon"
+    title="บริการความปลอดภัย"
+    description="ชุดไอคอน IBM Carbon สำหรับความปลอดภัย"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="carbon:cloud"
-    title="Cloud Services"
-    description="ชุดไอคอน cloud ของ IBM Carbon"
+    title="บริการ Cloud"
+    description="ชุดไอคอน IBM Carbon สำหรับ cloud"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -290,13 +290,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="mdi:shield-lock"
-    title="Access Control"
+    title="การควบคุมการเข้าถึง"
     description="ไอคอน shield lock ของ Material Design"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="mdi:database"
-    title="Data Management"
+    title="การจัดการข้อมูล"
     description="ไอคอน database ของ Material Design"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
@@ -313,7 +313,7 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   />
   <LinkCard
     icon="phosphor:globe"
-    title="Global Network"
+    title="เครือข่ายทั่วโลก"
     description="ไอคอน globe ของ Phosphor"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
@@ -324,13 +324,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="tabler:cloud"
-    title="Cloud Platform"
+    title="แพลตฟอร์ม Cloud"
     description="ไอคอน cloud ของ Tabler"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="tabler:rocket"
-    title="Deployment"
+    title="การ Deploy"
     description="ไอคอน rocket ของ Tabler"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
@@ -341,32 +341,32 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="f5-brand:cloud-shield-checkmark"
-    title="Cloud Security"
-    description="ไอคอน cloud shield แบรนด์ F5"
+    title="ความปลอดภัย Cloud"
+    description="ไอคอน cloud shield ของ F5 brand"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5-brand:security-firewall"
     title="Firewall"
-    description="ไอคอน firewall แบรนด์ F5"
+    description="ไอคอน firewall ของ F5 brand"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
 ##### F5 Distributed Cloud (`f5xc:`)
 
-ไอคอนเหล่านี้เป็นแบบหลายสีและใช้ CSS custom properties สำหรับการปรับสีในโหมดสว่างและมืด
+ไอคอนเหล่านี้เป็นแบบหลายสีและใช้ CSS custom properties สำหรับการปรับสีในโหมดสว่าง/มืด
 
 <CardGrid>
   <LinkCard
     icon="f5xc:web-app-and-api-protection"
-    title="App & API Protection"
-    description="ไอคอน web app และ API protection ของ F5 XC"
+    title="การป้องกัน App & API"
+    description="ไอคอน web app and API protection ของ F5 XC"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5xc:bot-defense"
-    title="Bot Defense"
+    title="การป้องกัน Bot"
     description="ไอคอน bot defense ของ F5 XC"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
@@ -378,89 +378,89 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   <LinkCard
     icon="hashicorp-flight:terraform-color"
     title="Terraform"
-    description="ไอคอน Terraform ของ HashiCorp"
+    description="ไอคอน HashiCorp Terraform"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="hashicorp-flight:consul-color"
     title="Consul"
-    description="ไอคอน Consul ของ HashiCorp"
+    description="ไอคอน HashiCorp Consul"
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
 ## Badges
 
-### Badge แบบ Inline ทุกตัวแปร
+### Badge Variants แบบ Inline
 
-Badge ทั้งหกตัวแปรแสดงผลแบบ inline:
+Badge ทั้งหกแบบแสดงผลแบบ inline:
 
 <Badge text="Default" /> <Badge text="Note" variant="note" /> <Badge text="Danger" variant="danger" /> <Badge text="Success" variant="success" /> <Badge text="Tip" variant="tip" /> <Badge text="Caution" variant="caution" />
 
-### ขนาด Badge
+### ขนาดของ Badge
 
 <Badge text="Small" size="small" /> <Badge text="Medium" size="medium" /> <Badge text="Large" size="large" />
 
-แต่ละขนาดพร้อมตัวแปร:
+แต่ละขนาดพร้อม variant:
 
 <Badge text="Small Tip" variant="tip" size="small" /> <Badge text="Medium Danger" variant="danger" size="medium" /> <Badge text="Large Success" variant="success" size="large" />
 
 ### Heading Badges
 
-หัวข้อต่อไปนี้ใช้ไวยากรณ์ปลั๊กอิน `starlight-heading-badges`
+หัวข้อต่อไปนี้ใช้ไวยากรณ์ของปลั๊กอิน `starlight-heading-badges`
 
-#### Feature Complete :badge[Stable]{variant=success}
+#### ฟีเจอร์สมบูรณ์ :badge[Stable]{variant=success}
 
-หัวข้อนี้มี badge แบบ success ที่ระบุว่าฟีเจอร์นี้มีความเสถียร
+หัวข้อนี้มี badge success ที่ระบุว่าฟีเจอร์มีความเสถียร
 
 #### Experimental API :badge[Beta]{variant=caution}
 
-หัวข้อนี้มี badge แบบ caution ที่ระบุว่า API นี้อยู่ในช่วงทดลอง
+หัวข้อนี้มี badge caution ที่ระบุว่า API อยู่ในระหว่างทดลอง
 
-#### Legacy System :badge[Deprecated]{variant=danger}
+#### ระบบเดิม :badge[Deprecated]{variant=danger}
 
-หัวข้อนี้มี badge แบบ danger ที่ระบุว่าถูก deprecated แล้ว
+หัวข้อนี้มี badge danger ที่ระบุว่าถูก deprecate แล้ว
 
-#### New Feature :badge[New]{variant=tip}
+#### ฟีเจอร์ใหม่ :badge[New]{variant=tip}
 
-หัวข้อนี้มี badge แบบ tip ที่ระบุว่าเป็นฟีเจอร์ใหม่
+หัวข้อนี้มี badge tip ที่ระบุว่าเป็นฟีเจอร์ใหม่
 
-#### Documentation :badge[Updated]{variant=note}
+#### เอกสาร :badge[Updated]{variant=note}
 
-หัวข้อนี้มี badge แบบ note ที่ระบุว่ามีการอัปเดตล่าสุด
+หัวข้อนี้มี badge note ที่ระบุว่ามีการอัปเดตล่าสุด
 
-#### Default Badge :badge[Info]
+#### Badge เริ่มต้น :badge[Info]
 
-หัวข้อนี้มี badge แบบค่าเริ่มต้นโดยไม่ระบุตัวแปร
+หัวข้อนี้มี badge เริ่มต้นโดยไม่ระบุ variant
 
 ### Sidebar Badge
 
-ดูที่แถบด้านข้าง: หน้านี้มี badge "New" พร้อมตัวแปร `tip` ที่กำหนดผ่าน frontmatter
+ตรวจสอบ sidebar: หน้านี้มี badge "ใหม่" พร้อม variant `tip` ที่กำหนดผ่าน frontmatter
 
 ## Tables
 
-### ตารางพื้นฐาน
+### ตารางอย่างง่าย
 
-| ฟีเจอร์ | สถานะ | ความสำคัญ |
+| ฟีเจอร์ | สถานะ | ลำดับความสำคัญ |
 |---------|--------|----------|
 | Dark mode | รองรับ | สูง |
-| Image zoom | รองรับ | ปานกลาง |
-| Mermaid diagrams | รองรับ | ปานกลาง |
+| Image zoom | รองรับ | กลาง |
+| Mermaid diagrams | รองรับ | กลาง |
 | Heading badges | รองรับ | ต่ำ |
 
-### ตารางพร้อมการจัดตำแหน่งและโค้ด
+### ตารางพร้อมการจัดตำแหน่งและ Code
 
-| Property | Type | Default | Description |
+| Property | Type | Default | คำอธิบาย |
 |:---------|:----:|--------:|:------------|
 | `title` | `string` | — | ชื่อหน้าที่แสดงในส่วนหัว |
 | `description` | `string` | `""` | Meta description สำหรับ SEO |
-| `sidebar.order` | `number` | `0` | ลำดับการเรียงในแถบด้านข้าง |
-| `sidebar.badge` | `object` | `null` | Badge ที่แสดงถัดจากป้ายกำกับในแถบด้านข้าง |
-| `template` | `"doc" \| "splash"` | `"doc"` | เทมเพลตเลย์เอาต์ของหน้า |
+| `sidebar.order` | `number` | `0` | ลำดับการเรียงใน sidebar |
+| `sidebar.badge` | `object` | `null` | Badge ที่แสดงถัดจากป้ายกำกับ sidebar |
+| `template` | `"doc" \| "splash"` | `"doc"` | Template สำหรับเค้าโครงหน้า |
 
 ## Images
 
-ภาพด้านล่างนี้ทดสอบปลั๊กอิน `starlight-image-zoom` คลิกเพื่อซูม
+ภาพด้านล่างทดสอบปลั๊กอิน `starlight-image-zoom` คลิกเพื่อซูม
 
 ![GitHub Avatar](https://github.com/f5-sales-demo.png)
 
@@ -492,26 +492,26 @@ Badge ทั้งหกตัวแปรแสดงผลแบบ inline:
 
 ## การตรวจสอบธีม
 
-- สีเส้นขอบด้านซ้ายแตกต่างกันตามประเภท aside (น้ำเงิน, ม่วง, เหลือง, แดง)
-- สีพื้นหลัง aside มองเห็นได้ทั้งในโหมดสว่างและมืด
-- Box-shadow บางเบาแต่มองเห็นได้รอบ aside แต่ละอัน
+- สีของ border-left แตกต่างกันตามประเภท aside (น้ำเงิน, ม่วง, เหลือง, แดง)
+- สีพื้นหลังของ aside มองเห็นได้ทั้งในโหมดสว่างและโหมดมืด
+- Box-shadow แสดงผลอย่างละเอียดแต่มองเห็นได้รอบ aside แต่ละอัน
 - มุมโค้ง (0.75rem) บน aside ทั้งหมด
-- สีตัวบ่งชี้แท็บที่ใช้งานอยู่ใช้สี accent
-- เส้นเชื่อมต่อ step มองเห็นได้ระหว่างขั้นตอนที่มีตัวเลข
-- Tabs ที่ซิงค์กันคงสถานะซิงค์เมื่อสลับระหว่างกลุ่ม
-- Code blocks ภายใน tabs แสดงผลพร้อม syntax highlighting ที่ถูกต้อง
-- สีเส้นขอบ Card ปรับตัวระหว่างโหมดสว่างและมืด
-- เอฟเฟกต์พื้นหลังเมื่อ hover มองเห็นได้บน cards
-- สีไอคอนลูกศร LinkCard ตรงกับสี accent
-- Stagger layout เลื่อน cards สลับกันในแนวตั้ง
-- ไอคอนแสดงผลได้อย่างถูกต้องภายในส่วนหัว card
-- สีพื้นหลัง Badge ตามตัวแปรแตกต่างกันระหว่างโหมดมืดและสว่าง
-- Badge โหมดมืดใช้โทนสีเข้ม (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
-- Badge โหมดสว่างใช้โทนสีอ่อน (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
+- สีตัวบ่งชี้ที่ใช้งานของ tab ใช้สีเน้น (accent color)
+- เส้นเชื่อมของ step มองเห็นได้ระหว่างขั้นตอนที่มีตัวเลข
+- Synced tabs ยังคงซิงก์กันเมื่อสลับระหว่างกลุ่ม
+- Code block ภายใน tab แสดงผลพร้อม syntax highlighting ที่ถูกต้อง
+- สีขอบ Card ปรับตัวระหว่างโหมดสว่างและโหมดมืด
+- เอฟเฟกต์พื้นหลังเมื่อ Hover มองเห็นได้บน card
+- สีไอคอนลูกศรของ LinkCard ตรงกับสีเน้น (accent color)
+- รูปแบบ Stagger เลื่อน card ที่สลับกันในแนวตั้ง
+- ไอคอนแสดงผลถูกต้องภายในส่วนหัวของ card
+- สีพื้นหลัง Badge ตามแต่ละ variant แตกต่างกันระหว่างโหมดมืดและโหมดสว่าง
+- Badge ในโหมดมืดใช้โทนสีเข้ม (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
+- Badge ในโหมดสว่างใช้โทนสีอ่อน (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
 - Heading badges จัดตำแหน่งแบบ inline กับข้อความหัวข้อ
-- Sidebar badge แสดงถัดจากป้ายกำกับหน้า
-- สีเส้นขอบตารางปรับตัวระหว่างโหมดสว่างและมืด
-- แถวหัวตารางมีพื้นหลังที่โดดเด่น
+- Sidebar badge แสดงผลถัดจากป้ายกำกับหน้า
+- สีขอบตารางปรับตัวระหว่างโหมดสว่างและโหมดมืด
+- แถวส่วนหัวตารางมีพื้นหลังที่แตกต่างชัดเจน
 - Image zoom overlay ทำงานเมื่อคลิก (starlight-image-zoom)
 - พื้นหลัง FileTree ใช้สีที่เหมาะสมกับธีม
-- ไอคอนรับค่าสีข้อความปัจจุบัน
+- ไอคอนสืบทอดสีข้อความปัจจุบัน

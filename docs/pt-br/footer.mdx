@@ -4,11 +4,11 @@ description: Componente de rodapé personalizado do Starlight com links para red
 sidebar:
   order: 11
 i18n:
-  sourceHash: 2dbcf6d139fd
+  sourceHash: c53ea076f073
   translator: machine
 ---
 
-O tema substitui o rodapé padrão do Starlight por um componente personalizado `Footer.astro` que adiciona links para redes sociais abaixo do conteúdo padrão do rodapé.
+O tema substitui o rodapé padrão do Starlight por um componente `Footer.astro` personalizado que adiciona links para redes sociais abaixo do conteúdo padrão do rodapé.
 
 ## Padrão do Componente
 
@@ -24,9 +24,9 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 </div>
 ```
 
-Este padrão **estende** o rodapé padrão em vez de substituí-lo completamente. `<Default {...Astro.props}><slot /></Default>` renderiza o rodapé original do Starlight (navegação anterior/próximo), e em seguida os links sociais são adicionados abaixo.
+Este padrão **estende** o rodapé padrão em vez de substituí-lo completamente. `<Default {...Astro.props}><slot /></Default>` renderiza o rodapé original do Starlight (navegação anterior/próximo), e então os links sociais são adicionados abaixo.
 
-## Como É Registrado
+## Como é Registrado
 
 A substituição do rodapé é registrada pelo plugin do Starlight em `index.ts`. Durante o hook `config:setup`, ele define a substituição do componente `Footer`:
 
@@ -46,11 +46,11 @@ Os repositórios de conteúdo não precisam registrar o rodapé manualmente — 
 
 | Plataforma | URL | Cor do Ícone | Aria Label |
 |------------|-----|--------------|------------|
-| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Azul do Facebook) | Facebook |
+| Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Azul Facebook) | Facebook |
 | X | `https://x.com/F5` | `currentColor` (herda) | X |
-| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (Azul do LinkedIn) | LinkedIn |
-| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Rosa do Instagram) | Instagram |
-| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (Vermelho do YouTube) | YouTube |
+| LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (Azul LinkedIn) | LinkedIn |
+| Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Rosa Instagram) | Instagram |
+| YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (Vermelho YouTube) | YouTube |
 
 Cada link abre em uma nova aba (`target="_blank"`) com `rel="noopener noreferrer"` por segurança.
 
@@ -75,7 +75,7 @@ Cada link abre em uma nova aba (`target="_blank"`) com `rel="noopener noreferrer
 }
 ```
 
-Os links são alinhados à direita em uma linha flex com um sutil efeito de opacidade ao passar o mouse.
+Os links são alinhados à direita em uma linha flex com um efeito sutil de opacidade ao passar o cursor.
 
 ## Personalização
 
@@ -97,15 +97,15 @@ Adicione um novo elemento `<a>` dentro da div `.social-links` com um ícone SVG 
 
 ### Removendo um Link
 
-Exclua o bloco `<a>...</a>` completo da plataforma que deseja remover.
+Exclua todo o bloco `<a>...</a>` da plataforma que deseja remover.
 
-### Alterando as Cores dos Ícones
+### Alterando Cores dos Ícones
 
-Modifique o atributo `fill` no elemento `<svg>`. Use `currentColor` para herdar a cor do texto, ou um valor hexadecimal específico para as cores da marca.
+Modifique o atributo `fill` no elemento `<svg>`. Use `currentColor` para herdar a cor do texto, ou um valor hexadecimal específico para cores de marca.
 
 ### Alterando o Layout
 
-Modifique o CSS de `.social-links` no bloco `<style>`:
+Modifique o CSS `.social-links` no bloco `<style>`:
 - **Alinhamento centralizado**: Altere `justify-content` para `center`
 - **Espaçamento maior**: Aumente o valor de `gap`
 - **Alinhamento à esquerda**: Altere `justify-content` para `flex-start`

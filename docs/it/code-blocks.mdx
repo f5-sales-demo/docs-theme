@@ -2,15 +2,15 @@
 title: Blocchi di codice
 description: >-
   Evidenziazione della sintassi, modalità terminale, evidenziazione delle righe,
-  blocchi diff e riferimento CSS per lo stile di Expressive Code.
+  blocchi diff e riferimento CSS per lo stile Expressive Code.
 sidebar:
   order: 8
 i18n:
-  sourceHash: b458d0378db1
+  sourceHash: b71ea33850c1
   translator: machine
 ---
 
-Tutti i blocchi di codice utilizzano [Expressive Code](https://expressive-code.com/) con uno stile personalizzato definito in `styles/custom.css`.
+Tutti i blocchi di codice utilizzano [Expressive Code](https://expressive-code.com/) con stili personalizzati definiti in `styles/custom.css`.
 
 ## Esempi di linguaggi
 
@@ -114,7 +114,7 @@ const config: Config = {
 
 ## Modalità terminale
 
-I blocchi di codice in stile terminale (delimitati con ` ```bash ` o ` ```sh `) ricevono una cornice della finestra ispirata a iTerm con i pallini semaforo di macOS.
+I blocchi di codice in stile terminale (delimitati con ` ```bash ` o ` ```sh `) ricevono una cornice con stile finestra ispirata a iTerm con i pallini semaforo macOS.
 
 ```bash title="Terminal"
 npm install @f5-sales-demo/docs-theme
@@ -125,29 +125,29 @@ npx astro preview
 ### Riferimento CSS per il terminale
 
 ```css
-/* Frame border */
+/* Bordo della cornice */
 .expressive-code .frame.is-terminal {
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Dark header with traffic light SVG dots */
+/* Intestazione scura con pallini SVG semaforo */
 .expressive-code .frame.is-terminal .header {
   background: #323232 !important;
   color: #ccc !important;
 }
 
-/* Dark mode terminal body — Tokyo Night-inspired */
+/* Corpo del terminale in modalità scura — ispirato a Tokyo Night */
 :root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
   background: #1a1b26 !important;
 }
 
-/* Light mode border override */
+/* Override del bordo in modalità chiara */
 :root[data-theme="light"] .expressive-code .frame.is-terminal {
   border-color: rgba(0, 0, 0, 0.2);
 }
 ```
 
-## Titoli con nome file
+## Titoli dei nomi di file
 
 ```ts title="src/config.ts"
 export default {
@@ -159,20 +159,20 @@ export default {
 ## Evidenziazione delle righe
 
 ```js {1,3-5}
-const name = "highlighted"; // line 1 highlighted
+const name = "highlighted"; // riga 1 evidenziata
 const other = "normal";
-const a = 1; // lines 3-5 highlighted
+const a = 1; // righe 3-5 evidenziate
 const b = 2;
 const c = 3;
 const d = "normal again";
 ```
 
-## Righe inserite ed eliminate
+## Righe inserite e cancellate
 
 ```js ins={2} del={3}
 const config = {
-  theme: "dark", // inserted
-  theme: "light", // deleted
+  theme: "dark", // inserita
+  theme: "light", // cancellata
   lang: "en",
 };
 ```
@@ -191,7 +191,7 @@ const config = {
 
 ### Stile della cornice
 
-Tutti i blocchi di codice hanno angoli arrotondati e un'ombra a strati:
+Tutti i blocchi di codice hanno angoli arrotondati e un'ombra a più livelli:
 
 ```css
 .expressive-code .frame {
@@ -205,12 +205,12 @@ Tutti i blocchi di codice hanno angoli arrotondati e un'ombra a strati:
 ### Bordi adattivi al tema
 
 ```css
-/* Dark mode (default) */
+/* Modalità scura (predefinita) */
 .expressive-code .frame.is-terminal {
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Light mode */
+/* Modalità chiara */
 :root[data-theme="light"] .expressive-code .frame.is-terminal {
   border-color: rgba(0, 0, 0, 0.2);
 }
@@ -219,10 +219,10 @@ Tutti i blocchi di codice hanno angoli arrotondati e un'ombra a strati:
 ## Verifiche del tema
 
 - Il colore di sfondo del blocco di codice si adatta al tema
-- Lo sfondo dell'intestazione del terminale è `#323232` con i pallini semaforo di macOS
+- L'intestazione del terminale ha sfondo `#323232` con i pallini semaforo macOS
 - Il bordo del terminale utilizza `rgba(255, 255, 255, 0.15)` in modalità scura e `rgba(0, 0, 0, 0.2)` in modalità chiara
 - Il corpo del terminale in modalità scura utilizza `#1a1b26`
 - I colori della sintassi rimangono leggibili in entrambi i temi
 - Le righe evidenziate hanno una tinta di sfondo visibile
-- Le righe inserite mostrano una tinta verde, le righe eliminate mostrano una tinta rossa
-- I blocchi di codice hanno un raggio del bordo di 0,75rem e un'ombra del riquadro
+- Le righe inserite mostrano una tinta verde, le righe cancellate mostrano una tinta rossa
+- I blocchi di codice hanno un raggio del bordo di 0,75 rem e un'ombra del riquadro

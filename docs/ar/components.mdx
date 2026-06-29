@@ -1,7 +1,7 @@
 ---
 title: المكونات
 description: >-
-  المكونات المدمجة في Starlight — الملاحظات الجانبية، والتبويبات، والخطوات،
+  المكونات المدمجة في Starlight — التنبيهات الجانبية، والتبويبات، والخطوات،
   والبطاقات، والشارات، والجداول، والصور، وشجرة الملفات.
 sidebar:
   order: 9
@@ -9,55 +9,55 @@ sidebar:
     text: New
     variant: tip
 i18n:
-  sourceHash: aadd8fb32c48
+  sourceHash: fe9a5a6b7301
   translator: machine
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
 import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
-## الملاحظات الجانبية
+## التنبيهات الجانبية
 
-يستخدم كل نوع من أنواع الملاحظات الجانبية صيغة السياج `:::` مع عنوانه الافتراضي.
+يستخدم كل نوع من أنواع التنبيهات الجانبية بناء الجملة `:::` مع عنوانه الافتراضي.
 
 :::note
-هذه ملاحظة جانبية من نوع **note**. تلفت الانتباه إلى معلومات تكميلية ينبغي للقارئ الاطلاع عليها.
+هذا تنبيه جانبي من نوع **ملاحظة**. يلفت الانتباه إلى معلومات تكميلية ينبغي للقارئ الاطلاع عليها.
 :::
 
 :::tip
-هذه ملاحظة جانبية من نوع **tip**. تُبرز أفضل الممارسات أو اختصارًا مفيدًا.
+هذا تنبيه جانبي من نوع **تلميح**. يُبرز أفضل الممارسات أو الاختصارات المفيدة.
 :::
 
 :::caution
-هذه ملاحظة جانبية من نوع **caution**. تُحذّر من مشكلة محتملة أو سلوك غير واضح.
+هذا تنبيه جانبي من نوع **تحذير**. يُنبّه إلى خطأ محتمل أو سلوك غير واضح.
 :::
 
 :::danger
-هذه ملاحظة جانبية من نوع **danger**. تُشير إلى إجراء تدميري أو لا يمكن التراجع عنه.
+هذا تنبيه جانبي من نوع **خطر**. يُشير إلى إجراء مدمّر أو لا يمكن التراجع عنه.
 :::
 
 ### عناوين مخصصة
 
-<Aside type="note" title="Custom Note Title">
-تستخدم هذه الملاحظة الجانبية مكوّن `<Aside>` مع تجاوز العنوان بعنوان مخصص.
+<Aside type="note" title="عنوان ملاحظة مخصص">
+يستخدم هذا التنبيه الجانبي مكوّن `<Aside>` مع تجاوز العنوان بعنوان مخصص.
 </Aside>
 
-<Aside type="tip" title="Pro Tip">
-يمكنك تضمين **نص عريض**، *نص مائل*، و`كود مضمّن` داخل مكوّنات الملاحظات الجانبية.
+<Aside type="tip" title="تلميح احترافي">
+يمكنك تضمين **نص غامق**، و*نص مائل*، و`كود مضمّن` داخل مكونات التنبيه الجانبي.
 </Aside>
 
-<Aside type="caution" title="Watch Out">
-كن حذرًا عند ترقية التبعيات — تحقق من سجل التغييرات أولًا.
+<Aside type="caution" title="انتبه">
+كن حذراً عند ترقية التبعيات — تحقق من سجل التغييرات أولاً.
 </Aside>
 
-<Aside type="danger" title="Destructive Action">
-تشغيل `git reset --hard` سيؤدي إلى تجاهل التغييرات غير المُودَعة بشكل دائم.
+<Aside type="danger" title="إجراء مدمّر">
+تشغيل `git reset --hard` سيتجاهل بشكل دائم التغييرات غير الملتزمة.
 </Aside>
 
-### محتوى غني داخل الملاحظات الجانبية
+### محتوى غني داخل التنبيهات الجانبية
 
-:::tip[ملاحظة جانبية بمحتوى مختلط]
-فيما يلي كتلة كود داخل ملاحظة جانبية:
+:::tip[تنبيه جانبي بمحتوى متنوع]
+إليك كتلة كود داخل تنبيه جانبي:
 
 ```bash
 npm install @astrojs/starlight
@@ -65,14 +65,14 @@ npm install @astrojs/starlight
 
 قائمة من العناصر:
 
-- العنصر الأول بـ **نص عريض**
-- العنصر الثاني بـ `كود مضمّن`
-- العنصر الثالث برابط [إلى توثيق Starlight](https://starlight.astro.build)
+- العنصر الأول مع **نص غامق**
+- العنصر الثاني مع `كود مضمّن`
+- العنصر الثالث مع [رابط إلى وثائق Starlight](https://starlight.astro.build)
 :::
 
-### CSS الخاص بالملاحظات الجانبية
+### CSS التنبيهات الجانبية
 
-تحصل مكوّنات الملاحظات الجانبية المدمجة في Starlight على زوايا مدوّرة وظل متعدد الطبقات:
+تحصل مكونات التنبيه الجانبي المدمجة في Starlight على زوايا مدوّرة وظل متعدد الطبقات:
 
 ```css
 .starlight-aside {
@@ -86,36 +86,36 @@ npm install @astrojs/starlight
 ### التبويبات الأساسية
 
 <Tabs>
-  <TabItem label="Overview">
+  <TabItem label="نظرة عامة">
     هذا هو محتوى تبويب النظرة العامة. يحتوي على نص عادي للتحقق من عرض التبويبات الأساسي.
   </TabItem>
-  <TabItem label="Details">
-    هذا هو تبويب التفاصيل. يجب أن يكون التبديل بين التبويبات فوريًا دون إعادة تحميل الصفحة.
+  <TabItem label="التفاصيل">
+    هذا هو تبويب التفاصيل. يجب أن يكون التبديل بين التبويبات فورياً دون إعادة تحميل الصفحة.
   </TabItem>
 </Tabs>
 
-### التبويبات بمحتوى مختلط
+### تبويبات بمحتوى متنوع
 
 <Tabs>
-  <TabItem label="Text">
+  <TabItem label="نص">
     محتوى فقرة عادية في التبويب الأول.
   </TabItem>
-  <TabItem label="Code">
+  <TabItem label="كود">
     ```javascript
     const greeting = "Hello from a code block inside a tab!";
     console.log(greeting);
     ```
   </TabItem>
-  <TabItem label="List">
-    - عنصر واحد داخل التبويب
-    - عنصر ثانٍ بـ **نص عريض**
-    - عنصر ثالث بـ `كود مضمّن`
+  <TabItem label="قائمة">
+    - العنصر الأول داخل تبويب
+    - العنصر الثاني مع **نص غامق**
+    - العنصر الثالث مع `كود مضمّن`
   </TabItem>
 </Tabs>
 
 ### التبويبات المتزامنة
 
-تتشارك مجموعتا التبويبات هاتان `syncKey="pkg"`. يجب أن يؤدي تحديد تبويب في إحدى المجموعتين إلى تحديث الأخرى.
+تشترك مجموعتا التبويبات هاتان في `syncKey="pkg"`. يجب أن يؤدي تحديد تبويب في إحدى المجموعتين إلى تحديث الأخرى.
 
 **أمر التثبيت:**
 
@@ -180,55 +180,55 @@ npm install @astrojs/starlight
    npm run dev
    ```
 
-   سيكون الموقع متاحًا على `http://localhost:4321`.
+   سيكون الموقع متاحاً على `http://localhost:4321`.
 
 </Steps>
 
 ## البطاقات
 
-### بطاقة مفردة
+### بطاقة منفردة
 
-<Card title="Single Card" icon="star">
-  هذه بطاقة مستقلة مع أيقونة. تُفيد البطاقات في إبراز المعلومات أو الميزات الرئيسية.
+<Card title="بطاقة منفردة" icon="star">
+  هذه بطاقة مستقلة مع أيقونة. البطاقات مفيدة لإبراز المعلومات أو الميزات الرئيسية.
 </Card>
 
 ### شبكة البطاقات
 
 <CardGrid>
-  <Card title="Performance" icon="rocket">
-    يُقدّم Astro صفحات بدون JavaScript افتراضيًا لتحميل سريع للصفحات.
+  <Card title="الأداء" icon="rocket">
+    يُقدّم Astro صفحات خالية من JavaScript افتراضياً لتحميل أسرع للصفحات.
   </Card>
-  <Card title="Customizable" icon="pencil">
+  <Card title="قابل للتخصيص" icon="pencil">
     يوفر Starlight خيارات واسعة للسمات والإضافات.
   </Card>
-  <Card title="Accessible" icon="heart">
+  <Card title="سهل الوصول" icon="heart">
     تضمن ميزات إمكانية الوصول المدمجة وصول المحتوى إلى الجميع.
   </Card>
-  <Card title="Documented" icon="open-book">
-    التوثيق الشامل يجعل البدء أمرًا سهلًا ومباشرًا.
+  <Card title="موثّق" icon="open-book">
+    التوثيق الشامل يجعل البدء أمراً سهلاً ومباشراً.
   </Card>
 </CardGrid>
 
 ### تخطيط متدرج
 
 <CardGrid stagger>
-  <Card title="Step One" icon="setting">
-    قم بتهيئة إعدادات مشروعك ومتغيرات البيئة.
+  <Card title="الخطوة الأولى" icon="setting">
+    قم بتكوين إعدادات مشروعك ومتغيرات البيئة.
   </Card>
-  <Card title="Step Two" icon="document">
-    أنشئ صفحات المحتوى باستخدام صيغة MDX.
+  <Card title="الخطوة الثانية" icon="document">
+    أنشئ صفحات المحتوى باستخدام تنسيق MDX.
   </Card>
-  <Card title="Step Three" icon="laptop">
-    معاينة محلية باستخدام خادم التطوير.
+  <Card title="الخطوة الثالثة" icon="laptop">
+    قم بالمعاينة محلياً باستخدام خادم التطوير.
   </Card>
-  <Card title="Step Four" icon="rocket">
+  <Card title="الخطوة الرابعة" icon="rocket">
     انشر على منصة الاستضافة التي تختارها.
   </Card>
 </CardGrid>
 
 ### بطاقات الروابط
 
-توفر السمة مكوّن `LinkCard` الذي يعمل مع الأيقونات أو بدونها. استورده من السمة:
+توفر السمة مكوّن `LinkCard` الذي يعمل مع أيقونات أو بدونها. استورده من السمة:
 
 ```mdx
 import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
@@ -236,34 +236,34 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 <CardGrid>
   <LinkCard
-    title="Starlight Documentation"
-    description="تعلم كيفية بناء مواقع التوثيق باستخدام Starlight."
+    title="وثائق Starlight"
+    description="تعرّف على كيفية بناء مواقع التوثيق باستخدام Starlight."
     href="https://starlight.astro.build"
   />
   <LinkCard
-    title="Astro Documentation"
-    description="استكشف إطار عمل Astro لمواقع الويب المدفوعة بالمحتوى."
+    title="وثائق Astro"
+    description="استكشف إطار عمل Astro للمواقع القائمة على المحتوى."
     href="https://docs.astro.build"
   />
 </CardGrid>
 
-#### مع الأيقونات
+#### مع أيقونات
 
-أضف خاصية `icon` باستخدام صيغة `prefix:name`. جميع حزم الأيقونات الثماني مدعومة — راجع توثيق [حزم الأيقونات](https://f5-sales-demo.github.io/docs-icons/) للاطلاع على الفهرس الكامل.
+أضف خاصية `icon` باستخدام بناء الجملة `prefix:name`. جميع حزم الأيقونات الثماني مدعومة — راجع وثائق [حزم الأيقونات](https://f5-sales-demo.github.io/docs-icons/) للاطلاع على الكتالوج الكامل.
 
 ##### Lucide (`lucide:`)
 
 <CardGrid>
   <LinkCard
     icon="lucide:shield-check"
-    title="Web App Firewall"
-    description="سياسات جدار الحماية والإعداد."
+    title="جدار حماية تطبيقات الويب (WAF)"
+    description="سياسات الجدار الناري وإعداداته."
     href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
-    title="Multi-Cloud Networking"
-    description="اتصال الموقع عبر السحابات."
+    title="الشبكات متعددة السحابات"
+    description="اتصال المواقع عبر السحابات."
     href="https://f5-sales-demo.github.io/mcn/"
   />
 </CardGrid>
@@ -273,13 +273,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="carbon:security"
-    title="Security Services"
+    title="خدمات الأمان"
     description="مجموعة أيقونات الأمان من IBM Carbon."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="carbon:cloud"
-    title="Cloud Services"
+    title="خدمات السحابة"
     description="مجموعة أيقونات السحابة من IBM Carbon."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
@@ -290,13 +290,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="mdi:shield-lock"
-    title="Access Control"
+    title="التحكم في الوصول"
     description="أيقونة قفل الدرع من Material Design."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="mdi:database"
-    title="Data Management"
+    title="إدارة البيانات"
     description="أيقونة قاعدة البيانات من Material Design."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
@@ -307,14 +307,14 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="phosphor:shield"
-    title="Threat Defense"
-    description="أيقونة الدرع من Phosphor."
+    title="الدفاع ضد التهديدات"
+    description="أيقونة درع Phosphor."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="phosphor:globe"
-    title="Global Network"
-    description="أيقونة الكرة الأرضية من Phosphor."
+    title="الشبكة العالمية"
+    description="أيقونة كرة أرضية Phosphor."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -324,14 +324,14 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="tabler:cloud"
-    title="Cloud Platform"
-    description="أيقونة السحابة من Tabler."
+    title="منصة السحابة"
+    description="أيقونة سحابة Tabler."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="tabler:rocket"
-    title="Deployment"
-    description="أيقونة الصاروخ من Tabler."
+    title="النشر"
+    description="أيقونة صاروخ Tabler."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -341,14 +341,14 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="f5-brand:cloud-shield-checkmark"
-    title="Cloud Security"
-    description="أيقونة درع السحابة من علامة F5 التجارية."
+    title="أمان السحابة"
+    description="أيقونة درع السحابة المميزة من F5."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5-brand:security-firewall"
-    title="Firewall"
-    description="أيقونة جدار الحماية من علامة F5 التجارية."
+    title="جدار الحماية"
+    description="أيقونة جدار الحماية المميزة من F5."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -360,13 +360,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     icon="f5xc:web-app-and-api-protection"
-    title="App & API Protection"
+    title="حماية التطبيقات وAPI"
     description="أيقونة حماية تطبيقات الويب وAPI من F5 XC."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5xc:bot-defense"
-    title="Bot Defense"
+    title="دفاع Bot"
     description="أيقونة دفاع Bot من F5 XC."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
@@ -393,49 +393,49 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 ### متغيرات الشارة المضمّنة
 
-جميع متغيرات الشارات الست مُعرَضة بشكل مضمّن:
+جميع متغيرات الشارات الستة معروضة بشكل مضمّن:
 
-<Badge text="Default" /> <Badge text="Note" variant="note" /> <Badge text="Danger" variant="danger" /> <Badge text="Success" variant="success" /> <Badge text="Tip" variant="tip" /> <Badge text="Caution" variant="caution" />
+<Badge text="افتراضي" /> <Badge text="ملاحظة" variant="note" /> <Badge text="خطر" variant="danger" /> <Badge text="نجاح" variant="success" /> <Badge text="تلميح" variant="tip" /> <Badge text="تحذير" variant="caution" />
 
-### أحجام الشارات
+### أحجام الشارة
 
-<Badge text="Small" size="small" /> <Badge text="Medium" size="medium" /> <Badge text="Large" size="large" />
+<Badge text="صغير" size="small" /> <Badge text="متوسط" size="medium" /> <Badge text="كبير" size="large" />
 
-كل حجم مع متغير:
+كل حجم مع متغيّر:
 
-<Badge text="Small Tip" variant="tip" size="small" /> <Badge text="Medium Danger" variant="danger" size="medium" /> <Badge text="Large Success" variant="success" size="large" />
+<Badge text="تلميح صغير" variant="tip" size="small" /> <Badge text="خطر متوسط" variant="danger" size="medium" /> <Badge text="نجاح كبير" variant="success" size="large" />
 
 ### شارات العناوين
 
-تستخدم العناوين التالية صيغة إضافة `starlight-heading-badges`.
+تستخدم العناوين التالية بناء جملة إضافة `starlight-heading-badges`.
 
-#### مكتمل الميزات :badge[Stable]{variant=success}
+#### مكتمل الميزات :badge[مستقر]{variant=success}
 
-يحمل هذا العنوان شارة نجاح تُشير إلى أن الميزة مستقرة.
+يحتوي هذا العنوان على شارة نجاح تشير إلى أن الميزة مستقرة.
 
-#### واجهة تجريبية :badge[Beta]{variant=caution}
+#### API تجريبي :badge[تجريبي]{variant=caution}
 
-يحمل هذا العنوان شارة تحذير تُشير إلى أن الواجهة تجريبية.
+يحتوي هذا العنوان على شارة تحذير تشير إلى أن الـ API تجريبي.
 
-#### نظام قديم :badge[Deprecated]{variant=danger}
+#### نظام قديم :badge[مهمل]{variant=danger}
 
-يحمل هذا العنوان شارة خطر تُشير إلى التقادم.
+يحتوي هذا العنوان على شارة خطر تشير إلى الإهمال.
 
-#### ميزة جديدة :badge[New]{variant=tip}
+#### ميزة جديدة :badge[جديد]{variant=tip}
 
-يحمل هذا العنوان شارة تلميح تُشير إلى ميزة جديدة.
+يحتوي هذا العنوان على شارة تلميح تشير إلى ميزة جديدة.
 
-#### التوثيق :badge[Updated]{variant=note}
+#### التوثيق :badge[محدّث]{variant=note}
 
-يحمل هذا العنوان شارة ملاحظة تُشير إلى تحديثات حديثة.
+يحتوي هذا العنوان على شارة ملاحظة تشير إلى التحديثات الأخيرة.
 
-#### شارة افتراضية :badge[Info]
+#### شارة افتراضية :badge[معلومات]
 
-يحمل هذا العنوان شارة افتراضية دون تحديد متغير.
+يحتوي هذا العنوان على شارة افتراضية دون تحديد متغيّر.
 
 ### شارة الشريط الجانبي
 
-تحقق من الشريط الجانبي: تحمل هذه الصفحة شارة "جديد" بمتغير `tip` مُطبَّق عبر frontmatter.
+تحقق من الشريط الجانبي: تحتوي هذه الصفحة على شارة "جديد" مع متغيّر `tip` مُطبّق عبر الـ frontmatter.
 
 ## الجداول
 
@@ -448,12 +448,12 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 | مخططات Mermaid | مدعوم | متوسطة |
 | شارات العناوين | مدعوم | منخفضة |
 
-### جدول مع المحاذاة والكود
+### جدول مع محاذاة وكود
 
 | الخاصية | النوع | الافتراضي | الوصف |
 |:---------|:----:|--------:|:------------|
 | `title` | `string` | — | عنوان الصفحة المعروض في الرأس |
-| `description` | `string` | `""` | وصف meta لتحسين محركات البحث |
+| `description` | `string` | `""` | وصف ميتا لتحسين محركات البحث |
 | `sidebar.order` | `number` | `0` | ترتيب الفرز في الشريط الجانبي |
 | `sidebar.badge` | `object` | `null` | الشارة المعروضة بجانب تسمية الشريط الجانبي |
 | `template` | `"doc" \| "splash"` | `"doc"` | قالب تخطيط الصفحة |
@@ -492,26 +492,26 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 ## فحوصات السمة
 
-- يختلف لون الحد الأيسر لكل متغير من الملاحظات الجانبية (أزرق، بنفسجي، أصفر، أحمر)
-- صبغة خلفية الملاحظات الجانبية مرئية في الوضعين الفاتح والداكن
-- الظل مرئي بشكل خفي حول كل ملاحظة جانبية
-- زوايا مدوّرة (0.75rem) على جميع الملاحظات الجانبية
-- يستخدم مؤشر التبويب النشط لون اللهجة
-- خط اتصال الخطوات مرئي بين الخطوات المُرقَّمة
-- تبقى التبويبات المتزامنة منسجمة عند التبديل بين المجموعات
-- تُعرض كتل الكود داخل التبويبات مع تمييز بناء الجملة المناسب
+- يختلف لون الحد الأيسر لكل متغيّر من التنبيهات الجانبية (أزرق، بنفسجي، أصفر، أحمر)
+- تنعكس صبغة خلفية التنبيه الجانبي بوضوح في الوضعين الفاتح والداكن
+- الظل خفيف لكنه مرئي حول كل تنبيه جانبي
+- زوايا مدوّرة (0.75rem) على جميع التنبيهات الجانبية
+- يستخدم لون مؤشر التبويب النشط لون التمييز
+- خط موصّل الخطوات مرئي بين الخطوات المرقّمة
+- تبقى التبويبات المتزامنة متزامنة عند التبديل بين المجموعات
+- تُعرض كتل الكود داخل التبويبات مع تمييز صحيح للصياغة
 - يتكيف لون حدود البطاقة بين الوضعين الفاتح والداكن
-- تأثير خلفية التحويم مرئي على البطاقات
-- يطابق لون أيقونة السهم في LinkCard لون اللهجة
-- يُزيح تخطيط التدرج البطاقات المتناوبة عموديًا
+- تأثير خلفية التمرير مرئي على البطاقات
+- يتطابق لون أيقونة السهم في LinkCard مع لون التمييز
+- يُزيح تخطيط التدرج البطاقات المتناوبة عمودياً
 - تُعرض الأيقونات بشكل صحيح داخل رؤوس البطاقات
-- تختلف ألوان خلفية الشارة لكل متغير بين الوضعين الداكن والفاتح
-- تستخدم شارات الوضع الداكن ألوانًا عميقة (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
-- تستخدم شارات الوضع الفاتح ألوانًا فاتحة (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
-- تتمحور شارات العناوين بشكل مضمّن مع نص العنوان
+- تختلف ألوان خلفية الشارة لكل متغيّر بين الوضعين الداكن والفاتح
+- تستخدم شارات الوضع الداكن درجات عميقة (red-4، jade-4، tangerine-4، eggplant-4، bay-4)
+- تستخدم شارات الوضع الفاتح درجات فاتحة (red-1، jade-1، tangerine-1، eggplant-1، bay-1)
+- تتوافق شارات العناوين مع نص العنوان في السطر نفسه
 - تُعرض شارة الشريط الجانبي بجانب تسمية الصفحة
 - تتكيف ألوان حدود الجدول بين الوضعين الفاتح والداكن
 - يمتلك صف رأس الجدول خلفية مميزة
-- يعمل تراكب تكبير الصور عند النقر (starlight-image-zoom)
-- تستخدم خلفية FileTree الألوان المناسبة للسمة
+- يعمل تكبير الصور عند النقر (starlight-image-zoom)
+- تستخدم خلفية شجرة الملفات الألوان المناسبة للسمة
 - ترث الأيقونات لون النص الحالي

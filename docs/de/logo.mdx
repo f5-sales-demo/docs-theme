@@ -1,14 +1,14 @@
 ---
 title: Logo
-description: Wie das Logo konfiguriert wird und wie es ersetzt werden kann.
+description: Wie das Logo konfiguriert wird und wie man es ersetzt.
 sidebar:
   order: 5
 i18n:
-  sourceHash: 2902004c3464
+  sourceHash: a1802e45a3a5
   translator: machine
 ---
 
-Das Dokumentationsthema zeigt ein Logo in der Seitenkopfzeile jeder Dokumentationswebsite an.
+Das Dokumentationsthema zeigt ein Logo im Website-Header jeder Dokumentationswebsite an.
 
 ## Verfügbare Logo-Ressourcen
 
@@ -19,9 +19,9 @@ Das Dokumentationsthema enthält zwei Logo-Dateien im Verzeichnis `assets/`:
 | `assets/f5-logo.svg` | SVG | F5-Logo in Cloud Red (`#e4002b`) |
 | `assets/github-avatar.png` | PNG | GitHub-Organisations-Avatar (Standard) |
 
-## Standardlogo
+## Standard-Logo
 
-Das Standardlogo wird in der Factory `createF5xcDocsConfig` in `config.ts` festgelegt:
+Das Standard-Logo wird in der Factory `createF5xcDocsConfig` in `config.ts` festgelegt:
 
 ```ts
 const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
@@ -29,11 +29,11 @@ const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-ava
 
 Wenn keine `logo`-Option angegeben wird, wird der GitHub-Avatar als PNG verwendet. Der Pfad ist ein npm-Paketbezeichner, der über die `exports`-Zuordnung in `package.json` aufgelöst wird.
 
-## Logo ersetzen
+## Das Logo ersetzen
 
-### Option 1: F5-SVG-Logo verwenden
+### Option 1: Das F5-SVG-Logo verwenden
 
-Übergeben Sie die `logo`-Option an `createF5xcDocsConfig`:
+Übergeben Sie die Option `logo` an `createF5xcDocsConfig`:
 
 ```ts
 import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
@@ -43,9 +43,9 @@ export default createF5xcDocsConfig({
 });
 ```
 
-### Option 2: Benutzerdefiniertes Logo verwenden
+### Option 2: Ein benutzerdefiniertes Logo verwenden
 
-Platzieren Sie Ihre Logo-Datei im Inhalts-Repository und referenzieren Sie sie:
+Legen Sie Ihre Logo-Datei im Content-Repository ab und referenzieren Sie sie:
 
 ```ts
 import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
@@ -72,7 +72,7 @@ export default createF5xcDocsConfig({
 
 ## Richtlinien
 
-- **SVG-Format verwenden** — Rasterbilder (PNG, JPG) funktionieren zwar, skalieren jedoch nicht in allen Größen sauber
-- **Ein `viewBox`-Attribut einschließen** — stellt sicher, dass das Logo proportional skaliert (z. B. `viewBox="0 0 100 100"`)
-- **Dateigröße klein halten** — das Logo wird auf jeder Seite geladen; angestrebt werden sollten unter 10 KB
+- **SVG-Format verwenden** — Rasterbilder (PNG, JPG) funktionieren zwar, werden jedoch nicht in allen Größen sauber skaliert
+- **Ein `viewBox`-Attribut angeben** — stellt sicher, dass das Logo proportional skaliert wird (z. B. `viewBox="0 0 100 100"`)
+- **Dateigröße klein halten** — das Logo wird auf jeder Seite geladen; angestrebt werden sollten weniger als 10 KB
 - **In beiden Designs testen** — überprüfen Sie, ob das Logo sowohl im Hell- als auch im Dunkelmodus korrekt dargestellt wird

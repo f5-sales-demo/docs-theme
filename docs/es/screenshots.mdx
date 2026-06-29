@@ -9,21 +9,21 @@ sidebar:
     text: New
     variant: tip
 i18n:
-  sourceHash: 0b677390b859
+  sourceHash: 2ac551cefb91
   translator: machine
 ---
 
 import Screenshot from '@f5-sales-demo/docs-theme/components/Screenshot.astro';
 
 El componente `Screenshot` renderiza imágenes con conciencia de tema que cambian automáticamente
-entre variantes claras y oscuras cuando el usuario cambia el tema del sitio. Úselo
+entre variantes claras y oscuras cuando el usuario alterna el tema del sitio. Úselo
 siempre que necesite mostrar capturas de pantalla de interfaz de usuario que deban coincidir con el
 esquema de colores actual del lector.
 
 ## Referencia de propiedades
 
 | Propiedad | Tipo | Requerida | Descripción |
-| --------- | ---- | --------- | ----------- |
+| ---- | ---- | -------- | ----------- |
 | `light` | `string` | No | Ruta a la imagen en modo claro |
 | `dark` | `string` | No | Ruta a la imagen en modo oscuro |
 | `alt` | `string` | Sí | Texto alternativo para accesibilidad |
@@ -37,8 +37,8 @@ Cuando se suministran ambas, el componente alterna entre ellas según el tema ac
 
 ## Modo dual (claro + oscuro)
 
-Proporcione ambas propiedades `light` y `dark` para mostrar la variante correcta para cada tema.
-Active el selector de tema en la esquina superior derecha para ver el cambio de imagen.
+Proporcione tanto las propiedades `light` como `dark` para mostrar la variante correcta para cada tema.
+Alterne el selector de tema en la esquina superior derecha para ver cómo cambia la imagen.
 
 <Screenshot
   light="/images/screenshot-example-light.png"
@@ -57,8 +57,8 @@ import Screenshot from '@f5-sales-demo/docs-theme/components/Screenshot.astro';
 ```
 
 :::tip
-Capture siempre las capturas de pantalla en modo claro y oscuro al documentar interfaces de usuario.
-Esto proporciona a los lectores una representación precisa independientemente de su preferencia de tema.
+Capture siempre capturas de pantalla en modo claro y oscuro al documentar la interfaz de usuario.
+Esto ofrece a los lectores una representación precisa independientemente de su preferencia de tema.
 :::
 
 ## Imagen única
@@ -80,7 +80,7 @@ La imagen se renderiza en ambos temas sin alternancia.
 
 ## Con dimensiones
 
-Use `width` y `height` para controlar el tamaño renderizado y evitar desplazamientos de diseño.
+Use `width` y `height` para controlar el tamaño renderizado y evitar el desplazamiento del diseño.
 
 <Screenshot
   light="/images/screenshot-example-light.png"
@@ -110,22 +110,22 @@ Las reglas CSS alternan la visibilidad según el tema activo:
 - **Modo claro** — la imagen `.screenshot-dark` se oculta mediante
   `:root[data-theme="light"] .screenshot-dark \{ display: none \}`
 
-Los selectores adicionales manejan el contenedor `starlight-image-zoom` usando `:has()`
+Los selectores adicionales gestionan el contenedor `starlight-image-zoom` mediante `:has()`
 para que la funcionalidad de zoom funcione correctamente con ambas variantes.
 
-Todas las imágenes de captura de pantalla reciben un estilo consistente: un borde sutil, esquinas
+Todas las imágenes de captura de pantalla reciben un estilo uniforme: un borde sutil, esquinas
 redondeadas y una sombra que se intensifica al pasar el cursor.
 
 ## Comparación con imágenes Markdown
 
 | Característica | Componente `Screenshot` | Markdown `![](url)` |
-| -------------- | ----------------------- | -------------------- |
-| Alternancia según el tema | Sí | No |
+| ------- | ---------------------- | -------------------- |
+| Alternancia con conciencia de tema | Sí | No |
 | Borde y sombra con estilo | Automático | No |
 | Efecto de sombra al pasar el cursor | Sí | No |
-| Soporte de zoom | Funciona con el complemento de zoom de imágenes | Funciona con el complemento de zoom de imágenes |
+| Compatibilidad con zoom | Funciona con el complemento de zoom de imágenes | Funciona con el complemento de zoom de imágenes |
 | Texto alternativo | Propiedad `alt` | `![alt text]()` |
 
-Use el componente `Screenshot` cuando tenga variantes de imagen específicas para cada tema o
-desee la apariencia estilizada de captura de pantalla. Use imágenes Markdown estándar para gráficos
-en línea, diagramas o imágenes que se vean igual en ambos temas.
+Use el componente `Screenshot` cuando disponga de variantes de imagen específicas para cada tema o
+desee la apariencia estilizada de captura de pantalla. Use imágenes estándar de Markdown para
+gráficos en línea, diagramas o imágenes que tengan el mismo aspecto en ambos temas.

@@ -1,22 +1,22 @@
 ---
 title: Instructions
 description: >-
-  Référence de la syntaxe des diagrammes Mermaid, packs d'icônes disponibles,
+  Référence de syntaxe des diagrammes Mermaid, paquets d'icônes disponibles,
   styles CSS et détails de compatibilité des thèmes.
 sidebar:
   order: 2
 i18n:
-  sourceHash: 5ce5851823d9
+  sourceHash: 9e62b1dcd036
   translator: machine
 ---
 
-Le thème inclut un plugin `remark-mermaid` personnalisé (`plugins/remark-mermaid.mjs`) qui convertit les blocs de code ` ```mermaid ` délimités en wrappers `<div class="mermaid-container">`. Le script CDN Mermaid génère des diagrammes SVG au chargement de la page.
+Le thème inclut un plugin `remark-mermaid` personnalisé (`plugins/remark-mermaid.mjs`) qui convertit les blocs de code ` ```mermaid ` délimités en enveloppes `<div class="mermaid-container">`. Le script CDN Mermaid effectue le rendu des diagrammes SVG au chargement de la page.
 
 ## Syntaxe des icônes
 
 ### Diagrammes de flux
 
-Utilisez la syntaxe de nœud `@\{\}` pour ajouter des icônes depuis n'importe quel pack d'icônes enregistré :
+Utilisez la syntaxe de nœud `@\{\}` pour ajouter des icônes depuis n'importe quel paquet d'icônes enregistré :
 
 ```
 nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
@@ -31,12 +31,12 @@ service myService(pack:icon-name)[Label]
 group myGroup(pack:icon-name)[Label]
 ```
 
-## Packs d'icônes disponibles
+## Paquets d'icônes disponibles
 
-Les packs d'icônes suivants sont enregistrés et disponibles dans les diagrammes Mermaid. Les icônes sont chargées de manière différée depuis le CDN uniquement lorsqu'elles sont référencées.
+Les paquets d'icônes suivants sont enregistrés et disponibles dans les diagrammes Mermaid. Les icônes sont chargées en différé depuis le CDN uniquement lorsqu'elles sont référencées.
 
-| Nom du pack | Paquet npm | Icônes principales |
-|-------------|------------|-------------------|
+| Nom du paquet | Paquet npm | Icônes principales |
+|-----------|-------------|-----------|
 | `hashicorp-flight` | `@f5-sales-demo/icons-hashicorp-flight` | `terraform-color`, `consul-color`, `vault-color`, `aws-color`, `azure-color`, `gcp-color`, `kubernetes-color`, `docker-color` |
 | `f5-brand` | `@f5-sales-demo/icons-f5-brand` | `network-gateway`, `security-firewall`, `security-shield-network`, `cloud-multi`, `hw-server` |
 | `f5xc` | `@f5-sales-demo/icons-f5xc` | `web-app-and-api-protection`, `bot-defense`, `multi-cloud-app-connect`, `dns-management`, `content-delivery-network` |
@@ -66,7 +66,7 @@ Les diagrammes Mermaid sont encapsulés dans un conteneur stylisé avec des coin
 
 ### Réinitialisation de l'élément Pre
 
-Le style `<pre>` par défaut de Starlight est supprimé du wrapper mermaid afin que seule la bordure du conteneur extérieur soit visible :
+Le style `<pre>` par défaut de Starlight est supprimé de l'enveloppe mermaid afin que seule la bordure du conteneur externe soit visible :
 
 ```css
 .mermaid-container pre.mermaid {
@@ -79,7 +79,7 @@ Le style `<pre>` par défaut de Starlight est supprimé du wrapper mermaid afin 
 
 ### Forçage du fond SVG
 
-Le SVG intérieur est forcé sur un fond blanc pour assurer la compatibilité avec le mode sombre :
+Le SVG interne est forcé sur un fond blanc pour assurer la compatibilité avec le mode sombre :
 
 ```css
 .mermaid-container svg {
@@ -90,8 +90,8 @@ Le SVG intérieur est forcé sur un fond blanc pour assurer la compatibilité av
 
 ## Vérifications du thème
 
-- `.mermaid-container` dispose d'un fond SVG blanc en mode sombre
+- `.mermaid-container` possède un fond SVG blanc en mode sombre
 - La bordure du conteneur utilise `--sl-color-gray-5`
-- Le conteneur possède un rayon de bordure de 0,75 rem et une ombre portée en couches
-- Les diagrammes sont lisibles aussi bien en thème clair qu'en thème sombre
-- Le script CDN Mermaid se charge et génère les SVG au chargement de la page
+- Le conteneur a un rayon de bordure de 0,75 rem et une ombre portée en couches
+- Les diagrammes sont lisibles dans les thèmes clair et sombre
+- Le script CDN Mermaid se charge et effectue le rendu des SVG au chargement de la page

@@ -1,10 +1,10 @@
 ---
 title: コードブロック
-description: Expressive Code スタイリングのシンタックスハイライト、ターミナルモード、行ハイライト、差分ブロック、CSS リファレンス。
+description: Expressive Code スタイリングのシンタックスハイライト、ターミナルモード、行ハイライト、差分ブロック、および CSS リファレンス。
 sidebar:
   order: 8
 i18n:
-  sourceHash: b458d0378db1
+  sourceHash: b71ea33850c1
   translator: machine
 ---
 
@@ -112,7 +112,7 @@ const config: Config = {
 
 ## ターミナルモード
 
-ターミナルスタイルのコードブロック（` ```bash ` または ` ```sh ` でフェンスされたもの）は、macOS のトラフィックライトドット付きの iTerm にインスパイアされたウィンドウフレームを表示します。
+ターミナルスタイルのコードブロック（` ```bash ` または ` ```sh ` でフェンスされたもの）は、macOS のトラフィックライトドットを持つ iTerm にインスパイアされたウィンドウフレームが適用されます。
 
 ```bash title="Terminal"
 npm install @f5-sales-demo/docs-theme
@@ -123,12 +123,12 @@ npx astro preview
 ### ターミナル CSS リファレンス
 
 ```css
-/* フレームのボーダー */
+/* フレームの枠線 */
 .expressive-code .frame.is-terminal {
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* トラフィックライト SVG ドット付きダークヘッダー */
+/* トラフィックライト SVG ドット付きのダークヘッダー */
 .expressive-code .frame.is-terminal .header {
   background: #323232 !important;
   color: #ccc !important;
@@ -139,7 +139,7 @@ npx astro preview
   background: #1a1b26 !important;
 }
 
-/* ライトモードのボーダーオーバーライド */
+/* ライトモードの枠線オーバーライド */
 :root[data-theme="light"] .expressive-code .frame.is-terminal {
   border-color: rgba(0, 0, 0, 0.2);
 }
@@ -157,9 +157,9 @@ export default {
 ## 行ハイライト
 
 ```js {1,3-5}
-const name = "highlighted"; // 1行目をハイライト
+const name = "highlighted"; // 1行目がハイライト
 const other = "normal";
-const a = 1; // 3〜5行目をハイライト
+const a = 1; // 3〜5行目がハイライト
 const b = 2;
 const c = 3;
 const d = "normal again";
@@ -187,9 +187,9 @@ const config = {
 
 ## CSS リファレンス
 
-### フレームスタイリング
+### フレームのスタイリング
 
-すべてのコードブロックは角丸と多層シャドウを持ちます：
+すべてのコードブロックには角丸と多層シャドウが適用されます：
 
 ```css
 .expressive-code .frame {
@@ -200,7 +200,7 @@ const config = {
 }
 ```
 
-### テーマ対応ボーダー
+### テーマ対応の枠線
 
 ```css
 /* ダークモード（デフォルト） */
@@ -214,13 +214,13 @@ const config = {
 }
 ```
 
-## テーマの確認事項
+## テーマの確認
 
-- コードブロックの背景色はテーマに応じて変化します
-- ターミナルのヘッダー背景は macOS のトラフィックライトドット付きの `#323232` です
-- ターミナルのボーダーはダークモードで `rgba(255, 255, 255, 0.15)`、ライトモードで `rgba(0, 0, 0, 0.2)` を使用します
+- コードブロックの背景色はテーマに合わせて変化します
+- ターミナルヘッダーの背景は macOS トラフィックライトドット付きの `#323232` です
+- ターミナルの枠線はダークモードで `rgba(255, 255, 255, 0.15)`、ライトモードで `rgba(0, 0, 0, 0.2)` を使用します
 - ダークモードのターミナル本体は `#1a1b26` を使用します
-- シンタックスカラーは両方のテーマで読みやすい状態を保ちます
-- 行ハイライトには視認可能な背景色が適用されます
-- 挿入行は緑色のティント、削除行は赤色のティントで表示されます
-- コードブロックは 0.75rem の角丸とボックスシャドウを持ちます
+- シンタックスカラーは両テーマで読みやすさを維持します
+- 行ハイライトには視認性のある背景色が適用されます
+- 挿入行は緑色、削除行は赤色のティントが表示されます
+- コードブロックには 0.75rem の角丸とボックスシャドウが適用されます

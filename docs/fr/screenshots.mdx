@@ -9,7 +9,7 @@ sidebar:
     text: New
     variant: tip
 i18n:
-  sourceHash: 0b677390b859
+  sourceHash: 2ac551cefb91
   translator: machine
 ---
 
@@ -17,13 +17,13 @@ import Screenshot from '@f5-sales-demo/docs-theme/components/Screenshot.astro';
 
 Le composant `Screenshot` affiche des images adaptées au thème qui basculent automatiquement
 entre les variantes claire et sombre lorsque l'utilisateur change le thème du site. Utilisez-le
-chaque fois que vous devez afficher des captures d'écran d'interface qui doivent correspondre au
-schéma de couleurs actuel du lecteur.
+chaque fois que vous devez afficher des captures d'écran d'interface qui doivent correspondre
+au schéma de couleurs actuel du lecteur.
 
-## Référence des propriétés
+## Référence des props
 
-| Propriété | Type | Obligatoire | Description |
-| --------- | ---- | ----------- | ----------- |
+| Prop | Type | Requis | Description |
+| ---- | ---- | ------ | ----------- |
 | `light` | `string` | Non | Chemin vers l'image en mode clair |
 | `dark` | `string` | Non | Chemin vers l'image en mode sombre |
 | `alt` | `string` | Oui | Texte alternatif pour l'accessibilité |
@@ -31,14 +31,14 @@ schéma de couleurs actuel du lecteur.
 | `height` | `number` | Non | Hauteur de l'image en pixels |
 
 :::note
-Au moins l'une des propriétés `light` ou `dark` doit être fournie.
-Lorsque les deux sont renseignées, le composant bascule entre elles en fonction du thème actif.
+Au moins l'une des props `light` ou `dark` doit être fournie.
+Lorsque les deux sont spécifiées, le composant bascule entre elles en fonction du thème actif.
 :::
 
 ## Mode double (clair + sombre)
 
-Fournissez les propriétés `light` et `dark` pour afficher la variante correcte selon chaque thème.
-Utilisez le sélecteur de thème en haut à droite pour voir l'image changer.
+Fournissez les props `light` et `dark` pour afficher la variante correcte pour chaque thème.
+Utilisez le sélecteur de thème en haut à droite pour voir l'image basculer.
 
 <Screenshot
   light="/images/screenshot-example-light.png"
@@ -64,7 +64,7 @@ Cela offre aux lecteurs une représentation fidèle quelle que soit leur préfé
 ## Image unique
 
 Lorsqu'une seule variante est disponible, passez uniquement `light` ou `dark`.
-L'image s'affiche dans les deux thèmes sans basculement.
+L'image s'affiche dans les deux thèmes sans basculer.
 
 <Screenshot
   dark="/images/screenshot-example-dark.png"
@@ -80,7 +80,7 @@ L'image s'affiche dans les deux thèmes sans basculement.
 
 ## Avec dimensions
 
-Utilisez `width` et `height` pour contrôler la taille d'affichage et éviter les décalages de mise en page.
+Utilisez `width` et `height` pour contrôler la taille affichée et éviter les décalages de mise en page.
 
 <Screenshot
   light="/images/screenshot-example-light.png"
@@ -113,19 +113,19 @@ Des règles CSS contrôlent la visibilité en fonction du thème actif :
 Des sélecteurs supplémentaires gèrent le conteneur `starlight-image-zoom` en utilisant `:has()`
 afin que la fonctionnalité de zoom fonctionne correctement avec les deux variantes.
 
-Toutes les images de capture d'écran reçoivent un style cohérent : une bordure subtile, des coins
-arrondis et une ombre portée qui s'intensifie au survol.
+Toutes les images de capture d'écran reçoivent un style cohérent : une bordure subtile, des
+coins arrondis et une ombre portée qui s'intensifie au survol.
 
 ## Comparaison avec les images Markdown
 
 | Fonctionnalité | Composant `Screenshot` | Markdown `![](url)` |
 | -------------- | ---------------------- | -------------------- |
-| Basculement adapté au thème | Oui | Non |
+| Basculement selon le thème | Oui | Non |
 | Bordure et ombre stylisées | Automatique | Non |
 | Effet d'ombre au survol | Oui | Non |
-| Prise en charge du zoom | Fonctionne avec le plugin de zoom d'image | Fonctionne avec le plugin de zoom d'image |
-| Texte alternatif | Propriété `alt` | `![texte alternatif]()` |
+| Support du zoom | Fonctionne avec le plugin de zoom d'image | Fonctionne avec le plugin de zoom d'image |
+| Texte alternatif | Prop `alt` | `![texte alternatif]()` |
 
 Utilisez le composant `Screenshot` lorsque vous disposez de variantes d'image spécifiques au thème ou
-souhaitez l'apparence stylisée des captures d'écran. Utilisez les images Markdown standard pour les
-graphiques intégrés, les diagrammes ou les images identiques dans les deux thèmes.
+que vous souhaitez l'apparence stylisée des captures d'écran. Utilisez les images Markdown standard pour les
+graphiques intégrés, les diagrammes ou les images qui s'affichent de manière identique dans les deux thèmes.

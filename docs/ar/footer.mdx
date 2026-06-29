@@ -1,10 +1,10 @@
 ---
-title: تذييل الصفحة
+title: التذييل
 description: مكوّن تذييل Starlight مخصص مع روابط وسائل التواصل الاجتماعي.
 sidebar:
   order: 11
 i18n:
-  sourceHash: 2dbcf6d139fd
+  sourceHash: c53ea076f073
   translator: machine
 ---
 
@@ -24,11 +24,11 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 </div>
 ```
 
-يـ**وسّع** هذا النمط التذييل الافتراضي بدلاً من استبداله كلياً. يُصيّر `<Default {...Astro.props}><slot /></Default>` تذييل Starlight الأصلي (التنقل بين الصفحات السابقة/التالية)، ثم تُضاف روابط التواصل الاجتماعي أدناه.
+يقوم هذا النمط **بتوسيع** التذييل الافتراضي بدلاً من استبداله كلياً. يُصيّر `<Default {...Astro.props}><slot /></Default>` تذييل Starlight الأصلي (التنقل للأمام/الخلف)، ثم تُضاف روابط وسائل التواصل الاجتماعي أسفله.
 
-## طريقة التسجيل
+## كيفية التسجيل
 
-يُسجَّل التذييل المخصص بواسطة إضافة Starlight في `index.ts`. خلال خطاف `config:setup`، يضبط تجاوز مكوّن `Footer`:
+يُسجَّل تجاوز التذييل بواسطة مكوّن إضافي لـ Starlight في `index.ts`. أثناء خطّاف `config:setup`، يضبط تجاوز مكوّن `Footer`:
 
 ```ts
 updateConfig({
@@ -40,19 +40,19 @@ updateConfig({
 });
 ```
 
-لا تحتاج مستودعات المحتوى إلى تسجيل التذييل يدوياً — فهو يُطبَّق تلقائياً عند تحميل إضافة السمة.
+لا تحتاج مستودعات المحتوى إلى تسجيل التذييل يدوياً — إذ يُطبَّق تلقائياً عند تحميل مكوّن السمة الإضافي.
 
-## روابط التواصل الاجتماعي
+## روابط وسائل التواصل الاجتماعي
 
 | المنصة | الرابط | لون الأيقونة | تسمية Aria |
-|----------|-----|------------|------------|
+|--------|--------|--------------|------------|
 | Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (أزرق Facebook) | Facebook |
 | X | `https://x.com/F5` | `currentColor` (موروث) | X |
 | LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (أزرق LinkedIn) | LinkedIn |
 | Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (وردي Instagram) | Instagram |
 | YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (أحمر YouTube) | YouTube |
 
-يُفتح كل رابط في علامة تبويب جديدة (`target="_blank"`) مع `rel="noopener noreferrer"` للأمان.
+يُفتح كل رابط في علامة تبويب جديدة (`target="_blank"`) مع `rel="noopener noreferrer"` لأغراض الأمان.
 
 ## تنسيق CSS
 
@@ -75,7 +75,7 @@ updateConfig({
 }
 ```
 
-تُحاذى الروابط إلى اليمين في صف مرن مع تأثير تعتيم خفيف عند التمرير.
+تُحاذى الروابط إلى اليمين في صف flex مع تأثير تعتيم خفيف عند التحويم.
 
 ## التخصيص
 
@@ -85,7 +85,7 @@ updateConfig({
 
 ### إضافة رابط
 
-أضف عنصر `<a>` جديداً داخل div الخاص بـ`.social-links` مع أيقونة SVG بأبعاد 24×24. اتبع النمط الموجود:
+أضف عنصر `<a>` جديداً داخل div الخاص بـ `.social-links` مع أيقونة SVG بأبعاد 24×24. اتّبع النمط القائم:
 
 ```html
 <a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
@@ -95,17 +95,17 @@ updateConfig({
 </a>
 ```
 
-### إزالة رابط
+### حذف رابط
 
-احذف كتلة `<a>...</a>` بالكامل الخاصة بالمنصة التي تريد إزالتها.
+احذف كتلة `<a>...</a>` بأكملها الخاصة بالمنصة التي تريد إزالتها.
 
 ### تغيير ألوان الأيقونات
 
-عدّل سمة `fill` على عنصر `<svg>`. استخدم `currentColor` لوراثة لون النص، أو قيمة hex محددة لألوان العلامة التجارية.
+عدّل سمة `fill` على عنصر `<svg>`. استخدم `currentColor` لاستيراث لون النص، أو قيمة hex محددة لألوان العلامة التجارية.
 
 ### تغيير التخطيط
 
-عدّل CSS الخاص بـ`.social-links` في كتلة `<style>`:
-- **المحاذاة الوسطى**: غيّر `justify-content` إلى `center`
-- **التباعد الأوسع**: زد قيمة `gap`
+عدّل CSS الخاص بـ `.social-links` في كتلة `<style>`:
+- **المحاذاة إلى المركز**: غيّر `justify-content` إلى `center`
+- **تباعد أوسع**: زِد قيمة `gap`
 - **المحاذاة إلى اليسار**: غيّر `justify-content` إلى `flex-start`

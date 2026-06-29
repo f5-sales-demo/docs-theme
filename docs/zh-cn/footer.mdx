@@ -4,11 +4,11 @@ description: 自定义 Starlight 页脚组件，包含社交媒体链接。
 sidebar:
   order: 11
 i18n:
-  sourceHash: 2dbcf6d139fd
+  sourceHash: c53ea076f073
   translator: machine
 ---
 
-该主题将默认的 Starlight 页脚替换为自定义的 `Footer.astro` 组件，在标准页脚内容下方添加了社交媒体链接。
+该主题使用自定义 `Footer.astro` 组件替换了默认的 Starlight 页脚，在标准页脚内容下方添加了社交媒体链接。
 
 ## 组件模式
 
@@ -24,11 +24,11 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 </div>
 ```
 
-此模式**扩展**默认页脚，而非完全替换它。`<Default {...Astro.props}><slot /></Default>` 渲染原始的 Starlight 页脚（上一页/下一页导航），随后在其下方追加社交链接。
+此模式**扩展**了默认页脚，而非完全替换它。`<Default {...Astro.props}><slot /></Default>` 渲染原始 Starlight 页脚（上一页/下一页导航），然后在其下方追加社交链接。
 
 ## 注册方式
 
-页脚覆盖由 `index.ts` 中的 Starlight 插件注册。在 `config:setup` 钩子期间，设置 `Footer` 组件覆盖：
+页脚覆盖通过 Starlight 插件在 `index.ts` 中注册。在 `config:setup` 钩子期间，它设置 `Footer` 组件覆盖：
 
 ```ts
 updateConfig({
@@ -40,7 +40,7 @@ updateConfig({
 });
 ```
 
-内容仓库无需手动注册页脚——主题插件加载时会自动应用。
+内容仓库无需手动注册页脚——当主题插件加载时，它将自动应用。
 
 ## 社交链接
 
@@ -52,7 +52,7 @@ updateConfig({
 | Instagram | `https://www.instagram.com/f5.global/` | `#E4405F`（Instagram 粉） | Instagram |
 | YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000`（YouTube 红） | YouTube |
 
-每个链接均在新标签页中打开（`target="_blank"`），并附带 `rel="noopener noreferrer"` 以确保安全性。
+每个链接均在新标签页中打开（`target="_blank"`），并设置 `rel="noopener noreferrer"` 以确保安全性。
 
 ## CSS 样式
 
@@ -75,17 +75,17 @@ updateConfig({
 }
 ```
 
-链接以弹性行布局右对齐，悬停时带有细微的透明度效果。
+链接以弹性行布局右对齐，悬停时具有微妙的透明度效果。
 
 ## 自定义
 
 ### 修改 URL
 
-在 `@f5-sales-demo/docs-theme` 包的 `components/Footer.astro` 中，编辑对应 `<a>` 标签的 `href` 属性。
+在 `@f5-sales-demo/docs-theme` 包的 `components/Footer.astro` 中，编辑对应 `<a>` 标签上的 `href` 属性。
 
 ### 添加链接
 
-在 `.social-links` div 内添加一个新的 `<a>` 元素，并附带 24x24 的 SVG 图标。参照现有模式：
+在 `.social-links` div 内添加一个新的 `<a>` 元素，并附上 24x24 的 SVG 图标。遵循现有模式：
 
 ```html
 <a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Platform Name">
@@ -95,13 +95,13 @@ updateConfig({
 </a>
 ```
 
-### 删除链接
+### 移除链接
 
-删除您想移除的平台对应的完整 `<a>...</a>` 代码块。
+删除您想要移除的平台对应的整个 `<a>...</a>` 块。
 
 ### 修改图标颜色
 
-修改 `<svg>` 元素上的 `fill` 属性。使用 `currentColor` 可继承文本颜色，或使用特定十六进制值来设置品牌颜色。
+修改 `<svg>` 元素上的 `fill` 属性。使用 `currentColor` 继承文本颜色，或使用特定的十六进制值表示品牌颜色。
 
 ### 修改布局
 

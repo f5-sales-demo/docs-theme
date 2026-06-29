@@ -4,15 +4,15 @@ description: Comment le logo est configuré et comment le remplacer.
 sidebar:
   order: 5
 i18n:
-  sourceHash: 2902004c3464
+  sourceHash: a1802e45a3a5
   translator: machine
 ---
 
-Le thème affiche un logo dans l'en-tête du site de chaque site de documentation.
+Le thème affiche un logo dans l'en-tête de chaque site de documentation.
 
 ## Ressources de logo disponibles
 
-Le thème est livré avec deux fichiers de logo dans le répertoire `assets/` :
+Le thème inclut deux fichiers de logo dans le répertoire `assets/` :
 
 | Fichier | Format | Description |
 |---------|--------|-------------|
@@ -27,9 +27,9 @@ Le logo par défaut est défini dans la fabrique `createF5xcDocsConfig` dans `co
 const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/github-avatar.png' };
 ```
 
-Si aucune option `logo` n'est fournie, le PNG de l'avatar GitHub est utilisé. Le chemin est un spécificateur de paquet npm résolu via la carte `exports` dans `package.json`.
+Si aucune option `logo` n'est fournie, l'avatar GitHub au format PNG est utilisé. Le chemin est un spécificateur de paquet npm résolu via la carte `exports` dans `package.json`.
 
-## Remplacement du logo
+## Remplacer le logo
 
 ### Option 1 : Utiliser le logo SVG F5
 
@@ -72,7 +72,7 @@ export default createF5xcDocsConfig({
 
 ## Recommandations
 
-- **Utiliser le format SVG** — les images matricielles (PNG, JPG) fonctionneront mais ne s'adapteront pas parfaitement à toutes les tailles
-- **Inclure un attribut `viewBox`** — garantit que le logo se redimensionne proportionnellement (par exemple, `viewBox="0 0 100 100"`)
-- **Maintenir une taille de fichier réduite** — le logo se charge sur chaque page ; visez moins de 10 Ko
-- **Tester dans les deux thèmes** — vérifiez que le logo s'affiche correctement en mode clair et en mode sombre
+- **Utilisez le format SVG** — les images matricielles (PNG, JPG) fonctionnent, mais ne s'adaptent pas proprement à toutes les tailles
+- **Incluez un attribut `viewBox`** — garantit que le logo s'adapte proportionnellement (ex. : `viewBox="0 0 100 100"`)
+- **Limitez la taille du fichier** — le logo se charge sur chaque page ; visez moins de 10 Ko
+- **Testez dans les deux thèmes** — vérifiez que le logo s'affiche correctement en modes clair et sombre

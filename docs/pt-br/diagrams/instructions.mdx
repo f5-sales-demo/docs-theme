@@ -6,11 +6,11 @@ description: >-
 sidebar:
   order: 2
 i18n:
-  sourceHash: 5ce5851823d9
+  sourceHash: 9e62b1dcd036
   translator: machine
 ---
 
-O tema inclui um plugin `remark-mermaid` personalizado (`plugins/remark-mermaid.mjs`) que converte blocos de código ` ```mermaid ` em wrappers `<div class="mermaid-container">`. O script CDN do Mermaid renderiza diagramas SVG no carregamento da página.
+O tema inclui um plugin personalizado `remark-mermaid` (`plugins/remark-mermaid.mjs`) que converte blocos de código ` ```mermaid ` delimitados em elementos `<div class="mermaid-container">`. O script CDN do Mermaid renderiza diagramas SVG no carregamento da página.
 
 ## Sintaxe de Ícones
 
@@ -24,7 +24,7 @@ nodeName@{ icon: 'pack:icon-name', label: 'Display Label' }
 
 ### Diagramas de Arquitetura
 
-O tipo de diagrama `architecture-beta` suporta definições de serviço e grupo com nós decorados com ícones:
+O tipo de diagrama `architecture-beta` suporta definições de serviços e grupos com nós decorados com ícones:
 
 ```
 service myService(pack:icon-name)[Label]
@@ -33,7 +33,7 @@ group myGroup(pack:icon-name)[Label]
 
 ## Pacotes de Ícones Disponíveis
 
-Os seguintes pacotes de ícones estão registrados e disponíveis nos diagramas Mermaid. Os ícones são carregados de forma lazy a partir do CDN somente quando referenciados.
+Os seguintes pacotes de ícones estão registrados e disponíveis em diagramas Mermaid. Os ícones são carregados de forma lazy a partir do CDN somente quando referenciados.
 
 | Nome do Pacote | Pacote npm | Ícones Principais |
 |-----------|-------------|-----------|
@@ -51,7 +51,7 @@ Os seguintes pacotes de ícones estão registrados e disponíveis nos diagramas 
 
 ### Estilização do Contêiner
 
-Os diagramas Mermaid são envoltos em um contêiner estilizado com cantos arredondados e uma sombra de caixa em camadas:
+Os diagramas Mermaid são envolvidos em um contêiner estilizado com cantos arredondados e uma sombra de caixa em camadas:
 
 ```css
 .mermaid-container {
@@ -64,9 +64,9 @@ Os diagramas Mermaid são envoltos em um contêiner estilizado com cantos arredo
 }
 ```
 
-### Reset do Elemento Pre
+### Redefinição do Elemento Pre
 
-A estilização padrão do `<pre>` do Starlight é removida do wrapper mermaid para que apenas a borda do contêiner externo fique visível:
+A estilização padrão do `<pre>` do Starlight é removida do wrapper mermaid para que apenas a borda do contêiner externo seja visível:
 
 ```css
 .mermaid-container pre.mermaid {
@@ -77,9 +77,9 @@ A estilização padrão do `<pre>` do Starlight é removida do wrapper mermaid p
 }
 ```
 
-### Forçando o Fundo do SVG
+### Forçar Fundo do SVG
 
-O SVG interno é forçado a ter um fundo branco para compatibilidade com o modo escuro:
+O SVG interno é forçado a ter fundo branco para compatibilidade com o modo escuro:
 
 ```css
 .mermaid-container svg {
@@ -92,6 +92,6 @@ O SVG interno é forçado a ter um fundo branco para compatibilidade com o modo 
 
 - `.mermaid-container` possui fundo SVG branco no modo escuro
 - A borda do contêiner utiliza `--sl-color-gray-5`
-- O contêiner possui raio de borda de 0.75rem e sombra de caixa em camadas
-- Os diagramas são legíveis nos temas claro e escuro
-- O script CDN do Mermaid carrega e renderiza os SVGs no carregamento da página
+- O contêiner possui raio de borda de 0,75rem e sombra de caixa em camadas
+- Os diagramas são legíveis tanto nos temas claro quanto escuro
+- O script CDN do Mermaid carrega e renderiza SVGs no carregamento da página

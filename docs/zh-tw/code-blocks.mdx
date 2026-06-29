@@ -4,7 +4,7 @@ description: Expressive Code 樣式的語法高亮、終端機模式、行高亮
 sidebar:
   order: 8
 i18n:
-  sourceHash: b458d0378db1
+  sourceHash: b71ea33850c1
   translator: machine
 ---
 
@@ -112,7 +112,7 @@ const config: Config = {
 
 ## 終端機模式
 
-以 ` ```bash ` 或 ` ```sh ` 圍欄的終端機風格程式碼區塊，將套用仿 iTerm 的視窗框架，並顯示 macOS 交通號誌圓點。
+終端機風格的程式碼區塊（以 ` ```bash ` 或 ` ```sh ` 圍起）會套用仿 iTerm 的視窗框架，並顯示 macOS 交通燈號圓點。
 
 ```bash title="Terminal"
 npm install @f5-sales-demo/docs-theme
@@ -128,13 +128,13 @@ npx astro preview
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* 深色標題列搭配交通號誌 SVG 圓點 */
+/* 深色標題列搭配交通燈號 SVG 圓點 */
 .expressive-code .frame.is-terminal .header {
   background: #323232 !important;
   color: #ccc !important;
 }
 
-/* 深色模式終端機主體 — 靈感來自 Tokyo Night */
+/* 深色模式終端機內容 — 受 Tokyo Night 啟發 */
 :root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
   background: #1a1b26 !important;
 }
@@ -189,7 +189,7 @@ const config = {
 
 ### 框架樣式
 
-所有程式碼區塊均具有圓角及多層陰影效果：
+所有程式碼區塊均套用圓角及多層陰影：
 
 ```css
 .expressive-code .frame {
@@ -200,7 +200,7 @@ const config = {
 }
 ```
 
-### 主題感知邊框
+### 佈景主題感知邊框
 
 ```css
 /* 深色模式（預設） */
@@ -214,13 +214,13 @@ const config = {
 }
 ```
 
-## 主題檢查
+## 佈景主題檢查
 
-- 程式碼區塊背景色會隨主題自動調整
-- 終端機標題列背景為 `#323232`，並顯示 macOS 交通號誌圓點
-- 終端機邊框在深色模式使用 `rgba(255, 255, 255, 0.15)`，淺色模式使用 `rgba(0, 0, 0, 0.2)`
-- 深色模式終端機主體使用 `#1a1b26`
-- 兩種主題下語法顏色均保持清晰可讀
-- 行高亮具有可見的背景色調
+- 程式碼區塊背景色會依佈景主題自動調整
+- 終端機標題列背景為 `#323232`，並顯示 macOS 交通燈號圓點
+- 終端機邊框在深色模式使用 `rgba(255, 255, 255, 0.15)`，在淺色模式使用 `rgba(0, 0, 0, 0.2)`
+- 深色模式終端機內容區使用 `#1a1b26`
+- 語法顏色在兩種佈景主題下均保持清晰可讀
+- 行高亮具有明顯的背景色調
 - 插入行顯示綠色色調，刪除行顯示紅色色調
-- 程式碼區塊具有 0.75rem 圓角及盒陰影
+- 程式碼區塊具有 0.75rem 圓角半徑及方塊陰影

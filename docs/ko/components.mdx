@@ -1,47 +1,47 @@
 ---
 title: 구성 요소
-description: 'Starlight 내장 구성 요소 — 참고 상자, 탭, 단계, 카드, 배지, 표, 이미지, 파일 트리.'
+description: 'Starlight 내장 구성 요소 — 어사이드, 탭, 단계, 카드, 배지, 테이블, 이미지, 파일 트리.'
 sidebar:
   order: 9
   badge:
     text: New
     variant: tip
 i18n:
-  sourceHash: aadd8fb32c48
+  sourceHash: fe9a5a6b7301
   translator: machine
 ---
 
 import { Aside, Tabs, TabItem, Steps, Card, CardGrid, Badge, FileTree } from '@astrojs/starlight/components';
 import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
-## 참고 상자
+## 어사이드
 
-각 참고 상자 유형은 기본 제목과 함께 `:::` 펜스 구문을 사용합니다.
+각 어사이드 유형은 기본 제목과 함께 `:::` 펜스 구문을 사용합니다.
 
 :::note
-이것은 **노트** 참고 상자입니다. 독자가 알아야 할 보충 정보에 주의를 끕니다.
+이것은 **note** 어사이드입니다. 독자가 알아야 할 보충 정보에 주의를 끕니다.
 :::
 
 :::tip
-이것은 **팁** 참고 상자입니다. 모범 사례나 유용한 단축키를 강조합니다.
+이것은 **tip** 어사이드입니다. 모범 사례 또는 유용한 단축키를 강조합니다.
 :::
 
 :::caution
-이것은 **주의** 참고 상자입니다. 잠재적인 함정이나 명확하지 않은 동작에 대해 경고합니다.
+이것은 **caution** 어사이드입니다. 잠재적인 함정이나 명확하지 않은 동작에 대해 경고합니다.
 :::
 
 :::danger
-이것은 **위험** 참고 상자입니다. 파괴적이거나 되돌릴 수 없는 작업을 표시합니다.
+이것은 **danger** 어사이드입니다. 파괴적이거나 되돌릴 수 없는 작업을 표시합니다.
 :::
 
-### 사용자 지정 제목
+### 사용자 정의 제목
 
 <Aside type="note" title="Custom Note Title">
-이 참고 상자는 사용자 지정 제목 재정의가 포함된 `<Aside>` 구성 요소를 사용합니다.
+이 어사이드는 사용자 정의 제목이 적용된 `<Aside>` 구성 요소를 사용합니다.
 </Aside>
 
 <Aside type="tip" title="Pro Tip">
-참고 상자 구성 요소 내부에 **볼드**, *이탤릭*, `인라인 코드`를 중첩할 수 있습니다.
+어사이드 구성 요소 내부에 **볼드**, *이탤릭*, `인라인 코드`를 중첩할 수 있습니다.
 </Aside>
 
 <Aside type="caution" title="Watch Out">
@@ -52,10 +52,10 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 `git reset --hard`를 실행하면 커밋되지 않은 변경 사항이 영구적으로 삭제됩니다.
 </Aside>
 
-### 참고 상자 내 다양한 콘텐츠
+### 어사이드 내부의 풍부한 콘텐츠
 
-:::tip[혼합 콘텐츠가 있는 참고 상자]
-다음은 참고 상자 내부의 코드 블록입니다:
+:::tip[혼합 콘텐츠가 있는 어사이드]
+다음은 어사이드 내부의 코드 블록입니다:
 
 ```bash
 npm install @astrojs/starlight
@@ -68,9 +68,9 @@ npm install @astrojs/starlight
 - [Starlight 문서 링크](https://starlight.astro.build)가 있는 세 번째 항목
 :::
 
-### 참고 상자 CSS
+### 어사이드 CSS
 
-Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어드 그림자를 갖습니다:
+Starlight의 내장 어사이드 구성 요소는 둥근 모서리와 레이어드 그림자를 적용받습니다:
 
 ```css
 .starlight-aside {
@@ -88,7 +88,7 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
     이것은 개요 탭 콘텐츠입니다. 기본 탭 렌더링을 확인하기 위한 일반 텍스트가 포함되어 있습니다.
   </TabItem>
   <TabItem label="Details">
-    이것은 세부 정보 탭입니다. 탭 간 전환은 페이지 새로고침 없이 즉시 이루어져야 합니다.
+    이것은 세부 정보 탭입니다. 탭 간 전환은 페이지 새로 고침 없이 즉시 이루어져야 합니다.
   </TabItem>
 </Tabs>
 
@@ -105,9 +105,9 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
     ```
   </TabItem>
   <TabItem label="List">
-    - 탭 내부의 항목 1
-    - **볼드 텍스트**가 있는 항목 2
-    - `인라인 코드`가 있는 항목 3
+    - 탭 내부의 첫 번째 항목
+    - **볼드 텍스트**가 있는 두 번째 항목
+    - `인라인 코드`가 있는 세 번째 항목
   </TabItem>
 </Tabs>
 
@@ -115,7 +115,7 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
 
 이 두 탭 그룹은 `syncKey="pkg"`를 공유합니다. 한 그룹에서 탭을 선택하면 다른 그룹도 업데이트됩니다.
 
-**설치 명령어:**
+**설치 명령:**
 
 <Tabs syncKey="pkg">
   <TabItem label="npm">
@@ -135,7 +135,7 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
   </TabItem>
 </Tabs>
 
-**실행 명령어:**
+**실행 명령:**
 
 <Tabs syncKey="pkg">
   <TabItem label="npm">
@@ -159,7 +159,7 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
 
 <Steps>
 
-1. **저장소 복제**
+1. **저장소 클론**
 
    ```bash
    git clone https://github.com/example/repo.git
@@ -178,7 +178,7 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
    npm run dev
    ```
 
-   사이트는 `http://localhost:4321`에서 접근할 수 있습니다.
+   사이트는 `http://localhost:4321`에서 이용할 수 있습니다.
 
 </Steps>
 
@@ -187,23 +187,23 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
 ### 단일 카드
 
 <Card title="Single Card" icon="star">
-  이것은 아이콘이 있는 독립형 카드입니다. 카드는 주요 정보나 기능을 강조하는 데 유용합니다.
+  아이콘이 있는 독립형 카드입니다. 카드는 주요 정보나 기능을 강조하는 데 유용합니다.
 </Card>
 
 ### 카드 그리드
 
 <CardGrid>
   <Card title="Performance" icon="rocket">
-    Astro는 빠른 페이지 로드를 위해 기본적으로 제로 JS를 제공합니다.
+    Astro는 빠른 페이지 로드를 위해 기본적으로 제로-JS를 제공합니다.
   </Card>
   <Card title="Customizable" icon="pencil">
     Starlight는 광범위한 테마 및 플러그인 옵션을 제공합니다.
   </Card>
   <Card title="Accessible" icon="heart">
-    내장 접근성 기능으로 모든 사용자가 콘텐츠에 접근할 수 있습니다.
+    내장 접근성 기능으로 모든 사람이 콘텐츠에 접근할 수 있습니다.
   </Card>
   <Card title="Documented" icon="open-book">
-    포괄적인 문서화로 시작이 간편합니다.
+    포괄적인 문서화로 시작하기가 간단합니다.
   </Card>
 </CardGrid>
 
@@ -211,16 +211,16 @@ Starlight의 내장 참고 상자 구성 요소는 둥근 모서리와 레이어
 
 <CardGrid stagger>
   <Card title="Step One" icon="setting">
-    프로젝트 설정과 환경 변수를 구성하세요.
+    프로젝트 설정 및 환경 변수를 구성합니다.
   </Card>
   <Card title="Step Two" icon="document">
-    MDX 형식을 사용하여 콘텐츠 페이지를 만드세요.
+    MDX 형식을 사용하여 콘텐츠 페이지를 만듭니다.
   </Card>
   <Card title="Step Three" icon="laptop">
-    개발 서버로 로컬에서 미리보기하세요.
+    개발 서버로 로컬에서 미리 봅니다.
   </Card>
   <Card title="Step Four" icon="rocket">
-    원하는 호스팅 플랫폼에 배포하세요.
+    원하는 호스팅 플랫폼에 배포합니다.
   </Card>
 </CardGrid>
 
@@ -235,19 +235,19 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 <CardGrid>
   <LinkCard
     title="Starlight Documentation"
-    description="Learn how to build documentation sites with Starlight."
+    description="Starlight로 문서 사이트를 구축하는 방법을 알아보세요."
     href="https://starlight.astro.build"
   />
   <LinkCard
     title="Astro Documentation"
-    description="Explore the Astro framework for content-driven websites."
+    description="콘텐츠 중심 웹사이트를 위한 Astro 프레임워크를 탐색하세요."
     href="https://docs.astro.build"
   />
 </CardGrid>
 
 #### 아이콘 포함
 
-`prefix:name` 구문을 사용하여 `icon` prop을 추가하세요. 8개의 아이콘 패키지가 모두 지원됩니다 — 전체 카탈로그는 [아이콘 패키지](https://f5-sales-demo.github.io/docs-icons/) 문서를 참조하세요.
+`prefix:name` 구문을 사용하여 `icon` prop을 추가합니다. 8개의 아이콘 팩이 모두 지원됩니다 — 전체 카탈로그는 [아이콘 패키지](https://f5-sales-demo.github.io/docs-icons/) 문서를 참조하세요.
 
 ##### Lucide (`lucide:`)
 
@@ -255,13 +255,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   <LinkCard
     icon="lucide:shield-check"
     title="Web App Firewall"
-    description="Firewall policies and configuration."
+    description="방화벽 정책 및 구성."
     href="https://f5-sales-demo.github.io/waf/"
   />
   <LinkCard
     icon="lucide:globe"
     title="Multi-Cloud Networking"
-    description="Site connectivity across clouds."
+    description="클라우드 간 사이트 연결."
     href="https://f5-sales-demo.github.io/mcn/"
   />
 </CardGrid>
@@ -272,13 +272,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   <LinkCard
     icon="carbon:security"
     title="Security Services"
-    description="IBM Carbon security icon set."
+    description="IBM Carbon 보안 아이콘 세트."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="carbon:cloud"
     title="Cloud Services"
-    description="IBM Carbon cloud icon set."
+    description="IBM Carbon 클라우드 아이콘 세트."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -289,13 +289,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   <LinkCard
     icon="mdi:shield-lock"
     title="Access Control"
-    description="Material Design shield lock icon."
+    description="Material Design 방패 잠금 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="mdi:database"
     title="Data Management"
-    description="Material Design database icon."
+    description="Material Design 데이터베이스 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -306,13 +306,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   <LinkCard
     icon="phosphor:shield"
     title="Threat Defense"
-    description="Phosphor shield icon."
+    description="Phosphor 방패 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="phosphor:globe"
     title="Global Network"
-    description="Phosphor globe icon."
+    description="Phosphor 지구본 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -323,13 +323,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   <LinkCard
     icon="tabler:cloud"
     title="Cloud Platform"
-    description="Tabler cloud icon."
+    description="Tabler 클라우드 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="tabler:rocket"
     title="Deployment"
-    description="Tabler rocket icon."
+    description="Tabler 로켓 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -340,32 +340,32 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   <LinkCard
     icon="f5-brand:cloud-shield-checkmark"
     title="Cloud Security"
-    description="F5 branded cloud shield icon."
+    description="F5 브랜드 클라우드 방패 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5-brand:security-firewall"
     title="Firewall"
-    description="F5 branded firewall icon."
+    description="F5 브랜드 방화벽 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
 
 ##### F5 Distributed Cloud (`f5xc:`)
 
-이 아이콘들은 다중 색상이며 라이트/다크 모드 색상 적응을 위해 CSS 사용자 지정 속성을 사용합니다.
+이 아이콘들은 멀티컬러이며 라이트/다크 모드 색상 적응을 위해 CSS 사용자 정의 속성을 사용합니다.
 
 <CardGrid>
   <LinkCard
     icon="f5xc:web-app-and-api-protection"
     title="App & API Protection"
-    description="F5 XC web app and API protection icon."
+    description="F5 XC 웹 앱 및 API 보호 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="f5xc:bot-defense"
     title="Bot Defense"
-    description="F5 XC bot defense icon."
+    description="F5 XC 봇 방어 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -376,13 +376,13 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
   <LinkCard
     icon="hashicorp-flight:terraform-color"
     title="Terraform"
-    description="HashiCorp Terraform icon."
+    description="HashiCorp Terraform 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
   <LinkCard
     icon="hashicorp-flight:consul-color"
     title="Consul"
-    description="HashiCorp Consul icon."
+    description="HashiCorp Consul 아이콘."
     href="https://f5-sales-demo.github.io/docs-icons/"
   />
 </CardGrid>
@@ -391,7 +391,7 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 ### 인라인 배지 변형
 
-인라인으로 렌더링된 6가지 배지 변형 모두:
+6가지 배지 변형을 인라인으로 렌더링:
 
 <Badge text="Default" /> <Badge text="Note" variant="note" /> <Badge text="Danger" variant="danger" /> <Badge text="Success" variant="success" /> <Badge text="Tip" variant="tip" /> <Badge text="Caution" variant="caution" />
 
@@ -399,7 +399,7 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 <Badge text="Small" size="small" /> <Badge text="Medium" size="medium" /> <Badge text="Large" size="large" />
 
-변형이 있는 각 크기:
+각 크기별 변형:
 
 <Badge text="Small Tip" variant="tip" size="small" /> <Badge text="Medium Danger" variant="danger" size="medium" /> <Badge text="Large Success" variant="success" size="large" />
 
@@ -407,52 +407,52 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 
 다음 제목들은 `starlight-heading-badges` 플러그인 구문을 사용합니다.
 
-#### 기능 완료 :badge[Stable]{variant=success}
+#### Feature Complete :badge[Stable]{variant=success}
 
 이 제목에는 기능이 안정적임을 나타내는 성공 배지가 있습니다.
 
-#### 실험적 API :badge[Beta]{variant=caution}
+#### Experimental API :badge[Beta]{variant=caution}
 
 이 제목에는 API가 실험적임을 나타내는 주의 배지가 있습니다.
 
-#### 레거시 시스템 :badge[Deprecated]{variant=danger}
+#### Legacy System :badge[Deprecated]{variant=danger}
 
 이 제목에는 지원 중단을 나타내는 위험 배지가 있습니다.
 
-#### 새 기능 :badge[New]{variant=tip}
+#### New Feature :badge[New]{variant=tip}
 
-이 제목에는 새 기능을 나타내는 팁 배지가 있습니다.
+이 제목에는 새로운 기능을 나타내는 팁 배지가 있습니다.
 
-#### 문서화 :badge[Updated]{variant=note}
+#### Documentation :badge[Updated]{variant=note}
 
 이 제목에는 최근 업데이트를 나타내는 노트 배지가 있습니다.
 
-#### 기본 배지 :badge[Info]
+#### Default Badge :badge[Info]
 
 이 제목에는 변형이 지정되지 않은 기본 배지가 있습니다.
 
 ### 사이드바 배지
 
-사이드바를 확인하세요: 이 페이지에는 프론트매터를 통해 적용된 `tip` 변형의 "New" 배지가 있습니다.
+사이드바를 확인하세요: 이 페이지에는 프론트매터를 통해 `tip` 변형이 적용된 "New" 배지가 있습니다.
 
-## 표
+## 테이블
 
-### 간단한 표
+### 단순 테이블
 
 | 기능 | 상태 | 우선순위 |
 |---------|--------|----------|
 | 다크 모드 | 지원됨 | 높음 |
-| 이미지 확대 | 지원됨 | 중간 |
-| Mermaid 다이어그램 | 지원됨 | 중간 |
+| 이미지 줌 | 지원됨 | 보통 |
+| Mermaid 다이어그램 | 지원됨 | 보통 |
 | 제목 배지 | 지원됨 | 낮음 |
 
-### 정렬 및 코드가 있는 표
+### 정렬 및 코드가 있는 테이블
 
-| 속성 | 유형 | 기본값 | 설명 |
+| 속성 | 타입 | 기본값 | 설명 |
 |:---------|:----:|--------:|:------------|
 | `title` | `string` | — | 헤더에 표시되는 페이지 제목 |
 | `description` | `string` | `""` | SEO를 위한 메타 설명 |
-| `sidebar.order` | `number` | `0` | 사이드바의 정렬 순서 |
+| `sidebar.order` | `number` | `0` | 사이드바에서의 정렬 순서 |
 | `sidebar.badge` | `object` | `null` | 사이드바 레이블 옆에 표시되는 배지 |
 | `template` | `"doc" \| "splash"` | `"doc"` | 페이지 레이아웃 템플릿 |
 
@@ -488,28 +488,28 @@ import LinkCard from '@f5-sales-demo/docs-theme/components/LinkCard.astro';
 - package.json
 </FileTree>
 
-## 테마 확인
+## 테마 확인 사항
 
-- 테두리 왼쪽 색상이 참고 상자 변형마다 다름 (파란색, 보라색, 노란색, 빨간색)
-- 참고 상자 배경 색조가 라이트 및 다크 모드 모두에서 보임
-- 박스 그림자가 각 참고 상자 주변에 미묘하지만 보임
-- 모든 참고 상자에 둥근 모서리 (0.75rem) 적용
-- 탭 활성 표시기 색상이 액센트 색상을 사용
-- 번호가 매겨진 단계 사이에 단계 연결선이 보임
-- 그룹 간 전환 시 동기화된 탭이 동기화 상태 유지
-- 탭 내부의 코드 블록이 적절한 구문 강조 표시로 렌더링됨
-- 카드 테두리 색상이 라이트 및 다크 모드 간 적응
-- 카드에 호버 배경 효과가 보임
-- LinkCard 화살표 아이콘 색상이 액센트 색상과 일치
-- 스태거 레이아웃이 교대로 카드를 수직으로 오프셋
-- 카드 헤더 내부에 아이콘이 올바르게 렌더링됨
-- 배지 배경 색상이 변형에 따라 다크 모드와 라이트 모드에서 다름
-- 다크 모드 배지는 짙은 톤 사용 (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
-- 라이트 모드 배지는 밝은 톤 사용 (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
+- 어사이드 변형별 왼쪽 테두리 색상이 다름 (파란색, 보라색, 노란색, 빨간색)
+- 어사이드 배경 색조가 라이트 및 다크 모드 모두에서 보임
+- 각 어사이드 주변에 박스 그림자가 미묘하지만 보임
+- 모든 어사이드에 둥근 모서리 (0.75rem) 적용
+- 탭 활성 표시기 색상이 강조 색상을 사용함
+- 번호가 매겨진 단계 사이에 단계 연결 선이 보임
+- 동기화된 탭은 그룹 간 전환 시 동기화 상태를 유지함
+- 탭 내부의 코드 블록이 적절한 구문 강조와 함께 렌더링됨
+- 카드 테두리 색상이 라이트 및 다크 모드 간에 적응함
+- 카드에 마우스를 올리면 배경 효과가 보임
+- LinkCard 화살표 아이콘 색상이 강조 색상과 일치함
+- 스태거 레이아웃이 교대 카드를 수직으로 오프셋함
+- 아이콘이 카드 헤더 내부에서 올바르게 렌더링됨
+- 배지 배경 색상이 변형별로 다크 및 라이트 모드 간에 다름
+- 다크 모드 배지는 진한 색조 사용 (red-4, jade-4, tangerine-4, eggplant-4, bay-4)
+- 라이트 모드 배지는 밝은 색조 사용 (red-1, jade-1, tangerine-1, eggplant-1, bay-1)
 - 제목 배지가 제목 텍스트와 인라인으로 정렬됨
 - 사이드바 배지가 페이지 레이블 옆에 렌더링됨
-- 표 테두리 색상이 라이트 및 다크 모드 간 적응
-- 표 헤더 행이 명확한 배경을 가짐
-- 이미지 확대 오버레이가 클릭 시 작동 (starlight-image-zoom)
-- FileTree 배경이 테마에 적합한 색상 사용
+- 테이블 테두리 색상이 라이트 및 다크 모드 간에 적응함
+- 테이블 헤더 행에 뚜렷한 배경이 있음
+- 이미지 줌 오버레이가 클릭 시 작동함 (starlight-image-zoom)
+- FileTree 배경이 테마에 적합한 색상을 사용함
 - 아이콘이 현재 텍스트 색상을 상속함

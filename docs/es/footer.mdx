@@ -1,18 +1,18 @@
 ---
-title: Footer
+title: Pie de página
 description: >-
   Componente de pie de página personalizado de Starlight con enlaces a redes
   sociales.
 sidebar:
   order: 11
 i18n:
-  sourceHash: 2dbcf6d139fd
+  sourceHash: c53ea076f073
   translator: machine
 ---
 
-El tema reemplaza el pie de página predeterminado de Starlight con un componente personalizado `Footer.astro` que añade enlaces a redes sociales debajo del contenido estándar del pie de página.
+El tema reemplaza el pie de página predeterminado de Starlight por un componente personalizado `Footer.astro` que agrega enlaces a redes sociales debajo del contenido estándar del pie de página.
 
-## Patrón del Componente
+## Patrón del componente
 
 ```astro
 ---
@@ -26,11 +26,11 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 </div>
 ```
 
-Este patrón **extiende** el pie de página predeterminado en lugar de reemplazarlo por completo. `<Default {...Astro.props}><slot /></Default>` renderiza el pie de página original de Starlight (navegación anterior/siguiente), y luego los enlaces sociales se añaden a continuación.
+Este patrón **extiende** el pie de página predeterminado en lugar de reemplazarlo por completo. `<Default {...Astro.props}><slot /></Default>` renderiza el pie de página original de Starlight (navegación anterior/siguiente), y luego los enlaces a redes sociales se añaden a continuación.
 
-## Cómo se Registra
+## Cómo se registra
 
-La sobreescritura del pie de página es registrada por el plugin de Starlight en `index.ts`. Durante el hook `config:setup`, establece la sobreescritura del componente `Footer`:
+La sustitución del pie de página es registrada por el plugin de Starlight en `index.ts`. Durante el hook `config:setup`, establece la sustitución del componente `Footer`:
 
 ```ts
 updateConfig({
@@ -44,17 +44,17 @@ updateConfig({
 
 Los repositorios de contenido no necesitan registrar el pie de página manualmente — se aplica automáticamente cuando se carga el plugin del tema.
 
-## Enlaces Sociales
+## Enlaces a redes sociales
 
-| Plataforma | URL | Color del ícono | Aria Label |
-|------------|-----|-----------------|------------|
+| Plataforma | URL | Color del ícono | Etiqueta Aria |
+|------------|-----|-----------------|---------------|
 | Facebook | `https://www.facebook.com/f5incorporated` | `#1877F2` (Azul de Facebook) | Facebook |
 | X | `https://x.com/F5` | `currentColor` (hereda) | X |
 | LinkedIn | `https://www.linkedin.com/company/f5/` | `#0A66C2` (Azul de LinkedIn) | LinkedIn |
 | Instagram | `https://www.instagram.com/f5.global/` | `#E4405F` (Rosa de Instagram) | Instagram |
 | YouTube | `https://www.youtube.com/user/f5networksinc` | `#FF0000` (Rojo de YouTube) | YouTube |
 
-Cada enlace se abre en una nueva pestaña (`target="_blank"`) con `rel="noopener noreferrer"` por Seguridad.
+Cada enlace se abre en una nueva pestaña (`target="_blank"`) con `rel="noopener noreferrer"` por razones de Seguridad.
 
 ## Estilos CSS
 
@@ -85,7 +85,7 @@ Los enlaces están alineados a la derecha en una fila flexible con un sutil efec
 
 Edite el atributo `href` en la etiqueta `<a>` correspondiente en `components/Footer.astro` dentro del paquete `@f5-sales-demo/docs-theme`.
 
-### Agregar un Enlace
+### Agregar un enlace
 
 Añada un nuevo elemento `<a>` dentro del div `.social-links` con un ícono SVG de 24x24. Siga el patrón existente:
 
@@ -97,15 +97,15 @@ Añada un nuevo elemento `<a>` dentro del div `.social-links` con un ícono SVG 
 </a>
 ```
 
-### Eliminar un Enlace
+### Eliminar un enlace
 
 Elimine el bloque completo `<a>...</a>` de la plataforma que desea quitar.
 
-### Cambiar Colores de Íconos
+### Cambiar colores de íconos
 
 Modifique el atributo `fill` en el elemento `<svg>`. Use `currentColor` para heredar el color del texto, o un valor hexadecimal específico para los colores de marca.
 
-### Cambiar el Diseño
+### Cambiar el diseño
 
 Modifique el CSS de `.social-links` en el bloque `<style>`:
 - **Alineación centrada**: Cambie `justify-content` a `center`

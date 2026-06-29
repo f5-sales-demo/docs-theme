@@ -4,25 +4,25 @@ description: Referencia de todas las variables de entorno compatibles con el tem
 sidebar:
   order: 2
 i18n:
-  sourceHash: 43298dddbd74
+  sourceHash: 1c33fa01b69f
   translator: machine
 ---
 
-El tema lee las variables de entorno en tiempo de compilación desde `config.ts` y componentes personalizados. Los repositorios de contenido las configuran en su flujo de trabajo de GitHub Actions para personalizar cada sitio sin modificar la configuración.
+El tema lee las variables de entorno en el momento de la compilación desde `config.ts` y los componentes personalizados. Los repositorios de contenido las definen en su flujo de trabajo de GitHub Actions para personalizar cada sitio sin modificar la configuración.
 
 ## Referencia de variables
 
 | Variable | Valor predeterminado | Propósito |
 |----------|---------|---------|
-| `DOCS_TITLE` | `Documentation` | Título del sitio mostrado en el encabezado y la pestaña del navegador |
+| `DOCS_TITLE` | `Documentation` | Título del sitio que se muestra en el encabezado y la pestaña del navegador |
 | `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL base canónica del sitio desplegado |
-| `DOCS_BASE` | `/` | Ruta base de la URL (p. ej., `/my-repo/` para sitios de proyectos) |
+| `DOCS_BASE` | `/` | Ruta base de la URL (p. ej., `/my-repo/` para sitios de proyecto) |
 | `DOCS_DESCRIPTION` | _(cadena vacía)_ | Descripción del sitio para metadatos y el complemento llms.txt |
-| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL de la página de inicio vinculada desde el título del sitio |
-| `GITHUB_REPOSITORY` | _(cadena vacía)_ | Se utiliza para construir el enlace social de GitHub y los enlaces de edición |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL de la página de inicio enlazada desde el título del sitio |
+| `GITHUB_REPOSITORY` | _(cadena vacía)_ | Se usa para generar el enlace social de GitHub y los enlaces de edición |
 | `LLMS_OPTIONAL_LINKS` | `[]` | Arreglo JSON de enlaces adicionales para el complemento llms.txt |
 
-## Dónde se utiliza cada variable
+## Dónde se usa cada variable
 
 ### DOCS_TITLE
 
@@ -40,7 +40,7 @@ Se pasa a la opción `title` de Starlight y al complemento `starlight-llms-txt`.
 const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
 ```
 
-Establece la propiedad de nivel superior `site` de Astro. Se utiliza para URLs canónicas, generación de mapas del sitio y metadatos de Open Graph.
+Establece la propiedad `site` de nivel superior de Astro. Se usa para las URL canónicas, la generación del mapa del sitio y los metadatos de Open Graph.
 
 ### DOCS_BASE
 
@@ -49,7 +49,7 @@ Establece la propiedad de nivel superior `site` de Astro. Se utiliza para URLs c
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Establece la propiedad de nivel superior `base` de Astro. Es necesaria cuando se despliega en un subdirectorio (p. ej., `https://example.com/my-repo/`).
+Establece la propiedad `base` de nivel superior de Astro. Es obligatoria cuando se despliega en un subdirectorio (p. ej., `https://example.com/my-repo/`).
 
 ### DOCS_DESCRIPTION
 
@@ -58,7 +58,7 @@ Establece la propiedad de nivel superior `base` de Astro. Es necesaria cuando se
 const description = options.description || process.env.DOCS_DESCRIPTION || '';
 ```
 
-Se pasa al complemento `starlight-llms-txt` como descripción del sitio. Se utiliza en el archivo `llms.txt` generado.
+Se pasa al complemento `starlight-llms-txt` como descripción del sitio. Se usa en el archivo `llms.txt` generado.
 
 ### DOCS_HOME
 
@@ -67,7 +67,7 @@ Se pasa al complemento `starlight-llms-txt` como descripción del sitio. Se util
 const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
-Es leído por el componente personalizado `SiteTitle.astro`. Envuelve el título del sitio en el encabezado con un enlace a esta URL, lo que permite a los usuarios navegar de regreso a una página de inicio central de la documentación. Es útil cuando varios repositorios de contenido comparten el mismo tema y se desea un enlace de "inicio" coherente en todos los sitios.
+Lo lee el componente personalizado `SiteTitle.astro`. Envuelve el título del sitio en el encabezado con un enlace a esta URL, lo que permite a los usuarios regresar a una página de inicio de documentación centralizada. Es útil cuando múltiples repositorios de contenido comparten el mismo tema y se desea un enlace de "inicio" coherente en todos los sitios.
 
 ### GITHUB_REPOSITORY
 
@@ -76,7 +76,7 @@ Es leído por el componente personalizado `SiteTitle.astro`. Envuelve el título
 const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
 ```
 
-Se utiliza para generar el icono social de GitHub en el encabezado del sitio y la URL base del enlace de edición. GitHub Actions establece esta variable automáticamente (p. ej., `owner/repo`).
+Se usa para generar el icono social de GitHub en el encabezado del sitio y la URL base del enlace de edición. GitHub Actions establece esta variable automáticamente (p. ej., `owner/repo`).
 
 ### LLMS_OPTIONAL_LINKS
 
@@ -94,7 +94,7 @@ Valor de ejemplo:
 [{"title": "API Reference", "url": "https://api.example.com/docs"}]
 ```
 
-## Configuración de variables en GitHub Actions
+## Definición de variables en GitHub Actions
 
 Los repositorios de contenido pasan estas variables a través de su flujo de trabajo:
 
@@ -109,4 +109,4 @@ jobs:
       docs_home: "https://example.com/home/"
 ```
 
-La variable `GITHUB_REPOSITORY` es proporcionada automáticamente por el ejecutor de GitHub Actions y no necesita configurarse manualmente.
+La variable `GITHUB_REPOSITORY` es proporcionada automáticamente por el ejecutor de GitHub Actions y no necesita definirse manualmente.

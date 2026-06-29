@@ -1,18 +1,18 @@
 ---
 title: إعداد Astro
-description: مرجع لمصنع إعداد Astro/Starlight المبني على المكونات الإضافية.
+description: مرجع لمصنع إعداد Astro/Starlight القائم على الإضافات.
 sidebar:
   order: 4
 i18n:
-  sourceHash: 48445fbc1ed7
+  sourceHash: b2cad001cecb
   translator: machine
 ---
 
-لا تحتفظ مستودعات المحتوى بملف `astro.config.mjs` الخاص بها. بدلاً من ذلك، تستورد مصنع إعداد من حزمة npm الخاصة بـ `@f5-sales-demo/docs-theme` والذي يُعيد إعداد Astro كاملاً مع Starlight وثمانية مكونات إضافية مدمجة وجميع الإعدادات الافتراضية للسمة.
+لا تحتفظ مستودعات المحتوى بملف `astro.config.mjs` الخاص بها. بدلاً من ذلك، تستورد مصنع إعداد من حزمة npm الخاصة بـ `@f5-sales-demo/docs-theme` والتي تُعيد إعداد Astro كاملاً مع Starlight وثمانية إضافات مجمّعة وجميع الإعدادات الافتراضية للسمة.
 
 ## استخدام السمة
 
-ملف `astro.config.mjs` في مستودع المحتوى (المُقدَّم بواسطة منشئ Docker) هو غلاف خفيف:
+ملف `astro.config.mjs` الخاص بمستودع المحتوى (المقدَّم من خلال منشئ Docker) هو غلاف خفيف:
 
 ```js
 import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
@@ -20,11 +20,11 @@ import { createF5xcDocsConfig } from '@f5-sales-demo/docs-theme/config';
 export default createF5xcDocsConfig();
 ```
 
-يتم إجراء جميع عمليات التخصيص من خلال كائن الخيارات أو متغيرات البيئة — لا حاجة للتعامل مع توصيل المكونات الإضافية أو استيرادات CSS أو تجاوزات المكونات.
+يتم إجراء جميع التخصيصات من خلال كائن الخيارات أو متغيرات البيئة — لا حاجة للتعامل مع توصيل الإضافات أو استيراد CSS أو تجاوزات المكونات.
 
 ## خيارات الإعداد
 
-تقبل `createF5xcDocsConfig` كائناً من نوع `F5xcDocsConfigOptions`. كل حقل اختياري؛ تملأ متغيرات البيئة والقيم الافتراضية المنطقية الفراغات.
+تقبل `createF5xcDocsConfig` كائناً من نوع `F5xcDocsConfigOptions`. كل حقل اختياري؛ وتتولى متغيرات البيئة والإعدادات الافتراضية المناسبة ملء الفراغات.
 
 ```ts
 interface F5xcDocsConfigOptions {
@@ -42,50 +42,50 @@ interface F5xcDocsConfigOptions {
 }
 ```
 
-| الخيار | القيمة الافتراضية / متغير البيئة البديل | الغرض |
+| الخيار | الافتراضي / متغير البيئة البديل | الغرض |
 |--------|----------------------|---------|
-| `site` | `DOCS_SITE` أو `https://f5-sales-demo.github.io` | عنوان URL الأساسي الكنسي |
+| `site` | `DOCS_SITE` أو `https://f5-sales-demo.github.io` | عنوان URL الأساسي الأصلي |
 | `base` | `DOCS_BASE` أو `/` | مسار URL الأساسي لمواقع المشاريع |
-| `title` | `DOCS_TITLE` أو `Documentation` | عنوان الموقع في الرأس وعلامة تبويب المتصفح |
+| `title` | `DOCS_TITLE` أو `Documentation` | عنوان الموقع في الترويسة وتبويب المتصفح |
 | `description` | `DOCS_DESCRIPTION` أو سلسلة فارغة | وصف الموقع للبيانات الوصفية وملف llms.txt |
-| `githubRepository` | `GITHUB_REPOSITORY` أو سلسلة فارغة | يُتيح روابط التعديل وأيقونة GitHub الاجتماعية |
-| `llmsOptionalLinks` | `LLMS_OPTIONAL_LINKS` (JSON) أو `[]` | روابط إضافية للمكوِّن الإضافي llms.txt |
+| `githubRepository` | `GITHUB_REPOSITORY` أو سلسلة فارغة | يُفعّل روابط التحرير وأيقونة GitHub الاجتماعية |
+| `llmsOptionalLinks` | `LLMS_OPTIONAL_LINKS` (JSON) أو `[]` | روابط إضافية لإضافة llms.txt |
 | `additionalIntegrations` | `[]` | تكاملات Astro إضافية لإلحاقها |
-| `additionalRemarkPlugins` | `[]` | مكونات remark إضافية تُضاف بعد remark-mermaid |
-| `megaMenuItems` | قائمة Products/Solutions/Docs/Support المدمجة | مدخلات القائمة المنسدلة الكبيرة على المستوى الأعلى |
+| `additionalRemarkPlugins` | `[]` | إضافات remark إضافية تُضاف بعد remark-mermaid |
+| `megaMenuItems` | قائمة المنتجات/الحلول/المستندات/الدعم المدمجة | إدخالات القائمة الضخمة من المستوى الأعلى |
 | `head` | وسم `<script>` لـ Mermaid CDN | إدخالات `<head>` مخصصة |
 | `logo` | `@f5-sales-demo/docs-theme/assets/github-avatar.png` | شعار الشريط الجانبي (مصدر واحد أو زوج فاتح/داكن) |
 
-## مكونات Starlight الإضافية المدمجة
+## إضافات Starlight المجمّعة
 
-يقوم المصنع بتوصيل ثمانية مكونات Starlight الإضافية تلقائياً:
+يقوم المصنع بتوصيل ثماني إضافات Starlight تلقائياً:
 
-| المكوِّن الإضافي | الغرض |
+| الإضافة | الغرض |
 |--------|---------|
-| `starlight-mega-menu` | قائمة تنقل منسدلة كبيرة بتخطيطات شبكية وقائمية |
+| `starlight-mega-menu` | قائمة التنقل الضخمة العلوية بتخطيطات شبكية وقائمية |
 | `starlight-videos` | تضمين مقاطع الفيديو في صفحات التوثيق |
-| `starlight-image-zoom` | تكبير الصور عند النقر عليها |
+| `starlight-image-zoom` | التكبير عند النقر على الصور |
 | `@f5-sales-demo/docs-theme` (ذاتي) | حقن CSS وتجاوزات المكونات ووسيط المسارات |
 | `starlight-scroll-to-top` | زر التمرير إلى الأعلى مع حلقة التقدم |
-| `starlight-heading-badges` | تعليقات الشارات على العناوين |
+| `starlight-heading-badges` | شارات تعليقية على العناوين |
 | `starlight-page-actions` | أزرار إجراءات الصفحة |
 | `starlight-plugin-icons` | دعم الأيقونات في Starlight |
-| `starlight-llms-txt` | يُنشئ ملفَي `llms.txt` و`llms-full.txt` لاستهلاك LLM |
+| `starlight-llms-txt` | يُنشئ ملفَّي `llms.txt` و`llms-full.txt` لاستهلاك نماذج اللغة الكبيرة |
 
-تُسجَّل هذه المكونات بالترتيب داخل `config.ts`. المكوِّن الإضافي للسمة (`@f5-sales-demo/docs-theme`) هو نفسه مكوِّن Starlight إضافي يعمل ضمن هذه القائمة.
+تُسجَّل هذه الإضافات بالترتيب داخل `config.ts`. تُعدّ إضافة السمة (`@f5-sales-demo/docs-theme`) بحد ذاتها إضافة Starlight تعمل ضمن هذه القائمة.
 
-## خطاف مكوِّن السمة الإضافي
+## خطاف إضافة السمة
 
-يُعرَّف مكوِّن السمة الإضافي في `index.ts` ويُسجَّل ضمن المكونات الإضافية المدمجة أعلاه. يقوم خطاف `config:setup` الخاص به بثلاثة أشياء:
+تُعرَّف إضافة السمة في `index.ts` وتُسجَّل ضمن الإضافات المجمّعة أعلاه. يقوم خطاف `config:setup` الخاص بها بثلاثة أشياء:
 
-1. **حقن CSS** — يُضيف `fonts/font-face.css` و`styles/custom.css` مسبقاً إلى مصفوفة `customCss` الخاصة بـ Starlight
-2. **تجاوز المكونات** — يستبدل خمسة مكونات Starlight:
-   - `Banner` — تنقل عبر مسار التنقل التفصيلي مع رابط التعديل
-   - `EditLink` — فارغ عمداً (رابط التعديل موجود في Banner)
-   - `Footer` — روابط وسائل التواصل الاجتماعي مُلحقة أسفل التذييل الافتراضي
+1. **حقن CSS** — يُضيف مسبقاً `fonts/font-face.css` و`styles/custom.css` إلى مصفوفة `customCss` في Starlight
+2. **تجاوز المكونات** — يستبدل خمسة مكونات من Starlight:
+   - `Banner` — التنقل عبر مسار التنقل التفصيلي مع رابط التحرير
+   - `EditLink` — فارغ عمداً (يوجد رابط التحرير في Banner)
+   - `Footer` — روابط التواصل الاجتماعي مُلحَقة أسفل التذييل الافتراضي
    - `SiteTitle` — الشعار مع رابط الصفحة الرئيسية
-   - `MarkdownContent` — غلاف يُتيح مقاطع الفيديو وتكبير الصور
-3. **إضافة وسيط المسارات** — يُسجِّل `route-middleware.ts` الذي يُصفِّي صفحات الفهرس من الشريط الجانبي ويُخفي جدول المحتويات في صفحات الفهرس
+   - `MarkdownContent` — غلاف يُفعّل مقاطع الفيديو وتكبير الصور
+3. **إضافة وسيط المسارات** — يُسجّل `route-middleware.ts` الذي يُصفّي صفحات الفهرس من الشريط الجانبي ويُخفي جدول المحتويات في صفحات الفهرس
 
 ```ts
 // index.ts — Starlight plugin entry point
@@ -119,21 +119,21 @@ export default function f5xcDocsTheme(): StarlightPlugin {
 }
 ```
 
-تستخدم جميع المسارات مُحدِّدات حزم npm (مثل `@f5-sales-demo/docs-theme/styles/custom.css`) التي يتم حلها من خلال خريطة `exports` في `package.json`.
+تستخدم جميع المسارات محددات حزم npm (مثل `@f5-sales-demo/docs-theme/styles/custom.css`) التي تُحلَّل من خلال خريطة `exports` في `package.json`.
 
 ## التكاملات الأخرى
 
-إلى جانب Starlight ومكوناته الإضافية، يُسجِّل المصنع أيضاً:
+بالإضافة إلى Starlight وإضافاته، يُسجّل المصنع أيضاً:
 
-- **`@astrojs/react`** — يُتيح دعم مكونات React في صفحات MDX
-- **`remark-mermaid`** — مكوِّن remark مخصص يحوِّل كتل الكود ` ```mermaid ` إلى مخططات مُصيَّرة
+- **`@astrojs/react`** — يُفعّل دعم مكونات React في صفحات MDX
+- **`remark-mermaid`** — إضافة remark مخصصة تحوّل كتل الأكواد ` ```mermaid ` إلى مخططات مُصيَّرة
 
-يمكن إلحاق تكاملات ومكونات remark إضافية عبر خيارَي `additionalIntegrations` و`additionalRemarkPlugins`.
+يمكن إلحاق تكاملات وإضافات remark إضافية عبر خيارَي `additionalIntegrations` و`additionalRemarkPlugins`.
 
 ## الشريط الجانبي
 
-لم يُعرَّف أي شريط جانبي مخصص. يُنشئ Starlight الشريط الجانبي تلقائياً من هيكل الملفات في `docs/`، مستخدماً بيانات `title` الأمامية لكل صفحة كنص الرابط و`sidebar.order` للفرز. يُصفِّي وسيط المسارات صفحات الفهرس من الشريط الجانبي تلقائياً.
+لا يُعرَّف أي شريط جانبي مخصص. يُنشئ Starlight الشريط الجانبي تلقائياً من هيكل الملفات في `docs/`، مستخدماً قيمة `title` في frontmatter لكل صفحة كنص الرابط و`sidebar.order` للترتيب. يُصفّي وسيط المسارات صفحات الفهرس من الشريط الجانبي تلقائياً.
 
 :::caution
-مصنع الإعداد مشترك بين جميع مواقع التوثيق. أي تغيير على `config.ts` يؤثر على كل مستودع محتوى يُنشأ باستخدام هذه السمة. اختبر التغييرات بعناية.
+مصنع الإعداد مشترك بين جميع مواقع التوثيق. أي تغيير على `config.ts` يؤثر على كل مستودع محتوى يُبنى بهذه السمة. اختبر التغييرات بعناية.
 :::

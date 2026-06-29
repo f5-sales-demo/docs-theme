@@ -4,7 +4,7 @@ description: Expressive Code 样式的语法高亮、终端模式、行高亮、
 sidebar:
   order: 8
 i18n:
-  sourceHash: b458d0378db1
+  sourceHash: b71ea33850c1
   translator: machine
 ---
 
@@ -112,7 +112,7 @@ const config: Config = {
 
 ## 终端模式
 
-终端风格的代码块（使用 ` ```bash ` 或 ` ```sh ` 围栏）会呈现受 iTerm 启发的窗口边框，并带有 macOS 交通灯圆点。
+终端风格代码块（使用 ` ```bash ` 或 ` ```sh ` 围栏）将呈现受 iTerm 启发的窗口框架，并显示 macOS 交通灯圆点。
 
 ```bash title="Terminal"
 npm install @f5-sales-demo/docs-theme
@@ -123,18 +123,18 @@ npx astro preview
 ### 终端 CSS 参考
 
 ```css
-/* 边框 */
+/* 框架边框 */
 .expressive-code .frame.is-terminal {
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-/* 带有交通灯 SVG 圆点的深色标题栏 */
+/* 带交通灯 SVG 圆点的深色标题栏 */
 .expressive-code .frame.is-terminal .header {
   background: #323232 !important;
   color: #ccc !important;
 }
 
-/* 深色模式终端主体 — 受 Tokyo Night 启发 */
+/* 深色模式终端主体 — Tokyo Night 风格 */
 :root:not([data-theme="light"]) .expressive-code .frame.is-terminal pre {
   background: #1a1b26 !important;
 }
@@ -165,7 +165,7 @@ const c = 3;
 const d = "normal again";
 ```
 
-## 插入与删除行
+## 插入行与删除行
 
 ```js ins={2} del={3}
 const config = {
@@ -187,9 +187,9 @@ const config = {
 
 ## CSS 参考
 
-### 边框样式
+### 框架样式
 
-所有代码块均具有圆角和多层阴影：
+所有代码块均带有圆角和多层阴影：
 
 ```css
 .expressive-code .frame {
@@ -216,11 +216,11 @@ const config = {
 
 ## 主题检查
 
-- 代码块背景色随主题自适应
-- 终端标题栏背景色为 `#323232`，并带有 macOS 交通灯圆点
+- 代码块背景颜色随主题自适应
+- 终端标题栏背景为 `#323232`，并显示 macOS 交通灯圆点
 - 终端边框在深色模式下使用 `rgba(255, 255, 255, 0.15)`，在浅色模式下使用 `rgba(0, 0, 0, 0.2)`
 - 深色模式终端主体使用 `#1a1b26`
-- 语法颜色在两种主题下均保持可读性
+- 两种主题下语法颜色均保持可读性
 - 行高亮具有可见的背景色调
 - 插入行显示绿色色调，删除行显示红色色调
-- 代码块具有 0.75rem 圆角半径和盒阴影
+- 代码块具有 0.75rem 圆角和盒阴影

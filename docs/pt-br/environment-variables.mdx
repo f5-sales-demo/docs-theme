@@ -4,22 +4,22 @@ description: Referência de todas as variáveis de ambiente suportadas pelo tema
 sidebar:
   order: 2
 i18n:
-  sourceHash: 43298dddbd74
+  sourceHash: 1c33fa01b69f
   translator: machine
 ---
 
-O tema lê as variáveis de ambiente em tempo de build a partir de `config.ts` e componentes personalizados. Os repositórios de conteúdo as definem em seus workflows do GitHub Actions para personalizar cada site sem modificar a configuração.
+O tema lê as variáveis de ambiente em tempo de build a partir de `config.ts` e de componentes personalizados. Os repositórios de conteúdo definem essas variáveis em seus workflows do GitHub Actions para personalizar cada site sem modificar a configuração.
 
 ## Referência de Variáveis
 
 | Variável | Padrão | Finalidade |
-|----------|---------|---------|
+|----------|--------|------------|
 | `DOCS_TITLE` | `Documentation` | Título do site exibido no cabeçalho e na aba do navegador |
-| `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL base canônica para o site implantado |
+| `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL base canônica do site implantado |
 | `DOCS_BASE` | `/` | Caminho base da URL (ex.: `/my-repo/` para sites de projeto) |
 | `DOCS_DESCRIPTION` | _(string vazia)_ | Descrição do site para metadados e o plugin llms.txt |
 | `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL da página inicial vinculada ao título do site |
-| `GITHUB_REPOSITORY` | _(string vazia)_ | Usado para construir o link social do GitHub e os links de edição |
+| `GITHUB_REPOSITORY` | _(string vazia)_ | Utilizada para construir o link social do GitHub e os links de edição |
 | `LLMS_OPTIONAL_LINKS` | `[]` | Array JSON de links adicionais para o plugin llms.txt |
 
 ## Onde Cada Variável É Utilizada
@@ -67,7 +67,7 @@ Passada para o plugin `starlight-llms-txt` como descrição do site. Utilizada n
 const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
 ```
 
-Lida pelo componente personalizado `SiteTitle.astro`. Envolve o título do site no cabeçalho com um link para esta URL, permitindo que os usuários naveguem de volta para uma página inicial central de documentação. Útil quando múltiplos repositórios de conteúdo compartilham o mesmo tema e você deseja um link "home" consistente em todos os sites.
+Lida pelo componente personalizado `SiteTitle.astro`. Envolve o título do site no cabeçalho com um link para esta URL, permitindo que os usuários naveguem de volta para uma página inicial central de documentação. Útil quando vários repositórios de conteúdo compartilham o mesmo tema e você deseja um link "home" consistente em todos os sites.
 
 ### GITHUB_REPOSITORY
 
@@ -76,7 +76,7 @@ Lida pelo componente personalizado `SiteTitle.astro`. Envolve o título do site 
 const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
 ```
 
-Usado para gerar o ícone social do GitHub no cabeçalho do site e a URL base do link de edição. O GitHub Actions define esta variável automaticamente (ex.: `owner/repo`).
+Utilizada para gerar o ícone social do GitHub no cabeçalho do site e a URL base do link de edição. O GitHub Actions define essa variável automaticamente (ex.: `owner/repo`).
 
 ### LLMS_OPTIONAL_LINKS
 
@@ -86,7 +86,7 @@ const llmsOptionalLinks = options.llmsOptionalLinks
   || (process.env.LLMS_OPTIONAL_LINKS ? JSON.parse(process.env.LLMS_OPTIONAL_LINKS) : []);
 ```
 
-Um array codificado em JSON de objetos `{ title, url }` passados para o plugin `starlight-llms-txt`. Estes aparecem como links adicionais no arquivo `llms.txt` gerado.
+Um array codificado em JSON de objetos `{ title, url }` passados para o plugin `starlight-llms-txt`. Esses objetos aparecem como links adicionais no arquivo `llms.txt` gerado.
 
 Exemplo de valor:
 
