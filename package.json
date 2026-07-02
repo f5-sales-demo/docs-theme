@@ -122,7 +122,7 @@
     "@f5-sales-demo/starlight-mega-menu": "^2.0.0",
     "gray-matter": "^4.0.3",
     "remark-code-import": "^1.2.0",
-    "starlight-heading-badges": "^0.7.0",
+    "starlight-heading-badges": "^0.8.0",
     "starlight-image-zoom": "^0.15.0",
     "starlight-openapi": "^0.26.0",
     "starlight-page-actions": "^0.6.0",
