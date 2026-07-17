@@ -62,4 +62,14 @@ describe('localizeEcosystemHref', () => {
     const result = localizeEcosystemHref('https://custom.host.io/waf/', 'fr', 'custom.host.io');
     expect(result).toBe('https://custom.host.io/waf/fr/');
   });
+
+  it('does not localize single-locale ecosystem sites (would 404)', () => {
+    // These sites have no /<locale>/ path; injecting one produces a 404.
+    expect(localizeEcosystemHref('https://f5-sales-demo.github.io/terraform-provider-xcsh/', 'fr')).toBe(
+      'https://f5-sales-demo.github.io/terraform-provider-xcsh/',
+    );
+    expect(localizeEcosystemHref('https://f5-sales-demo.github.io/docs-control/', 'ja')).toBe(
+      'https://f5-sales-demo.github.io/docs-control/',
+    );
+  });
 });
