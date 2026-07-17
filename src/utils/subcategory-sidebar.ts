@@ -53,9 +53,9 @@ function collectMarkdownFiles(dir: string): string[] {
 
 /**
  * Clean a page_title to match Terraform Registry sidebar labels.
- * Resources:    "f5xc_http_loadbalancer Resource - terraform-provider-f5xc" → "f5xc_http_loadbalancer"
- * Data Sources: "f5xc_http_loadbalancer Data Source - terraform-provider-f5xc" → "f5xc_http_loadbalancer"
- * Functions:    "blindfold function - terraform-provider-f5xc" → "blindfold"
+ * Resources:    "f5xc_http_loadbalancer Resource - terraform-provider-xcsh" → "f5xc_http_loadbalancer"
+ * Data Sources: "f5xc_http_loadbalancer Data Source - terraform-provider-xcsh" → "f5xc_http_loadbalancer"
+ * Functions:    "blindfold function - terraform-provider-xcsh" → "blindfold"
  * Guides:       "Guide: HTTP Load Balancer with Security Features" → "HTTP Load Balancer with Security Features"
  */
 function cleanPageTitle(pageTitle: string, docType: DocType): string {
