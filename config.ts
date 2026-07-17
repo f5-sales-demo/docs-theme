@@ -315,7 +315,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               translations: itemLabels['Terraform Provider'],
               description: 'F5 XC Terraform provider',
               descriptionTranslations: itemDescriptions['F5 XC Terraform provider'],
-              href: 'https://f5-sales-demo.github.io/terraform-provider-f5xc/',
+              href: 'https://f5-sales-demo.github.io/terraform-provider-xcsh/',
               icon: resolveIcon('hashicorp-flight:terraform-color'),
             },
             {
@@ -486,7 +486,7 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               translations: itemLabels['VS Code Extension'],
               description: 'Manage F5 XC resources from VS Code',
               descriptionTranslations: itemDescriptions['Manage F5 XC resources from VS Code'],
-              href: 'https://f5-sales-demo.github.io/vscode-f5xc-tools/',
+              href: 'https://f5-sales-demo.github.io/vscode-xcsh/',
               icon: resolveIcon('carbon:code'),
             },
             {
