@@ -2,10 +2,11 @@
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { DEFAULT_LOCALE, SLUG_LIST } from '@f5-sales-demo/i18n-core';
 import matter from 'gray-matter';
 
 const ECOSYSTEM_ROOT = path.resolve(import.meta.dirname, '..', '..');
-const LOCALES = ['fr', 'es', 'de', 'pt-br', 'ja', 'ko', 'zh-cn', 'zh-tw', 'ar', 'it', 'hi', 'th'];
+const LOCALES = SLUG_LIST.filter((slug) => slug !== DEFAULT_LOCALE);
 const CONCURRENCY = 8;
 
 const LOCALE_NAMES: Record<string, string> = {
