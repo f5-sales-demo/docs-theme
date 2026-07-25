@@ -17,8 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Verify npm package version exists
+        env:
+          # A release tag name is caller-supplied text, so interpolating it into the
+          # run body would let it expand into executable shell. Through env it is
+          # inert data that bash only ever reads as a variable.
+          TAG: ${{ github.event.release.tag_name }}
         run: |
-          TAG="${{ github.event.release.tag_name }}"
           VERSION="${TAG#v}"
           echo "Checking npm for @f5-sales-demo/docs-theme@${VERSION}..."
           for i in 1 2 3 4 5; do
