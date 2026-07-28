@@ -21,7 +21,6 @@
 
 Shared branding and styling for F5 Distributed Cloud documentation sites
 
-
 ## Documentation
 
 Full documentation is available at **[https://f5-sales-demo.github.io/docs-theme/](https://f5-sales-demo.github.io/docs-theme/)**.
