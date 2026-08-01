@@ -67,12 +67,12 @@ architecture-beta
   service csd(f5xc:client-side-defense)[Client-Side Defense] in defense
   service intel(f5xc:data-intelligence)[Credential Intel] in defense
   service login(carbon:application)[Login Service] in app
-  service account(carbon:security)[Account Service] in app
+  service acctsvc(carbon:security)[Account Service] in app
   service db(carbon:data-base)[User Store] in app
 
   edge:R --> L:csd
   csd:R --> L:intel
   intel:R --> L:login
   login:R --> L:account
-  account:B --> T:db
+  acctsvc:B --> T:db
 ```

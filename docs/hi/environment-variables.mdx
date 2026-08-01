@@ -49,7 +49,7 @@ Astro की टॉप-लेवल `site` प्रॉपर्टी सेट
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Astro की टॉप-लेवल `base` प्रॉपर्टी सेट करता है। सबडायरेक्टरी में डिप्लॉय करते समय आवश्यक है (उदा., `https://example.github.io/my-repo/`)।
+Astro की टॉप-लेवल `base` प्रॉपर्टी सेट करता है। सबडायरेक्टरी में डिप्लॉय करते समय आवश्यक है (उदा., `https://example.com/my-repo/`)।
 
 ### DOCS_DESCRIPTION
 
@@ -104,9 +104,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 `GITHUB_REPOSITORY` चर GitHub Actions रनर द्वारा स्वचालित रूप से प्रदान किया जाता है और इसे मैन्युअल रूप से सेट करने की आवश्यकता नहीं है।

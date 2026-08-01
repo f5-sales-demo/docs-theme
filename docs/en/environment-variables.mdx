@@ -46,7 +46,7 @@ Sets Astro's top-level `site` property. Used for canonical URLs, sitemap generat
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Sets Astro's top-level `base` property. Required when deploying to a subdirectory (e.g., `https://example.github.io/my-repo/`).
+Sets Astro's top-level `base` property. Required when deploying to a subdirectory (e.g., `https://example.com/my-repo/`).
 
 ### DOCS_DESCRIPTION
 
@@ -101,9 +101,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 The `GITHUB_REPOSITORY` variable is provided automatically by the GitHub Actions runner and does not need to be set manually.

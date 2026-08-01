@@ -49,7 +49,7 @@ Imposta la proprietà `site` di primo livello di Astro. Utilizzato per gli URL c
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Imposta la proprietà `base` di primo livello di Astro. Necessario quando si distribuisce in una sottodirectory (es. `https://example.github.io/my-repo/`).
+Imposta la proprietà `base` di primo livello di Astro. Necessario quando si distribuisce in una sottodirectory (es. `https://example.com/my-repo/`).
 
 ### DOCS_DESCRIPTION
 
@@ -104,9 +104,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 La variabile `GITHUB_REPOSITORY` viene fornita automaticamente dal runner di GitHub Actions e non deve essere impostata manualmente.

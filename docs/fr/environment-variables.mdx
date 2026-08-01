@@ -51,7 +51,7 @@ Définit la propriété `site` de premier niveau d'Astro. Utilisé pour les URL 
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Définit la propriété `base` de premier niveau d'Astro. Requise lors du déploiement dans un sous-répertoire (ex. : `https://example.github.io/my-repo/`).
+Définit la propriété `base` de premier niveau d'Astro. Requise lors du déploiement dans un sous-répertoire (ex. : `https://example.com/my-repo/`).
 
 ### DOCS_DESCRIPTION
 
@@ -106,9 +106,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 La variable `GITHUB_REPOSITORY` est fournie automatiquement par l'exécuteur GitHub Actions et n'a pas besoin d'être définie manuellement.

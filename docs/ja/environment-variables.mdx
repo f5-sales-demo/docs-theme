@@ -49,7 +49,7 @@ Astro のトップレベル `site` プロパティを設定します。正規 UR
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Astro のトップレベル `base` プロパティを設定します。サブディレクトリへのデプロイ時（例：`https://example.github.io/my-repo/`）に必要です。
+Astro のトップレベル `base` プロパティを設定します。サブディレクトリへのデプロイ時（例：`https://example.com/my-repo/`）に必要です。
 
 ### DOCS_DESCRIPTION
 
@@ -104,9 +104,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 `GITHUB_REPOSITORY` 変数は GitHub Actions ランナーによって自動的に提供されるため、手動で設定する必要はありません。

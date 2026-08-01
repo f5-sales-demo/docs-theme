@@ -49,7 +49,7 @@ const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.git
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-กำหนดคุณสมบัติ `base` ระดับบนสุดของ Astro จำเป็นเมื่อปรับใช้ในไดเรกทอรีย่อย (เช่น `https://example.github.io/my-repo/`)
+กำหนดคุณสมบัติ `base` ระดับบนสุดของ Astro จำเป็นเมื่อปรับใช้ในไดเรกทอรีย่อย (เช่น `https://example.com/my-repo/`)
 
 ### DOCS_DESCRIPTION
 
@@ -104,9 +104,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 ตัวแปร `GITHUB_REPOSITORY` ถูกจัดเตรียมโดยอัตโนมัติโดย GitHub Actions runner และไม่จำเป็นต้องกำหนดค่าด้วยตนเอง

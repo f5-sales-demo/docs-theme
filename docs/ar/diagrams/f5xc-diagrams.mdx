@@ -111,14 +111,14 @@ architecture-beta
   service botdef(f5-brand:security-bot-defence)[Bot Defence] in defense
   service intel(f5-brand:security-password-bot)[Credential Intel] in defense
   service login(carbon:application)[Login Service] in app
-  service account(carbon:security)[Account Service] in app
+  service acctsvc(carbon:security)[Account Service] in app
   service db(carbon:data-base)[User Store] in app
 
   botfw:R --> L:botdef
   botdef:R --> L:intel
   intel:R --> L:login
   login:R --> L:account
-  account:B --> T:db
+  acctsvc:B --> T:db
 ```
 
 ### الدفاع من جهة العميل

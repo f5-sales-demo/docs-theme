@@ -49,7 +49,7 @@ Legt die übergeordnete Eigenschaft `site` von Astro fest. Wird für kanonische 
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Legt die übergeordnete Eigenschaft `base` von Astro fest. Erforderlich bei der Bereitstellung in einem Unterverzeichnis (z. B. `https://example.github.io/my-repo/`).
+Legt die übergeordnete Eigenschaft `base` von Astro fest. Erforderlich bei der Bereitstellung in einem Unterverzeichnis (z. B. `https://example.com/my-repo/`).
 
 ### DOCS_DESCRIPTION
 
@@ -104,9 +104,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 Die Variable `GITHUB_REPOSITORY` wird vom GitHub Actions-Runner automatisch bereitgestellt und muss nicht manuell gesetzt werden.

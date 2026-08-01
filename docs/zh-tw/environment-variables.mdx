@@ -49,7 +49,7 @@ const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.git
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-設定 Astro 的頂層 `base` 屬性。部署至子目錄時為必要設定（例如，`https://example.github.io/my-repo/`）。
+設定 Astro 的頂層 `base` 屬性。部署至子目錄時為必要設定（例如，`https://example.com/my-repo/`）。
 
 ### DOCS_DESCRIPTION
 
@@ -104,9 +104,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 `GITHUB_REPOSITORY` 變數由 GitHub Actions 執行器自動提供，無需手動設定。

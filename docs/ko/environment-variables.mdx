@@ -49,7 +49,7 @@ Astro의 최상위 `site` 속성을 설정합니다. 정규 URL, 사이트맵 �
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Astro의 최상위 `base` 속성을 설정합니다. 하위 디렉터리에 배포할 때 필요합니다 (예: `https://example.github.io/my-repo/`).
+Astro의 최상위 `base` 속성을 설정합니다. 하위 디렉터리에 배포할 때 필요합니다 (예: `https://example.com/my-repo/`).
 
 ### DOCS_DESCRIPTION
 
@@ -104,9 +104,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 `GITHUB_REPOSITORY` 변수는 GitHub Actions 실행기에서 자동으로 제공되므로 수동으로 설정할 필요가 없습니다.

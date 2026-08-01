@@ -49,7 +49,7 @@ Define a propriedade `site` de nível superior do Astro. Utilizada para URLs can
 const base = options.base || process.env.DOCS_BASE || '/';
 ```
 
-Define a propriedade `base` de nível superior do Astro. Necessária ao implantar em um subdiretório (ex.: `https://example.github.io/my-repo/`).
+Define a propriedade `base` de nível superior do Astro. Necessária ao implantar em um subdiretório (ex.: `https://example.com/my-repo/`).
 
 ### DOCS_DESCRIPTION
 
@@ -104,9 +104,9 @@ jobs:
     uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
     with:
       docs_title: "My Project Docs"
-      docs_site: "https://example.github.io"
+      docs_site: "https://example.com"
       docs_base: "/my-project/"
-      docs_home: "https://example.github.io/home/"
+      docs_home: "https://example.com/home/"
 ```
 
 A variável `GITHUB_REPOSITORY` é fornecida automaticamente pelo runner do GitHub Actions e não precisa ser definida manualmente.
