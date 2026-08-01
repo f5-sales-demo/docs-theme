@@ -59,8 +59,8 @@ describe('localizeEcosystemHref', () => {
   });
 
   it('supports custom ecosystem host', () => {
-    const result = localizeEcosystemHref('https://custom.host.io/waf/', 'fr', 'custom.host.io');
-    expect(result).toBe('https://custom.host.io/waf/fr/');
+    const result = localizeEcosystemHref('https://docs.example.com/waf/', 'fr', 'docs.example.com');
+    expect(result).toBe('https://docs.example.com/waf/fr/');
   });
 
   it('does not localize single-locale ecosystem sites (would 404)', () => {
