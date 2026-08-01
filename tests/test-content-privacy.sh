@@ -7,6 +7,15 @@ cd "$REPO_ROOT"
 
 failure=0
 
+for diagram_file in docs/*/diagrams/{bot-defense,f5xc-diagrams}.mdx; do
+  if [ "$(grep -Fc 'service acctsvc(carbon:security)[Account Service] in app' "$diagram_file")" -ne 1 ] ||
+    [ "$(grep -Fc 'login:R --> L:acctsvc' "$diagram_file")" -ne 1 ] ||
+    [ "$(grep -Fc 'acctsvc:B --> T:db' "$diagram_file")" -ne 1 ]; then
+    echo "::error file=${diagram_file}::account-service diagram references are inconsistent"
+    failure=1
+  fi
+done
+
 if ! bash scripts/check-pii.sh --scope head --mode enforce; then
   failure=1
 fi

@@ -3,6 +3,9 @@
   "version": "3.9.1",
   "description": "F5 Distributed Cloud branded Starlight documentation theme",
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "bin": {
     "docs-translate": "./bin/translate.mjs"
   },
@@ -66,18 +69,32 @@
     "access": "public"
   },
   "devDependencies": {
+    "@astrojs/markdown-remark": "^7.2.2",
+    "@astrojs/starlight": "^0.41.6",
+    "@f5-sales-demo/icons-f5-brand": "^0.2.0",
+    "@f5-sales-demo/icons-f5xc": "^0.3.2",
+    "@f5-sales-demo/icons-hashicorp-flight": "^0.3.0",
+    "@iconify-json/carbon": "^1.2.25",
+    "@iconify-json/lucide": "^1.2.121",
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/ph": "^1.2.2",
+    "@iconify-json/tabler": "^1.2.38",
     "@playwright/test": "^1.50.0",
+    "astro": "^7.1.6",
     "vitest": "^4.1.9"
   },
   "scripts": {
+    "build": "node scripts/run-astro-with-content.mjs build",
+    "dev": "node scripts/run-astro-with-content.mjs dev",
+    "preview": "astro preview",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:visual": "playwright test",
     "test:visual:update": "playwright test --update-snapshots"
   },
   "peerDependencies": {
-    "@astrojs/markdown-remark": ">=7.0.0",
-    "@astrojs/starlight": ">=0.38.0",
+    "@astrojs/markdown-remark": "^7.2.2",
+    "@astrojs/starlight": "^0.41.6",
     "@f5-sales-demo/icons-f5-brand": "*",
     "@f5-sales-demo/icons-f5xc": "*",
     "@f5-sales-demo/icons-hashicorp-flight": "*",
@@ -86,7 +103,7 @@
     "@iconify-json/mdi": "*",
     "@iconify-json/ph": "*",
     "@iconify-json/tabler": "*",
-    "astro": ">=6.0.0"
+    "astro": "^7.1.6"
   },
   "peerDependenciesMeta": {
     "@iconify-json/lucide": {
@@ -116,9 +133,9 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",
-    "@astrojs/react": "^6.0.0",
+    "@astrojs/react": "^6.0.2",
     "@f5-sales-demo/i18n-core": "^1.0.0",
-    "@f5-sales-demo/starlight-llms-txt": "1.4.0",
+    "@f5-sales-demo/starlight-llms-txt": "1.4.1",
     "@f5-sales-demo/starlight-mega-menu": "^2.0.0",
     "gray-matter": "^4.0.3",
     "remark-code-import": "^1.2.0",
@@ -130,5 +147,14 @@
     "starlight-scroll-to-top": "^1.0.1",
     "starlight-videos": "^0.5.0",
     "unist-util-visit": "^5.0.0"
+  },
+  "overrides": {
+    "form-data": "4.0.6",
+    "glob": "^13.0.6",
+    "sharp": "^0.35.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.2 || 2.3.3": true
   }
 }

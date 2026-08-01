@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { unified } from '@astrojs/markdown-remark';
 import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import type { StarlightPlugin } from '@astrojs/starlight/types';
@@ -766,7 +767,9 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     base,
     ...(resolvedLocales ? { redirects: { '/': `${normalizedBase}/${resolvedDefaultLocale}/` } } : {}),
     markdown: {
-      remarkPlugins: [remarkMermaid, [codeImport, { allowImportingFromOutside: true }], ...additionalRemarkPlugins],
+      processor: unified({
+        remarkPlugins: [remarkMermaid, [codeImport, { allowImportingFromOutside: true }], ...additionalRemarkPlugins],
+      }),
     },
     integrations: [
       starlight({

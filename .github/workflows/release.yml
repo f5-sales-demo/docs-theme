@@ -1,3 +1,4 @@
+---
 name: Release
 
 on:
@@ -12,13 +13,10 @@ on:
       - 'CONTRIBUTING.md'
       - 'README.md'
       - 'LICENSE'
-      - 'release.config.js'
   workflow_dispatch:
 
 permissions:
   contents: write
-  issues: write
-  pull-requests: write
   id-token: write
 
 concurrency:
@@ -32,38 +30,84 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, 'chore(release):')"
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: 'lts/*'
+          node-version: '24.14.1'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install semantic-release
-        run: >
-          npm install --no-save
-          semantic-release
-          @semantic-release/commit-analyzer
-          @semantic-release/release-notes-generator
-          @semantic-release/npm
-          @semantic-release/github
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Run semantic-release
+      - name: Calculate release version
+        id: version
+        run: node scripts/next-release-version.mjs >> "$GITHUB_OUTPUT"
+
+      - name: Set package version
+        if: steps.version.outputs.release == 'true'
+        run: npm version "$RELEASE_VERSION" --no-git-tag-version
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+
+      - name: Pack release artifact
+        if: steps.version.outputs.release == 'true'
+        id: package
         run: |
+          pack_json=$(npm pack --json --pack-destination "$RUNNER_TEMP")
+          package_file=$(jq -r '.[0].filename' <<< "$pack_json")
+          integrity=$(jq -r '.[0].integrity' <<< "$pack_json")
+          {
+            echo "path=${RUNNER_TEMP}/${package_file}"
+            echo "integrity=${integrity}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Publish package
+        if: steps.version.outputs.release == 'true'
+        run: |
+          package_name=$(node -p "require('./package.json').name")
+          package_version=$RELEASE_VERSION
+          expected_integrity=$EXPECTED_INTEGRITY
+
+          registry_integrity() {
+            local metadata
+            if ! metadata=$(npm view "${package_name}@${package_version}" dist.integrity --json 2>/dev/null); then
+              return 1
+            fi
+            jq -r '. // empty' <<< "$metadata"
+          }
+
+          if published_integrity=$(registry_integrity); then
+            if [ "$published_integrity" = "$expected_integrity" ]; then
+              echo "The matching package is already published."
+              exit 0
+            fi
+            echo "::error::${package_name}@${package_version} exists with different integrity"
+            exit 1
+          fi
+
           max_attempts=3
           attempt=1
           delay=10
           while [ $attempt -le $max_attempts ]; do
             echo "Attempt $attempt of $max_attempts"
-            if npx semantic-release; then
-              echo "semantic-release succeeded"
+            if npm publish "$PACKAGE_PATH" --access public --provenance; then
               exit 0
             fi
+            if published_integrity=$(registry_integrity); then
+              if [ "$published_integrity" = "$expected_integrity" ]; then
+                echo "The matching package was published despite a lost response."
+                exit 0
+              fi
+              echo "::error::${package_name}@${package_version} appeared with different integrity"
+              exit 1
+            fi
             if [ $attempt -eq $max_attempts ]; then
-              echo "semantic-release failed after $max_attempts attempts"
+              echo "::error::npm publish failed after $max_attempts attempts"
               exit 1
             fi
             echo "Retrying in ${delay}s..."
@@ -72,6 +116,39 @@ jobs:
             attempt=$((attempt + 1))
           done
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          EXPECTED_INTEGRITY: ${{ steps.package.outputs.integrity }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PACKAGE_PATH: ${{ steps.package.outputs.path }}
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+
+      - name: Create GitHub release
+        if: steps.version.outputs.release == 'true'
+        run: |
+          tag=$RELEASE_TAG
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "GitHub release ${tag} already exists."
+            exit 0
+          fi
+
+          for attempt in 1 2 3; do
+            if gh release create "$tag" \
+              --generate-notes \
+              --notes-start-tag "$PREVIOUS_TAG" \
+              --target "$GITHUB_SHA" \
+              --title "$tag"; then
+              exit 0
+            fi
+            if gh release view "$tag" >/dev/null 2>&1; then
+              echo "GitHub release ${tag} was created despite a lost response."
+              exit 0
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              echo "::error::GitHub release creation failed after 3 attempts"
+              exit 1
+            fi
+            sleep $((attempt * 10))
+          done
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          PREVIOUS_TAG: ${{ steps.version.outputs.previous_tag }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
