@@ -53,7 +53,7 @@ border: 1px solid var(--f5-border-default);  /* neutral at 20% alpha */
 #### Border Use Cases
 
 | Token | Opacity | Use Case |
-|---|---|---|
+| --- | --- | --- |
 | `--f5-border-faint` | 10% | Subtle separators, table rows |
 | `--f5-border-default` | 20% | Default borders, card outlines |
 | `--f5-border-strong` | 40% | Emphasized borders, active states |
@@ -67,7 +67,7 @@ Semantic surface tokens for hover and active states.
 #### Light Mode Surfaces
 
 | Token | Value | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | `--f5-white` | `#ffffff` | Main backgrounds |
 | `--f5-white-1` | `#faf9f7` | Sidebar, subtle areas |
 | `--f5-white-2` | `#f5f5f5` | Elevated surfaces |
@@ -77,7 +77,7 @@ Semantic surface tokens for hover and active states.
 #### Dark Mode Surfaces
 
 | Token | Value | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | `--f5-black` | `#000000` | Main backgrounds |
 | `--f5-black-4` | `#222222` | Sidebar, subtle areas |
 | `--f5-surface-hover` | `var(--f5-black-3)` | Hover fill |
@@ -150,7 +150,7 @@ The theme uses **neutral-tinted alpha shadows** with double-layer values for nat
 ### Component Shadow Mapping
 
 | Component | Shadow Level |
-|---|---|
+| --- | --- |
 | `.swatch`, `.icon-card` | `--f5-shadow-low` (at rest) |
 | `.starlight-aside` | `--f5-shadow-low` |
 | `.expressive-code .frame` | `--f5-shadow-mid` |
@@ -180,7 +180,7 @@ The theme uses **neutral-tinted alpha shadows** with double-layer values for nat
 ### Component Radius Mapping
 
 | Component | Radius Token |
-|---|---|
+| --- | --- |
 | `.swatch` | `--f5-radius-md` (6px) |
 | `.icon-card` | `--f5-radius-md` (6px) |
 | `.starlight-aside` | `--f5-radius-md` (6px) |
@@ -299,7 +299,7 @@ nav.sidebar a[aria-current="page"] {
 ### Button Size Scale
 
 | Size | Padding | Font Size | Min Height |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Small | `0.375rem 0.75rem` | `0.8125rem` (13px) | `32px` |
 | Medium (default) | `0.625rem 1rem` | `0.875rem` (14px) | `40px` |
 | Large | `0.75rem 1.5rem` | `1rem` (16px) | `48px` |
@@ -386,7 +386,7 @@ Using the F5 brand palette:
 ```
 
 | Token | Duration | Easing | Use Case |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `--f5-transition-fast` | `0.15s` | `ease` | Most hover states, color changes |
 | `--f5-transition-base` | `0.2s` | `ease` | Background fills, border changes |
 | `--f5-transition-bounce` | `0.2s` | `cubic-bezier(0.68, -0.2, 0.265, 1.15)` | Switches, toggles |
@@ -396,7 +396,7 @@ Using the F5 brand palette:
 ### What to Animate
 
 | Property | Safe to Animate | Notes |
-|---|---|---|
+| --- | --- | --- |
 | `background-color` | Yes | Standard for hover fills |
 | `color` | Yes | Text color changes |
 | `border-color` | Yes | Border emphasis on hover |
@@ -499,7 +499,7 @@ textarea:focus-visible {
 ### Type Scale
 
 | Scale | Size | Line Height | Usage |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Display 500 | `1.875rem` (30px) | 1.267 | `--sl-text-h1` |
 | Display 400 | `1.5rem` (24px) | 1.333 | `--sl-text-h2` |
 | Display 300 | `1.125rem` (18px) | 1.333 | `--sl-text-h3` |
@@ -512,7 +512,7 @@ textarea:focus-visible {
 ### Key Characteristics
 
 | Aspect | Value | Notes |
-|---|---|---|
+| --- | --- | --- |
 | Heading line height | `1.1` | Tight headings for brand impact; consider `1.2` for readability |
 | Body line height | `1.5` (Starlight default) | Well-suited for reading |
 | Font family | Custom brand fonts | proximaNova (body), neusaNextProWide (headings) |
@@ -527,7 +527,7 @@ textarea:focus-visible {
 All design tokens were implemented across five sprints:
 
 | Sprint | Scope | Tokens Added |
-|---|---|---|
+| --- | --- | --- |
 | 1. Foundation | Shadows + border radius | `--f5-shadow-*` (5 levels), `--f5-radius-*` (5 levels) |
 | 2. Sidebar + Surfaces | Navigation + interactive tokens | `--f5-surface-hover`, `--f5-surface-active`, `--f5-border-*` (3 levels), `--f5-transition-fast` |
 | 3. Buttons | Component system | `.btn-primary`, `.btn-secondary`, `.btn-tertiary`, `.btn-critical`, size variants |

@@ -25,7 +25,7 @@ Hierarchy is established through descending type size **and** contrast via alter
 The Brand Center specimen shows five styles:
 
 | Style | Weight Value | CSS `font-weight` | CSS `font-style` |
-|-------|-------------|-------------------|-------------------|
+| ------- | ------------- | ------------------- | ------------------- |
 | Light | 300 | `300` | `normal` |
 | Regular | 400 | `400` | `normal` |
 | Italic | 400 | `400` | `italic` |
@@ -39,7 +39,7 @@ The Brand Center specimen shows five styles:
 The Brand Center specimen shows four styles:
 
 | Style | Weight Value | CSS `font-weight` | CSS `font-style` |
-|-------|-------------|-------------------|-------------------|
+| ------- | ------------- | ------------------- | ------------------- |
 | Regular | 400 | `400` | `normal` |
 | Regular Italic | 400 | `400` | `italic` |
 | Bold | 700 | `700` | `normal` |
@@ -60,7 +60,7 @@ Proxima Nova is separately licensed and is **not** included in the Brand Center 
 ### Hierarchy Table
 
 | Element | Font | Weight | Case | Notes |
-|---------|------|--------|------|-------|
+| --------- | ------ | -------- | ------ | ------- |
 | Headline | Neusa Wide | Bold (700) | Sentence | Leading = 1.1× type size |
 | Eyebrow | Proxima Nova | Bold (700) | UPPERCASE | Small, with letter-spacing |
 | Subhead / Intro | Neusa Wide | Medium (500) | Sentence | Or Proxima Nova if immediately followed by body copy |
@@ -74,7 +74,7 @@ Proxima Nova is separately licensed and is **not** included in the Brand Center 
 ### Specialized Treatments
 
 | Context | Font | Weight | Size/Leading | Notes |
-|---------|------|--------|-------------|-------|
+| --------- | ------ | -------- | ------------- | ------- |
 | Collateral pull quotes | Neusa Wide | Bold (700) | 9pt / 14pt | Sentence case |
 | eBook pull quotes | Neusa Wide | Regular (400) | 16pt / 19pt | With rule above |
 | Infographic numerals/factoids | Neusa Wide | Light (300) | — | For visual impact at large sizes |
@@ -83,6 +83,7 @@ Proxima Nova is separately licensed and is **not** included in the Brand Center 
 ### Title Case Usage
 
 Title case may be used for:
+
 - Subheads
 - Pull quotes
 - Numeric stats
@@ -130,7 +131,7 @@ This is a combination: **bold with `inline code` inside** and *italic with `code
 - First bullet point
 - Second bullet with **emphasis**
 - Third bullet with `code reference`
-- Fourth bullet with a [link](https://starlight.astro.build)
+- Fourth bullet with a [link to the Starlight documentation](https://starlight.astro.build)
 
 ### Nested Lists
 
@@ -145,11 +146,17 @@ This is a combination: **bold with `inline code` inside** and *italic with `code
 
 ### Blockquotes
 
+Single-line blockquote:
+
 > This is a single-line blockquote.
+
+Multi-line blockquote:
 
 > This is a multi-line blockquote.
 >
 > It spans multiple paragraphs and can contain **bold**, *italic*, and `code` formatting.
+
+Nested blockquote:
 
 > Nested blockquotes:
 >
@@ -188,7 +195,7 @@ The theme ships **10 woff2 files** in the `fonts/` directory:
 ### Neusa Next Pro Wide
 
 | File | Weight | Style | Size |
-|------|--------|-------|------|
+| ------ | -------- | ------- | ------ |
 | `neusaNextProWide-300.woff2` | 300 (Light) | Normal | ~49 KB |
 | `neusaNextProWide-400.woff2` | 400 (Regular) | Normal | ~49 KB |
 | `neusaNextProWide-400i.woff2` | 400 (Regular) | Italic | ~49 KB |
@@ -196,10 +203,10 @@ The theme ships **10 woff2 files** in the `fonts/` directory:
 | `neusaNextProWide-700.woff2` | 700 (Bold) | Normal | ~49 KB |
 | `neusaNextProWide-700i.woff2` | 700 (Bold) | Italic | ~49 KB |
 
-### Proxima Nova
+### Proxima Nova font files
 
 | File | Weight | Style | Size |
-|------|--------|-------|------|
+| ------ | -------- | ------- | ------ |
 | `proximaNova-400.woff2` | 400 (Regular) | Normal | ~18 KB |
 | `proximaNova-500.woff2` | 500 (Medium) | Normal | ~18 KB |
 | `proximaNova-600.woff2` | 600 (Semi-Bold) | Normal | ~18 KB |
@@ -214,7 +221,7 @@ Font files follow the pattern `familyName-weight.woff2`, with an `i` suffix for 
 The following italic variants are not yet available in the theme:
 
 | Missing Variant | Reason |
-|----------------|--------|
+| ---------------- | -------- |
 | Proxima Nova 400 italic | Source file not available in current downloads |
 | Proxima Nova 500 italic | Source file not available in current downloads |
 | Proxima Nova 600 italic (Semi-Bold) | Source file not available |
@@ -246,7 +253,7 @@ To add a new font variant, append a `@font-face` block to `font-face.css`:
 
 The theme plugin (`index.ts`) injects both CSS files via the `config:setup` hook:
 
-```
+```text
 index.ts → fonts/font-face.css → styles/custom.css → Starlight renders
 ```
 
@@ -274,7 +281,7 @@ h1, h2, h3, h4, h5, h6 {
 The theme overrides these Starlight CSS custom properties:
 
 | Token | Value | Purpose |
-|-------|-------|---------|
+| ------- | ------- | --------- |
 | `--sl-font` | `"proximaNova", ...` | Body text, UI elements |
 | `--sl-font-heading` | `"neusaNextProWide", ...` | Custom token for heading font |
 | `--sl-line-height-headings` | `1.1` | Cloud brand headline leading |
@@ -286,7 +293,7 @@ The theme overrides these Starlight CSS custom properties:
 ### Heading Hierarchy Mapping
 
 | HTML | Font Family | Weight | Case | Brand Role |
-|------|------------|--------|------|------------|
+| ------ | ------------ | -------- | ------ | ------------ |
 | `h1` | Neusa Next Wide | 700 (Bold) | Sentence | Headline |
 | `h2` | Neusa Next Wide | 700 (Bold) | Sentence | Subhead |
 | `h3` | Neusa Next Wide | 500 (Medium) | Sentence | Intro / Sub-subhead |
@@ -299,7 +306,7 @@ The theme overrides these Starlight CSS custom properties:
 To use different font families:
 
 1. **Add woff2 files** to `fonts/` using the naming convention `familyName-weight.woff2` (add `i` suffix for italic)
-2. **Update `fonts/font-face.css`** with new `@font-face` rules matching your file names, weights, and styles
+2. **Update `fonts/font-face.css`** with new `@font-face` rules matching your filenames, weights, and styles
 3. **Update `styles/custom.css`** to set `--sl-font` and heading `font-family` to your new family names
 4. **Keep the fallback stack** (`system-ui, "Segoe UI", Helvetica, Arial, sans-serif`) for fast initial rendering
 
