@@ -9,7 +9,7 @@ This page describes how content repositories consume the `@f5-sales-demo/docs-th
 
 ## Architecture
 
-```
+```text
 ┌─────────────────┐
 │  Content Repo   │
 │  (docs/ folder) │
@@ -49,11 +49,13 @@ This page describes how content repositories consume the `@f5-sales-demo/docs-th
 
 1. **Content repo push** — a push to `main` (or manual dispatch) triggers the GitHub Pages Deploy workflow
 2. **Reusable workflow** — the content repo's workflow calls the builder:
+
    ```yaml
    jobs:
      docs:
        uses: f5-sales-demo/docs-control/.github/workflows/github-pages-deploy.yml@main
    ```
+
 3. **Docker builder runs** — the `f5xc-docs-builder` Docker image already has the theme pre-installed via npm. At build time it:
    - Copies `astro.config.mjs` and `content.config.ts` from `node_modules/@f5-sales-demo/docs-theme/` into the Astro project root
    - Copies the content repo's `docs/` files into `src/content/docs/`
