@@ -6,9 +6,16 @@ import { sidebarTranslations } from '../i18n/translations.ts';
 /**
  * Starlight sidebar config types (simplified).
  */
-type SidebarLink = { label: string; link?: string; slug?: string; translations?: Record<string, string> };
+type SidebarLink = { label?: string; link?: string; slug?: string; translations?: Record<string, string> };
 type SidebarGroup = { label: string; items: SidebarItem[]; collapsed?: boolean; translations?: Record<string, string> };
 type SidebarItem = SidebarLink | SidebarGroup;
+
+interface OrderedSidebarItem {
+  item: SidebarItem;
+  order: number | undefined;
+  sortLabel: string;
+  sortPath: string;
+}
 
 type DocType = 'resource' | 'data-source' | 'guide' | 'function';
 
@@ -75,6 +82,105 @@ function kebabToTitleCase(kebab: string): string {
     .split('-')
     .map((word) => (KNOWN_ACRONYMS.has(word) ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1)))
     .join(' ');
+}
+
+function readNavigationMetadata(filePath: string, fallbackTitle: string): { title: string; order: number | undefined } {
+  try {
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const frontmatter = matter(raw).data as Record<string, unknown>;
+    const title =
+      typeof frontmatter.title === 'string' && frontmatter.title.trim()
+        ? frontmatter.title.trim()
+        : typeof frontmatter.page_title === 'string' && frontmatter.page_title.trim()
+          ? frontmatter.page_title.trim()
+          : fallbackTitle;
+    const sidebar = frontmatter.sidebar;
+    const order =
+      typeof sidebar === 'object' &&
+      sidebar !== null &&
+      'order' in sidebar &&
+      typeof sidebar.order === 'number' &&
+      Number.isFinite(sidebar.order)
+        ? sidebar.order
+        : undefined;
+    return { title, order };
+  } catch {
+    return { title: fallbackTitle, order: undefined };
+  }
+}
+
+function compareOrderedSidebarItems(a: OrderedSidebarItem, b: OrderedSidebarItem): number {
+  const orderDifference = (a.order ?? Number.POSITIVE_INFINITY) - (b.order ?? Number.POSITIVE_INFINITY);
+  if (orderDifference !== 0) return orderDifference;
+  const labelDifference = a.sortLabel.localeCompare(b.sortLabel);
+  return labelDifference !== 0 ? labelDifference : a.sortPath.localeCompare(b.sortPath);
+}
+
+function buildDirectorySidebar(dirPath: string, scanDir: string): OrderedSidebarItem | undefined {
+  let entries: fs.Dirent[];
+  try {
+    entries = fs.readdirSync(dirPath, { withFileTypes: true });
+  } catch {
+    return undefined;
+  }
+
+  const relativeDir = path.relative(scanDir, dirPath).replace(/\\/g, '/');
+  const directoryName = path.basename(dirPath);
+  const fallbackLabel = kebabToTitleCase(directoryName);
+  const indexEntry = entries.find((entry) => entry.isFile() && /^index\.mdx?$/.test(entry.name));
+  const indexPath = indexEntry ? path.join(dirPath, indexEntry.name) : undefined;
+  const metadata = indexPath
+    ? readNavigationMetadata(indexPath, fallbackLabel)
+    : { title: fallbackLabel, order: undefined };
+  const children: OrderedSidebarItem[] = [];
+
+  for (const entry of entries) {
+    if (entry.name.startsWith('.') || entry.name.startsWith('_')) continue;
+    const fullPath = path.join(dirPath, entry.name);
+
+    if (entry.isDirectory()) {
+      const group = buildDirectorySidebar(fullPath, scanDir);
+      if (group) children.push(group);
+      continue;
+    }
+    if (!entry.isFile() || !/\.mdx?$/.test(entry.name) || /^index\.mdx?$/.test(entry.name)) continue;
+
+    const relativePath = path.relative(scanDir, fullPath).replace(/\\/g, '/');
+    const slug = filePathToSlug(relativePath).replace(/^\/|\/$/g, '');
+    const fallbackTitle = path.basename(entry.name, path.extname(entry.name)).replace(/[-_]/g, ' ');
+    const page = readNavigationMetadata(fullPath, fallbackTitle);
+    children.push({
+      item: { slug },
+      order: page.order,
+      sortLabel: page.title,
+      sortPath: relativePath,
+    });
+  }
+
+  children.sort(compareOrderedSidebarItems);
+  const items: SidebarItem[] = [];
+  if (indexPath) {
+    items.push({
+      label: 'Overview',
+      slug: filePathToSlug(path.relative(scanDir, indexPath)).replace(/^\/|\/$/g, ''),
+      translations: sidebarTranslations.Overview,
+    });
+  }
+  items.push(...children.map((child) => child.item));
+  if (items.length === 0) return undefined;
+
+  const translations = sidebarTranslations[metadata.title as keyof typeof sidebarTranslations];
+  return {
+    item: {
+      label: metadata.title,
+      collapsed: true,
+      ...(translations ? { translations } : {}),
+      items,
+    },
+    order: metadata.order,
+    sortLabel: metadata.title,
+    sortPath: relativeDir,
+  };
 }
 
 /**
@@ -170,51 +276,46 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
 
   // If no files have subcategory, generate autogenerate entries with translations
   if (!hasAnySubcategory) {
-    const topLevelDirs: string[] = [];
+    let rootEntries: fs.Dirent[];
     try {
-      const dirEntries = fs.readdirSync(scanDir, { withFileTypes: true });
-      for (const entry of dirEntries) {
-        if (entry.isDirectory() && !entry.name.startsWith('.') && !entry.name.startsWith('_')) {
-          topLevelDirs.push(entry.name);
-        }
-      }
+      rootEntries = fs.readdirSync(scanDir, { withFileTypes: true });
     } catch {
       return undefined;
     }
-    if (topLevelDirs.length === 0) return undefined;
+    const orderedItems: OrderedSidebarItem[] = [];
 
-    const sidebar: SidebarItem[] = [];
+    for (const entry of rootEntries) {
+      if (entry.name.startsWith('.') || entry.name.startsWith('_')) continue;
+      const fullPath = path.join(scanDir, entry.name);
+
+      if (entry.isDirectory()) {
+        const group = buildDirectorySidebar(fullPath, scanDir);
+        if (group) orderedItems.push(group);
+        continue;
+      }
+      if (!entry.isFile() || !/\.mdx?$/.test(entry.name) || /^index\.mdx?$/.test(entry.name)) continue;
+
+      const slug = filePathToSlug(entry.name).replace(/^\/|\/$/g, '');
+      const fallbackTitle = path.basename(entry.name, path.extname(entry.name)).replace(/[-_]/g, ' ');
+      const page = readNavigationMetadata(fullPath, fallbackTitle);
+      orderedItems.push({ item: { slug }, order: page.order, sortLabel: page.title, sortPath: entry.name });
+    }
 
     if (hasOverview) {
-      sidebar.push({ label: 'Overview', link: '/', translations: sidebarTranslations.Overview });
+      const overviewEntry = rootEntries.find((entry) => entry.isFile() && /^index\.mdx?$/.test(entry.name));
+      const overview = overviewEntry
+        ? readNavigationMetadata(path.join(scanDir, overviewEntry.name), 'Overview')
+        : { title: 'Overview', order: undefined };
+      orderedItems.push({
+        item: { label: 'Overview', link: '/', translations: sidebarTranslations.Overview },
+        order: overview.order ?? Number.NEGATIVE_INFINITY,
+        sortLabel: overview.title,
+        sortPath: '',
+      });
     }
 
-    for (const dir of topLevelDirs.sort()) {
-      const label = kebabToTitleCase(dir);
-      const translations = sidebarTranslations[label as keyof typeof sidebarTranslations];
-      const dirPath = path.join(scanDir, dir);
-      const dirFiles = collectMarkdownFiles(dirPath);
-      const links: SidebarLink[] = dirFiles
-        .map((filePath) => {
-          const relativePath = path.relative(scanDir, filePath).replace(/\\/g, '/');
-          const slug = filePathToSlug(relativePath);
-          const baseName = path.basename(relativePath, path.extname(relativePath));
-          if (baseName === 'index') return null;
-          return { slug: slug.replace(/^\/|\/$/g, '') } as SidebarLink;
-        })
-        .filter((item): item is SidebarLink => item !== null);
-
-      if (links.length > 0) {
-        sidebar.push({
-          label,
-          collapsed: false,
-          ...(translations ? { translations } : {}),
-          items: links,
-        });
-      }
-    }
-
-    return sidebar;
+    orderedItems.sort(compareOrderedSidebarItems);
+    return orderedItems.length > 0 ? orderedItems.map((entry) => entry.item) : undefined;
   }
 
   // Partition docs by type
