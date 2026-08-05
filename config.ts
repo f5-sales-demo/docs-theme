@@ -88,7 +88,18 @@ export interface F5xcDocsConfigOptions {
   defaultLocale?: string;
 }
 
-const defaultMegaMenuItems: MegaMenuItem[] = [
+const developerAutomationTranslations = Object.fromEntries(
+  Object.entries(categoryTitles.Automation).map(([locale, automation]) => [
+    locale,
+    `${categoryTitles['Developer Tools'][locale]} / ${automation}`,
+  ]),
+);
+
+const xcshActionDescriptionTranslations = Object.fromEntries(
+  Object.entries(categoryTitles.Automation).map(([locale, automation]) => [locale, `F5 XC — ${automation}`]),
+);
+
+export const defaultMegaMenuItems: MegaMenuItem[] = [
   {
     label: 'Security',
     translations: menuLabels.Security,
@@ -308,8 +319,8 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
           ],
         },
         {
-          title: 'Automation',
-          translations: categoryTitles.Automation,
+          title: 'Developer Automation',
+          translations: developerAutomationTranslations,
           items: [
             {
               label: 'Terraform Provider',
@@ -334,6 +345,37 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
               descriptionTranslations: itemDescriptions['Enriched OpenAPI specifications'],
               href: 'https://f5-sales-demo.github.io/api-specs-enriched/',
               icon: resolveIcon('f5xc:data-intelligence'),
+            },
+            {
+              label: 'xcsh Manifest Automation',
+              description: 'Deterministic F5 XC manifest operations in GitHub Actions',
+              descriptionTranslations: xcshActionDescriptionTranslations,
+              href: 'https://f5-sales-demo.github.io/xcsh-action/',
+              icon: resolveIcon('carbon:workflow-automation'),
+            },
+            {
+              label: 'VS Code Extension',
+              translations: itemLabels['VS Code Extension'],
+              description: 'Manage F5 XC resources from VS Code',
+              descriptionTranslations: itemDescriptions['Manage F5 XC resources from VS Code'],
+              href: 'https://f5-sales-demo.github.io/vscode-xcsh/',
+              icon: resolveIcon('carbon:code'),
+            },
+            {
+              label: 'xcsh CLI',
+              translations: itemLabels['xcsh CLI'],
+              description: 'AI-powered CLI for F5 XC',
+              descriptionTranslations: itemDescriptions['AI-powered CLI for F5 XC'],
+              href: 'https://f5-sales-demo.github.io/xcsh/',
+              icon: resolveIcon('carbon:terminal'),
+            },
+            {
+              label: 'xcsh Chrome Extension',
+              translations: itemLabels['xcsh Chrome Extension'],
+              description: 'Drive the F5 XC console with xcsh',
+              descriptionTranslations: itemDescriptions['Drive the F5 XC console with xcsh'],
+              href: 'https://f5-sales-demo.github.io/xcsh-chrome-extension/',
+              icon: resolveIcon('carbon:application-web'),
             },
           ],
         },
@@ -472,45 +514,6 @@ const defaultMegaMenuItems: MegaMenuItem[] = [
       ],
     },
   },
-  {
-    label: 'Tools',
-    translations: menuLabels.Tools,
-    content: {
-      layout: 'list',
-      categories: [
-        {
-          title: 'Developer Tools',
-          translations: categoryTitles['Developer Tools'],
-          items: [
-            {
-              label: 'VS Code Extension',
-              translations: itemLabels['VS Code Extension'],
-              description: 'Manage F5 XC resources from VS Code',
-              descriptionTranslations: itemDescriptions['Manage F5 XC resources from VS Code'],
-              href: 'https://f5-sales-demo.github.io/vscode-xcsh/',
-              icon: resolveIcon('carbon:code'),
-            },
-            {
-              label: 'xcsh CLI',
-              translations: itemLabels['xcsh CLI'],
-              description: 'AI-powered CLI for F5 XC',
-              descriptionTranslations: itemDescriptions['AI-powered CLI for F5 XC'],
-              href: 'https://f5-sales-demo.github.io/xcsh/',
-              icon: resolveIcon('carbon:terminal'),
-            },
-            {
-              label: 'xcsh Chrome Extension',
-              translations: itemLabels['xcsh Chrome Extension'],
-              description: 'Drive the F5 XC console with xcsh',
-              descriptionTranslations: itemDescriptions['Drive the F5 XC console with xcsh'],
-              href: 'https://f5-sales-demo.github.io/xcsh-chrome-extension/',
-              icon: resolveIcon('carbon:application-web'),
-            },
-          ],
-        },
-      ],
-    },
-  },
 ];
 
 const defaultHead: HeadEntry[] = [
@@ -556,7 +559,7 @@ mermaid.initialize({
   },
 ];
 
-const federatedSearchSites = [
+export const federatedSearchSites = [
   { repo: 'docs-builder', label: 'Docs Builder' },
   { repo: 'docs-theme', label: 'Docs Theme' },
   { repo: 'docs', label: 'F5 XC Docs' },
@@ -573,6 +576,7 @@ const federatedSearchSites = [
   { repo: 'waf', label: 'WAF' },
   { repo: 'api-protection', label: 'API Security' },
   { repo: 'xcsh', label: 'xcsh' },
+  { repo: 'xcsh-action', label: 'xcsh Manifest Automation' },
   { repo: 'csd', label: 'Client-Side Defense' },
   { repo: 'docs-icons', label: 'Docs Icons' },
   { repo: 'devcontainer', label: 'Dev Container' },
