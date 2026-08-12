@@ -15,6 +15,8 @@ on:
       - 'LICENSE'
   workflow_dispatch:
 
+permissions: {}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -71,6 +73,7 @@ jobs:
         run: |
           package_name=$(node -p "require('./package.json').name")
           package_version=$RELEASE_VERSION
+          # shellcheck disable=SC2153 # Assigned by the step environment below.
           expected_integrity=$EXPECTED_INTEGRITY
 
           registry_integrity() {
