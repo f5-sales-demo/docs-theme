@@ -14,7 +14,7 @@ concurrency:
 jobs:
   dispatch:
     name: Notify f5xc-docs-builder
-    runs-on: [self-hosted, Linux, X64, docs-theme]
+    runs-on: [self-hosted, Linux, X64, docs-theme, ubuntu-24.04]
     environment: release
     steps:
       - name: Verify npm package version exists
