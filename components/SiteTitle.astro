@@ -45,6 +45,9 @@ const { siteTitle } = Astro.locals.starlightRoute;
   }
   span {
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
   }
   img {
     height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
@@ -52,5 +55,6 @@ const { siteTitle } = Astro.locals.starlightRoute;
     max-width: 100%;
     object-fit: contain;
     object-position: 0 50%;
+    flex-shrink: 0;
   }
 </style>
