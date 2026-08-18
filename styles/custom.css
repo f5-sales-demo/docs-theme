@@ -805,3 +805,68 @@ summary:focus-visible {
   height: 2.5rem;
   margin-top: 0;
 }
+
+/* ===== Responsive Splash Hero Layout & Mobile Header ===== */
+.site-title {
+  min-width: 0;
+}
+
+.site-title span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+@media (max-width: 49.99rem) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-block: 1rem 1.5rem;
+  }
+
+  .hero > .stack {
+    order: 1;
+    width: 100%;
+    gap: 1.25rem;
+  }
+
+  .hero > img,
+  .hero > picture,
+  .hero > .hero-html {
+    order: 2;
+    width: min(75%, 15rem);
+    max-height: 12rem;
+    margin-inline: auto;
+    object-fit: contain;
+  }
+
+  .hero > .hero-html img {
+    max-height: 12rem;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+}
+
+@media (min-width: 50rem) {
+  .hero {
+    padding-block: clamp(1.5rem, calc(1rem + 3vmin), 3rem);
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  .hero > img,
+  .hero > picture,
+  .hero > .hero-html {
+    max-height: 20rem;
+  }
+
+  .hero > .hero-html img {
+    max-height: 20rem;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+}
+
