@@ -98,7 +98,7 @@ jobs:
           delay=10
           while [ $attempt -le $max_attempts ]; do
             echo "Attempt $attempt of $max_attempts"
-            if npm publish "$PACKAGE_PATH" --access public --provenance; then
+            if npm publish "$PACKAGE_PATH" --access public; then
               exit 0
             fi
             if published_integrity=$(registry_integrity); then
