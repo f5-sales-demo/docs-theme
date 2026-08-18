@@ -95,7 +95,7 @@ test.describe('Responsive Header and Splash Hero', () => {
 
       // First content heading below hero is visible at or near bottom of 1440x900 viewport
       const firstHeading = page.locator('.main-pane h2, .sl-markdown-content h2, main h2').first();
-      if (await firstHeading.count() > 0) {
+      if ((await firstHeading.count()) > 0) {
         const headingBox = await firstHeading.boundingBox();
         if (headingBox) {
           expect(headingBox.y).toBeLessThan(900);
