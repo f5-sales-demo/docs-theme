@@ -132,7 +132,7 @@
     }
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.116.0",
+    "@anthropic-ai/sdk": "^0.117.1",
     "@astrojs/react": "^6.0.2",
     "@f5-sales-demo/i18n-core": "^1.0.0",
     "@f5-sales-demo/starlight-llms-txt": "1.4.1",
