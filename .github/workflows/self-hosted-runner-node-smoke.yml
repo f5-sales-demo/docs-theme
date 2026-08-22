@@ -4,8 +4,9 @@ name: Self-hosted Runner Node Smoke
 on:
   workflow_dispatch:
 
-permissions:
-  contents: read
+# The smoke has no repository/API interaction: it proves only the immutable
+# runner image and its private, per-job tool cache.
+permissions: {}
 
 concurrency:
   group: self-hosted-runner-node-smoke-${{ github.repository }}
@@ -21,10 +22,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          : "${RUNNER_RUNTIME_DIR:?RUNNER_RUNTIME_DIR must be set}"
-          : "${RUNNER_TOOL_CACHE:?RUNNER_TOOL_CACHE must be set}"
-          runtime_dir="$(realpath -m -- "$RUNNER_RUNTIME_DIR")"
-          tool_cache="$(realpath -m -- "$RUNNER_TOOL_CACHE")"
+          runtime_dir="$(realpath -m -- "${RUNNER_RUNTIME_DIR:?RUNNER_RUNTIME_DIR must be set}")"
+          tool_cache="$(realpath -m -- "${RUNNER_TOOL_CACHE:?RUNNER_TOOL_CACHE must be set}")"
           test "$tool_cache" = "$runtime_dir/_tool"
           test -f "$tool_cache/node/24.14.1/x64.complete"
           test -f /opt/hostedtoolcache/node/24.14.1/x64.complete
@@ -39,13 +38,10 @@ jobs:
             exit 1
           fi
 
-      - name: Resolve catalogued Node from the private tool cache
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: 24.14.1
-
-      - name: Verify Node version
+      - name: Verify catalogued Node from the private tool cache
         shell: bash
         run: |
           set -euo pipefail
-          test "$(node --version)" = "v24.14.1"
+          node_root="$RUNNER_TOOL_CACHE/node/24.14.1/x64"
+          test -x "$node_root/bin/node"
+          test "$("$node_root/bin/node" --version)" = "v24.14.1"
