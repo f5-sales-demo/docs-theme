@@ -24,7 +24,7 @@ concurrency:
 jobs:
   release:
     name: Semantic Release
-    runs-on: [self-hosted, Linux, X64, docs-theme, ubuntu-24.04]
+    runs-on: docs-socketless
     environment: release
     permissions:
       contents: read # Checkout needs only repository read access.
