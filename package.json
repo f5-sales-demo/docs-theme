@@ -150,8 +150,8 @@
   },
   "overrides": {
     "form-data": "4.0.6",
-    "glob": "^13.0.6",
-    "sharp": "^0.35.3"
+    "glob": "13.0.6",
+    "sharp": "0.35.3"
   },
   "allowScripts": {
     "esbuild@0.28.1": true,
