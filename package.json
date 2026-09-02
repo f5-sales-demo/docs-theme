@@ -4,7 +4,7 @@
   "description": "F5 Distributed Cloud branded Starlight documentation theme",
   "type": "module",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=24.20.0"
   },
   "bin": {
     "docs-translate": "./bin/translate.mjs"
