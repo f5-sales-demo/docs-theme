@@ -4,7 +4,7 @@
   "description": "F5 Distributed Cloud branded Starlight documentation theme",
   "type": "module",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.23.2"
   },
   "bin": {
     "docs-translate": "./bin/translate.mjs"
@@ -69,19 +69,19 @@
     "access": "public"
   },
   "devDependencies": {
-    "@astrojs/markdown-remark": "^7.2.2",
-    "@astrojs/starlight": "^0.41.6",
+    "@astrojs/markdown-remark": "^7.2.4",
+    "@astrojs/starlight": "^0.41.9",
     "@f5-sales-demo/icons-f5-brand": "^0.2.0",
     "@f5-sales-demo/icons-f5xc": "^0.3.2",
     "@f5-sales-demo/icons-hashicorp-flight": "^0.3.0",
     "@iconify-json/carbon": "^1.2.25",
-    "@iconify-json/lucide": "^1.2.121",
+    "@iconify-json/lucide": "^1.2.126",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/tabler": "^1.2.38",
-    "@playwright/test": "^1.50.0",
-    "astro": "^7.1.6",
-    "vitest": "^4.1.9"
+    "@playwright/test": "^1.62.1",
+    "astro": "^7.2.7",
+    "vitest": "^4.1.11"
   },
   "scripts": {
     "build": "node scripts/run-astro-with-content.mjs build",
@@ -93,8 +93,8 @@
     "test:visual:update": "playwright test --update-snapshots"
   },
   "peerDependencies": {
-    "@astrojs/markdown-remark": "^7.2.2",
-    "@astrojs/starlight": "^0.41.6",
+    "@astrojs/markdown-remark": "^7.2.4",
+    "@astrojs/starlight": "^0.41.9",
     "@f5-sales-demo/icons-f5-brand": "*",
     "@f5-sales-demo/icons-f5xc": "*",
     "@f5-sales-demo/icons-hashicorp-flight": "*",
@@ -103,7 +103,7 @@
     "@iconify-json/mdi": "*",
     "@iconify-json/ph": "*",
     "@iconify-json/tabler": "*",
-    "astro": "^7.1.6"
+    "astro": "^7.2.7"
   },
   "peerDependenciesMeta": {
     "@iconify-json/lucide": {
@@ -132,21 +132,21 @@
     }
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.116.0",
-    "@astrojs/react": "^6.0.2",
-    "@f5-sales-demo/i18n-core": "^1.0.0",
+    "@anthropic-ai/sdk": "^0.120.0",
+    "@astrojs/react": "^6.0.4",
+    "@f5-sales-demo/i18n-core": "^1.0.56",
     "@f5-sales-demo/starlight-llms-txt": "1.4.1",
-    "@f5-sales-demo/starlight-mega-menu": "^2.0.0",
+    "@f5-sales-demo/starlight-mega-menu": "^2.1.59",
     "gray-matter": "^4.0.3",
     "remark-code-import": "^1.2.0",
     "starlight-heading-badges": "^0.8.0",
     "starlight-image-zoom": "^0.15.0",
-    "starlight-openapi": "^0.26.0",
-    "starlight-page-actions": "^0.7.0",
-    "starlight-plugin-icons": "^1.1.3",
+    "starlight-openapi": "^0.26.1",
+    "starlight-page-actions": "^0.7.1",
+    "starlight-plugin-icons": "^1.1.6",
     "starlight-scroll-to-top": "^1.0.1",
     "starlight-videos": "^0.5.0",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.1.0"
   },
   "overrides": {
     "form-data": "4.0.6",
