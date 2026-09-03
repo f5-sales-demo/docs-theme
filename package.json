@@ -139,7 +139,7 @@
     "@anthropic-ai/sdk": "^0.121.0",
     "@astrojs/react": "^6.0.4",
     "@f5-sales-demo/i18n-core": "^1.0.56",
-    "@f5-sales-demo/starlight-llms-txt": "2.0.0-rc.0",
+    "@f5-sales-demo/starlight-llms-txt": "2.0.0",
     "@f5-sales-demo/starlight-mega-menu": "^2.1.59",
     "gray-matter": "^4.0.3",
     "remark-code-import": "^1.2.0",
