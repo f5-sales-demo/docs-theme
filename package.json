@@ -80,7 +80,11 @@
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/tabler": "^1.2.38",
     "@playwright/test": "^1.62.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
     "astro": "^7.2.8",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "vitest": "^4.1.11"
   },
   "scripts": {
@@ -135,7 +139,7 @@
     "@anthropic-ai/sdk": "^0.121.0",
     "@astrojs/react": "^6.0.4",
     "@f5-sales-demo/i18n-core": "^1.0.56",
-    "@f5-sales-demo/starlight-llms-txt": "1.4.1",
+    "@f5-sales-demo/starlight-llms-txt": "2.0.0-rc.0",
     "@f5-sales-demo/starlight-mega-menu": "^2.1.59",
     "gray-matter": "^4.0.3",
     "remark-code-import": "^1.2.0",
