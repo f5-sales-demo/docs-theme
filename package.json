@@ -4,7 +4,7 @@
   "description": "F5 Distributed Cloud branded Starlight documentation theme",
   "type": "module",
   "engines": {
-    "node": ">=22.23.2"
+    "node": ">=24.19.0"
   },
   "bin": {
     "docs-translate": "./bin/translate.mjs"
@@ -144,7 +144,7 @@
     "starlight-openapi": "^0.26.1",
     "starlight-page-actions": "^0.7.1",
     "starlight-plugin-icons": "^1.1.6",
-    "starlight-scroll-to-top": "^1.0.1",
+    "starlight-scroll-to-top": "^2.0.0",
     "starlight-videos": "^0.5.0",
     "unist-util-visit": "^5.1.0"
   },
