@@ -4,7 +4,7 @@
   "description": "F5 Distributed Cloud branded Starlight documentation theme",
   "type": "module",
   "engines": {
-    "node": ">=24.19.0"
+    "node": ">=24.20.0"
   },
   "bin": {
     "docs-translate": "./bin/translate.mjs"
@@ -80,7 +80,7 @@
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/tabler": "^1.2.38",
     "@playwright/test": "^1.62.1",
-    "astro": "^7.2.7",
+    "astro": "^7.2.8",
     "vitest": "^4.1.11"
   },
   "scripts": {
@@ -103,7 +103,7 @@
     "@iconify-json/mdi": "*",
     "@iconify-json/ph": "*",
     "@iconify-json/tabler": "*",
-    "astro": "^7.2.7"
+    "astro": "^7.2.8"
   },
   "peerDependenciesMeta": {
     "@iconify-json/lucide": {
@@ -132,7 +132,7 @@
     }
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.120.0",
+    "@anthropic-ai/sdk": "^0.121.0",
     "@astrojs/react": "^6.0.4",
     "@f5-sales-demo/i18n-core": "^1.0.56",
     "@f5-sales-demo/starlight-llms-txt": "1.4.1",
@@ -151,7 +151,7 @@
   "overrides": {
     "form-data": "4.0.6",
     "glob": "13.0.6",
-    "sharp": "0.35.3"
+    "sharp": "0.35.4"
   },
   "allowScripts": {
     "esbuild@0.28.1": true,
