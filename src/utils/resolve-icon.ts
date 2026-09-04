@@ -1,4 +1,5 @@
 import { createRequire } from 'node:module';
+import type { MegaMenuSvgIcon } from '@f5-sales-demo/starlight-mega-menu';
 import type { IconSetData } from '../types/icon';
 
 const require = createRequire(import.meta.url);
@@ -13,11 +14,11 @@ export function hasExplicitColors(body: string): boolean {
 }
 
 /**
- * Resolves a `prefix:name` icon identifier to a complete SVG string
- * using the installed Iconify JSON packages. Designed for synchronous
- * use at module scope (e.g. in config.ts default values).
+ * Resolves a `prefix:name` icon identifier to a serializable mega-menu
+ * descriptor using the installed Iconify JSON packages. Designed for
+ * synchronous use at module scope (e.g. in config.ts default values).
  */
-export function resolveIcon(name: string): string {
+export function resolveMegaMenuIcon(name: string): MegaMenuSvgIcon {
   const colonIndex = name.indexOf(':');
   if (colonIndex === -1) {
     throw new Error(`Invalid icon name "${name}". Expected "prefix:name" format.`);
@@ -65,6 +66,10 @@ export function resolveIcon(name: string): string {
   const w = icon.width ?? iconData.width ?? 24;
   const h = icon.height ?? iconData.height ?? 24;
   const isPalette = iconData.info?.palette === true || hasExplicitColors(icon.body);
-  const fillAttr = isPalette ? '' : ' fill="currentColor"';
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 ${w} ${h}"${fillAttr}>${icon.body}</svg>`;
+  return {
+    body: icon.body,
+    width: w,
+    height: h,
+    mode: isPalette ? 'original' : 'currentColor',
+  };
 }
