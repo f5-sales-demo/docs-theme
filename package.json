@@ -70,19 +70,19 @@
   },
   "devDependencies": {
     "@astrojs/markdown-remark": "^7.2.4",
-    "@astrojs/starlight": "^0.41.9",
+    "@astrojs/starlight": "^0.41.10",
     "@f5-sales-demo/icons-f5-brand": "^0.2.0",
     "@f5-sales-demo/icons-f5xc": "^0.3.2",
     "@f5-sales-demo/icons-hashicorp-flight": "^0.3.0",
-    "@iconify-json/carbon": "^1.2.25",
-    "@iconify-json/lucide": "^1.2.126",
+    "@iconify-json/carbon": "^1.2.26",
+    "@iconify-json/lucide": "^1.2.127",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/tabler": "^1.2.38",
     "@playwright/test": "^1.62.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
-    "astro": "^7.2.8",
+    "astro": "^7.2.9",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "vitest": "^4.1.11"
@@ -98,7 +98,7 @@
   },
   "peerDependencies": {
     "@astrojs/markdown-remark": "^7.2.4",
-    "@astrojs/starlight": "^0.41.9",
+    "@astrojs/starlight": "^0.41.10",
     "@f5-sales-demo/icons-f5-brand": "*",
     "@f5-sales-demo/icons-f5xc": "*",
     "@f5-sales-demo/icons-hashicorp-flight": "*",
@@ -107,7 +107,7 @@
     "@iconify-json/mdi": "*",
     "@iconify-json/ph": "*",
     "@iconify-json/tabler": "*",
-    "astro": "^7.2.8"
+    "astro": "^7.2.9"
   },
   "peerDependenciesMeta": {
     "@iconify-json/lucide": {
@@ -136,7 +136,7 @@
     }
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.121.0",
+    "@anthropic-ai/sdk": "^0.122.0",
     "@astrojs/react": "^6.0.4",
     "@f5-sales-demo/i18n-core": "^1.0.56",
     "@f5-sales-demo/starlight-llms-txt": "2.0.0",
