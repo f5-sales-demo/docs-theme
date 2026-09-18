@@ -24,7 +24,8 @@ concurrency:
 jobs:
   release:
     name: Semantic Release
-    runs-on: docs-socketless
+    # npm accepts GitHub Actions provenance only from GitHub-hosted runners.
+    runs-on: ubuntu-latest
     environment: release
     permissions:
       contents: read # Checkout needs only repository read access.
