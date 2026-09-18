@@ -41,4 +41,11 @@ describe('default ecosystem navigation', () => {
     expect(ai?.content?.categories?.flatMap((category) => category.items).map((item) => item.label)).toContain('xcsh');
     expect(federatedSearchSites).toContainEqual({ repo: 'xcsh-action', label: 'xcsh Manifest Automation' });
   });
+
+  it('uses only the renamed Multi-Cloud Networking Pages path', () => {
+    const serializedMenu = JSON.stringify(defaultMegaMenuItems);
+
+    expect(serializedMenu).toContain('https://f5-sales-demo.github.io/multi-cloud-networking/');
+    expect(serializedMenu).not.toContain('https://f5-sales-demo.github.io/mcn/');
+  });
 });
