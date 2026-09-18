@@ -1,5 +1,14 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { nextVersion, releaseLevel } from '../scripts/next-release-version.mjs';
+
+const releaseWorkflow = readFileSync(new URL('../.github/workflows/release.yml', import.meta.url), 'utf8');
+
+describe('release workflow', () => {
+  it('publishes npm packages with a registry-verifiable provenance attestation', () => {
+    expect(releaseWorkflow).toContain('npm publish "$PACKAGE_PATH" --access public --provenance');
+  });
+});
 
 describe('releaseLevel', () => {
   it('returns no release for unrecognized commits', () => {
