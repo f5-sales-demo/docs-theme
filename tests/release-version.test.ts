@@ -6,6 +6,7 @@ const releaseWorkflow = readFileSync(new URL('../.github/workflows/release.yml',
 
 describe('release workflow', () => {
   it('publishes npm packages with a registry-verifiable provenance attestation', () => {
+    expect(releaseWorkflow).toContain('runs-on: ubuntu-latest');
     expect(releaseWorkflow).toContain('npm publish "$PACKAGE_PATH" --access public --provenance');
   });
 });
