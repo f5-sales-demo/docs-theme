@@ -173,7 +173,7 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
               translations: itemLabels['Multi-Cloud Networking'],
               description: 'Site connectivity across clouds',
               descriptionTranslations: itemDescriptions['Site connectivity across clouds'],
-              href: 'https://f5-sales-demo.github.io/mcn/',
+              href: 'https://f5-sales-demo.github.io/multi-cloud-networking/',
               icon: resolveMegaMenuIcon('f5xc:multi-cloud-network-connect'),
             },
             {
