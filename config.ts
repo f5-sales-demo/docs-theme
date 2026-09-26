@@ -58,6 +58,14 @@ export interface F5xcDocsConfigOptions {
   federatedSearch?: boolean;
   locales?: Record<string, { label: string; lang: string; dir?: 'rtl' }> | false;
   defaultLocale?: string;
+  progressiveCorpus?: {
+    manifest: string;
+    contentRoot: string;
+    assetBaseUrl?: string;
+    title?: string;
+    description?: string;
+    sources?: Record<string, { title?: string; description?: string }>;
+  };
 }
 
 const developerAutomationTranslations = Object.fromEntries(
@@ -250,6 +258,14 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
               description: 'Containerized Astro build system',
               descriptionTranslations: itemDescriptions['Containerized Astro build system'],
               href: 'https://f5-sales-demo.github.io/docs-builder/',
+              icon: resolveMegaMenuIcon('f5xc:doc'),
+            },
+            {
+              label: 'F5 Docs Corpus',
+              translations: itemLabels['F5 Docs Corpus'],
+              description: 'Machine-readable F5 product documentation',
+              descriptionTranslations: itemDescriptions['Machine-readable F5 product documentation'],
+              href: 'https://f5-sales-demo.github.io/html-to-markdown/',
               icon: resolveMegaMenuIcon('f5xc:doc'),
             },
             {
@@ -617,6 +633,27 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
 
   const federatedSearch = options.federatedSearch !== false;
   const normalizedBase = base.replace(/\/+$/, '');
+  const progressiveCorpus =
+    options.progressiveCorpus ||
+    (process.env.MACHINE_CORPUS_DIR
+      ? {
+          manifest: path.join(process.env.MACHINE_CORPUS_DIR, 'manifest.json'),
+          contentRoot: process.env.MACHINE_CORPUS_DIR,
+          assetBaseUrl: `${normalizedBase}/snapshot/`,
+          title,
+          description,
+          sources: {
+            'docs-cloud-f5-com': {
+              title: 'F5 Distributed Cloud Documentation',
+              description: 'Official F5 Distributed Cloud product documentation.',
+            },
+            'my-f5-com': {
+              title: 'MyF5 Knowledge',
+              description: 'F5 support and knowledge articles.',
+            },
+          },
+        }
+      : undefined);
   const mergeIndex = federatedSearch
     ? federatedSearchSites
         .filter((s) => `/${s.repo}` !== normalizedBase)
@@ -681,6 +718,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       demote: llmsConfig.demote || ['references*'],
       ...(llmsFederatedSites.length > 0 ? { federatedSites: llmsFederatedSites } : {}),
       ...(llmsFederatedSiteCategories.length > 0 ? { federatedSiteCategories: llmsFederatedSiteCategories } : {}),
+      ...(progressiveCorpus ? { progressiveCorpus } : {}),
     }),
   ];
 
