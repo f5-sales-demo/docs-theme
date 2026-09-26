@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { defaultMegaMenuItems, federatedSearchSites } from './config';
+import packageJson from './package.json';
 import { f5xcDefaultLocales } from './src/i18n/locales';
 
 describe('default ecosystem navigation', () => {
@@ -47,5 +48,22 @@ describe('default ecosystem navigation', () => {
 
     expect(serializedMenu).toContain('https://f5-sales-demo.github.io/multi-cloud-networking/');
     expect(serializedMenu).not.toContain('https://f5-sales-demo.github.io/mcn/');
+  });
+
+  it('links the localized F5 Docs Corpus without federating its non-HTML routes', () => {
+    const platform = defaultMegaMenuItems.find((item) => item.label === 'Platform');
+    const documentationTools = platform?.content?.categories?.find(
+      (category) => category.title === 'Documentation Tools',
+    );
+    const corpus = documentationTools?.items.find((item) => item.label === 'F5 Docs Corpus');
+
+    expect(corpus?.href).toBe('https://f5-sales-demo.github.io/html-to-markdown/');
+    expect(Object.keys(corpus?.translations ?? {})).toHaveLength(Object.keys(f5xcDefaultLocales).length - 1);
+    expect(Object.keys(corpus?.descriptionTranslations ?? {})).toHaveLength(Object.keys(f5xcDefaultLocales).length - 1);
+    expect(federatedSearchSites.some((site) => site.repo === 'html-to-markdown')).toBe(false);
+  });
+
+  it('pins the progressive corpus plugin release exactly', () => {
+    expect(packageJson.dependencies['@f5-sales-demo/starlight-llms-txt']).toBe('2.1.0');
   });
 });
