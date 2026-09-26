@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { defaultMegaMenuItems, federatedSearchSites } from './config';
-import { f5xcDefaultLocales } from './src/i18n/locales';
 import packageJson from './package.json';
+import { f5xcDefaultLocales } from './src/i18n/locales';
 
 describe('default ecosystem navigation', () => {
   it('consolidates developer automation under Platform', () => {
