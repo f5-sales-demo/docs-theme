@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { defaultMegaMenuItems, federatedSearchSites } from './config';
+import { defaultMegaMenuItems, federatedSearchSites, progressiveCorpusPolicy } from './config';
 import packageJson from './package.json';
 import { f5xcDefaultLocales } from './src/i18n/locales';
 
@@ -64,6 +64,40 @@ describe('default ecosystem navigation', () => {
   });
 
   it('pins the progressive corpus plugin release exactly', () => {
-    expect(packageJson.dependencies['@f5-sales-demo/starlight-llms-txt']).toBe('2.1.0');
+    expect(packageJson.dependencies['@f5-sales-demo/starlight-llms-txt']).toBe('2.2.0');
+  });
+});
+
+describe('progressive corpus repository policy', () => {
+  it('forwards only validated taxonomy and hint settings', () => {
+    expect(
+      progressiveCorpusPolicy({
+        progressiveCorpus: {
+          manifest: '/untrusted/manifest.json',
+          contentRoot: '/untrusted/content',
+          assetBaseUrl: 'https://untrusted.example/',
+          taxonomy: {
+            levels: ['category', 'subcategory'],
+            collapseSingletonSubcategories: true,
+          },
+          hints: { strategy: 'first-sentence', maxCharacters: 240 },
+        },
+      }),
+    ).toEqual({
+      taxonomy: {
+        levels: ['category', 'subcategory'],
+        collapseSingletonSubcategories: true,
+      },
+      hints: { strategy: 'first-sentence', maxCharacters: 240 },
+    });
+  });
+
+  it('rejects malformed semantic settings', () => {
+    expect(() => progressiveCorpusPolicy({ progressiveCorpus: { taxonomy: { levels: ['path'] } } })).toThrow(
+      /taxonomy/,
+    );
+    expect(() =>
+      progressiveCorpusPolicy({ progressiveCorpus: { hints: { strategy: 'complete', maxCharacters: 0 } } }),
+    ).toThrow(/hints/);
   });
 });
