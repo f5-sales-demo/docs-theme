@@ -5,7 +5,7 @@ const ECOSYSTEM_HOST = 'f5-sales-demo.github.io';
 // Ecosystem sites published as a single locale (no `/<locale>/` path segment).
 // Injecting a locale slug into links to these produces a 404
 // (e.g. `/terraform-provider-xcsh/en/`), so they are left unlocalized.
-const NON_LOCALIZED_ECOSYSTEM_SLUGS = new Set(['terraform-provider-xcsh', 'docs-control']);
+const NON_LOCALIZED_ECOSYSTEM_SLUGS = new Set(['terraform-provider-xcsh', 'docs-control', 'html-to-markdown']);
 
 export const langToSlug = bcp47ToSlug;
 

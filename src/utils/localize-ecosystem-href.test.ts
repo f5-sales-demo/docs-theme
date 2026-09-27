@@ -71,5 +71,11 @@ describe('localizeEcosystemHref', () => {
     expect(localizeEcosystemHref('https://f5-sales-demo.github.io/docs-control/', 'ja')).toBe(
       'https://f5-sales-demo.github.io/docs-control/',
     );
+    expect(localizeEcosystemHref('https://f5-sales-demo.github.io/html-to-markdown/', 'en')).toBe(
+      'https://f5-sales-demo.github.io/html-to-markdown/',
+    );
+    expect(localizeEcosystemHref('https://f5-sales-demo.github.io/html-to-markdown/', 'fr')).toBe(
+      'https://f5-sales-demo.github.io/html-to-markdown/',
+    );
   });
 });
