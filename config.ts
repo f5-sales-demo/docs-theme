@@ -37,6 +37,62 @@ import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
 export type { LocaleConfig } from './src/i18n/locales.ts';
 export { f5xcDefaultLocales } from './src/i18n/locales.ts';
 
+interface ProgressiveCorpusPolicy {
+  taxonomy?: {
+    levels: ['category', 'subcategory'];
+    collapseSingletonSubcategories: boolean;
+  };
+  hints?: {
+    strategy: 'first-sentence';
+    maxCharacters: number;
+  };
+}
+
+export function progressiveCorpusPolicy(config: Record<string, unknown>): ProgressiveCorpusPolicy {
+  const value = config.progressiveCorpus;
+  if (value === undefined) return {};
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new Error('[docs-theme] progressiveCorpus configuration must be an object');
+  }
+  const input = value as Record<string, unknown>;
+  const policy: ProgressiveCorpusPolicy = {};
+  if (input.taxonomy !== undefined) {
+    if (!input.taxonomy || typeof input.taxonomy !== 'object' || Array.isArray(input.taxonomy)) {
+      throw new Error('[docs-theme] progressiveCorpus taxonomy is invalid');
+    }
+    const taxonomy = input.taxonomy as Record<string, unknown>;
+    const levels = taxonomy.levels;
+    if (
+      !Array.isArray(levels) ||
+      levels.length !== 2 ||
+      levels[0] !== 'category' ||
+      levels[1] !== 'subcategory' ||
+      typeof taxonomy.collapseSingletonSubcategories !== 'boolean'
+    ) {
+      throw new Error('[docs-theme] progressiveCorpus taxonomy is invalid');
+    }
+    policy.taxonomy = {
+      levels: ['category', 'subcategory'],
+      collapseSingletonSubcategories: taxonomy.collapseSingletonSubcategories,
+    };
+  }
+  if (input.hints !== undefined) {
+    if (!input.hints || typeof input.hints !== 'object' || Array.isArray(input.hints)) {
+      throw new Error('[docs-theme] progressiveCorpus hints are invalid');
+    }
+    const hints = input.hints as Record<string, unknown>;
+    if (
+      hints.strategy !== 'first-sentence' ||
+      !Number.isInteger(hints.maxCharacters) ||
+      (hints.maxCharacters as number) < 1
+    ) {
+      throw new Error('[docs-theme] progressiveCorpus hints are invalid');
+    }
+    policy.hints = { strategy: 'first-sentence', maxCharacters: hints.maxCharacters as number };
+  }
+  return policy;
+}
+
 interface HeadEntry {
   tag: string;
   attrs?: Record<string, string>;
@@ -633,6 +689,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
 
   const federatedSearch = options.federatedSearch !== false;
   const normalizedBase = base.replace(/\/+$/, '');
+  const repositoryCorpusPolicy = progressiveCorpusPolicy(llmsConfig);
   const progressiveCorpus =
     options.progressiveCorpus ||
     (process.env.MACHINE_CORPUS_DIR
@@ -642,6 +699,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
           assetBaseUrl: `${normalizedBase}/snapshot/`,
           title,
           description,
+          ...repositoryCorpusPolicy,
           sources: {
             'docs-cloud-f5-com': {
               title: 'F5 Distributed Cloud Documentation',
