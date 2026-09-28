@@ -18,7 +18,7 @@ Il tema legge le variabili d'ambiente al momento della build da `config.ts` e da
 | `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL base canonico per il sito distribuito |
 | `DOCS_BASE` | `/` | Percorso base dell'URL (es. `/my-repo/` per i siti di progetto) |
 | `DOCS_DESCRIPTION` | _(stringa vuota)_ | Descrizione del sito per i metadati e il plugin llms.txt |
-| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL della pagina home collegata dal titolo del sito |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/` | URL della pagina home collegata dal titolo del sito |
 | `GITHUB_REPOSITORY` | _(stringa vuota)_ | Utilizzato per costruire il link social GitHub e i link di modifica |
 | `LLMS_OPTIONAL_LINKS` | `[]` | Array JSON di link aggiuntivi per il plugin llms.txt |
 
@@ -64,7 +64,7 @@ Passato al plugin `starlight-llms-txt` come descrizione del sito. Utilizzato nel
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/';
 ```
 
 Letto dal componente personalizzato `SiteTitle.astro`. Racchiude il titolo del sito nell'intestazione con un link a questo URL, consentendo agli utenti di tornare a una pagina home della documentazione centralizzata. Utile quando più repository di contenuti condividono lo stesso tema e si desidera un link "home" coerente su tutti i siti.

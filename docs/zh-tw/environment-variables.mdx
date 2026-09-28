@@ -18,7 +18,7 @@ i18n:
 | `DOCS_SITE` | `https://f5-sales-demo.github.io` | 已部署網站的標準基礎 URL |
 | `DOCS_BASE` | `/` | URL 基礎路徑（例如，專案網站使用 `/my-repo/`） |
 | `DOCS_DESCRIPTION` | _（空字串）_ | 用於中繼資料和 llms.txt 插件的網站描述 |
-| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | 從網站標題連結的首頁 URL |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/` | 從網站標題連結的首頁 URL |
 | `GITHUB_REPOSITORY` | _（空字串）_ | 用於建立 GitHub 社群連結和編輯連結 |
 | `LLMS_OPTIONAL_LINKS` | `[]` | 用於 llms.txt 插件的額外連結 JSON 陣列 |
 
@@ -64,7 +64,7 @@ const description = options.description || process.env.DOCS_DESCRIPTION || '';
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/';
 ```
 
 由自訂 `SiteTitle.astro` 元件讀取。將頁首中的網站標題包裝為指向此 URL 的連結，讓使用者能夠返回中央文件首頁。當多個內容儲存庫共用相同主題，且您希望在所有網站上保持一致的「首頁」連結時，此功能特別實用。
