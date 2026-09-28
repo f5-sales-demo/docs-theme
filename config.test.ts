@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { defaultMegaMenuItems, federatedSearchBundlePaths, federatedSearchSites, progressiveCorpusPolicy } from './config';
+import {
+  defaultMegaMenuItems,
+  federatedSearchBundlePaths,
+  federatedSearchSites,
+  progressiveCorpusPolicy,
+} from './config';
 import packageJson from './package.json';
 import { f5xcDefaultLocales } from './src/i18n/locales';
 
