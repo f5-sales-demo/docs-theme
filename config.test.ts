@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { defaultMegaMenuItems, federatedSearchSites, progressiveCorpusPolicy } from './config';
+import { defaultMegaMenuItems, federatedSearchBundlePaths, federatedSearchSites, progressiveCorpusPolicy } from './config';
 import packageJson from './package.json';
 import { f5xcDefaultLocales } from './src/i18n/locales';
 
@@ -61,6 +61,19 @@ describe('default ecosystem navigation', () => {
     expect(Object.keys(corpus?.translations ?? {})).toHaveLength(Object.keys(f5xcDefaultLocales).length - 1);
     expect(Object.keys(corpus?.descriptionTranslations ?? {})).toHaveLength(Object.keys(f5xcDefaultLocales).length - 1);
     expect(federatedSearchSites.some((site) => site.repo === 'html-to-markdown')).toBe(false);
+  });
+
+  it('links the portal at the organization root and merges its search only from other sites', () => {
+    const platform = defaultMegaMenuItems.find((item) => item.label === 'Platform');
+    const portal = platform?.content?.categories
+      ?.flatMap((category) => category.items)
+      .find((item) => item.label === 'F5 XC Docs');
+    expect(portal?.href).toBe('https://f5-sales-demo.github.io/');
+    expect(federatedSearchSites).toContainEqual({ repo: 'f5-sales-demo.github.io', label: 'F5 XC Docs' });
+    const childBundles = federatedSearchBundlePaths('https://f5-sales-demo.github.io', '/waf');
+    expect(childBundles).toContain('https://f5-sales-demo.github.io/pagefind/');
+    const rootBundles = federatedSearchBundlePaths('https://f5-sales-demo.github.io', '/');
+    expect(rootBundles).not.toContain('https://f5-sales-demo.github.io/pagefind/');
   });
 
   it('pins the progressive corpus plugin release exactly', () => {

@@ -18,7 +18,7 @@ i18n:
 | `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL ฐานแบบ Canonical สำหรับไซต์ที่ใช้งาน |
 | `DOCS_BASE` | `/` | URL ฐาน (เช่น `/my-repo/` สำหรับไซต์โปรเจกต์) |
 | `DOCS_DESCRIPTION` | _(สตริงว่าง)_ | คำอธิบายไซต์สำหรับ metadata และปลั๊กอิน llms.txt |
-| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL หน้าหลักที่ลิงก์จากชื่อไซต์ |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/` | URL หน้าหลักที่ลิงก์จากชื่อไซต์ |
 | `GITHUB_REPOSITORY` | _(สตริงว่าง)_ | ใช้เพื่อสร้างลิงก์โซเชียล GitHub และลิงก์แก้ไข |
 | `LLMS_OPTIONAL_LINKS` | `[]` | JSON array ของลิงก์เพิ่มเติมสำหรับปลั๊กอิน llms.txt |
 
@@ -64,7 +64,7 @@ const description = options.description || process.env.DOCS_DESCRIPTION || '';
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/';
 ```
 
 อ่านโดยส่วนประกอบ `SiteTitle.astro` ที่กำหนดเอง ห่อชื่อไซต์ในส่วนหัวด้วยลิงก์ไปยัง URL นี้ ทำให้ผู้ใช้สามารถนำทางกลับไปยังหน้าหลักของเอกสารส่วนกลางได้ มีประโยชน์เมื่อที่เก็บเนื้อหาหลายแห่งใช้ธีมเดียวกันและคุณต้องการลิงก์ "home" ที่สม่ำเสมอในทุกไซต์

@@ -309,6 +309,12 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
           translations: categoryTitles['Documentation Tools'],
           items: [
             {
+              label: 'F5 XC Docs',
+              description: 'Organization documentation portal',
+              href: 'https://f5-sales-demo.github.io/',
+              icon: resolveMegaMenuIcon('f5xc:doc'),
+            },
+            {
               label: 'Docs Builder',
               translations: itemLabels['Docs Builder'],
               description: 'Containerized Astro build system',
@@ -603,10 +609,19 @@ mermaid.initialize({
   },
 ];
 
+export function federatedSearchBundlePaths(site: string, base: string): string[] {
+  const normalizedBase = base.replace(/\/+$/, '');
+  return federatedSearchSites
+    .filter((entry) => (entry.repo === 'f5-sales-demo.github.io' ? '' : `/${entry.repo}`) !== normalizedBase)
+    .map((entry) =>
+      entry.repo === 'f5-sales-demo.github.io' ? `${site}/pagefind/` : `${site}/${entry.repo}/pagefind/`,
+    );
+}
+
 export const federatedSearchSites = [
   { repo: 'docs-builder', label: 'Docs Builder' },
   { repo: 'docs-theme', label: 'Docs Theme' },
-  { repo: 'docs', label: 'F5 XC Docs' },
+  { repo: 'f5-sales-demo.github.io', label: 'F5 XC Docs' },
   { repo: 'administration', label: 'Administration' },
   { repo: 'nginx', label: 'NGINX' },
   { repo: 'observability', label: 'Observability' },
@@ -713,11 +728,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         }
       : undefined);
   const mergeIndex = federatedSearch
-    ? federatedSearchSites
-        .filter((s) => `/${s.repo}` !== normalizedBase)
-        .map((s) => ({
-          bundlePath: `${site}/${s.repo}/pagefind/`,
-        }))
+    ? federatedSearchBundlePaths(site, base).map((bundlePath) => ({ bundlePath }))
     : undefined;
 
   const starlightPlugins: StarlightPlugin[] = [

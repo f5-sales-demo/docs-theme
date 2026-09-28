@@ -18,7 +18,7 @@ Das Dokumentationsthema liest Umgebungsvariablen zur Build-Zeit aus `config.ts` 
 | `DOCS_SITE` | `https://f5-sales-demo.github.io` | Kanonische Basis-URL für die bereitgestellte Website |
 | `DOCS_BASE` | `/` | URL-Basispfad (z. B. `/my-repo/` für Projektwebsites) |
 | `DOCS_DESCRIPTION` | _(leere Zeichenkette)_ | Websitebeschreibung für Metadaten und das llms.txt-Plugin |
-| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | Startseiten-URL, die vom Seitentitel verlinkt wird |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/` | Startseiten-URL, die vom Seitentitel verlinkt wird |
 | `GITHUB_REPOSITORY` | _(leere Zeichenkette)_ | Wird verwendet, um den GitHub-Social-Link und Bearbeitungslinks zu erstellen |
 | `LLMS_OPTIONAL_LINKS` | `[]` | JSON-Array mit zusätzlichen Links für das llms.txt-Plugin |
 
@@ -64,7 +64,7 @@ Wird dem Plugin `starlight-llms-txt` als Websitebeschreibung übergeben. Wird in
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/';
 ```
 
 Wird von der benutzerdefinierten Komponente `SiteTitle.astro` gelesen. Umschließt den Seitentitel in der Kopfzeile mit einem Link zu dieser URL, sodass Benutzer zu einer zentralen Dokumentations-Startseite zurücknavigieren können. Nützlich, wenn mehrere Inhalts-Repositories dasselbe Dokumentationsthema verwenden und ein einheitlicher „Startseiten"-Link auf allen Websites gewünscht wird.

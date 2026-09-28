@@ -18,7 +18,7 @@ El tema lee las variables de entorno en el momento de la compilación desde `con
 | `DOCS_SITE` | `https://f5-sales-demo.github.io` | URL base canónica del sitio desplegado |
 | `DOCS_BASE` | `/` | Ruta base de la URL (p. ej., `/my-repo/` para sitios de proyecto) |
 | `DOCS_DESCRIPTION` | _(cadena vacía)_ | Descripción del sitio para metadatos y el complemento llms.txt |
-| `DOCS_HOME` | `https://f5-sales-demo.github.io/docs/` | URL de la página de inicio enlazada desde el título del sitio |
+| `DOCS_HOME` | `https://f5-sales-demo.github.io/` | URL de la página de inicio enlazada desde el título del sitio |
 | `GITHUB_REPOSITORY` | _(cadena vacía)_ | Se usa para generar el enlace social de GitHub y los enlaces de edición |
 | `LLMS_OPTIONAL_LINKS` | `[]` | Arreglo JSON de enlaces adicionales para el complemento llms.txt |
 
@@ -64,7 +64,7 @@ Se pasa al complemento `starlight-llms-txt` como descripción del sitio. Se usa 
 
 ```ts
 // components/SiteTitle.astro
-const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/docs/';
+const docsHome = process.env.DOCS_HOME || 'https://f5-sales-demo.github.io/';
 ```
 
 Lo lee el componente personalizado `SiteTitle.astro`. Envuelve el título del sitio en el encabezado con un enlace a esta URL, lo que permite a los usuarios regresar a una página de inicio de documentación centralizada. Es útil cuando múltiples repositorios de contenido comparten el mismo tema y se desea un enlace de "inicio" coherente en todos los sitios.
