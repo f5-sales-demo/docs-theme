@@ -626,7 +626,7 @@ export const federatedSearchSites = [
   { repo: 'nginx', label: 'NGINX' },
   { repo: 'observability', label: 'Observability' },
   { repo: 'was', label: 'Web App Scanning' },
-  { repo: 'mcn', label: 'Multi-Cloud Networking' },
+  { repo: 'multi-cloud-networking', label: 'Multi-Cloud Networking' },
   { repo: 'dns', label: 'DNS' },
   { repo: 'cdn', label: 'CDN' },
   { repo: 'bot-standard', label: 'Bot Standard' },

@@ -53,6 +53,11 @@ describe('default ecosystem navigation', () => {
 
     expect(serializedMenu).toContain('https://f5-sales-demo.github.io/multi-cloud-networking/');
     expect(serializedMenu).not.toContain('https://f5-sales-demo.github.io/mcn/');
+    expect(federatedSearchSites).toContainEqual({ repo: 'multi-cloud-networking', label: 'Multi-Cloud Networking' });
+    expect(federatedSearchSites.some((site) => site.repo === 'mcn')).toBe(false);
+    expect(federatedSearchBundlePaths('https://f5-sales-demo.github.io', '/')).toContain(
+      'https://f5-sales-demo.github.io/multi-cloud-networking/pagefind/',
+    );
   });
 
   it('links the localized F5 Docs Corpus without federating its non-HTML routes', () => {
