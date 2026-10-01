@@ -46,10 +46,11 @@ it('shortens internal HTML links without changing resolved fragment destinations
     await shareProviderAssets(root, '/provider/preview/main/');
     const html = await readFile(join(root, 'resources/demo/index.html'), 'utf8');
     const match = /href="([^"]+)"/.exec(html);
-    expect(new URL(match![1], 'https://example.test/provider/preview/main/resources/demo/').href).toBe(
+    if (!match) throw new Error('missing link');
+    expect(new URL(match[1], 'https://example.test/provider/preview/main/resources/demo/').href).toBe(
       `https://example.test${href}`,
     );
-    expect(match![1]).toBe('properties/#schema-name');
+    expect(match[1]).toBe('properties/#schema-name');
   } finally {
     await rm(root, { recursive: true, force: true });
   }
