@@ -1,0 +1,55 @@
+---
+import { CardGrid } from '@astrojs/starlight/components';
+import { providerSections } from '../src/utils/canonical-provider';
+import LinkCard from './LinkCard.astro';
+
+const { entry } = Astro.locals.starlightRoute;
+const metadata = entry.data.xcsh_docs;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+{!metadata && (entry.id === 'index' || entry.id === '') && <CardGrid>
+  {providerSections.map(section => <LinkCard title={section.label} href={`${base}/${section.path}/`} />)}
+</CardGrid>}
+<label class="version-control">Documentation version
+  <select id="provider-version" aria-label="Documentation version"><option>{process.env.DOCUMENTATION_LABEL || 'Latest stable'}</option></select>
+</label>
+<slot />
+{metadata && <footer class="provider-provenance">
+  <p>Schema path: <code>{metadata.schema_path.join('.') || 'root'}</code> · <a href={metadata.source_url}>Complete Markdown</a></p>
+  <small>{metadata.id} · {metadata.body_sha256}</small>
+</footer>}
+<style>
+.provider-provenance { border-top: 1px solid var(--sl-color-gray-5); margin-top: 2rem; padding-top: 1rem; overflow-wrap: anywhere; }
+.provider-provenance p { margin-bottom: .5rem; }
+.provider-provenance small { color: var(--sl-color-gray-3); }
+</style>
+
+<script>
+  const select = document.querySelector<HTMLSelectElement>('#provider-version');
+  const publicationRoot = '/terraform-provider-xcsh/';
+  if (select) {
+    fetch(`${publicationRoot}documentation-versions.json`).then(response => response.json()).then(data => {
+      const path = window.location.pathname.slice(publicationRoot.length);
+      const prefix = path.startsWith('versions/') ? path.split('/').slice(0, 2).join('/') + '/' : path.startsWith('preview/main/') ? 'preview/main/' : '';
+      const equivalent = path.slice(prefix.length);
+      const versions = [{ label: `Latest stable (${data.latest})`, prefix: '' }, ...data.versions.map((version: string) => ({ label: version, prefix: `versions/${version}/` })), { label: 'Main preview', prefix: 'preview/main/' }];
+      select.replaceChildren(...versions.map(version => {
+        const option = document.createElement('option');
+        option.textContent = version.label;
+        option.value = version.prefix;
+        option.selected = prefix === version.prefix;
+        return option;
+      }));
+      select.addEventListener('change', async () => {
+        const landing = `${publicationRoot}${select.value}`;
+        const destination = `${landing}${equivalent}`;
+        const response = await fetch(destination, { method: 'HEAD' });
+        window.location.assign(response.ok ? destination : landing);
+      });
+    }).catch(() => { select.disabled = true; });
+  }
+</script>
+<style>
+.version-control { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; font-size: var(--sl-text-sm); }
+select { max-width: 100%; padding: .25rem; }
+</style>

@@ -40,7 +40,8 @@
     "./src/i18n/locales.ts": "./src/i18n/locales.ts",
     "./src/i18n/translator.ts": "./src/i18n/translator.ts",
     "./src/i18n/prompt.ts": "./src/i18n/prompt.ts",
-    "./src/utils/localize-ecosystem-href.ts": "./src/utils/localize-ecosystem-href.ts"
+    "./src/utils/localize-ecosystem-href.ts": "./src/utils/localize-ecosystem-href.ts",
+    "./canonical-route-middleware": "./canonical-route-middleware.ts"
   },
   "files": [
     "index.ts",
@@ -52,7 +53,8 @@
     "styles/",
     "assets/",
     "components/",
-    "src/"
+    "src/",
+    "canonical-route-middleware.ts"
   ],
   "keywords": [
     "starlight",
@@ -70,7 +72,7 @@
   },
   "devDependencies": {
     "@astrojs/markdown-remark": "^7.2.4",
-    "@astrojs/starlight": "^0.41.9",
+    "@astrojs/starlight": "0.41.9",
     "@f5-sales-demo/icons-f5-brand": "^0.2.0",
     "@f5-sales-demo/icons-f5xc": "^0.3.2",
     "@f5-sales-demo/icons-hashicorp-flight": "^0.3.0",
@@ -82,7 +84,7 @@
     "@playwright/test": "^1.62.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
-    "astro": "^7.2.8",
+    "astro": "7.2.8",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "vitest": "^4.1.11"

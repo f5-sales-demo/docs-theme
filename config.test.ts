@@ -124,3 +124,20 @@ describe('progressive corpus repository policy', () => {
     ).toThrow(/hints/);
   });
 });
+
+describe('canonical provider profile', () => {
+  it('enables native one MiB chunks and preserves the publication base', async () => {
+    const { createF5xcDocsConfig } = await import('./config');
+    const config = createF5xcDocsConfig({
+      base: '/terraform-provider-xcsh/versions/v12.0.6/',
+      canonicalProvider: {
+        contentRoot: '/alternate/documentation',
+        manifest: '/alternate/generated-manifest.json',
+        navigation: '/temporary/navigation.json',
+        version: 'v12.0.6',
+      },
+    });
+    expect(config.experimental?.collectionStorage).toEqual({ type: 'chunked', chunkSize: 1024 * 1024 });
+    expect(config.base).toBe('/terraform-provider-xcsh/versions/v12.0.6/');
+  });
+});
