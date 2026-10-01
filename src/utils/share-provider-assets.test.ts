@@ -23,3 +23,15 @@ it('shares identical generated assets, preserving script order and SVG dimension
     await rm(root, { recursive: true, force: true });
   }
 });
+
+it('keeps already shared SVG use elements unchanged on repeated passes', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'shared-provider-repeat-'));
+  try {
+    const html = '<svg width="16"><use href="/shared/icon.svg#icon"></use></svg>';
+    await writeFile(join(root, 'page.html'), html);
+    await shareProviderAssets(root, '/provider/');
+    expect(await readFile(join(root, 'page.html'), 'utf8')).toBe(html);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});

@@ -11,6 +11,7 @@ export async function shareProviderAssets(root, base = '/') {
   const assetRoot = join(root, '_shared');
   const assets = new Map();
   const prefix = `${base.replace(/\/$/, '')}/_shared/`;
+  const tokenStyles = new Map();
   let saved = 0;
   await mkdir(assetRoot, { recursive: true });
   for (const file of files) {
@@ -23,6 +24,14 @@ export async function shareProviderAssets(root, base = '/') {
       assets.set(name, body);
       return `<script${attrs} src="${prefix}${name}"></script>`;
     });
+    html = html.replace(/<span style="(--0:[^"]+)"/g, (_, style) => {
+      const name = `t${hash(style).slice(0, 10)}`;
+      if (style.length <= name.length + 2) return `<span style="${style}"`;
+      tokenStyles.set(name, style);
+      return `<span class="${name}"`;
+    });
+    html = html.replace(/href="https:\/\/f5-sales-demo.github.io(\/terraform-provider-xcsh\/[^"#]*)/g, 'href="$1');
+    if (tokenStyles.size) html = html.replace('</head>', `<link rel="stylesheet" href="${prefix}tokens.css"></head>`);
     const islands = [];
     html = html.replace(/<astro-island\b[\s\S]*?<\/astro-island>/g, (island) => {
       islands.push(island);
@@ -30,7 +39,7 @@ export async function shareProviderAssets(root, base = '/') {
     });
     html = html.replace(/<svg\b([^>]*)>([\s\S]*?)<\/svg>/g, (original, attrs, body) => {
       // Sprite definitions and interactive SVG content must remain inline.
-      if (/<(?:symbol|script|foreignObject)\b/.test(body) || /\bid=/.test(attrs) || /\bon\w+=/.test(attrs))
+      if (/<(?:use|symbol|script|foreignObject)\b/.test(body) || /\bid=/.test(attrs) || /\bon\w+=/.test(attrs))
         return original;
       const name = `${hash(body)}.svg`;
       assets.set(name, `<svg xmlns="http://www.w3.org/2000/svg"><symbol id="icon">${body}</symbol></svg>`);
@@ -40,6 +49,8 @@ export async function shareProviderAssets(root, base = '/') {
     saved += Buffer.byteLength(before) - Buffer.byteLength(html);
     await writeFile(path, html);
   }
+  if (tokenStyles.size)
+    assets.set('tokens.css', [...tokenStyles].map(([name, style]) => `.${name}{${style}}`).join('\n'));
   let assetBytes = 0;
   for (const [name, body] of assets) {
     await writeFile(join(assetRoot, name), body);
