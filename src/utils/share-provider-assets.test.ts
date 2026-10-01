@@ -35,3 +35,22 @@ it('keeps already shared SVG use elements unchanged on repeated passes', async (
     await rm(root, { recursive: true, force: true });
   }
 });
+
+it('shortens internal HTML links without changing resolved fragment destinations', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'provider-links-'));
+  try {
+    const { mkdir } = await import('node:fs/promises');
+    await mkdir(join(root, 'resources/demo'), { recursive: true });
+    const href = '/provider/preview/main/resources/demo/properties/#schema-name';
+    await writeFile(join(root, 'resources/demo/index.html'), `<a href="${href}">Property</a>`);
+    await shareProviderAssets(root, '/provider/preview/main/');
+    const html = await readFile(join(root, 'resources/demo/index.html'), 'utf8');
+    const match = /href="([^"]+)"/.exec(html);
+    expect(new URL(match![1], 'https://example.test/provider/preview/main/resources/demo/').href).toBe(
+      `https://example.test${href}`,
+    );
+    expect(match![1]).toBe('properties/#schema-name');
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});

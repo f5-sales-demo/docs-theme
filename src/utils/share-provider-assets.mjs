@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const hash = (value) => createHash('sha256').update(value).digest('hex').slice(0, 24);
@@ -36,6 +36,16 @@ export async function shareProviderAssets(root, base = '/') {
     html = html.replace(/<astro-island\b[\s\S]*?<\/astro-island>/g, (island) => {
       islands.push(island);
       return `<!--provider-island-${islands.length - 1}-->`;
+    });
+    const pagePath = `${base.replace(/\/$/, '')}/${file.replace(/index\.html$/, '')}`;
+    html = html.replace(/<a\b([^>]*?)href="([^"#]+)(#[^"]*)?"/g, (original, attrs, href, fragment = '') => {
+      if (!href.startsWith(`${base.replace(/\/$/, '')}/`)) return original;
+      const target = href.split('?')[0];
+      const query = href.slice(target.length);
+      let relative = posix.relative(pagePath, target) || '.';
+      if (target.endsWith('/')) relative += '/';
+      relative += query + fragment;
+      return relative.length < (href + fragment).length ? `<a${attrs}href="${relative}"` : original;
     });
     html = html.replace(/<svg\b([^>]*)>([\s\S]*?)<\/svg>/g, (original, attrs, body) => {
       // Sprite definitions and interactive SVG content must remain inline.
