@@ -5,7 +5,7 @@ import Icon from './Icon.astro';
 
 <Default {...Astro.props}><slot /></Default>
 
-<div class="social-links">
+{process.env.DOCS_PROFILE !== 'canonical-provider' && <div class="social-links">
   <a href="https://www.facebook.com/f5incorporated" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
     <Icon name="hashicorp-flight:facebook-color" size="1.5rem" />
   </a>
@@ -21,7 +21,7 @@ import Icon from './Icon.astro';
   <a href="https://www.youtube.com/user/f5networksinc" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
     <Icon name="hashicorp-flight:youtube-color" size="1.5rem" />
   </a>
-</div>
+</div>}
 
 <style>
   .social-links {

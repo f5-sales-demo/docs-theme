@@ -139,5 +139,6 @@ describe('canonical provider profile', () => {
     });
     expect(config.experimental?.collectionStorage).toEqual({ type: 'chunked', chunkSize: 1024 * 1024 });
     expect(config.base).toBe('/terraform-provider-xcsh/versions/v12.0.6/');
+    expect(config.vite?.build?.assetsInlineLimit).toBe(0);
   });
 });

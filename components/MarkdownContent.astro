@@ -7,7 +7,5 @@ import ImageZoom from 'starlight-image-zoom/components/ImageZoom.astro';
 import StarlightVideosMarkdownContent from 'starlight-videos/components/MarkdownContent.astro';
 ---
 
-<ImageZoom />
-<StarlightVideosMarkdownContent>
-  {canonical ? <ProviderReference><slot /></ProviderReference> : <slot />}
-</StarlightVideosMarkdownContent>
+{!canonical && <ImageZoom />}
+{canonical ? <div class="sl-markdown-content"><ProviderReference><slot /></ProviderReference></div> : <StarlightVideosMarkdownContent><slot /></StarlightVideosMarkdownContent>}

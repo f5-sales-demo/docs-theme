@@ -712,7 +712,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     }
   }
   const megaMenuItems = options.megaMenuItems || (canonicalProvider ? providerMegaMenu(base) : defaultMegaMenuItems);
-  const head = options.head || defaultHead;
+  const head = options.head || (canonicalProvider ? [] : defaultHead);
   const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/f5-distributed-cloud.svg' };
   const additionalRemarkPlugins = options.additionalRemarkPlugins || [];
   const additionalIntegrations = options.additionalIntegrations || [];
@@ -774,8 +774,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       progressRingColor: '#e4002b',
       showOnHomepage: false,
     }),
-    starlightHeadingBadges(),
-    starlightPageActions(),
+    ...(!canonicalProvider ? [starlightHeadingBadges(), starlightPageActions()] : []),
     starlightIconsPlugin(),
     ...(openAPISpecs.length > 0
       ? [
@@ -870,7 +869,10 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     site,
     base,
     ...(canonicalProvider
-      ? { experimental: { collectionStorage: { type: 'chunked' as const, chunkSize: 1024 * 1024 } } }
+      ? {
+          experimental: { collectionStorage: { type: 'chunked' as const, chunkSize: 1024 * 1024 } },
+          vite: { build: { assetsInlineLimit: 0 } },
+        }
       : {}),
     ...(resolvedLocales ? { redirects: { '/': `${normalizedBase}/${resolvedDefaultLocale}/` } } : {}),
     markdown: {
