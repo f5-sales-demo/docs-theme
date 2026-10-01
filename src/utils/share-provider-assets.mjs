@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { compactProviderScopes } from './compact-scopes.mjs';
 
 const hash = (value) => createHash('sha256').update(value).digest('hex').slice(0, 24);
 // Input is Astro-generated HTML. Keep each asset's original execution position
@@ -69,7 +70,8 @@ export async function shareProviderAssets(root, base = '/') {
     await writeFile(join(assetRoot, name), body);
     assetBytes += Buffer.byteLength(body);
   }
-  return { pages: files.length, assets: assets.size, savedBytes: saved - assetBytes };
+  const scopes = await compactProviderScopes(root);
+  return { pages: files.length, assets: assets.size, savedBytes: saved - assetBytes + scopes.savedBytes };
 }
 
 export default function providerSharedAssets() {
