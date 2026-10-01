@@ -33,6 +33,7 @@ import { sidebarTranslations } from './src/i18n/translations.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
 import { providerMegaMenu } from './src/utils/canonical-provider.ts';
 import { resolveMegaMenuIcon } from './src/utils/resolve-icon.ts';
+import providerSharedAssets from './src/utils/share-provider-assets.mjs';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
 
 export type { LocaleConfig } from './src/i18n/locales.ts';
@@ -922,6 +923,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         ],
       }),
       react(),
+      ...(canonicalProvider ? [providerSharedAssets()] : []),
       ...additionalIntegrations,
     ],
   });
