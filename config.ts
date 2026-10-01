@@ -31,6 +31,7 @@ import {
 } from './src/i18n/mega-menu-translations.ts';
 import { sidebarTranslations } from './src/i18n/translations.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
+import { providerMegaMenu } from './src/utils/canonical-provider.ts';
 import { resolveMegaMenuIcon } from './src/utils/resolve-icon.ts';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
 
@@ -100,6 +101,7 @@ interface HeadEntry {
 }
 
 export interface F5xcDocsConfigOptions {
+  canonicalProvider?: { contentRoot: string; manifest: string; navigation: string; version: string };
   site?: string;
   base?: string;
   title?: string;
@@ -651,6 +653,19 @@ export const federatedSearchSites = [
 ];
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
+  const canonicalProvider =
+    options.canonicalProvider ||
+    (process.env.DOCS_PROFILE === 'canonical-provider'
+      ? {
+          contentRoot: process.env.CONTENT_DIR || 'src/content/docs',
+          manifest: process.env.CANONICAL_MANIFEST || '',
+          navigation: process.env.PROVIDER_NAVIGATION || '',
+          version: process.env.DOCUMENTATION_LABEL || 'Latest stable',
+        }
+      : undefined);
+  if (canonicalProvider && (!canonicalProvider.manifest || !canonicalProvider.navigation)) {
+    throw new Error('[docs-theme] canonical-provider requires manifest and navigation');
+  }
   const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
   const base = options.base || process.env.DOCS_BASE || '/';
   const title = options.title || process.env.DOCS_TITLE || 'Documentation';
@@ -696,13 +711,13 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       console.warn('[docs-theme] OPENAPI_SPECS_CONFIG contains invalid JSON; skipping OpenAPI plugin.', e);
     }
   }
-  const megaMenuItems = options.megaMenuItems || defaultMegaMenuItems;
+  const megaMenuItems = options.megaMenuItems || (canonicalProvider ? providerMegaMenu(base) : defaultMegaMenuItems);
   const head = options.head || defaultHead;
   const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/f5-distributed-cloud.svg' };
   const additionalRemarkPlugins = options.additionalRemarkPlugins || [];
   const additionalIntegrations = options.additionalIntegrations || [];
 
-  const federatedSearch = options.federatedSearch !== false;
+  const federatedSearch = !canonicalProvider && options.federatedSearch !== false;
   const normalizedBase = base.replace(/\/+$/, '');
   const repositoryCorpusPolicy = progressiveCorpusPolicy(llmsConfig);
   const progressiveCorpus =
@@ -776,29 +791,35 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
           ),
         ]
       : []),
-    starlightLlmsTxt({
-      projectName: title,
-      description,
-      rawContent: false,
-      optionalLinks: llmsOptionalLinks,
-      sidebarNav: true,
-      tieredHierarchy: true,
-      promote: llmsConfig.promote || ['index*', 'overview*'],
-      demote: llmsConfig.demote || ['references*'],
-      ...(llmsFederatedSites.length > 0 ? { federatedSites: llmsFederatedSites } : {}),
-      ...(llmsFederatedSiteCategories.length > 0 ? { federatedSiteCategories: llmsFederatedSiteCategories } : {}),
-      ...(progressiveCorpus ? { progressiveCorpus } : {}),
-    }),
+    ...(!canonicalProvider
+      ? [
+          starlightLlmsTxt({
+            projectName: title,
+            description,
+            rawContent: false,
+            optionalLinks: llmsOptionalLinks,
+            sidebarNav: true,
+            tieredHierarchy: true,
+            promote: llmsConfig.promote || ['index*', 'overview*'],
+            demote: llmsConfig.demote || ['references*'],
+            ...(llmsFederatedSites.length > 0 ? { federatedSites: llmsFederatedSites } : {}),
+            ...(llmsFederatedSiteCategories.length > 0 ? { federatedSiteCategories: llmsFederatedSiteCategories } : {}),
+            ...(progressiveCorpus ? { progressiveCorpus } : {}),
+          }),
+        ]
+      : []),
   ];
 
   const contentDir = process.env.CONTENT_DIR || 'src/content/docs';
-  const subcategorySidebar = buildSubcategorySidebar(contentDir);
+  const subcategorySidebar = canonicalProvider ? [] : buildSubcategorySidebar(contentDir);
 
   // Auto-detect i18n: enable locales only when content has an en/ subdirectory.
   // Repos that haven't migrated to docs/en/ won't get a broken language selector.
   const hasEnSubdir = fs.existsSync(path.resolve(contentDir, 'en'));
   const resolvedLocales =
-    options.locales === false ? undefined : options.locales || (hasEnSubdir ? f5xcDefaultLocales : undefined);
+    canonicalProvider || options.locales === false
+      ? undefined
+      : options.locales || (hasEnSubdir ? f5xcDefaultLocales : undefined);
   const resolvedDefaultLocale = options.defaultLocale || f5xcDefaultLocale;
 
   const localeHeadScripts: HeadEntry[] = [];
@@ -848,6 +869,9 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   return defineConfig({
     site,
     base,
+    ...(canonicalProvider
+      ? { experimental: { collectionStorage: { type: 'chunked' as const, chunkSize: 1024 * 1024 } } }
+      : {}),
     ...(resolvedLocales ? { redirects: { '/': `${normalizedBase}/${resolvedDefaultLocale}/` } } : {}),
     markdown: {
       processor: unified({

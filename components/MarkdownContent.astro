@@ -1,7 +1,13 @@
 ---
+import ProviderReference from './ProviderReference.astro';
+
+const canonical = process.env.DOCS_PROFILE === 'canonical-provider';
+
 import ImageZoom from 'starlight-image-zoom/components/ImageZoom.astro';
 import StarlightVideosMarkdownContent from 'starlight-videos/components/MarkdownContent.astro';
 ---
 
 <ImageZoom />
-<StarlightVideosMarkdownContent><slot /></StarlightVideosMarkdownContent>
+<StarlightVideosMarkdownContent>
+  {canonical ? <ProviderReference><slot /></ProviderReference> : <slot />}
+</StarlightVideosMarkdownContent>

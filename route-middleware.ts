@@ -1,6 +1,7 @@
 import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 import { itemLabels, menuLabels } from './src/i18n/mega-menu-translations.ts';
+import { isCanonicalReference } from './src/utils/canonical-provider.ts';
 
 const titleTranslations: Record<string, Record<string, string>> = { ...menuLabels, ...itemLabels };
 
@@ -55,7 +56,7 @@ export const onRequest = defineRouteMiddleware(async (context, next) => {
   const route = context.locals.starlightRoute;
   const entry = route.entry;
 
-  if (isIndexPage(entry.filePath)) {
+  if (!isCanonicalReference(entry.data) && isIndexPage(entry.filePath)) {
     // Unconditionally hide TOC on index pages
     route.toc = undefined;
   }

@@ -10,8 +10,11 @@ export default function f5xcDocsTheme(): StarlightPlugin {
       },
       'config:setup'({ config, updateConfig, addRouteMiddleware, logger }) {
         addRouteMiddleware({
-          entrypoint: '@f5-sales-demo/docs-theme/route-middleware',
-          order: 'pre',
+          entrypoint:
+            process.env.DOCS_PROFILE === 'canonical-provider'
+              ? '@f5-sales-demo/docs-theme/canonical-route-middleware'
+              : '@f5-sales-demo/docs-theme/route-middleware',
+          order: process.env.DOCS_PROFILE === 'canonical-provider' ? 'post' : 'pre',
         });
         updateConfig({
           customCss: [
