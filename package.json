@@ -42,7 +42,8 @@
     "./src/i18n/prompt.ts": "./src/i18n/prompt.ts",
     "./src/utils/localize-ecosystem-href.ts": "./src/utils/localize-ecosystem-href.ts",
     "./canonical-route-middleware": "./canonical-route-middleware.ts",
-    "./components/ProviderSidebar.astro": "./components/ProviderSidebar.astro"
+    "./components/ProviderSidebar.astro": "./components/ProviderSidebar.astro",
+    "./components/ProviderHeader.astro": "./components/ProviderHeader.astro"
   },
   "files": [
     "index.ts",
