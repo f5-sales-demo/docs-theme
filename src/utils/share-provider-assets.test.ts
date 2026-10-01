@@ -23,3 +23,35 @@ it('shares identical generated assets, preserving script order and SVG dimension
     await rm(root, { recursive: true, force: true });
   }
 });
+
+it('keeps already shared SVG use elements unchanged on repeated passes', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'shared-provider-repeat-'));
+  try {
+    const html = '<svg width="16"><use href="/shared/icon.svg#icon"></use></svg>';
+    await writeFile(join(root, 'page.html'), html);
+    await shareProviderAssets(root, '/provider/');
+    expect(await readFile(join(root, 'page.html'), 'utf8')).toBe(html);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+it('shortens internal HTML links without changing resolved fragment destinations', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'provider-links-'));
+  try {
+    const { mkdir } = await import('node:fs/promises');
+    await mkdir(join(root, 'resources/demo'), { recursive: true });
+    const href = '/provider/preview/main/resources/demo/properties/#schema-name';
+    await writeFile(join(root, 'resources/demo/index.html'), `<a href="${href}">Property</a>`);
+    await shareProviderAssets(root, '/provider/preview/main/');
+    const html = await readFile(join(root, 'resources/demo/index.html'), 'utf8');
+    const match = /href="([^"]+)"/.exec(html);
+    if (!match) throw new Error('missing link');
+    expect(new URL(match[1], 'https://example.test/provider/preview/main/resources/demo/').href).toBe(
+      `https://example.test${href}`,
+    );
+    expect(match[1]).toBe('properties/#schema-name');
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
