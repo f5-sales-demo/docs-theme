@@ -1,0 +1,6 @@
+---
+import ProviderSidebarTree from './ProviderSidebarTree.astro';
+
+const { sidebar } = Astro.locals.starlightRoute;
+---
+<nav aria-label="Provider reference"><ProviderSidebarTree entries={sidebar} /></nav>

@@ -1,0 +1,21 @@
+---
+import type { StarlightRouteData } from '@astrojs/starlight/route-data';
+
+interface Props {
+  entries: StarlightRouteData['sidebar'];
+}
+const { entries } = Astro.props;
+---
+<ul>{entries.map(entry => <li>{entry.type === 'link'
+  ? <a href={entry.href} aria-current={entry.isCurrent ? 'page' : undefined}>{entry.label}</a>
+  : <details open={!entry.collapsed}><summary>{entry.label}</summary><Astro.self entries={entry.entries} /></details>}
+</li>)}</ul>
+<style>
+ul { list-style: none; padding: 0; margin: 0; }
+ul ul { padding-inline-start: .75rem; border-inline-start: 1px solid var(--sl-color-gray-5); }
+li { margin: .3rem 0; overflow-wrap: anywhere; }
+a { display: block; padding: .2rem .4rem; color: var(--sl-color-gray-2); text-decoration: none; font-size: var(--sl-text-sm); }
+a:hover { color: var(--sl-color-white); }
+a[aria-current] { background: var(--sl-color-accent-low); color: var(--sl-color-accent-high); border-inline-start: 2px solid var(--sl-color-accent); }
+summary { cursor: pointer; padding: .25rem; font-weight: 600; font-size: var(--sl-text-sm); }
+</style>
