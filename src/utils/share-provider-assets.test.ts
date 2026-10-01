@@ -55,3 +55,19 @@ it('shortens internal HTML links without changing resolved fragment destinations
     await rm(root, { recursive: true, force: true });
   }
 });
+
+it('resolves file-route links from their containing directory', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'provider-file-route-'));
+  try {
+    await writeFile(join(root, '404.html'), '<a href="/provider/preview/main/actions/">Actions</a>');
+    await shareProviderAssets(root, '/provider/preview/main/');
+    const html = await readFile(join(root, '404.html'), 'utf8');
+    const match = /href="([^"]+)"/.exec(html);
+    if (!match) throw new Error('missing link');
+    expect(new URL(match[1], 'https://example.test/provider/preview/main/404.html').href).toBe(
+      'https://example.test/provider/preview/main/actions/',
+    );
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});

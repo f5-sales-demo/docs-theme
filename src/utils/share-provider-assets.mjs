@@ -37,7 +37,7 @@ export async function shareProviderAssets(root, base = '/') {
       islands.push(island);
       return `<!--provider-island-${islands.length - 1}-->`;
     });
-    const pagePath = `${base.replace(/\/$/, '')}/${file.replace(/index\.html$/, '')}`;
+    const pagePath = `${base.replace(/\/$/, '')}/${posix.dirname(file) === '.' ? '' : posix.dirname(file) + '/'}`;
     html = html.replace(/<a\b([^>]*?)href="([^"#]+)(#[^"]*)?"/g, (original, attrs, href, fragment = '') => {
       if (!href.startsWith(`${base.replace(/\/$/, '')}/`)) return original;
       const target = href.split('?')[0];
