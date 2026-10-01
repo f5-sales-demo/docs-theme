@@ -39,7 +39,9 @@ export function collectionNavigation(pages: ProviderPage[], collection: string, 
   const tree = (page: ProviderPage, seen = new Set<string>()): StarlightRouteData['sidebar'][number] => {
     if (seen.has(page.id)) throw new Error(`Cyclic canonical navigation: ${page.id}`);
     const descendants = children.get(page.id) || [];
-    if (!descendants.length) return link(page);
+    // Other branches remain navigable through their reference page, whose
+    // content lists every direct child. Expand only the active ancestry.
+    if (!descendants.length || !(current === page.slug || current.startsWith(`${page.slug}/`))) return link(page);
     const next = new Set([...seen, page.id]);
     return {
       type: 'group',

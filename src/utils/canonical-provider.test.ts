@@ -28,3 +28,21 @@ describe('canonical provider navigation', () => {
     expect(nav[0].entries[1].isCurrent).toBe(true);
   });
 });
+
+describe('bounded collection expansion', () => {
+  it('keeps sibling references and expands only the exact active ancestry', () => {
+    const pages = [
+      { id: 'root', collection_id: 'c', parent_id: null, title: 'Root', slug: 'resources/demo' },
+      { id: 'a', collection_id: 'c', parent_id: 'root', title: 'A', slug: 'resources/demo/properties/a' },
+      { id: 'aa', collection_id: 'c', parent_id: 'a', title: 'AA', slug: 'resources/demo/properties/a/child' },
+      { id: 'b', collection_id: 'c', parent_id: 'root', title: 'B', slug: 'resources/demo/properties/ab' },
+      { id: 'bb', collection_id: 'c', parent_id: 'b', title: 'BB', slug: 'resources/demo/properties/ab/child' },
+    ];
+    const nav = collectionNavigation(pages, 'c', '/', 'resources/demo/properties/a/child');
+    const text = JSON.stringify(nav);
+    expect(text).toContain('AA');
+    expect(text).toContain('"label":"B"');
+    expect(text).not.toContain('BB');
+    expect(nav[0].type).toBe('group');
+  });
+});
