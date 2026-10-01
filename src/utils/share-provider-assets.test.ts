@@ -71,3 +71,17 @@ it('resolves file-route links from their containing directory', async () => {
     await rm(root, { recursive: true, force: true });
   }
 });
+
+it('preserves absolute canonical metadata while shortening anchor links', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'provider-canonical-'));
+  try {
+    const url = 'https://f5-sales-demo.github.io/terraform-provider-xcsh/resources/';
+    await writeFile(join(root, 'index.html'), `<link rel="canonical" href="${url}"><a href="${url}">Resources</a>`);
+    await shareProviderAssets(root, '/terraform-provider-xcsh/');
+    const html = await readFile(join(root, 'index.html'), 'utf8');
+    expect(html).toContain(`<link rel="canonical" href="${url}">`);
+    expect(html).toContain('<a href="resources/">');
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
