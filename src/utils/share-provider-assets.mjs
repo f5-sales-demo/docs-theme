@@ -30,7 +30,10 @@ export async function shareProviderAssets(root, base = '/') {
       tokenStyles.set(name, style);
       return `<span class="${name}"`;
     });
-    html = html.replace(/href="https:\/\/f5-sales-demo.github.io(\/terraform-provider-xcsh\/[^"#]*)/g, 'href="$1');
+    html = html.replace(
+      /<a\b([^>]*?)href="https:\/\/f5-sales-demo.github.io(\/terraform-provider-xcsh\/[^"#]*)/g,
+      '<a$1href="$2',
+    );
     if (tokenStyles.size) html = html.replace('</head>', `<link rel="stylesheet" href="${prefix}tokens.css"></head>`);
     const islands = [];
     html = html.replace(/<astro-island\b[\s\S]*?<\/astro-island>/g, (island) => {
