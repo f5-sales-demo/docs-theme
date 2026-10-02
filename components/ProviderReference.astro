@@ -1,6 +1,9 @@
 ---
 import { CardGrid } from '@astrojs/starlight/components';
-import { providerSections } from '../src/utils/canonical-provider';
+import { stagedProviderSections } from '../src/utils/provider-sections';
+
+const providerSections = stagedProviderSections();
+
 import LinkCard from './LinkCard.astro';
 
 const { entry } = Astro.locals.starlightRoute;

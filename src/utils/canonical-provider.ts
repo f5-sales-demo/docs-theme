@@ -8,6 +8,23 @@ export const providerSections = [
   { label: 'Ephemeral resources', path: 'ephemeral-resources', icon: 'random' },
 ];
 
+export function availableProviderSections(paths: string[]) {
+  const slugs = paths
+    .filter((path) => path.startsWith('documentation/') && /\.mdx?$/.test(path))
+    .map((path) =>
+      path
+        .slice('documentation/'.length)
+        .replace(/(^|\/)index\.mdx?$/, '')
+        .replace(/\.mdx?$/, '')
+        .replace(/\/$/, ''),
+    );
+  return providerSections.filter((section) =>
+    section.path === 'provider/setup'
+      ? slugs.includes(section.path)
+      : slugs.some((slug) => slug === section.path || slug.startsWith(`${section.path}/`)),
+  );
+}
+
 export interface ProviderPage {
   id: string;
   collection_id: string;
@@ -54,7 +71,7 @@ export function collectionNavigation(pages: ProviderPage[], collection: string, 
   return (children.get(null) || []).map((page) => tree(page));
 }
 
-export function providerMegaMenu(base: string) {
+export function providerMegaMenu(base: string, sections = providerSections) {
   return [
     {
       label: 'Provider documentation',
@@ -64,7 +81,7 @@ export function providerMegaMenu(base: string) {
         categories: [
           {
             title: 'Terraform xcsh',
-            items: providerSections.map((section) => ({
+            items: sections.map((section) => ({
               label: section.label,
               href: `${base.replace(/\/$/, '')}/${section.path}/`,
             })),
