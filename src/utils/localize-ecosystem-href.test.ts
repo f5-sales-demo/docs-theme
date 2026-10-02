@@ -79,3 +79,10 @@ describe('localizeEcosystemHref', () => {
     );
   });
 });
+
+it('leaves the single-locale mvp menu destination unlocalized', () => {
+  for (const locale of ['en', 'fr'])
+    expect(localizeEcosystemHref('https://f5-sales-demo.github.io/mvp/', locale)).toBe(
+      'https://f5-sales-demo.github.io/mvp/',
+    );
+});
