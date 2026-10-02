@@ -43,7 +43,8 @@
     "./src/utils/localize-ecosystem-href.ts": "./src/utils/localize-ecosystem-href.ts",
     "./canonical-route-middleware": "./canonical-route-middleware.ts",
     "./components/ProviderSidebar.astro": "./components/ProviderSidebar.astro",
-    "./components/ProviderHeader.astro": "./components/ProviderHeader.astro"
+    "./components/ProviderHeader.astro": "./components/ProviderHeader.astro",
+    "./components/SharedHeader.astro": "./components/SharedHeader.astro"
   },
   "files": [
     "index.ts",

@@ -24,6 +24,7 @@ export default function f5xcDocsTheme(): StarlightPlugin {
           ],
           components: {
             ...config.components,
+            Header: '@f5-sales-demo/docs-theme/components/SharedHeader.astro',
             ...(process.env.DOCS_PROFILE === 'canonical-provider'
               ? {
                   Sidebar: '@f5-sales-demo/docs-theme/components/ProviderSidebar.astro',
