@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 import type { ProviderPage } from './src/utils/canonical-provider.ts';
-import { collectionNavigation, providerSections } from './src/utils/canonical-provider.ts';
+import { collectionNavigation } from './src/utils/canonical-provider.ts';
+import { stagedProviderSections } from './src/utils/provider-sections.ts';
 
 let providerNavigation: { collections: Record<string, ProviderPage[]> };
 export const onRequest = defineRouteMiddleware(async (context, next) => {
@@ -12,7 +13,7 @@ export const onRequest = defineRouteMiddleware(async (context, next) => {
     providerNavigation ||= JSON.parse(fs.readFileSync(process.env.PROVIDER_NAVIGATION || '', 'utf8'));
     const metadata = entry.data.xcsh_docs;
     const base = import.meta.env.BASE_URL;
-    const sections = providerSections.map((section) => ({
+    const sections = stagedProviderSections().map((section) => ({
       type: 'link' as const,
       label: section.label,
       href: `${base.replace(/\/$/, '')}/${section.path}/`,

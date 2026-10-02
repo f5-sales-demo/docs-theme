@@ -32,6 +32,7 @@ import {
 import { sidebarTranslations } from './src/i18n/translations.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
 import { providerMegaMenu } from './src/utils/canonical-provider.ts';
+import { stagedProviderSections } from './src/utils/provider-sections.ts';
 import { resolveMegaMenuIcon } from './src/utils/resolve-icon.ts';
 import providerSharedAssets from './src/utils/share-provider-assets.mjs';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
@@ -712,7 +713,11 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       console.warn('[docs-theme] OPENAPI_SPECS_CONFIG contains invalid JSON; skipping OpenAPI plugin.', e);
     }
   }
-  const megaMenuItems = options.megaMenuItems || (canonicalProvider ? providerMegaMenu(base) : defaultMegaMenuItems);
+  const megaMenuItems =
+    options.megaMenuItems ||
+    (canonicalProvider
+      ? providerMegaMenu(base, stagedProviderSections(canonicalProvider.manifest))
+      : defaultMegaMenuItems);
   const head = options.head || (canonicalProvider ? [] : defaultHead);
   const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/f5-distributed-cloud.svg' };
   const additionalRemarkPlugins = options.additionalRemarkPlugins || [];

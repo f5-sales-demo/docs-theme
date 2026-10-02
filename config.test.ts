@@ -1,3 +1,6 @@
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   defaultMegaMenuItems,
@@ -128,11 +131,14 @@ describe('progressive corpus repository policy', () => {
 describe('canonical provider profile', () => {
   it('enables native one MiB chunks and preserves the publication base', async () => {
     const { createF5xcDocsConfig } = await import('./config');
+    const temporary = mkdtempSync(join(tmpdir(), 'provider-manifest-'));
+    const manifest = join(temporary, 'manifest.json');
+    writeFileSync(manifest, JSON.stringify({ files: { 'documentation/resources/demo/index.md': {} } }));
     const config = createF5xcDocsConfig({
       base: '/terraform-provider-xcsh/versions/v12.0.6/',
       canonicalProvider: {
         contentRoot: '/alternate/documentation',
-        manifest: '/alternate/generated-manifest.json',
+        manifest,
         navigation: '/temporary/navigation.json',
         version: 'v12.0.6',
       },
@@ -140,5 +146,6 @@ describe('canonical provider profile', () => {
     expect(config.experimental?.collectionStorage).toEqual({ type: 'chunked', chunkSize: 1024 * 1024 });
     expect(config.base).toBe('/terraform-provider-xcsh/versions/v12.0.6/');
     expect(config.vite?.build?.assetsInlineLimit).toBe(0);
+    rmSync(temporary, { recursive: true, force: true });
   });
 });
