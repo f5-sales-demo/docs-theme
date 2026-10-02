@@ -32,6 +32,7 @@ import {
 import { sidebarTranslations } from './src/i18n/translations.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
 import { providerMegaMenu } from './src/utils/canonical-provider.ts';
+import { menuLocalizationPolicy } from './src/utils/menu-localization.ts';
 import { stagedProviderSections } from './src/utils/provider-sections.ts';
 import { resolveMegaMenuIcon } from './src/utils/resolve-icon.ts';
 import providerSharedAssets from './src/utils/share-provider-assets.mjs';
@@ -670,7 +671,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   }
   const site = options.site || process.env.DOCS_SITE || 'https://f5-sales-demo.github.io';
   const base = options.base || process.env.DOCS_BASE || '/';
-  const title = options.title || process.env.DOCS_TITLE || 'Documentation';
+  const title = options.title || process.env.DOCS_TITLE || (canonicalProvider ? 'Terraform Provider' : 'Documentation');
   const description = options.description || process.env.DOCS_DESCRIPTION || '';
   const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
   let llmsOptionalLinks: Array<{ title: string; url: string }> = options.llmsOptionalLinks || [];
@@ -716,7 +717,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const megaMenuItems =
     options.megaMenuItems ||
     (canonicalProvider
-      ? providerMegaMenu(base, stagedProviderSections(canonicalProvider.manifest))
+      ? [...defaultMegaMenuItems, ...providerMegaMenu(base, stagedProviderSections(canonicalProvider.manifest))]
       : defaultMegaMenuItems);
   const head = options.head || (canonicalProvider ? [] : defaultHead);
   const logo = options.logo || { src: '@f5-sales-demo/docs-theme/assets/f5-distributed-cloud.svg' };
@@ -874,13 +875,17 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   return defineConfig({
     site,
     base,
+    vite: { plugins: [menuLocalizationPolicy()], ...(canonicalProvider ? { build: { assetsInlineLimit: 0 } } : {}) },
     ...(canonicalProvider
       ? {
           experimental: { collectionStorage: { type: 'chunked' as const, chunkSize: 1024 * 1024 } },
-          vite: { build: { assetsInlineLimit: 0 } },
         }
       : {}),
-    ...(resolvedLocales ? { redirects: { '/': `${normalizedBase}/${resolvedDefaultLocale}/` } } : {}),
+    ...(canonicalProvider
+      ? { redirects: { '/en/': `${normalizedBase}/` } }
+      : resolvedLocales
+        ? { redirects: { '/': `${normalizedBase}/${resolvedDefaultLocale}/` } }
+        : {}),
     markdown: {
       processor: unified({
         remarkPlugins: [remarkMermaid, [codeImport, { allowImportingFromOutside: true }], ...additionalRemarkPlugins],
