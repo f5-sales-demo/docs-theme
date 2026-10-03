@@ -13,6 +13,17 @@ export const onRequest = defineRouteMiddleware(async (context, next) => {
     providerNavigation ||= JSON.parse(fs.readFileSync(process.env.PROVIDER_NAVIGATION || '', 'utf8'));
     const metadata = entry.data.xcsh_docs;
     const base = import.meta.env.BASE_URL;
+    const slug = route.id.replace(/\/$/, '');
+    const scope = metadata ? slug || '_llms-txt/root' : null;
+    route.head.push({
+      tag: 'link',
+      attrs: {
+        rel: 'describedby',
+        href: scope
+          ? `${base.replace(/\/$/, '')}/${scope}/_llms/content/llms.txt`
+          : `${base.replace(/\/$/, '')}/llms.txt`,
+      },
+    });
     const sections = stagedProviderSections().map((section) => ({
       type: 'link' as const,
       label: section.label,

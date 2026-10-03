@@ -90,7 +90,7 @@ describe('default ecosystem navigation', () => {
   });
 
   it('pins the progressive corpus plugin release exactly', () => {
-    expect(packageJson.dependencies['@f5-sales-demo/starlight-llms-txt']).toBe('2.2.0');
+    expect(packageJson.dependencies['@f5-sales-demo/starlight-llms-txt']).toBe('2.3.0');
   });
 });
 
