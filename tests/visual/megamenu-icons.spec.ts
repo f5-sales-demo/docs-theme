@@ -1,7 +1,7 @@
 import { expect, type Page, type TestInfo, test } from '@playwright/test';
 
 const themes = ['dark', 'light'] as const;
-const expectedIconCount = 34;
+const expectedIconCount = 35;
 
 function setTheme(theme: 'dark' | 'light') {
   return `

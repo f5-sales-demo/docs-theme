@@ -33,3 +33,13 @@ branch naming, and CI requirements.
 ## License
 
 See [LICENSE](LICENSE).
+
+## Canadian flag artwork
+
+`assets/canada-flag.svg` is the unmodified Canadian 4:3 flag from
+[flag-icons v7.5.0](https://github.com/lipis/flag-icons/tree/v7.5.0).
+`assets/canada-favicon.svg` centers the same flag on a square white canvas.
+Copyright and MIT license terms are retained in
+[assets/flag-icons-LICENSE.txt](assets/flag-icons-LICENSE.txt).
+The Canada publication profile preserves English routing and selects its local flag favicon.
+Callers can override the optional `favicon` field in `createF5xcDocsConfig`.
