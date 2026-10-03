@@ -31,6 +31,7 @@ import {
 } from './src/i18n/mega-menu-translations.ts';
 import { sidebarTranslations } from './src/i18n/translations.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
+import canonicalLlms from './src/utils/canonical-llms.mjs';
 import { providerMegaMenu } from './src/utils/canonical-provider.ts';
 import { menuLocalizationPolicy } from './src/utils/menu-localization.ts';
 import { stagedProviderSections } from './src/utils/provider-sections.ts';
@@ -933,7 +934,9 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         ],
       }),
       react(),
-      ...(canonicalProvider ? [providerSharedAssets()] : []),
+      ...(canonicalProvider
+        ? [providerSharedAssets(), canonicalLlms({ contentRoot: canonicalProvider.contentRoot, base, title })]
+        : []),
       ...additionalIntegrations,
     ],
   });
