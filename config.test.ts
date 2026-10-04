@@ -151,7 +151,6 @@ describe('canonical provider profile', () => {
   });
 });
 
-
 describe('custom response showcase navigation', () => {
   it('links the exact owned documentation site', () => {
     expect(JSON.stringify(defaultMegaMenuItems)).toContain('https://f5-sales-demo.github.io/custom-responses/');
