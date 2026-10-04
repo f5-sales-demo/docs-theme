@@ -1,8 +1,9 @@
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
+  createF5xcDocsConfig,
   defaultMegaMenuItems,
   federatedSearchBundlePaths,
   federatedSearchSites,
@@ -172,5 +173,22 @@ describe('Canada navigation and publication wiring', () => {
 describe('custom response showcase navigation', () => {
   it('links the exact owned documentation site', () => {
     expect(JSON.stringify(defaultMegaMenuItems)).toContain('https://f5-sales-demo.github.io/custom-responses/');
+  });
+});
+
+vi.mock('@astrojs/starlight', () => ({
+  default: (options: Record<string, unknown>) => ({ name: 'starlight-test', options }),
+}));
+
+describe('publication sidebar configuration', () => {
+  it('passes the Canada reading path to Starlight and leaves other sites automatic', () => {
+    const canada = createF5xcDocsConfig({ githubRepository: 'f5-sales-demo/canada', federatedSearch: false });
+    const starlight = canada.integrations?.[0] as unknown as { options: Record<string, unknown> };
+    expect(starlight.options.sidebar).toEqual(
+      expect.arrayContaining([{ slug: 'use-case' }, expect.objectContaining({ label: 'Reference', collapsed: true })]),
+    );
+    const other = createF5xcDocsConfig({ githubRepository: 'f5-sales-demo/other', federatedSearch: false });
+    const fallback = other.integrations?.[0] as unknown as { options: Record<string, unknown> };
+    expect(fallback.options).not.toHaveProperty('sidebar');
   });
 });

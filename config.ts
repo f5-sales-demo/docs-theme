@@ -35,7 +35,7 @@ import canonicalLlms from './src/utils/canonical-llms.mjs';
 import { providerMegaMenu } from './src/utils/canonical-provider.ts';
 import { menuLocalizationPolicy } from './src/utils/menu-localization.ts';
 import { stagedProviderSections } from './src/utils/provider-sections.ts';
-import { repositoryPublicationProfile } from './src/utils/publication-profiles.ts';
+import { publicationSidebar, repositoryPublicationProfile } from './src/utils/publication-profiles.ts';
 import { resolveMegaMenuIcon } from './src/utils/resolve-icon.ts';
 import providerSharedAssets from './src/utils/share-provider-assets.mjs';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
@@ -843,7 +843,9 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   ];
 
   const contentDir = process.env.CONTENT_DIR || 'src/content/docs';
-  const subcategorySidebar = canonicalProvider ? [] : buildSubcategorySidebar(contentDir);
+  const subcategorySidebar = canonicalProvider
+    ? []
+    : publicationSidebar(githubRepository, buildSubcategorySidebar(contentDir));
 
   // Auto-detect i18n: enable locales only when content has an en/ subdirectory.
   // Repos that haven't migrated to docs/en/ won't get a broken language selector.
