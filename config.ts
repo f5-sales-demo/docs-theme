@@ -4,7 +4,7 @@ import { unified } from '@astrojs/markdown-remark';
 import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import type { StarlightPlugin } from '@astrojs/starlight/types';
-import { BCP47_TO_SLUG, SLUG_LIST } from '@f5-sales-demo/i18n-core';
+import { BCP47_TO_SLUG } from '@f5-sales-demo/i18n-core';
 import starlightLlmsTxt from '@f5-sales-demo/starlight-llms-txt';
 import type { MegaMenuItem } from '@f5-sales-demo/starlight-mega-menu';
 import starlightMegaMenu from '@f5-sales-demo/starlight-mega-menu';
@@ -35,6 +35,7 @@ import canonicalLlms from './src/utils/canonical-llms.mjs';
 import { providerMegaMenu } from './src/utils/canonical-provider.ts';
 import { menuLocalizationPolicy } from './src/utils/menu-localization.ts';
 import { stagedProviderSections } from './src/utils/provider-sections.ts';
+import { repositoryPublicationProfile } from './src/utils/publication-profiles.ts';
 import { resolveMegaMenuIcon } from './src/utils/resolve-icon.ts';
 import providerSharedAssets from './src/utils/share-provider-assets.mjs';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
@@ -116,6 +117,7 @@ export interface F5xcDocsConfigOptions {
   additionalRemarkPlugins?: Array<unknown>;
   megaMenuItems?: MegaMenuItem[];
   head?: HeadEntry[];
+  favicon?: string;
   logo?: { src: string } | { light: string; dark: string };
   federatedSearch?: boolean;
   locales?: Record<string, { label: string; lang: string; dir?: 'rtl' }> | false;
@@ -251,6 +253,19 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
               descriptionTranslations: itemDescriptions['Site connectivity across clouds'],
               href: 'https://f5-sales-demo.github.io/multi-cloud-networking/',
               icon: resolveMegaMenuIcon('f5xc:multi-cloud-network-connect'),
+            },
+            {
+              label: 'Canada Topology',
+              description: 'Canadian hosting and regional access control',
+              href: 'https://f5-sales-demo.github.io/canada/',
+              icon: {
+                body: fs
+                  .readFileSync(new URL('./assets/canada-flag.svg', import.meta.url), 'utf8')
+                  .replace(/<svg[^>]*>|<\/svg>/g, ''),
+                width: 640,
+                height: 480,
+                mode: 'original',
+              },
             },
             {
               label: 'Content Delivery',
@@ -639,6 +654,7 @@ export const federatedSearchSites = [
   { repo: 'observability', label: 'Observability' },
   { repo: 'was', label: 'Web App Scanning' },
   { repo: 'multi-cloud-networking', label: 'Multi-Cloud Networking' },
+  { repo: 'canada', label: 'Canada Topology' },
   { repo: 'dns', label: 'DNS' },
   { repo: 'cdn', label: 'CDN' },
   { repo: 'bot-standard', label: 'Bot Standard' },
@@ -681,6 +697,8 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const title = options.title || process.env.DOCS_TITLE || (canonicalProvider ? 'Terraform Provider' : 'Documentation');
   const description = options.description || process.env.DOCS_DESCRIPTION || '';
   const githubRepository = options.githubRepository || process.env.GITHUB_REPOSITORY || '';
+  const publicationProfile = repositoryPublicationProfile(githubRepository);
+  const favicon = options.favicon || publicationProfile?.favicon;
   let llmsOptionalLinks: Array<{ title: string; url: string }> = options.llmsOptionalLinks || [];
   if (!options.llmsOptionalLinks && process.env.LLMS_OPTIONAL_LINKS) {
     try {
@@ -815,6 +833,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
             tieredHierarchy: true,
             promote: llmsConfig.promote || ['index*', 'overview*'],
             demote: llmsConfig.demote || ['references*'],
+            ...(llmsConfig.exclude ? { exclude: llmsConfig.exclude } : {}),
             ...(llmsFederatedSites.length > 0 ? { federatedSites: llmsFederatedSites } : {}),
             ...(llmsFederatedSiteCategories.length > 0 ? { federatedSiteCategories: llmsFederatedSiteCategories } : {}),
             ...(progressiveCorpus ? { progressiveCorpus } : {}),
@@ -832,13 +851,13 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const resolvedLocales =
     canonicalProvider || options.locales === false
       ? undefined
-      : options.locales || (hasEnSubdir ? f5xcDefaultLocales : undefined);
-  const resolvedDefaultLocale = options.defaultLocale || f5xcDefaultLocale;
+      : options.locales || publicationProfile?.locales || (hasEnSubdir ? f5xcDefaultLocales : undefined);
+  const resolvedDefaultLocale = options.defaultLocale || publicationProfile?.defaultLocale || f5xcDefaultLocale;
 
   const localeHeadScripts: HeadEntry[] = [];
   if (resolvedLocales) {
     const langToSlugMap = BCP47_TO_SLUG;
-    const slugSet = JSON.stringify(SLUG_LIST);
+    const slugSet = JSON.stringify(Object.keys(resolvedLocales));
 
     localeHeadScripts.push({
       tag: 'script',
@@ -905,6 +924,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         head: [...((head as Parameters<typeof starlight>[0]['head']) || []), ...localeHeadScripts] as Parameters<
           typeof starlight
         >[0]['head'],
+        ...(favicon ? { favicon } : {}),
         logo: logo as Parameters<typeof starlight>[0]['logo'],
         ...(resolvedLocales ? { locales: resolvedLocales, defaultLocale: resolvedDefaultLocale } : {}),
         ...(subcategorySidebar

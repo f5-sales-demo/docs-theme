@@ -44,7 +44,9 @@
     "./canonical-route-middleware": "./canonical-route-middleware.ts",
     "./components/ProviderSidebar.astro": "./components/ProviderSidebar.astro",
     "./components/ProviderHeader.astro": "./components/ProviderHeader.astro",
-    "./components/SharedHeader.astro": "./components/SharedHeader.astro"
+    "./components/SharedHeader.astro": "./components/SharedHeader.astro",
+    "./assets/canada-flag.svg": "./assets/canada-flag.svg",
+    "./assets/canada-favicon.svg": "./assets/canada-favicon.svg"
   },
   "files": [
     "index.ts",

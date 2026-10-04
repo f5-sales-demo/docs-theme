@@ -151,6 +151,24 @@ describe('canonical provider profile', () => {
   });
 });
 
+describe('Canada navigation and publication wiring', () => {
+  it('places the original-color flag immediately after MCN and federates search', () => {
+    const items =
+      defaultMegaMenuItems
+        .find((item) => item.label === 'Networking')
+        ?.content?.categories?.find((category) => category.title === 'Connectivity & Delivery')?.items || [];
+    const index = items.findIndex((item) => item.label === 'Multi-Cloud Networking');
+    const canada = items[index + 1];
+    expect(canada.label).toBe('Canada Topology');
+    expect(canada.description).toBe('Canadian hosting and regional access control');
+    expect(canada.href).toBe('https://f5-sales-demo.github.io/canada/');
+    expect(canada.icon).toMatchObject({ width: 640, height: 480, mode: 'original' });
+    expect(JSON.stringify(canada.icon)).toContain('#d52b1e');
+    expect(JSON.stringify(canada.icon)).toContain('#fff');
+    expect(federatedSearchSites).toContainEqual({ repo: 'canada', label: 'Canada Topology' });
+  });
+});
+
 describe('custom response showcase navigation', () => {
   it('links the exact owned documentation site', () => {
     expect(JSON.stringify(defaultMegaMenuItems)).toContain('https://f5-sales-demo.github.io/custom-responses/');
