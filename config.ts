@@ -180,6 +180,12 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
               icon: resolveMegaMenuIcon('f5xc:client-side-defense'),
             },
             {
+              label: 'Custom Responses',
+              description: 'Terraform response customization showcase',
+              href: 'https://f5-sales-demo.github.io/custom-responses/',
+              icon: resolveMegaMenuIcon('f5xc:web-app-and-api-protection'),
+            },
+            {
               label: 'Web App Scanning',
               translations: itemLabels['Web App Scanning'],
               description: 'Vulnerability assessment and scanning',

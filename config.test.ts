@@ -168,3 +168,9 @@ describe('Canada navigation and publication wiring', () => {
     expect(federatedSearchSites).toContainEqual({ repo: 'canada', label: 'Canada Topology' });
   });
 });
+
+describe('custom response showcase navigation', () => {
+  it('links the exact owned documentation site', () => {
+    expect(JSON.stringify(defaultMegaMenuItems)).toContain('https://f5-sales-demo.github.io/custom-responses/');
+  });
+});
