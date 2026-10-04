@@ -251,7 +251,7 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
             {
               label: 'Canada Topology',
               description: 'Canadian hosting and regional access control',
-              href: 'https://f5-sales-demo.github.io/canada-topology/',
+              href: 'https://f5-sales-demo.github.io/canada/',
               icon: {
                 body: fs
                   .readFileSync(new URL('./assets/canada-flag.svg', import.meta.url), 'utf8')
@@ -648,7 +648,7 @@ export const federatedSearchSites = [
   { repo: 'observability', label: 'Observability' },
   { repo: 'was', label: 'Web App Scanning' },
   { repo: 'multi-cloud-networking', label: 'Multi-Cloud Networking' },
-  { repo: 'canada-topology', label: 'Canada Topology' },
+  { repo: 'canada', label: 'Canada Topology' },
   { repo: 'dns', label: 'DNS' },
   { repo: 'cdn', label: 'CDN' },
   { repo: 'bot-standard', label: 'Bot Standard' },

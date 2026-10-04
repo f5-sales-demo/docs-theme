@@ -14,10 +14,10 @@ describe('Canada configuration passed to shared plugins', () => {
   it('preserves English routing and forwards favicon and LLM exclusions', () => {
     vi.stubEnv('LLMS_CONFIG', JSON.stringify({ exclude: ['_data/**'], promote: ['index'], demote: ['terraform'] }));
     const config = createF5xcDocsConfig({
-      githubRepository: 'f5-sales-demo/canada-topology',
-      base: '/canada-topology/',
+      githubRepository: 'f5-sales-demo/canada',
+      base: '/canada/',
     });
-    expect(config.redirects).toEqual({ '/': '/canada-topology/en/' });
+    expect(config.redirects).toEqual({ '/': '/canada/en/' });
     expect(captured.starlight).toHaveBeenCalledWith(
       expect.objectContaining({
         locales: { en: { label: 'English', lang: 'en' } },
@@ -37,7 +37,7 @@ describe('Canada configuration passed to shared plugins', () => {
     expect(options.head[options.head.length - 2].content).toContain('new Set(["en"])');
   });
   it('allows a caller favicon override', () => {
-    createF5xcDocsConfig({ githubRepository: 'f5-sales-demo/canada-topology', favicon: '/custom.svg' });
+    createF5xcDocsConfig({ githubRepository: 'f5-sales-demo/canada', favicon: '/custom.svg' });
     expect(captured.starlight).toHaveBeenCalledWith(expect.objectContaining({ favicon: '/custom.svg' }));
   });
 });

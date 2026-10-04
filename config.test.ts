@@ -161,10 +161,10 @@ describe('Canada navigation and publication wiring', () => {
     const canada = items[index + 1];
     expect(canada.label).toBe('Canada Topology');
     expect(canada.description).toBe('Canadian hosting and regional access control');
-    expect(canada.href).toBe('https://f5-sales-demo.github.io/canada-topology/');
+    expect(canada.href).toBe('https://f5-sales-demo.github.io/canada/');
     expect(canada.icon).toMatchObject({ width: 640, height: 480, mode: 'original' });
     expect(JSON.stringify(canada.icon)).toContain('#d52b1e');
     expect(JSON.stringify(canada.icon)).toContain('#fff');
-    expect(federatedSearchSites).toContainEqual({ repo: 'canada-topology', label: 'Canada Topology' });
+    expect(federatedSearchSites).toContainEqual({ repo: 'canada', label: 'Canada Topology' });
   });
 });
