@@ -156,11 +156,9 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
           translations: categoryTitles['App & API Security'],
           items: [
             {
-              label: 'Web App Firewall',
-              translations: itemLabels['Web App Firewall'],
-              description: 'Firewall policies and configuration',
-              descriptionTranslations: itemDescriptions['Firewall policies and configuration'],
-              href: 'https://f5-sales-demo.github.io/waf/',
+              label: 'Web App & API Protection',
+              description: 'Web application and API protection demonstrations',
+              href: 'https://f5-sales-demo.github.io/webapp-api-protection/',
               icon: resolveMegaMenuIcon('f5xc:web-app-and-api-protection'),
             },
             {
@@ -660,7 +658,7 @@ export const federatedSearchSites = [
   { repo: 'bot-standard', label: 'Bot Standard' },
   { repo: 'bot-advanced', label: 'Bot Advanced' },
   { repo: 'ddos', label: 'DDoS' },
-  { repo: 'waf', label: 'WAF' },
+  { repo: 'webapp-api-protection', label: 'Web App & API Protection' },
   { repo: 'api-protection', label: 'API Security' },
   { repo: 'xcsh', label: 'xcsh' },
   { repo: 'xcsh-action', label: 'xcsh Manifest Automation' },

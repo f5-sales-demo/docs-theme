@@ -52,6 +52,23 @@ describe('default ecosystem navigation', () => {
     expect(federatedSearchSites).toContainEqual({ repo: 'xcsh-action', label: 'xcsh Manifest Automation' });
   });
 
+  it('uses one canonical Web App & API Protection identity', () => {
+    const security = defaultMegaMenuItems.find((item) => item.label === 'Security');
+    const items = security?.content?.categories?.flatMap((category) => category.items) ?? [];
+    expect(items.filter((item) => item.label === 'Web App & API Protection')).toEqual([
+      expect.objectContaining({
+        href: 'https://f5-sales-demo.github.io/webapp-api-protection/',
+        description: 'Web application and API protection demonstrations',
+      }),
+    ]);
+    expect(items.filter((item) => item.label === 'API Security')).toHaveLength(1);
+    expect(JSON.stringify(defaultMegaMenuItems)).not.toContain('https://f5-sales-demo.github.io/waf/');
+    expect(federatedSearchSites.filter((site) => site.repo === 'webapp-api-protection')).toEqual([
+      { repo: 'webapp-api-protection', label: 'Web App & API Protection' },
+    ]);
+    expect(federatedSearchSites.some((site) => site.repo === 'waf')).toBe(false);
+  });
+
   it('uses only the renamed Multi-Cloud Networking Pages path', () => {
     const serializedMenu = JSON.stringify(defaultMegaMenuItems);
 
@@ -84,7 +101,7 @@ describe('default ecosystem navigation', () => {
       .find((item) => item.label === 'F5 XC Docs');
     expect(portal?.href).toBe('https://f5-sales-demo.github.io/');
     expect(federatedSearchSites).toContainEqual({ repo: 'f5-sales-demo.github.io', label: 'F5 XC Docs' });
-    const childBundles = federatedSearchBundlePaths('https://f5-sales-demo.github.io', '/waf');
+    const childBundles = federatedSearchBundlePaths('https://f5-sales-demo.github.io', '/webapp-api-protection');
     expect(childBundles).toContain('https://f5-sales-demo.github.io/pagefind/');
     const rootBundles = federatedSearchBundlePaths('https://f5-sales-demo.github.io', '/');
     expect(rootBundles).not.toContain('https://f5-sales-demo.github.io/pagefind/');

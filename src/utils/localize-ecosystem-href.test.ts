@@ -21,28 +21,28 @@ describe('langToSlug', () => {
 
 describe('localizeEcosystemHref', () => {
   it('injects locale slug into ecosystem URLs', () => {
-    const result = localizeEcosystemHref('https://f5-sales-demo.github.io/waf/', 'fr');
-    expect(result).toBe('https://f5-sales-demo.github.io/waf/fr/');
+    const result = localizeEcosystemHref('https://f5-sales-demo.github.io/webapp-api-protection/', 'fr');
+    expect(result).toBe('https://f5-sales-demo.github.io/webapp-api-protection/fr/');
   });
 
   it('does not double-inject if locale already present', () => {
-    const result = localizeEcosystemHref('https://f5-sales-demo.github.io/waf/fr/', 'fr');
-    expect(result).toBe('https://f5-sales-demo.github.io/waf/fr/');
+    const result = localizeEcosystemHref('https://f5-sales-demo.github.io/webapp-api-protection/fr/', 'fr');
+    expect(result).toBe('https://f5-sales-demo.github.io/webapp-api-protection/fr/');
   });
 
   it('returns href unchanged for non-ecosystem hosts', () => {
-    const result = localizeEcosystemHref('https://example.com/waf/', 'fr');
-    expect(result).toBe('https://example.com/waf/');
+    const result = localizeEcosystemHref('https://example.com/webapp-api-protection/', 'fr');
+    expect(result).toBe('https://example.com/webapp-api-protection/');
   });
 
   it('returns href unchanged for invalid locale slug', () => {
-    const result = localizeEcosystemHref('https://f5-sales-demo.github.io/waf/', 'xx-invalid');
-    expect(result).toBe('https://f5-sales-demo.github.io/waf/');
+    const result = localizeEcosystemHref('https://f5-sales-demo.github.io/webapp-api-protection/', 'xx-invalid');
+    expect(result).toBe('https://f5-sales-demo.github.io/webapp-api-protection/');
   });
 
   it('returns href unchanged for empty locale', () => {
-    const result = localizeEcosystemHref('https://f5-sales-demo.github.io/waf/', '');
-    expect(result).toBe('https://f5-sales-demo.github.io/waf/');
+    const result = localizeEcosystemHref('https://f5-sales-demo.github.io/webapp-api-protection/', '');
+    expect(result).toBe('https://f5-sales-demo.github.io/webapp-api-protection/');
   });
 
   it('returns invalid URLs unchanged', () => {
@@ -53,14 +53,14 @@ describe('localizeEcosystemHref', () => {
   it('works with all 13 supported locale slugs', () => {
     const slugs = ['en', 'fr', 'es', 'de', 'pt-br', 'ja', 'ko', 'zh-cn', 'zh-tw', 'ar', 'it', 'hi', 'th'];
     for (const slug of slugs) {
-      const result = localizeEcosystemHref('https://f5-sales-demo.github.io/waf/', slug);
+      const result = localizeEcosystemHref('https://f5-sales-demo.github.io/webapp-api-protection/', slug);
       expect(result).toContain(`/${slug}/`);
     }
   });
 
   it('supports custom ecosystem host', () => {
-    const result = localizeEcosystemHref('https://docs.example.com/waf/', 'fr', 'docs.example.com');
-    expect(result).toBe('https://docs.example.com/waf/fr/');
+    const result = localizeEcosystemHref('https://docs.example.com/webapp-api-protection/', 'fr', 'docs.example.com');
+    expect(result).toBe('https://docs.example.com/webapp-api-protection/fr/');
   });
 
   it('does not localize single-locale ecosystem sites (would 404)', () => {
