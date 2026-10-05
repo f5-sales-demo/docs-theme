@@ -10,6 +10,27 @@ function setTheme(theme: 'dark' | 'light') {
 }
 
 test.describe('Responsive Header and Splash Hero', () => {
+  for (const height of [900, 700]) {
+    test(`Desktop Platform menu reaches its final link at 1440x${height}`, async ({ page }) => {
+      await page.setViewportSize({ width: 1440, height });
+      const response = await page.goto('./', { waitUntil: 'networkidle' });
+      expect(response?.status()).toBe(200);
+      await page.getByRole('button', { name: 'Platform', exact: true }).click();
+
+      const viewport = page.locator('.smm-viewport');
+      await expect(viewport).toBeVisible();
+      const viewportBox = await viewport.boundingBox();
+      expect(viewportBox).not.toBeNull();
+      expect(viewportBox!.y + viewportBox!.height).toBeLessThanOrEqual(height);
+
+      const finalLink = page.locator('.smm-menu-link[href="https://f5-sales-demo.github.io/xcsh-chrome-extension/en/"]');
+      await page.route('https://f5-sales-demo.github.io/xcsh-chrome-extension/en/', (route) =>
+        route.fulfill({ status: 200, contentType: 'text/html', body: '<main>Destination reached</main>' }),
+      );
+      await finalLink.click();
+      await expect(page).toHaveURL('https://f5-sales-demo.github.io/xcsh-chrome-extension/en/');
+    });
+  }
   for (const theme of themes) {
     test(`Mobile 390x844 (${theme} mode): Site title truncation and hero order`, async ({ page }) => {
       await page.setViewportSize({ width: 390, height: 844 });

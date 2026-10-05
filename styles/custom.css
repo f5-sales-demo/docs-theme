@@ -797,6 +797,9 @@ summary:focus-visible {
 .smm-viewport {
   min-width: min(90vw, 650px);
   max-width: min(90vw, 800px);
+  max-height: calc(100dvh - 5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 /* Scale mega-menu icons to match the height of the title + description text block */
