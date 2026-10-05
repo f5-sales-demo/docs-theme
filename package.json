@@ -43,6 +43,7 @@
     "./src/utils/localize-ecosystem-href.ts": "./src/utils/localize-ecosystem-href.ts",
     "./canonical-route-middleware": "./canonical-route-middleware.ts",
     "./components/ProviderSidebar.astro": "./components/ProviderSidebar.astro",
+    "./components/CanadaSidebar.astro": "./components/CanadaSidebar.astro",
     "./components/ProviderHeader.astro": "./components/ProviderHeader.astro",
     "./components/SharedHeader.astro": "./components/SharedHeader.astro",
     "./assets/canada-flag.svg": "./assets/canada-flag.svg",

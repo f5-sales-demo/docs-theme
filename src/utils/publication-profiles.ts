@@ -17,21 +17,25 @@ export const publicationProfiles: Record<string, PublicationProfile> = {
     favicon: '/assets/canada-favicon.svg',
     sidebar: [
       { slug: 'index' },
-      { slug: 'use-case' },
       {
-        label: 'Reference',
+        label: 'Design',
         collapsed: true,
-        items: [
-          { slug: 'architecture' },
-          { slug: 'verification' },
-          { slug: 'presentation' },
-          { slug: 'terraform' },
-          {
-            label: 'Maintenance',
-            collapsed: true,
-            items: [{ slug: 'deployment' }, { slug: 'failover' }, { slug: 'troubleshooting' }, { slug: 'teardown' }],
-          },
-        ],
+        items: [{ slug: 'design' }, { slug: 'use-case' }, { slug: 'architecture' }],
+      },
+      {
+        label: 'Deploy',
+        collapsed: true,
+        items: [{ slug: 'deploy' }, { slug: 'deployment' }, { slug: 'terraform' }],
+      },
+      {
+        label: 'Verify',
+        collapsed: true,
+        items: [{ slug: 'verify' }, { slug: 'presentation' }, { slug: 'verification' }],
+      },
+      {
+        label: 'Operate',
+        collapsed: true,
+        items: [{ slug: 'operate' }, { slug: 'troubleshooting' }, { slug: 'failover' }, { slug: 'teardown' }],
       },
     ],
   },

@@ -19,21 +19,31 @@ describe('Canadian publication', () => {
 });
 
 describe('publication profile sidebar', () => {
-  it('makes the Canada article primary and keeps every existing reference URL', () => {
+  it('orders four linked stages and covers all 14 pages once', () => {
     const sidebar = publicationSidebar('f5-sales-demo/canada', []);
-    expect(sidebar?.slice(0, 2)).toEqual([{ slug: 'index' }, { slug: 'use-case' }]);
-    const reference = sidebar?.[2];
-    expect(reference).toMatchObject({ label: 'Reference', collapsed: true });
-    expect(JSON.stringify(reference)).toContain('architecture');
-    expect(JSON.stringify(reference)).toContain('verification');
-    expect(JSON.stringify(reference)).toContain('terraform');
-    expect(JSON.stringify(reference)).toContain('presentation');
-    expect(reference).toMatchObject({
-      items: expect.arrayContaining([expect.objectContaining({ label: 'Maintenance', collapsed: true })]),
+    expect(sidebar?.[0]).toEqual({ slug: 'index' });
+    const stages = sidebar?.slice(1) ?? [];
+    expect(stages.map((stage) => 'label' in stage ? stage.label : '')).toEqual(['Design', 'Deploy', 'Verify', 'Operate']);
+    const expected = [
+      ['design', 'use-case', 'architecture'],
+      ['deploy', 'deployment', 'terraform'],
+      ['verify', 'presentation', 'verification'],
+      ['operate', 'troubleshooting', 'failover', 'teardown'],
+    ];
+    const routes = ['index'];
+    stages.forEach((stage, index) => {
+      expect(stage).toMatchObject({ collapsed: true });
+      if (!('items' in stage)) throw new Error('Canada stage must have items');
+      const stageRoutes = stage.items.map((item) => {
+        if (!('slug' in item)) throw new Error('Canada stage item must be a page');
+        return item.slug;
+      });
+      expect(stageRoutes).toEqual(expected[index]);
+      routes.push(...stageRoutes);
     });
-    for (const slug of ['deployment', 'failover', 'troubleshooting', 'teardown']) {
-      expect(JSON.stringify(reference)).toContain(`"${slug}"`);
-    }
+    expect(new Set(routes).size).toBe(14);
+    expect(routes).toHaveLength(14);
+    expect(stages.every((stage) => 'label' in stage && stage.label.split(/\s+/).length <= 3)).toBe(true);
   });
   it('preserves fallback navigation for every repository without a sidebar profile', () => {
     const fallback = [{ label: 'Existing', slug: 'en/existing' }];

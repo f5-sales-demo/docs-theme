@@ -782,7 +782,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     starlightMegaMenu({ items: megaMenuItems, mobileLabels }),
     starlightVideosPlugin(),
     starlightImageZoom(),
-    f5xcDocsTheme(),
+    f5xcDocsTheme(githubRepository),
     starlightScrollToTop({
       showTooltip: true,
       tooltipText: {

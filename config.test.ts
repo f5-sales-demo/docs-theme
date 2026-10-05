@@ -184,9 +184,13 @@ describe('publication sidebar configuration', () => {
   it('passes the Canada reading path to Starlight and leaves other sites automatic', () => {
     const canada = createF5xcDocsConfig({ githubRepository: 'f5-sales-demo/canada', federatedSearch: false });
     const starlight = canada.integrations?.[0] as unknown as { options: Record<string, unknown> };
-    expect(starlight.options.sidebar).toEqual(
-      expect.arrayContaining([{ slug: 'use-case' }, expect.objectContaining({ label: 'Reference', collapsed: true })]),
-    );
+    expect(starlight.options.sidebar).toEqual([
+      { slug: 'index' },
+      expect.objectContaining({ label: 'Design', collapsed: true }),
+      expect.objectContaining({ label: 'Deploy', collapsed: true }),
+      expect.objectContaining({ label: 'Verify', collapsed: true }),
+      expect.objectContaining({ label: 'Operate', collapsed: true }),
+    ]);
     const other = createF5xcDocsConfig({ githubRepository: 'f5-sales-demo/other', federatedSearch: false });
     const fallback = other.integrations?.[0] as unknown as { options: Record<string, unknown> };
     expect(fallback.options).not.toHaveProperty('sidebar');
