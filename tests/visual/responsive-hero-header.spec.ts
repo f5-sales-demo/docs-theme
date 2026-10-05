@@ -20,10 +20,12 @@ test.describe('Responsive Header and Splash Hero', () => {
       const viewport = page.locator('.smm-viewport');
       await expect(viewport).toBeVisible();
       const viewportBox = await viewport.boundingBox();
-      expect(viewportBox).not.toBeNull();
-      expect(viewportBox!.y + viewportBox!.height).toBeLessThanOrEqual(height);
+      if (!viewportBox) throw new Error('Mega-menu viewport is missing');
+      expect(viewportBox.y + viewportBox.height).toBeLessThanOrEqual(height);
 
-      const finalLink = page.locator('.smm-menu-link[href="https://f5-sales-demo.github.io/xcsh-chrome-extension/en/"]');
+      const finalLink = page.locator(
+        '.smm-menu-link[href="https://f5-sales-demo.github.io/xcsh-chrome-extension/en/"]',
+      );
       await page.route('https://f5-sales-demo.github.io/xcsh-chrome-extension/en/', (route) =>
         route.fulfill({ status: 200, contentType: 'text/html', body: '<main>Destination reached</main>' }),
       );
