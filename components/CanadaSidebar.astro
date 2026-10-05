@@ -1,0 +1,77 @@
+---
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+import SidebarRestorePoint from '@astrojs/starlight/components/SidebarRestorePoint.astro';
+
+const { sidebar } = Astro.locals.starlightRoute;
+---
+
+<SidebarPersister>
+  <ul class="canada-sidebar">
+    {sidebar.map((entry) => {
+      if (entry.type === 'link') {
+        return <li><a class="home-link" href={entry.href} aria-current={entry.isCurrent ? 'page' : undefined}>{entry.label}</a></li>;
+      }
+
+      const [overview, ...children] = entry.entries;
+      if (!overview || overview.type !== 'link') {
+        return <li><SidebarSublist sublist={[entry]} /></li>;
+      }
+      const active = overview.isCurrent || children.some((child) => child.type === 'link' && child.isCurrent);
+
+      return <li class="stage">
+        <a class="stage-link" href={overview.href} aria-current={overview.isCurrent ? 'page' : undefined}>{entry.label}</a>
+        <details open={active || !entry.collapsed}>
+          <summary aria-label={`Toggle ${entry.label} pages`} title={`Toggle ${entry.label} pages`}><span class="caret" aria-hidden="true"></span></summary>
+          <SidebarRestorePoint />
+          <SidebarSublist sublist={children} nested />
+        </details>
+      </li>;
+    })}
+  </ul>
+</SidebarPersister>
+
+<div class="md:sl-hidden"><MobileMenuFooter /></div>
+
+<style>
+  @layer starlight.core {
+    .canada-sidebar { list-style: none; margin: 0; padding: 0; }
+    .canada-sidebar > li + li { margin-top: 0.5rem; }
+    .stage { position: relative; }
+    .home-link, .stage-link {
+      display: block;
+      border-radius: 0.25rem;
+      color: var(--sl-color-gray-2);
+      line-height: 1.4;
+      padding: 0.3em 2.5rem 0.3em 0.5rem;
+      text-decoration: none;
+      font-size: var(--sl-text-sm);
+    }
+    .stage-link { color: var(--sl-color-white); font-weight: 600; }
+    .home-link:hover, .home-link:focus, .stage-link:hover, .stage-link:focus { color: var(--sl-color-white); }
+    a[aria-current='page'], a[aria-current='page']:hover, a[aria-current='page']:focus {
+      color: var(--sl-color-text-invert);
+      background-color: var(--sl-color-text-accent);
+      font-weight: 600;
+    }
+    summary {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-end: 0;
+      display: grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+      border-radius: 0.25rem;
+      list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary:hover, summary:focus-visible { color: var(--sl-color-white); background: var(--sl-color-gray-5); }
+    .caret { width: 0.55rem; height: 0.55rem; border-block-start: 2px solid currentColor; border-inline-end: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.2s ease; }
+    details[open] .caret { transform: rotate(135deg); }
+    :global([dir='rtl']) .caret { transform: rotate(225deg); }
+    :global([dir='rtl']) details[open] .caret { transform: rotate(135deg); }
+  }
+</style>

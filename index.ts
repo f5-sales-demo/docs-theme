@@ -1,7 +1,7 @@
 import type { StarlightPlugin } from '@astrojs/starlight/types';
 import { translations } from './src/i18n/translations.ts';
 
-export default function f5xcDocsTheme(): StarlightPlugin {
+export default function f5xcDocsTheme(repository = process.env.GITHUB_REPOSITORY || ''): StarlightPlugin {
   return {
     name: '@f5-sales-demo/docs-theme',
     hooks: {
@@ -29,7 +29,11 @@ export default function f5xcDocsTheme(): StarlightPlugin {
               ? {
                   Sidebar: '@f5-sales-demo/docs-theme/components/ProviderSidebar.astro',
                 }
-              : {}),
+              : repository === 'f5-sales-demo/canada'
+                ? {
+                    Sidebar: '@f5-sales-demo/docs-theme/components/CanadaSidebar.astro',
+                  }
+                : {}),
             Banner: '@f5-sales-demo/docs-theme/components/Banner.astro',
             EditLink: '@f5-sales-demo/docs-theme/components/EditLink.astro',
             Footer: '@f5-sales-demo/docs-theme/components/Footer.astro',
