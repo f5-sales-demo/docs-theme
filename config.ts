@@ -379,18 +379,6 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
               href: 'https://f5-sales-demo.github.io/devcontainer/',
               icon: resolveMegaMenuIcon('hashicorp-flight:docker-color'),
             },
-            {
-              label: 'mvp',
-              translations: itemLabels.mvp,
-              description:
-                'Capability program that amplifies F5 Distributed Cloud practitioners with an agentic subject matter expert',
-              descriptionTranslations:
-                itemDescriptions[
-                  'Capability program that amplifies F5 Distributed Cloud practitioners with an agentic subject matter expert'
-                ],
-              href: 'https://f5-sales-demo.github.io/mvp/',
-              icon: resolveMegaMenuIcon('f5xc:ai_assistant_logo'),
-            },
           ],
         },
         {
