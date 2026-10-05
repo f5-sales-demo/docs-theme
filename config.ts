@@ -371,14 +371,6 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
               href: 'https://f5-sales-demo.github.io/docs-icons/',
               icon: resolveMegaMenuIcon('f5xc:distributed-apps'),
             },
-            {
-              label: 'Dev Container',
-              translations: itemLabels['Dev Container'],
-              description: 'Isolated development environment',
-              descriptionTranslations: itemDescriptions['Isolated development environment'],
-              href: 'https://f5-sales-demo.github.io/devcontainer/',
-              icon: resolveMegaMenuIcon('hashicorp-flight:docker-color'),
-            },
           ],
         },
         {
@@ -652,7 +644,6 @@ export const federatedSearchSites = [
   { repo: 'xcsh-action', label: 'xcsh Manifest Automation' },
   { repo: 'csd', label: 'Client-Side Defense' },
   { repo: 'docs-icons', label: 'Docs Icons' },
-  { repo: 'devcontainer', label: 'Dev Container' },
   { repo: 'marketplace', label: 'Marketplace' },
   { repo: 'api-specs', label: 'API Specs' },
   { repo: 'api-specs-enriched', label: 'API Specs Enriched' },

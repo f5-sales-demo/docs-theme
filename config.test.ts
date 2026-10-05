@@ -99,6 +99,11 @@ describe('default ecosystem navigation', () => {
     expect(federatedSearchSites.some((site) => site.repo === 'mvp')).toBe(false);
   });
 
+  it('omits the archived Dev Container from active menu and search', () => {
+    expect(JSON.stringify(defaultMegaMenuItems)).not.toContain('https://f5-sales-demo.github.io/devcontainer/');
+    expect(federatedSearchSites.some((site) => site.repo === 'devcontainer')).toBe(false);
+  });
+
   it('links the portal at the organization root and merges its search only from other sites', () => {
     const platform = defaultMegaMenuItems.find((item) => item.label === 'Platform');
     const portal = platform?.content?.categories
