@@ -94,6 +94,11 @@ describe('default ecosystem navigation', () => {
     expect(federatedSearchSites.some((site) => site.repo === 'html-to-markdown')).toBe(false);
   });
 
+  it('omits the unmaintained mvp Pages site from active discovery', () => {
+    expect(JSON.stringify(defaultMegaMenuItems)).not.toContain('https://f5-sales-demo.github.io/mvp/');
+    expect(federatedSearchSites.some((site) => site.repo === 'mvp')).toBe(false);
+  });
+
   it('links the portal at the organization root and merges its search only from other sites', () => {
     const platform = defaultMegaMenuItems.find((item) => item.label === 'Platform');
     const portal = platform?.content?.categories
