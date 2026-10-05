@@ -33,7 +33,7 @@ export default function f5xcDocsTheme(repository = process.env.GITHUB_REPOSITORY
                 ? {
                     Sidebar: '@f5-sales-demo/docs-theme/components/CanadaSidebar.astro',
                   }
-              : {}),
+                : {}),
             Banner: '@f5-sales-demo/docs-theme/components/Banner.astro',
             EditLink: '@f5-sales-demo/docs-theme/components/EditLink.astro',
             Footer: '@f5-sales-demo/docs-theme/components/Footer.astro',

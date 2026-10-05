@@ -23,7 +23,12 @@ describe('publication profile sidebar', () => {
     const sidebar = publicationSidebar('f5-sales-demo/canada', []);
     expect(sidebar?.[0]).toEqual({ slug: 'index' });
     const stages = sidebar?.slice(1) ?? [];
-    expect(stages.map((stage) => 'label' in stage ? stage.label : '')).toEqual(['Design', 'Deploy', 'Verify', 'Operate']);
+    expect(stages.map((stage) => ('label' in stage ? stage.label : ''))).toEqual([
+      'Design',
+      'Deploy',
+      'Verify',
+      'Operate',
+    ]);
     const expected = [
       ['design', 'use-case', 'architecture'],
       ['deploy', 'deployment', 'terraform'],
