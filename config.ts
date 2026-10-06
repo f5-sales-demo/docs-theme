@@ -38,6 +38,7 @@ import { stagedProviderSections } from './src/utils/provider-sections.ts';
 import { publicationSidebar, repositoryPublicationProfile } from './src/utils/publication-profiles.ts';
 import { resolveMegaMenuIcon } from './src/utils/resolve-icon.ts';
 import providerSharedAssets from './src/utils/share-provider-assets.mjs';
+import { statisticsScriptMarkdown } from './src/utils/statistics-script-markdown.mjs';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
 
 export type { LocaleConfig } from './src/i18n/locales.ts';
@@ -942,6 +943,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
       ...(canonicalProvider
         ? [providerSharedAssets(), canonicalLlms({ contentRoot: canonicalProvider.contentRoot, base, title })]
         : []),
+      ...(githubRepository === 'f5-sales-demo/statistics' ? [statisticsScriptMarkdown()] : []),
       ...additionalIntegrations,
     ],
   });

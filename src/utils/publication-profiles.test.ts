@@ -66,7 +66,7 @@ describe('Statistics publication', () => {
     });
     expect(repositoryPublicationProfile('statistics')?.favicon).toBeUndefined();
   });
-  it('places all 13 existing routes once in reading order with infrastructure last', () => {
+  it('preserves 13 existing routes and places Shell Scripts before Infrastructure', () => {
     const sidebar = publicationSidebar('f5-sales-demo/statistics', []);
     expect(sidebar?.slice(0, 11)).toEqual([
       { slug: 'index' },
@@ -81,12 +81,13 @@ describe('Statistics publication', () => {
       { slug: 'api-catalog' },
       { slug: 'setup' },
     ]);
-    expect(sidebar?.[11]).toEqual({
+    expect(sidebar?.[11]).toEqual({ slug: 'shell-scripts' });
+    expect(sidebar?.[12]).toEqual({
       label: 'Infrastructure',
       collapsed: true,
       items: [{ slug: 'deployment' }, { slug: 'verification' }],
     });
-    expect(sidebar).toHaveLength(12);
+    expect(sidebar).toHaveLength(13);
     const routes = sidebar?.flatMap((item) =>
       'slug' in item
         ? [item.slug]
@@ -94,8 +95,8 @@ describe('Statistics publication', () => {
           ? item.items.map((child) => ('slug' in child ? child.slug : ''))
           : [],
     );
-    expect(routes).toHaveLength(13);
-    expect(new Set(routes).size).toBe(13);
+    expect(routes).toHaveLength(14);
+    expect(new Set(routes).size).toBe(14);
   });
   it('preserves supplied fallback navigation for other repositories', () => {
     const fallback = [{ slug: 'index' }, { label: 'Existing', items: [{ slug: 'existing' }] }];

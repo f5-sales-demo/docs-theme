@@ -26,6 +26,7 @@ export const publicationProfiles: Record<string, PublicationProfile> = {
       { slug: 'troubleshooting' },
       { slug: 'api-catalog' },
       { slug: 'setup' },
+      { slug: 'shell-scripts' },
       {
         label: 'Infrastructure',
         collapsed: true,
