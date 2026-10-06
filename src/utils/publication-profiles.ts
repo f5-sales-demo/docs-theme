@@ -5,12 +5,34 @@ type Sidebar = NonNullable<Parameters<typeof starlight>[0]['sidebar']>;
 interface PublicationProfile {
   locales: Record<string, { label: string; lang: string }>;
   defaultLocale: string;
-  favicon: string;
+  favicon?: string;
   sidebar?: Sidebar;
 }
 
 /** Repository publication decisions shared by navigation and site configuration. */
 export const publicationProfiles: Record<string, PublicationProfile> = {
+  statistics: {
+    locales: { en: { label: 'English', lang: 'en' } },
+    defaultLocale: 'en',
+    sidebar: [
+      { slug: 'index' },
+      { slug: 'access-logs' },
+      { slug: 'service-graph' },
+      { slug: 'origin-performance' },
+      { slug: 'application-health' },
+      { slug: 'api-discovery' },
+      { slug: 'firewall-metrics' },
+      { slug: 'security-events' },
+      { slug: 'troubleshooting' },
+      { slug: 'api-catalog' },
+      { slug: 'setup' },
+      {
+        label: 'Infrastructure',
+        collapsed: true,
+        items: [{ slug: 'deployment' }, { slug: 'verification' }],
+      },
+    ],
+  },
   canada: {
     locales: { en: { label: 'English', lang: 'en' } },
     defaultLocale: 'en',
