@@ -305,6 +305,12 @@ export const defaultMegaMenuItems: MegaMenuItem[] = [
               icon: resolveMegaMenuIcon('f5xc:observability'),
             },
             {
+              label: 'Statistics',
+              description: 'API metrics, access logs, and security events',
+              href: 'https://f5-sales-demo.github.io/statistics/en/',
+              icon: resolveMegaMenuIcon('f5xc:data-intelligence'),
+            },
+            {
               label: 'Administration',
               translations: itemLabels.Administration,
               description: 'Tenant management and RBAC',
@@ -631,6 +637,7 @@ export const federatedSearchSites = [
   { repo: 'administration', label: 'Administration' },
   { repo: 'nginx', label: 'NGINX' },
   { repo: 'observability', label: 'Observability' },
+  { repo: 'statistics', label: 'Statistics' },
   { repo: 'was', label: 'Web App Scanning' },
   { repo: 'multi-cloud-networking', label: 'Multi-Cloud Networking' },
   { repo: 'canada', label: 'Canada Topology' },
