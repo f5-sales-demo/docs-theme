@@ -34,6 +34,10 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 	<div class="smm-mobile-toggle">
 		<MegaMenuMobile client:only="react" />
 	</div>
+	<details class="compact-preferences">
+		<summary aria-label="Display and language">Aa</summary>
+		<div class="preferences-panel"><ThemeSelect /><LanguageSelect /></div>
+	</details>
 </div>
 
 <style>
@@ -56,8 +60,27 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 		}
 
 		.right-group { display: none; }
+		.compact-preferences { position: relative; flex-shrink: 0; }
+		.compact-preferences summary {
+			cursor: pointer;
+			padding: 0.75rem;
+			min-height: 44px;
+			list-style: none;
+		}
+		.preferences-panel {
+			position: absolute;
+			inset-inline-end: 0;
+			top: calc(100% + 0.5rem);
+			display: grid;
+			gap: 0.5rem;
+			padding: 0.75rem;
+			background: var(--sl-color-bg-nav);
+			border: 1px solid var(--sl-color-gray-5);
+			border-radius: 0.5rem;
+		}
 		@media (min-width: 90rem) {
 			.right-group { display: flex; }
+			.compact-preferences { display: none; }
 		}
 
 		.right-group,
