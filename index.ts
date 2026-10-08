@@ -1,5 +1,6 @@
 import type { StarlightPlugin } from '@astrojs/starlight/types';
 import { translations } from './src/i18n/translations.ts';
+import { sharedMode } from './src/shared/settings.mjs';
 
 export default function f5xcDocsTheme(repository = process.env.GITHUB_REPOSITORY || ''): StarlightPlugin {
   return {
@@ -19,12 +20,20 @@ export default function f5xcDocsTheme(repository = process.env.GITHUB_REPOSITORY
         updateConfig({
           customCss: [
             ...(config.customCss ?? []),
-            '@f5-sales-demo/docs-theme/fonts/font-face.css',
-            '@f5-sales-demo/docs-theme/styles/custom.css',
+            ...(sharedMode(repository) === 'local'
+              ? [
+                  '@f5-sales-demo/docs-theme/fonts/font-face.css',
+                  '@f5-sales-demo/docs-theme/styles/custom.css',
+                  '@f5-sales-demo/docs-theme/styles/shell.css',
+                ]
+              : []),
           ],
           components: {
             ...config.components,
-            Header: '@f5-sales-demo/docs-theme/components/SharedHeader.astro',
+            Header:
+              sharedMode(repository) === 'local'
+                ? '@f5-sales-demo/docs-theme/components/LocalHeader.astro'
+                : '@f5-sales-demo/docs-theme/components/SharedHeader.astro',
             Head: '@f5-sales-demo/docs-theme/components/Head.astro',
             ...(process.env.DOCS_PROFILE === 'canonical-provider'
               ? {

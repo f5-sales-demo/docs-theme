@@ -1,0 +1,30 @@
+{
+  "pointer": {
+    "contract": "v1",
+    "release": {
+      "url": "https://f5-sales-demo.github.io/shared/v1/releases/e3434cae2b7a79b34171b674e9378cdf3bfe3965071ca9c9b231e2d819f035e4.json",
+      "sha256": "e3434cae2b7a79b34171b674e9378cdf3bfe3965071ca9c9b231e2d819f035e4",
+      "bytes": 5766
+    }
+  },
+  "assets": {
+    "css": {
+      "url": "https://f5-sales-demo.github.io/shared/assets/b208db097ace5238f60a621abd4b03965c6c0bb5a35f1d498ea76172b23f6f29.css",
+      "sha256": "b208db097ace5238f60a621abd4b03965c6c0bb5a35f1d498ea76172b23f6f29",
+      "bytes": 44879,
+      "extension": "css"
+    },
+    "logo": {
+      "url": "https://f5-sales-demo.github.io/shared/assets/487f0f7a70ffaa67c7127b2eef2b094c6eae42d8d6e6ba0a14c784013b2c6d48.svg",
+      "sha256": "487f0f7a70ffaa67c7127b2eef2b094c6eae42d8d6e6ba0a14c784013b2c6d48",
+      "bytes": 2294,
+      "extension": "svg"
+    },
+    "favicon": {
+      "url": "https://f5-sales-demo.github.io/shared/assets/3402d9a74d6a627f098da467fda72cde93ee686ecb1ceba2c96d1f4bd18857b3.svg",
+      "sha256": "3402d9a74d6a627f098da467fda72cde93ee686ecb1ceba2c96d1f4bd18857b3",
+      "bytes": 4282,
+      "extension": "svg"
+    }
+  }
+}

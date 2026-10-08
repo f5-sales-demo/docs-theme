@@ -1,10 +1,16 @@
 ---
+import { sharedMode, baseline } from '../src/shared/settings.mjs';
+const shared = sharedMode() !== 'local';
+const integrity = (receipt) => 'sha256-' + Buffer.from(receipt.sha256, 'hex').toString('base64');
 import { pageTitle } from '../src/utils/page-title';
 
 const route = Astro.locals.starlightRoute;
-const head = route.head.map((entry) => entry.tag === 'title'
+const head = route.head.filter(entry => !(shared && entry.tag === 'link' && entry.attrs?.rel === 'icon' && !process.env.DOCS_CUSTOM_FAVICON && process.env.GITHUB_REPOSITORY !== 'f5-sales-demo/canada')).map((entry) => entry.tag === 'title'
   ? { ...entry, content: pageTitle(route.entry.data.title, route.siteTitle, entry.content || '') }
   : entry);
 ---
 
 {head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+
+{shared && <link data-f5-baseline-css rel="stylesheet" href={baseline.assets.css.url} integrity={integrity(baseline.assets.css)} crossorigin="anonymous" />}
+{shared && !process.env.DOCS_CUSTOM_FAVICON && process.env.GITHUB_REPOSITORY !== 'f5-sales-demo/canada' && <link data-f5-shared-favicon rel="icon" type="image/svg+xml" href={baseline.assets.favicon.url} />}
