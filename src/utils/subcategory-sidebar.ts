@@ -84,7 +84,14 @@ function kebabToTitleCase(kebab: string): string {
     .join(' ');
 }
 
-function readNavigationMetadata(filePath: string, fallbackTitle: string): { title: string; order: number | undefined } {
+interface NavigationMetadata {
+  title: string;
+  label?: string;
+  hidden: boolean;
+  order: number | undefined;
+}
+
+function readNavigationMetadata(filePath: string, fallbackTitle: string): NavigationMetadata {
   try {
     const raw = fs.readFileSync(filePath, 'utf-8');
     const frontmatter = matter(raw).data as Record<string, unknown>;
@@ -103,15 +110,24 @@ function readNavigationMetadata(filePath: string, fallbackTitle: string): { titl
       Number.isFinite(sidebar.order)
         ? sidebar.order
         : undefined;
-    return { title, order };
+    const label =
+      typeof sidebar === 'object' &&
+      sidebar !== null &&
+      'label' in sidebar &&
+      typeof sidebar.label === 'string' &&
+      sidebar.label.trim()
+        ? sidebar.label.trim()
+        : undefined;
+    const hidden = typeof sidebar === 'object' && sidebar !== null && 'hidden' in sidebar && sidebar.hidden === true;
+    return { title, label, hidden, order };
   } catch {
-    return { title: fallbackTitle, order: undefined };
+    return { title: fallbackTitle, hidden: false, order: undefined };
   }
 }
 
 function compareOrderedSidebarItems(a: OrderedSidebarItem, b: OrderedSidebarItem): number {
   const orderDifference = (a.order ?? Number.POSITIVE_INFINITY) - (b.order ?? Number.POSITIVE_INFINITY);
-  if (orderDifference !== 0) return orderDifference;
+  if (!Number.isNaN(orderDifference) && orderDifference !== 0) return orderDifference;
   const labelDifference = a.sortLabel.localeCompare(b.sortLabel);
   return labelDifference !== 0 ? labelDifference : a.sortPath.localeCompare(b.sortPath);
 }
@@ -131,7 +147,7 @@ function buildDirectorySidebar(dirPath: string, scanDir: string): OrderedSidebar
   const indexPath = indexEntry ? path.join(dirPath, indexEntry.name) : undefined;
   const metadata = indexPath
     ? readNavigationMetadata(indexPath, fallbackLabel)
-    : { title: fallbackLabel, order: undefined };
+    : { title: fallbackLabel, hidden: false, order: undefined };
   const children: OrderedSidebarItem[] = [];
 
   for (const entry of entries) {
@@ -149,36 +165,38 @@ function buildDirectorySidebar(dirPath: string, scanDir: string): OrderedSidebar
     const slug = filePathToSlug(relativePath).replace(/^\/|\/$/g, '');
     const fallbackTitle = path.basename(entry.name, path.extname(entry.name)).replace(/[-_]/g, ' ');
     const page = readNavigationMetadata(fullPath, fallbackTitle);
+    if (page.hidden) continue;
     children.push({
-      item: { slug },
+      item: { slug, ...(page.label ? { label: page.label } : {}) },
       order: page.order,
-      sortLabel: page.title,
+      sortLabel: page.label ?? page.title,
       sortPath: relativePath,
     });
   }
 
   children.sort(compareOrderedSidebarItems);
   const items: SidebarItem[] = [];
-  if (indexPath) {
+  if (indexPath && !metadata.hidden) {
     items.push({
-      label: 'Overview',
+      label: metadata.label ?? 'Overview',
       slug: filePathToSlug(path.relative(scanDir, indexPath)).replace(/^\/|\/$/g, ''),
-      translations: sidebarTranslations.Overview,
+      ...(!metadata.label ? { translations: sidebarTranslations.Overview } : {}),
     });
   }
   items.push(...children.map((child) => child.item));
   if (items.length === 0) return undefined;
 
-  const translations = sidebarTranslations[metadata.title as keyof typeof sidebarTranslations];
+  const groupLabel = metadata.label ?? metadata.title;
+  const translations = sidebarTranslations[groupLabel as keyof typeof sidebarTranslations];
   return {
     item: {
-      label: metadata.title,
+      label: groupLabel,
       collapsed: true,
       ...(translations ? { translations } : {}),
       items,
     },
     order: metadata.order,
-    sortLabel: metadata.title,
+    sortLabel: groupLabel,
     sortPath: relativeDir,
   };
 }
@@ -225,6 +243,7 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
   const docs: DocEntry[] = [];
   let hasAnySubcategory = false;
   let hasOverview = false;
+  let overviewMetadata: NavigationMetadata = { title: 'Overview', hidden: false, order: undefined };
 
   for (const filePath of files) {
     const relativePath = path.relative(scanDir, filePath).replace(/\\/g, '/');
@@ -232,7 +251,8 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
 
     // Track overview page separately
     if (slug === '/') {
-      hasOverview = true;
+      overviewMetadata = readNavigationMetadata(filePath, 'Overview');
+      hasOverview = !overviewMetadata.hidden;
       continue;
     }
 
@@ -262,7 +282,9 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
     } else {
       title = path.basename(filePath, path.extname(filePath)).replace(/[-_]/g, ' ');
     }
-    title = cleanPageTitle(title, docType);
+    const navigation = readNavigationMetadata(filePath, title);
+    if (navigation.hidden) continue;
+    title = navigation.label ?? cleanPageTitle(title, docType);
 
     const subcategory =
       typeof frontmatter.subcategory === 'string' && frontmatter.subcategory.trim()
@@ -298,18 +320,25 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
       const slug = filePathToSlug(entry.name).replace(/^\/|\/$/g, '');
       const fallbackTitle = path.basename(entry.name, path.extname(entry.name)).replace(/[-_]/g, ' ');
       const page = readNavigationMetadata(fullPath, fallbackTitle);
-      orderedItems.push({ item: { slug }, order: page.order, sortLabel: page.title, sortPath: entry.name });
+      if (page.hidden) continue;
+      orderedItems.push({
+        item: { slug, ...(page.label ? { label: page.label } : {}) },
+        order: page.order,
+        sortLabel: page.label ?? page.title,
+        sortPath: entry.name,
+      });
     }
 
     if (hasOverview) {
-      const overviewEntry = rootEntries.find((entry) => entry.isFile() && /^index\.mdx?$/.test(entry.name));
-      const overview = overviewEntry
-        ? readNavigationMetadata(path.join(scanDir, overviewEntry.name), 'Overview')
-        : { title: 'Overview', order: undefined };
+      const overview = overviewMetadata;
       orderedItems.push({
-        item: { label: 'Overview', link: '/', translations: sidebarTranslations.Overview },
+        item: {
+          label: overview.label ?? 'Overview',
+          link: '/',
+          ...(!overview.label ? { translations: sidebarTranslations.Overview } : {}),
+        },
         order: overview.order ?? Number.NEGATIVE_INFINITY,
-        sortLabel: overview.title,
+        sortLabel: overview.label ?? overview.title,
         sortPath: '',
       });
     }
@@ -332,7 +361,11 @@ export function buildSubcategorySidebar(contentDir: string): SidebarItem[] | und
 
   // 1. Overview link
   if (hasOverview) {
-    sidebar.push({ label: 'Overview', link: '/', translations: sidebarTranslations.Overview });
+    sidebar.push({
+      label: overviewMetadata.label ?? 'Overview',
+      link: '/',
+      ...(!overviewMetadata.label ? { translations: sidebarTranslations.Overview } : {}),
+    });
   }
 
   // 2. Guides group
