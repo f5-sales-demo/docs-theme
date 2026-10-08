@@ -7,6 +7,7 @@ import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
 import config from 'virtual:starlight/user-config';
 import MegaMenu from './SharedMegaMenu.tsx';
 import MegaMenuMobile from './SharedMegaMenuMobile.tsx';
+import { federatedSearchSites } from '../config';
 
 /**
  * Render the `Search` component if Pagefind is enabled or the default search component has been overridden.
@@ -14,7 +15,7 @@ import MegaMenuMobile from './SharedMegaMenuMobile.tsx';
 const shouldRenderSearch = config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
 ---
 
-<div class="header sl-mega-menu-header">
+<div class="header sl-mega-menu-header" data-search-sources={JSON.stringify(federatedSearchSites)}>
 	<div class="title-wrapper sl-flex">
 		<SiteTitle />
 	</div>
@@ -39,6 +40,32 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 		<div class="preferences-panel"><ThemeSelect /><LanguageSelect /></div>
 	</details>
 </div>
+
+<script>
+	import { searchSource } from '../src/utils/search-source';
+	const header = document.querySelector<HTMLElement>('[data-search-sources]');
+	const sources = JSON.parse(header?.dataset.searchSources || '[]');
+	const annotateResults = () => {
+		for (const link of document.querySelectorAll<HTMLAnchorElement>('.pagefind-ui__result-link')) {
+			if (link.dataset.sourceAnnotated) continue;
+			link.dataset.sourceAnnotated = 'true';
+			const label = searchSource(link.href, sources);
+			if (!label) continue;
+			const source = document.createElement('span');
+			source.className = 'search-project-source';
+			source.textContent = label;
+			link.closest('.pagefind-ui__result-title')?.append(source);
+		}
+	};
+	new MutationObserver(annotateResults).observe(document.body, { childList: true, subtree: true });
+	document.addEventListener('keydown', (event) => {
+		const preferences = document.querySelector<HTMLDetailsElement>('.compact-preferences[open]');
+		if (event.key === 'Escape' && preferences) {
+			preferences.open = false;
+			preferences.querySelector('summary')?.focus();
+		}
+	});
+</script>
 
 <style>
 	@layer starlight.core {
@@ -77,6 +104,13 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 			background: var(--sl-color-bg-nav);
 			border: 1px solid var(--sl-color-gray-5);
 			border-radius: 0.5rem;
+		}
+		:global(.search-project-source) {
+			display: block;
+			font-size: var(--sl-text-sm);
+			font-weight: 400;
+			color: var(--sl-color-gray-2);
+			margin-top: 0.25rem;
 		}
 		@media (min-width: 90rem) {
 			.right-group { display: flex; }
