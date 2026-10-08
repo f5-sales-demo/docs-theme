@@ -29,6 +29,10 @@ export function localizeEcosystemHref(
   const segments = url.pathname.split('/').filter(Boolean);
   if (segments.length === 0) return href;
 
+  // Organization-root routes begin with a locale, not a project slug.
+  // Explicit catalog locale links must never become /en/fr/demos/.
+  if (VALID_SLUGS.has(segments[0])) return href;
+
   if (NON_LOCALIZED_ECOSYSTEM_SLUGS.has(segments[0])) return href;
 
   if (segments.length >= 2 && VALID_SLUGS.has(segments[1])) {

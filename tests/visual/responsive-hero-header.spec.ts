@@ -11,11 +11,11 @@ function setTheme(theme: 'dark' | 'light') {
 
 test.describe('Responsive Header and Splash Hero', () => {
   for (const height of [900, 700]) {
-    test(`Desktop Platform menu reaches its final link at 1440x${height}`, async ({ page }) => {
+    test(`Desktop developer tools menu reaches its final link at 1440x${height}`, async ({ page }) => {
       await page.setViewportSize({ width: 1440, height });
       const response = await page.goto('./', { waitUntil: 'networkidle' });
       expect(response?.status()).toBe(200);
-      await page.getByRole('button', { name: 'Platform', exact: true }).click();
+      await page.getByRole('button', { name: 'Developer tools', exact: true }).click();
 
       const viewport = page.locator('.smm-viewport');
       await expect(viewport).toBeVisible();

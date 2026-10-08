@@ -4,15 +4,15 @@ import { localizeEcosystemHref } from './localize-ecosystem-href';
 
 describe('Statistics discovery', () => {
   it('lists Statistics beside monitoring tools exactly once', () => {
-    const networking = defaultMegaMenuItems.find((item) => item.label === 'Networking');
-    const category = networking?.content?.categories?.find((item) => item.title === 'Manage & Monitor');
+    const networking = defaultMegaMenuItems.find((item) => item.label === 'Operations');
+    const category = networking?.content?.categories?.find((item) => item.title === 'Queries and administration');
     const statistics = category?.items?.filter((item) => item.label === 'Statistics');
     expect(statistics).toHaveLength(1);
     expect(statistics?.[0]).toMatchObject({
       href: 'https://f5-sales-demo.github.io/statistics/en/',
-      description: 'API metrics, access logs, and security events',
+      description: 'Query access logs, application metrics, and security telemetry through the API.',
     });
-    expect(category?.items?.map((item) => item.label)).toEqual(['Observability', 'Statistics', 'Administration']);
+    expect(category?.items?.map((item) => item.label)).toEqual(['Statistics', 'Observability', 'Administration']);
   });
   it('adds Statistics to federated search and avoids self-index duplication', () => {
     expect(federatedSearchSites.filter((item) => item.repo === 'statistics')).toHaveLength(1);
