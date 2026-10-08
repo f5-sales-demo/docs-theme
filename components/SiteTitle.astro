@@ -1,4 +1,6 @@
 ---
+import { sharedMode, baseline } from '../src/shared/settings.mjs';
+const shared = sharedMode() !== 'local';
 import config from 'virtual:starlight/user-config';
 import { logos } from 'virtual:starlight/user-images';
 
@@ -7,6 +9,7 @@ const { siteTitle } = Astro.locals.starlightRoute;
 ---
 
 <a href={docsHome} class="site-title sl-flex">
+  {shared && !config.logo && <img data-f5-shared-brand="logo" src={baseline.assets.logo.url} alt="F5 Distributed Cloud" width="200" height="40" />}
   {config.logo && logos.dark && (
     <>
       <img
@@ -31,30 +34,3 @@ const { siteTitle } = Astro.locals.starlightRoute;
     {siteTitle}
   </span>
 </a>
-
-<style>
-  .site-title {
-    align-items: center;
-    gap: var(--sl-nav-gap);
-    font-size: var(--sl-text-h4);
-    font-weight: 600;
-    color: var(--sl-color-text-accent);
-    text-decoration: none;
-    white-space: nowrap;
-    min-width: 0;
-  }
-  span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    min-width: 0;
-  }
-  img {
-    height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    object-position: 0 50%;
-    flex-shrink: 0;
-  }
-</style>

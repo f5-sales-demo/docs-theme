@@ -44,4 +44,4 @@ jobs:
           gh workflow run build-image.yml \
             --repo f5-sales-demo/docs-builder \
             --ref main \
-            -f dispatch_downstream=true
+            -f dispatch_downstream=false

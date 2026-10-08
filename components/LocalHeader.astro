@@ -1,4 +1,6 @@
 ---
+import MegaMenu from './SharedMegaMenu.tsx';
+import MegaMenuMobile from './SharedMegaMenuMobile.tsx';
 import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
 import Search from 'virtual:starlight/components/Search';
 import SiteTitle from 'virtual:starlight/components/SiteTitle';
@@ -23,9 +25,8 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 	<div class="title-wrapper sl-flex">
 		<SiteTitle />
 	</div>
-  {providerSections.length > 0 && <details class="provider-local-nav"><summary>Provider documentation</summary><nav aria-label="Provider documentation">{providerSections.map(section => <a href={`${base}${section.path}/`}>{section.label}</a>)}</nav></details>}
 	<nav class="smm-desktop-nav" id="f5-ecosystem-desktop" aria-label="Ecosystem">
-		<a data-f5-fallback href="https://f5-sales-demo.github.io/en/ecosystem/">Ecosystem directory</a>
+		<MegaMenu client:only="react" />
 	</nav>
 	<div class="sl-flex print:hidden">
 		{shouldRenderSearch && <Search />}
@@ -38,7 +39,7 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 		<LanguageSelect />
 	</div>
 	<div class="smm-mobile-toggle" id="f5-ecosystem-mobile">
-		<a data-f5-fallback href="https://f5-sales-demo.github.io/en/ecosystem/">Ecosystem directory</a>
+		<MegaMenuMobile client:only="react" />
 	</div>
 	<details class="compact-preferences">
 		<summary aria-label="Display and language">Aa</summary>
@@ -49,5 +50,8 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 <script>
   import { startSharedShell } from '../src/shared/bootstrap.mjs';
   const header = document.querySelector<HTMLElement>('[data-f5-shared-consumer]');
-  if (header) (window as any).F5SharedReadyV1 = startSharedShell(JSON.parse(header.dataset.f5SharedConsumer!), JSON.parse(header.dataset.f5SharedBaseline!)).catch(() => {});
+  if (header) startSharedShell(JSON.parse(header.dataset.f5SharedConsumer!), JSON.parse(header.dataset.f5SharedBaseline!)).catch(() => {});
 </script>
+{providerSections.length > 0 && <nav class="provider-local-nav" aria-label="Provider documentation">
+  {providerSections.map(section => <a href={`${base}${section.path}/`}>{section.label}</a>)}
+</nav>}
