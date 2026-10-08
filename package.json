@@ -46,6 +46,7 @@
     "./components/CanadaSidebar.astro": "./components/CanadaSidebar.astro",
     "./components/ProviderHeader.astro": "./components/ProviderHeader.astro",
     "./components/SharedHeader.astro": "./components/SharedHeader.astro",
+    "./components/Head.astro": "./components/Head.astro",
     "./assets/canada-flag.svg": "./assets/canada-flag.svg",
     "./assets/canada-favicon.svg": "./assets/canada-favicon.svg"
   },
