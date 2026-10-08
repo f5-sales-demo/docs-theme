@@ -119,3 +119,79 @@ describe('buildSubcategorySidebar without subcategories', () => {
     ]);
   });
 });
+
+describe('authored sidebar metadata', () => {
+  async function fixture(docs: Record<string, string>) {
+    const root = await mkdtemp(path.join(tmpdir(), 'docs-theme-metadata-'));
+    workspaces.push(root);
+    for (const [file, metadata] of Object.entries(docs)) {
+      const destination = path.join(root, file);
+      await mkdir(path.dirname(destination), { recursive: true });
+      await writeFile(destination, `---\ntitle: Article title\n${metadata}\n---\nContent.\n`);
+    }
+    return buildSubcategorySidebar(root);
+  }
+
+  it('uses authored root and nested index labels without Overview translations', async () => {
+    const sidebar = await fixture({
+      'index.mdx': 'sidebar:\n  label: Home\n  order: 0',
+      'plugins/index.mdx': 'sidebar:\n  label: Plugin catalog\n  order: 1',
+      'plugins/tool.mdx': 'sidebar:\n  label: Review documents',
+    });
+    expect(sidebar).toEqual([
+      { label: 'Home', link: '/' },
+      {
+        label: 'Plugin catalog',
+        collapsed: true,
+        items: [
+          { label: 'Plugin catalog', slug: 'plugins' },
+          { label: 'Review documents', slug: 'plugins/tool' },
+        ],
+      },
+    ]);
+  });
+
+  it('omits hidden root and nested pages while keeping children of hidden indexes', async () => {
+    const sidebar = await fixture({
+      'index.mdx': 'sidebar:\n  hidden: true',
+      'hidden.mdx': 'sidebar:\n  hidden: true',
+      'plugins/index.mdx': 'sidebar:\n  label: Plugins\n  hidden: true',
+      'plugins/hidden.mdx': 'sidebar:\n  hidden: true',
+      'plugins/deep/index.mdx': 'sidebar:\n  hidden: true',
+      'plugins/deep/visible.mdx': '',
+      'empty/index.mdx': 'sidebar:\n  hidden: true',
+    });
+    expect(sidebar).toEqual([
+      {
+        label: 'Plugins',
+        collapsed: true,
+        translations: expect.any(Object),
+        items: [{ label: 'Article title', collapsed: true, items: [{ slug: 'plugins/deep/visible' }] }],
+      },
+    ]);
+  });
+
+  it('honors explicit order and alphabetic fallback independently of filenames', async () => {
+    const sidebar = await fixture({
+      'index.mdx': 'sidebar:\n  label: Home\n  order: 2',
+      'last.mdx': 'sidebar:\n  label: First\n  order: 1',
+      'alpha.mdx': 'sidebar:\n  label: Zebra',
+      'zebra.mdx': 'sidebar:\n  label: Alpha',
+    });
+    expect(sidebar).toEqual([
+      { label: 'First', slug: 'last' },
+      { label: 'Home', link: '/' },
+      { label: 'Alpha', slug: 'zebra' },
+      { label: 'Zebra', slug: 'alpha' },
+    ]);
+  });
+
+  it('ignores blank labels and nonboolean hidden values', async () => {
+    const sidebar = await fixture({
+      'index.mdx': 'sidebar:\n  label: " "\n  hidden: "true"',
+      'page.mdx': 'sidebar:\n  label: " "\n  hidden: false',
+    });
+    expect(sidebar?.[0]).toMatchObject({ label: 'Overview', link: '/', translations: expect.any(Object) });
+    expect(sidebar?.[1]).toEqual({ slug: 'page' });
+  });
+});
