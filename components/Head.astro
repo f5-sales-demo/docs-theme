@@ -1,0 +1,10 @@
+---
+import { pageTitle } from '../src/utils/page-title';
+
+const route = Astro.locals.starlightRoute;
+const head = route.head.map((entry) => entry.tag === 'title'
+  ? { ...entry, content: pageTitle(route.entry.data.title, route.siteTitle, entry.content || '') }
+  : entry);
+---
+
+{head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}

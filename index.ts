@@ -25,6 +25,7 @@ export default function f5xcDocsTheme(repository = process.env.GITHUB_REPOSITORY
           components: {
             ...config.components,
             Header: '@f5-sales-demo/docs-theme/components/SharedHeader.astro',
+            Head: '@f5-sales-demo/docs-theme/components/Head.astro',
             ...(process.env.DOCS_PROFILE === 'canonical-provider'
               ? {
                   Sidebar: '@f5-sales-demo/docs-theme/components/ProviderSidebar.astro',

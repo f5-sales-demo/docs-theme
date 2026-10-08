@@ -1,47 +1,23 @@
 ---
 import Default from '@astrojs/starlight/components/Footer.astro';
-import Icon from './Icon.astro';
 ---
 
 <Default {...Astro.props}><slot /></Default>
 
-{process.env.DOCS_PROFILE !== 'canonical-provider' && <div class="social-links">
-  <a href="https://www.facebook.com/f5incorporated" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-    <Icon name="hashicorp-flight:facebook-color" size="1.5rem" />
-  </a>
-  <a href="https://x.com/F5" target="_blank" rel="noopener noreferrer" aria-label="X">
-    <Icon name="hashicorp-flight:twitter-x" size="1.5rem" />
-  </a>
-  <a href="https://www.linkedin.com/company/f5/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-    <Icon name="hashicorp-flight:linkedin-color" size="1.5rem" />
-  </a>
-  <a href="https://www.instagram.com/f5.global/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-    <Icon name="hashicorp-flight:instagram-color" size="1.5rem" />
-  </a>
-  <a href="https://www.youtube.com/user/f5networksinc" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-    <Icon name="hashicorp-flight:youtube-color" size="1.5rem" />
-  </a>
-</div>}
+{process.env.DOCS_PROFILE !== 'canonical-provider' && <nav class="project-links" aria-label="Project information">
+  <a href="https://f5-sales-demo.github.io/en/ecosystem/">Ecosystem directory</a>
+  <a href="https://github.com/f5-sales-demo">Project sources</a>
+  <a href="https://docs.cloud.f5.com/">Official F5 documentation</a>
+</nav>}
 
 <style>
-  .social-links {
+  .project-links {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1.25rem;
-    padding: 1rem 0 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    border-top: 1px solid var(--sl-color-gray-5);
+    margin-top: 2rem;
+    padding-block: 1rem;
   }
-
-  .social-links a {
-    display: inline-flex;
-    transition: opacity 0.2s ease;
-  }
-
-  .social-links a:hover {
-    opacity: 0.7;
-  }
-
-  .social-links :global(svg) {
-    display: block;
-  }
+  .project-links a { padding-block: 0.5rem; }
 </style>

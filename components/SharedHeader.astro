@@ -7,6 +7,7 @@ import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
 import config from 'virtual:starlight/user-config';
 import MegaMenu from './SharedMegaMenu.tsx';
 import MegaMenuMobile from './SharedMegaMenuMobile.tsx';
+import { federatedSearchSites } from '../src/utils/search-sites';
 
 /**
  * Render the `Search` component if Pagefind is enabled or the default search component has been overridden.
@@ -14,7 +15,7 @@ import MegaMenuMobile from './SharedMegaMenuMobile.tsx';
 const shouldRenderSearch = config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
 ---
 
-<div class="header sl-mega-menu-header">
+<div class="header sl-mega-menu-header" data-search-sources={JSON.stringify(federatedSearchSites)}>
 	<div class="title-wrapper sl-flex">
 		<SiteTitle />
 	</div>
@@ -34,7 +35,37 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 	<div class="smm-mobile-toggle">
 		<MegaMenuMobile client:only="react" />
 	</div>
+	<details class="compact-preferences">
+		<summary aria-label="Display and language">Aa</summary>
+		<div class="preferences-panel"><ThemeSelect /><LanguageSelect /></div>
+	</details>
 </div>
+
+<script>
+	import { searchSource } from '../src/utils/search-source';
+	const header = document.querySelector<HTMLElement>('[data-search-sources]');
+	const sources = JSON.parse(header?.dataset.searchSources || '[]');
+	const annotateResults = () => {
+		for (const link of document.querySelectorAll<HTMLAnchorElement>('.pagefind-ui__result-link')) {
+			if (link.dataset.sourceAnnotated) continue;
+			link.dataset.sourceAnnotated = 'true';
+			const label = searchSource(link.href, sources);
+			if (!label) continue;
+			const source = document.createElement('span');
+			source.className = 'search-project-source';
+			source.textContent = label;
+			link.closest('.pagefind-ui__result-title')?.append(source);
+		}
+	};
+	new MutationObserver(annotateResults).observe(document.body, { childList: true, subtree: true });
+	document.addEventListener('keydown', (event) => {
+		const preferences = document.querySelector<HTMLDetailsElement>('.compact-preferences[open]');
+		if (event.key === 'Escape' && preferences) {
+			preferences.open = false;
+			preferences.querySelector('summary')?.focus();
+		}
+	});
+</script>
 
 <style>
 	@layer starlight.core {
@@ -53,6 +84,37 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 			padding: 0.25rem;
 			margin: -0.25rem;
 			min-width: 0;
+		}
+
+		.right-group { display: none; }
+		.compact-preferences { position: relative; flex-shrink: 0; }
+		.compact-preferences summary {
+			cursor: pointer;
+			padding: 0.75rem;
+			min-height: 44px;
+			list-style: none;
+		}
+		.preferences-panel {
+			position: absolute;
+			inset-inline-end: 0;
+			top: calc(100% + 0.5rem);
+			display: grid;
+			gap: 0.5rem;
+			padding: 0.75rem;
+			background: var(--sl-color-bg-nav);
+			border: 1px solid var(--sl-color-gray-5);
+			border-radius: 0.5rem;
+		}
+		:global(.search-project-source) {
+			display: block;
+			font-size: var(--sl-text-sm);
+			font-weight: 400;
+			color: var(--sl-color-gray-2);
+			margin-top: 0.25rem;
+		}
+		@media (min-width: 90rem) {
+			.right-group { display: flex; }
+			.compact-preferences { display: none; }
 		}
 
 		.right-group,
@@ -77,7 +139,7 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 			align-items: center;
 		}
 
-		@media (min-width: 50rem) {
+		@media (min-width: 90rem) {
 			:global(:root[data-has-sidebar]) {
 				--__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
 			}
@@ -96,9 +158,9 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 				display: grid;
 				grid-template-columns:
 					/* 1 (site title) */
-					auto
+					minmax(0, 1fr)
 					/* 2 (mega-menu nav) */
-					1fr
+					auto
 					/* 3 (search box) */
 					auto
 					/* 4 (right items) */

@@ -10,58 +10,28 @@ import {
   progressiveCorpusPolicy,
 } from './config';
 import packageJson from './package.json';
-import { f5xcDefaultLocales } from './src/i18n/locales';
 
 describe('default ecosystem navigation', () => {
-  it('consolidates developer automation under Platform', () => {
-    expect(defaultMegaMenuItems.map((item) => item.label)).not.toContain('Tools');
-
-    const platform = defaultMegaMenuItems.find((item) => item.label === 'Platform');
-    const developerAutomation = platform?.content?.categories?.find(
-      (category) => category.title === 'Developer Automation',
+  it('groups developer tools once and registers the Action for federated search', () => {
+    const tools = defaultMegaMenuItems.find((item) => item.label === 'Developer tools');
+    const items = tools?.content?.categories?.flatMap((category) => category.items) ?? [];
+    expect(items.filter((item) => item.label === 'xcsh')).toHaveLength(1);
+    expect(items.find((item) => item.label === 'xcsh GitHub Action')?.href).toBe(
+      'https://f5-sales-demo.github.io/xcsh-action/en/',
     );
-
-    expect(developerAutomation?.items.map((item) => item.label)).toEqual([
-      'Terraform Provider',
-      'API Specs',
-      'API Specs Enriched',
-      'xcsh Manifest Automation',
-      'VS Code Extension',
-      'xcsh CLI',
-      'xcsh Chrome Extension',
-    ]);
-    expect(Object.keys(developerAutomation?.translations ?? {})).toHaveLength(
-      Object.keys(f5xcDefaultLocales).length - 1,
-    );
-  });
-
-  it('keeps the product name stable and localizes its description', () => {
-    const platform = defaultMegaMenuItems.find((item) => item.label === 'Platform');
-    const action = platform?.content?.categories
-      ?.flatMap((category) => category.items)
-      .find((item) => item.label === 'xcsh Manifest Automation');
-
-    expect(action?.href).toBe('https://f5-sales-demo.github.io/xcsh-action/');
-    expect(action).not.toHaveProperty('translations');
-    expect(Object.keys(action?.descriptionTranslations ?? {})).toHaveLength(Object.keys(f5xcDefaultLocales).length - 1);
-  });
-
-  it('retains xcsh under AI and registers the Action for federated search', () => {
-    const ai = defaultMegaMenuItems.find((item) => item.label === 'AI');
-    expect(ai?.content?.categories?.flatMap((category) => category.items).map((item) => item.label)).toContain('xcsh');
-    expect(federatedSearchSites).toContainEqual({ repo: 'xcsh-action', label: 'xcsh Manifest Automation' });
+    expect(federatedSearchSites).toContainEqual({ repo: 'xcsh-action', label: 'xcsh GitHub Action' });
   });
 
   it('uses one canonical Web App & API Protection identity', () => {
-    const security = defaultMegaMenuItems.find((item) => item.label === 'Security');
+    const security = defaultMegaMenuItems.find((item) => item.label === 'Demos');
     const items = security?.content?.categories?.flatMap((category) => category.items) ?? [];
     expect(items.filter((item) => item.label === 'Web App & API Protection')).toEqual([
       expect.objectContaining({
-        href: 'https://f5-sales-demo.github.io/webapp-api-protection/',
-        description: 'Web application and API protection demonstrations',
+        href: 'https://f5-sales-demo.github.io/webapp-api-protection/en/',
+        description: 'Deploy an application security demo with Terraform and follow its protection walkthroughs.',
       }),
     ]);
-    expect(items.filter((item) => item.label === 'API Security')).toHaveLength(1);
+    expect(items.filter((item) => item.label === 'API Protection')).toHaveLength(1);
     expect(JSON.stringify(defaultMegaMenuItems)).not.toContain('https://f5-sales-demo.github.io/waf/');
     expect(federatedSearchSites.filter((site) => site.repo === 'webapp-api-protection')).toEqual([
       { repo: 'webapp-api-protection', label: 'Web App & API Protection' },
@@ -81,16 +51,12 @@ describe('default ecosystem navigation', () => {
     );
   });
 
-  it('links the localized F5 Docs Corpus without federating its non-HTML routes', () => {
-    const platform = defaultMegaMenuItems.find((item) => item.label === 'Platform');
-    const documentationTools = platform?.content?.categories?.find(
-      (category) => category.title === 'Documentation Tools',
-    );
-    const corpus = documentationTools?.items.find((item) => item.label === 'F5 Docs Corpus');
-
+  it('links the corpus without federating its non-HTML routes', () => {
+    const ecosystem = defaultMegaMenuItems.find((item) => item.label === 'Ecosystem');
+    const corpus = ecosystem?.content?.categories
+      ?.flatMap((category) => category.items)
+      .find((item) => item.label === 'F5 documentation corpus');
     expect(corpus?.href).toBe('https://f5-sales-demo.github.io/html-to-markdown/');
-    expect(Object.keys(corpus?.translations ?? {})).toHaveLength(Object.keys(f5xcDefaultLocales).length - 1);
-    expect(Object.keys(corpus?.descriptionTranslations ?? {})).toHaveLength(Object.keys(f5xcDefaultLocales).length - 1);
     expect(federatedSearchSites.some((site) => site.repo === 'html-to-markdown')).toBe(false);
   });
 
@@ -105,12 +71,9 @@ describe('default ecosystem navigation', () => {
   });
 
   it('links the portal at the organization root and merges its search only from other sites', () => {
-    const platform = defaultMegaMenuItems.find((item) => item.label === 'Platform');
-    const portal = platform?.content?.categories
-      ?.flatMap((category) => category.items)
-      .find((item) => item.label === 'F5 XC Docs');
-    expect(portal?.href).toBe('https://f5-sales-demo.github.io/');
-    expect(federatedSearchSites).toContainEqual({ repo: 'f5-sales-demo.github.io', label: 'F5 XC Docs' });
+    const links = defaultMegaMenuItems.flatMap((item) => item.content?.categories?.flatMap((c) => c.items) ?? []);
+    expect(links.some((link) => link.href === 'https://f5-sales-demo.github.io/')).toBe(false);
+    expect(federatedSearchSites).toContainEqual({ repo: 'f5-sales-demo.github.io', label: 'Sales demo portal' });
     const childBundles = federatedSearchBundlePaths('https://f5-sales-demo.github.io', '/webapp-api-protection');
     expect(childBundles).toContain('https://f5-sales-demo.github.io/pagefind/');
     const rootBundles = federatedSearchBundlePaths('https://f5-sales-demo.github.io', '/');
@@ -183,17 +146,17 @@ describe('Canada navigation and publication wiring', () => {
   it('places the original-color flag immediately after MCN and federates search', () => {
     const items =
       defaultMegaMenuItems
-        .find((item) => item.label === 'Networking')
-        ?.content?.categories?.find((category) => category.title === 'Connectivity & Delivery')?.items || [];
+        .find((item) => item.label === 'Demos')
+        ?.content?.categories?.find((category) => category.title === 'Networking and performance')?.items || [];
     const index = items.findIndex((item) => item.label === 'Multi-Cloud Networking');
     const canada = items[index + 1];
-    expect(canada.label).toBe('Canada Topology');
-    expect(canada.description).toBe('Canadian hosting and regional access control');
-    expect(canada.href).toBe('https://f5-sales-demo.github.io/canada/');
+    expect(canada.label).toBe('Canada topology');
+    expect(canada.description).toBe('Deploy Canadian application hosting and demonstrate regional access controls.');
+    expect(canada.href).toBe('https://f5-sales-demo.github.io/canada/en/');
     expect(canada.icon).toMatchObject({ width: 640, height: 480, mode: 'original' });
     expect(JSON.stringify(canada.icon)).toContain('#d52b1e');
     expect(JSON.stringify(canada.icon)).toContain('#fff');
-    expect(federatedSearchSites).toContainEqual({ repo: 'canada', label: 'Canada Topology' });
+    expect(federatedSearchSites).toContainEqual({ repo: 'canada', label: 'Canada topology' });
   });
 });
 

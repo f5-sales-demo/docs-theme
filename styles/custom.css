@@ -873,3 +873,33 @@ summary:focus-visible {
   }
 }
 
+
+/* The sales showcase prioritizes destinations over decorative hero space. */
+body:has(.sales-showcase) .hero {
+  padding-block: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+body:has(.sales-showcase) .hero h1 {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+}
+body:has(.sales-showcase) .hero .tagline {
+  max-width: 48rem;
+  font-size: var(--sl-text-lg);
+}
+body:has(.sales-showcase) .hero > .stack { gap: 1rem; }
+body:has(.sales-showcase) .hero .actions { gap: 0.75rem; }
+.sales-showcase { --showcase-gap: 1rem; }
+.sales-showcase .card-grid { gap: var(--showcase-gap); }
+.sales-showcase .sl-link-card { background: var(--sl-color-gray-7, var(--sl-color-gray-6)); }
+.sales-showcase h2 { margin-block-start: 2rem; }
+.sales-showcase h3 { margin-block-start: 1rem; }
+@media (max-width: 49.99rem) {
+  body:has(.sales-showcase) .hero { padding-block: 0.5rem; }
+  body:has(.sales-showcase) .hero .actions { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+  .sl-link-card, .smm-viewport, .smm-content { transition: none !important; animation: none !important; }
+  .sl-link-card:hover { transform: none; }
+}
