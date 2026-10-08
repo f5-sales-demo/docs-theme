@@ -29,6 +29,7 @@ import { menuLocalizationPolicy } from './src/utils/menu-localization.ts';
 import { stagedProviderSections } from './src/utils/provider-sections.ts';
 import { publicationSidebar, repositoryPublicationProfile } from './src/utils/publication-profiles.ts';
 import { resolveMegaMenuIcon } from './src/utils/resolve-icon.ts';
+import { federatedSearchSites } from './src/utils/search-sites';
 import providerSharedAssets from './src/utils/share-provider-assets.mjs';
 import { statisticsScriptMarkdown } from './src/utils/statistics-script-markdown.mjs';
 import { buildSubcategorySidebar } from './src/utils/subcategory-sidebar.ts';
@@ -504,38 +505,7 @@ export function federatedSearchBundlePaths(site: string, base: string): string[]
     );
 }
 
-export const federatedSearchSites = [
-  { repo: 'docs-builder', label: 'Documentation builder' },
-  { repo: 'docs-theme', label: 'Shared documentation theme' },
-  { repo: 'f5-sales-demo.github.io', label: 'Sales demo portal' },
-  { repo: 'administration', label: 'Administration' },
-  { repo: 'nginx', label: 'NGINX One' },
-  { repo: 'observability', label: 'Observability' },
-  { repo: 'statistics', label: 'Statistics' },
-  { repo: 'was', label: 'Web App Scanning' },
-  { repo: 'multi-cloud-networking', label: 'Multi-Cloud Networking' },
-  { repo: 'canada', label: 'Canada topology' },
-  { repo: 'dns', label: 'DNS Management' },
-  { repo: 'cdn', label: 'Content Delivery Network' },
-  { repo: 'bot-standard', label: 'Bot Defense Standard' },
-  { repo: 'bot-advanced', label: 'Bot Defense Advanced' },
-  { repo: 'ddos', label: 'DDoS Mitigation' },
-  { repo: 'webapp-api-protection', label: 'Web App & API Protection' },
-  { repo: 'api-protection', label: 'API Protection' },
-  { repo: 'xcsh', label: 'xcsh' },
-  { repo: 'xcsh-action', label: 'xcsh GitHub Action' },
-  { repo: 'csd', label: 'Client-Side Defense' },
-  { repo: 'docs-icons', label: 'Icon packages' },
-  { repo: 'marketplace', label: 'xcsh marketplace' },
-  { repo: 'api-specs', label: 'API specifications' },
-  { repo: 'api-specs-enriched', label: 'Enriched API specifications' },
-  { repo: 'cdn-simulator', label: 'CDN simulator' },
-  { repo: 'origin-server', label: 'Origin server' },
-  { repo: 'traffic-generator', label: 'Traffic generator' },
-  { repo: 'demo-resources', label: 'Demo resource catalog' },
-  { repo: 'xcsh-chrome-extension', label: 'xcsh Chrome extension' },
-  { repo: 'console', label: 'Console catalog' },
-];
+export { federatedSearchSites } from './src/utils/search-sites';
 
 export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
   const canonicalProvider =
