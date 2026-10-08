@@ -23,6 +23,7 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
 	<div class="title-wrapper sl-flex">
 		<SiteTitle />
 	</div>
+  {providerSections.length > 0 && <details class="provider-local-nav"><summary>Provider documentation</summary><nav aria-label="Provider documentation">{providerSections.map(section => <a href={`${base}${section.path}/`}>{section.label}</a>)}</nav></details>}
 	<nav class="smm-desktop-nav" id="f5-ecosystem-desktop" aria-label="Ecosystem">
 		<a data-f5-fallback href="https://f5-sales-demo.github.io/en/ecosystem/">Ecosystem directory</a>
 	</nav>
@@ -50,6 +51,3 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
   const header = document.querySelector<HTMLElement>('[data-f5-shared-consumer]');
   if (header) (window as any).F5SharedReadyV1 = startSharedShell(JSON.parse(header.dataset.f5SharedConsumer!), JSON.parse(header.dataset.f5SharedBaseline!)).catch(() => {});
 </script>
-{providerSections.length > 0 && <nav class="provider-local-nav" aria-label="Provider documentation">
-  {providerSections.map(section => <a href={`${base}${section.path}/`}>{section.label}</a>)}
-</nav>}

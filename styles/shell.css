@@ -236,5 +236,7 @@
     color: var(--sl-color-white);
   }
 
-.provider-local-nav { display:flex; flex-wrap:wrap; gap:.5rem 1rem; }
+.provider-local-nav { position: relative; flex-shrink: 0; }
+.provider-local-nav summary { padding: .5rem; cursor: pointer; }
+.provider-local-nav nav { position: absolute; inset-inline-start: 0; top: 100%; display: grid; min-width: 12rem; gap: .5rem; padding: .75rem; background: var(--sl-color-bg-nav); border: 1px solid var(--sl-color-gray-5); border-radius: .5rem; z-index: 10; }
 [data-f5-fallback] { padding:.5rem; }

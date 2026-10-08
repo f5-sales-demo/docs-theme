@@ -49,7 +49,9 @@ registry.set(import.meta.url, {
     });
     let observer: MutationObserver;
     const dismissPreferences = (event: KeyboardEvent) => {
-      const preferences = document.querySelector<HTMLDetailsElement>('.compact-preferences[open]');
+      const preferences = document.querySelector<HTMLDetailsElement>(
+        '.compact-preferences[open], .provider-local-nav[open]',
+      );
       if (event.key === 'Escape' && preferences) {
         preferences.open = false;
         preferences.querySelector('summary')?.focus();
