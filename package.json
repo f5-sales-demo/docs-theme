@@ -50,7 +50,8 @@
     "./assets/canada-flag.svg": "./assets/canada-flag.svg",
     "./assets/canada-favicon.svg": "./assets/canada-favicon.svg",
     "./styles/shell.css": "./styles/shell.css",
-    "./components/LocalHeader.astro": "./components/LocalHeader.astro"
+    "./components/LocalHeader.astro": "./components/LocalHeader.astro",
+    "./components/StatisticsSidebar.astro": "./components/StatisticsSidebar.astro"
   },
   "files": [
     "index.ts",

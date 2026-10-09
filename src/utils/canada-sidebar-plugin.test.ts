@@ -25,3 +25,14 @@ describe('Canada-only sidebar override', () => {
     expect(configuredComponents('f5-sales-demo/multi-cloud-networking')).not.toHaveProperty('Sidebar');
   });
 });
+
+describe('Statistics sidebar override', () => {
+  it('selects the sidebar that restores the active reading path', () => {
+    expect(configuredComponents('f5-sales-demo/statistics').Sidebar).toBe(
+      '@f5-sales-demo/docs-theme/components/StatisticsSidebar.astro',
+    );
+  });
+  it('preserves unrelated repository sidebars', () => {
+    expect(configuredComponents('f5-sales-demo/statistics-extra')).not.toHaveProperty('Sidebar');
+  });
+});

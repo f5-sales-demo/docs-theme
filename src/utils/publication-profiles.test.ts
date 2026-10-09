@@ -66,9 +66,9 @@ describe('Statistics publication', () => {
     });
     expect(repositoryPublicationProfile('statistics')?.favicon).toBeUndefined();
   });
-  it('preserves 13 existing routes and places Shell Scripts before Infrastructure', () => {
+  it('preserves existing routes and places Shell Scripts before Infrastructure', () => {
     const sidebar = publicationSidebar('f5-sales-demo/statistics', []);
-    expect(sidebar?.slice(0, 11)).toEqual([
+    expect(sidebar?.slice(0, 9)).toEqual([
       { slug: 'index' },
       { slug: 'access-logs' },
       { slug: 'service-graph' },
@@ -78,9 +78,33 @@ describe('Statistics publication', () => {
       { slug: 'firewall-metrics' },
       { slug: 'security-events' },
       { slug: 'troubleshooting' },
-      { slug: 'api-catalog' },
-      { slug: 'setup' },
     ]);
+    const catalog = sidebar?.[9];
+    expect(catalog).toMatchObject({ label: 'Statistics APIs', collapsed: true });
+    if (!catalog || !('items' in catalog)) throw new Error('Statistics APIs must be a submenu');
+    const expected = [
+      'api-catalog',
+      'api-catalog/query-concepts',
+      'api-catalog/application-traffic',
+      'api-catalog/api-analytics',
+      'api-catalog/application-security',
+      'api-catalog/bot-defense',
+      'api-catalog/client-side-defense',
+      'api-catalog/device-data-intelligence',
+      'api-catalog/ddos-protection',
+      'api-catalog/dns',
+      'api-catalog/cdn',
+      'api-catalog/networking',
+      'api-catalog/kubernetes-storage',
+      'api-catalog/logs-events-alerts',
+      'api-catalog/synthetic-monitoring',
+      'api-catalog/billing-usage',
+    ];
+    expect(catalog.items.map((item) => ('slug' in item ? item.slug : ''))).toEqual(expected);
+    expect(catalog.items.every((item) => 'label' in item && item.label.split(/\s+/).length <= 3)).toBe(true);
+    expect(catalog.items[0]).toEqual({ label: 'Overview', slug: 'api-catalog' });
+    expect(catalog.items[1]).toEqual({ label: 'Query concepts', slug: 'api-catalog/query-concepts' });
+    expect(sidebar?.[10]).toEqual({ slug: 'setup' });
     expect(sidebar?.[11]).toEqual({ slug: 'shell-scripts' });
     expect(sidebar?.[12]).toEqual({
       label: 'Infrastructure',
@@ -95,8 +119,8 @@ describe('Statistics publication', () => {
           ? item.items.map((child) => ('slug' in child ? child.slug : ''))
           : [],
     );
-    expect(routes).toHaveLength(14);
-    expect(new Set(routes).size).toBe(14);
+    expect(routes).toHaveLength(29);
+    expect(new Set(routes).size).toBe(29);
   });
   it('preserves supplied fallback navigation for other repositories', () => {
     const fallback = [{ slug: 'index' }, { label: 'Existing', items: [{ slug: 'existing' }] }];
