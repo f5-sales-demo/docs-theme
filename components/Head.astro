@@ -5,7 +5,7 @@ const integrity = (receipt) => 'sha256-' + Buffer.from(receipt.sha256, 'hex').to
 import { pageTitle } from '../src/utils/page-title';
 
 const route = Astro.locals.starlightRoute;
-const head = route.head.filter(entry => !(shared && entry.tag === 'link' && entry.attrs?.rel === 'icon' && !process.env.DOCS_CUSTOM_FAVICON && process.env.GITHUB_REPOSITORY !== 'f5-sales-demo/canada')).map((entry) => entry.tag === 'title'
+const head = route.head.filter(entry => !(shared && entry.tag === 'link' && ['icon', 'shortcut icon'].includes(entry.attrs?.rel || '') && !process.env.DOCS_CUSTOM_FAVICON && process.env.GITHUB_REPOSITORY !== 'f5-sales-demo/canada')).map((entry) => entry.tag === 'title'
   ? { ...entry, content: pageTitle(route.entry.data.title, route.siteTitle, entry.content || '') }
   : entry);
 ---
