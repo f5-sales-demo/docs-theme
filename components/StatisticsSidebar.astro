@@ -1,0 +1,14 @@
+---
+import Sidebar from '@astrojs/starlight/components/Sidebar.astro';
+---
+
+<div data-statistics-sidebar>
+  <Sidebar />
+</div>
+
+<script is:inline>
+  // Restore the active reading path after Starlight restores saved toggle state.
+  document.querySelectorAll('[data-statistics-sidebar] details').forEach((group) => {
+    if (group.querySelector('a[aria-current="page"]')) group.open = true;
+  });
+</script>
