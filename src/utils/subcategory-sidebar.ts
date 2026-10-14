@@ -186,13 +186,28 @@ function buildDirectorySidebar(dirPath: string, scanDir: string): OrderedSidebar
   items.push(...children.map((child) => child.item));
   if (items.length === 0) return undefined;
 
-  const groupLabel = metadata.label ?? metadata.title;
-  const translations = sidebarTranslations[groupLabel as keyof typeof sidebarTranslations];
+  const groupLabel = metadata.title;
+  const translations: Record<string, string> = {
+    ...sidebarTranslations[groupLabel as keyof typeof sidebarTranslations],
+  };
+  // The sidebar is scanned from English once. Localized index titles supply
+  // group translations without reusing the landing link's sidebar.label.
+  if (indexEntry && path.basename(scanDir) === 'en') {
+    for (const locale of fs.readdirSync(path.dirname(scanDir), {
+      withFileTypes: true,
+    })) {
+      if (!locale.isDirectory() || locale.name === 'en') continue;
+      const localizedIndex = path.join(path.dirname(scanDir), locale.name, relativeDir, indexEntry.name);
+      if (fs.existsSync(localizedIndex)) {
+        translations[locale.name] = readNavigationMetadata(localizedIndex, groupLabel).title;
+      }
+    }
+  }
   return {
     item: {
       label: groupLabel,
       collapsed: true,
-      ...(translations ? { translations } : {}),
+      ...(Object.keys(translations).length ? { translations } : {}),
       items,
     },
     order: metadata.order,

@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { expect, type Page, test } from '@playwright/test';
 
-const tree = path.resolve('../f5-sales-demo.github.io/shared');
+const tree = path.resolve(process.env.SHARED_ASSETS_DIR ?? '../f5-sales-demo.github.io/shared');
 const pointer = JSON.parse(readFileSync(path.join(tree, 'v1/current.json'), 'utf8'));
 const origin = 'https://f5-sales-demo.github.io';
 async function routeShared(page: Page, outage = false) {
@@ -96,7 +96,7 @@ test.describe('shared shell', () => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
     await routeShared(page);
-    await page.goto(process.env.BASE_URL || 'http://127.0.0.1:44871/docs-theme/en/');
+    await page.goto(new URL('/docs-theme/en/', String(test.info().project.use.baseURL)).href);
     await expect(page.locator('h1').first()).toBeVisible();
     expect(await page.getByRole('link', { name: 'Ecosystem directory', exact: true }).count()).toBeGreaterThan(0);
     await context.close();

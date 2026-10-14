@@ -64,7 +64,13 @@ describe('buildSubcategorySidebar without subcategories', () => {
         label: 'Reference',
         collapsed: true,
         translations: expect.any(Object),
-        items: [{ label: 'Overview', slug: 'reference', translations: expect.any(Object) }],
+        items: [
+          {
+            label: 'Overview',
+            slug: 'reference',
+            translations: expect.any(Object),
+          },
+        ],
       },
       {
         label: 'Demo',
@@ -76,12 +82,20 @@ describe('buildSubcategorySidebar without subcategories', () => {
             collapsed: true,
             translations: expect.any(Object),
             items: [
-              { label: 'Overview', slug: 'demo/troubleshooting', translations: expect.any(Object) },
+              {
+                label: 'Overview',
+                slug: 'demo/troubleshooting',
+                translations: expect.any(Object),
+              },
               {
                 label: 'BGP',
                 collapsed: true,
                 items: [
-                  { label: 'Overview', slug: 'demo/troubleshooting/bgp', translations: expect.any(Object) },
+                  {
+                    label: 'Overview',
+                    slug: 'demo/troubleshooting/bgp',
+                    translations: expect.any(Object),
+                  },
                   { slug: 'demo/troubleshooting/bgp/routes' },
                 ],
               },
@@ -111,7 +125,11 @@ describe('buildSubcategorySidebar without subcategories', () => {
         collapsed: true,
         translations: expect.any(Object),
         items: [
-          { label: 'Overview', slug: 'guides', translations: expect.any(Object) },
+          {
+            label: 'Overview',
+            slug: 'guides',
+            translations: expect.any(Object),
+          },
           { slug: 'guides/a-first' },
           { slug: 'guides/z-last' },
         ],
@@ -132,7 +150,7 @@ describe('authored sidebar metadata', () => {
     return buildSubcategorySidebar(root);
   }
 
-  it('uses authored root and nested index labels without Overview translations', async () => {
+  it('keeps the directory title independent of authored landing labels', async () => {
     const sidebar = await fixture({
       'index.mdx': 'sidebar:\n  label: Home\n  order: 0',
       'plugins/index.mdx': 'sidebar:\n  label: Plugin catalog\n  order: 1',
@@ -141,7 +159,7 @@ describe('authored sidebar metadata', () => {
     expect(sidebar).toEqual([
       { label: 'Home', link: '/' },
       {
-        label: 'Plugin catalog',
+        label: 'Article title',
         collapsed: true,
         items: [
           { label: 'Plugin catalog', slug: 'plugins' },
@@ -163,10 +181,15 @@ describe('authored sidebar metadata', () => {
     });
     expect(sidebar).toEqual([
       {
-        label: 'Plugins',
+        label: 'Article title',
         collapsed: true,
-        translations: expect.any(Object),
-        items: [{ label: 'Article title', collapsed: true, items: [{ slug: 'plugins/deep/visible' }] }],
+        items: [
+          {
+            label: 'Article title',
+            collapsed: true,
+            items: [{ slug: 'plugins/deep/visible' }],
+          },
+        ],
       },
     ]);
   });
@@ -191,7 +214,69 @@ describe('authored sidebar metadata', () => {
       'index.mdx': 'sidebar:\n  label: " "\n  hidden: "true"',
       'page.mdx': 'sidebar:\n  label: " "\n  hidden: false',
     });
-    expect(sidebar?.[0]).toMatchObject({ label: 'Overview', link: '/', translations: expect.any(Object) });
+    expect(sidebar?.[0]).toMatchObject({
+      label: 'Overview',
+      link: '/',
+      translations: expect.any(Object),
+    });
     expect(sidebar?.[1]).toEqual({ slug: 'page' });
   });
+});
+
+describe('directory titles with repeated Overview links', () => {
+  it('preserves distinct localized titles, ordered groups, and Overview children', async () => {
+    const root = await mkdtemp(path.join(tmpdir(), 'docs-theme-overview-'));
+    workspaces.push(root);
+    for (const [directory, title, order] of [
+      ['alpha', 'Utiliser xcsh', 20],
+      ['zebra', 'Bien démarrer', 10],
+    ] as const) {
+      await mkdir(path.join(root, directory), { recursive: true });
+      await writeFile(
+        path.join(root, directory, 'index.mdx'),
+        `---\ntitle: ${title}\nsidebar:\n  label: Overview\n  order: ${order}\n---\n`,
+      );
+      await writeFile(path.join(root, directory, 'child.mdx'), '---\ntitle: Child\n---\n');
+      await writeFile(path.join(root, directory, 'hidden.mdx'), '---\ntitle: Hidden\nsidebar:\n  hidden: true\n---\n');
+    }
+    const sidebar = await buildSubcategorySidebar(root);
+    expect(sidebar?.map((group) => group.label)).toEqual(['Bien démarrer', 'Utiliser xcsh']);
+    expect(sidebar).toMatchObject([
+      {
+        label: 'Bien démarrer',
+        items: [{ label: 'Overview', slug: 'zebra' }, { slug: 'zebra/child' }],
+      },
+      {
+        label: 'Utiliser xcsh',
+        items: [{ label: 'Overview', slug: 'alpha' }, { slug: 'alpha/child' }],
+      },
+    ]);
+  });
+});
+
+it('localizes group titles from locale indexes and defaults landing links to localized Overview', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'docs-theme-localized-index-'));
+  workspaces.push(root);
+  for (const [locale, title] of [
+    ['en', 'Use xcsh'],
+    ['fr', 'Utiliser xcsh'],
+  ] as const) {
+    await mkdir(path.join(root, locale, 'use'), { recursive: true });
+    await writeFile(path.join(root, locale, 'use/index.mdx'), `---\ntitle: ${title}\nsidebar:\n  order: 20\n---\n`);
+    await writeFile(path.join(root, locale, 'use/child.mdx'), '---\ntitle: Child\n---\n');
+  }
+  expect(await buildSubcategorySidebar(root)).toMatchObject([
+    {
+      label: 'Use xcsh',
+      translations: { fr: 'Utiliser xcsh' },
+      items: [
+        {
+          label: 'Overview',
+          translations: { fr: expect.any(String) },
+          slug: 'use',
+        },
+        { slug: 'use/child' },
+      ],
+    },
+  ]);
 });
