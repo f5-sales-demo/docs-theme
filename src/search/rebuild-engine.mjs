@@ -24,7 +24,7 @@ try {
   const source = path.join(workspace, 'source');
   run('git', ['clone', '--quiet', '--no-checkout', 'https://github.com/Pagefind/pagefind.git', source]);
   run('git', ['checkout', '--detach', manifest.upstreamCommit], { cwd: source });
-  run('git', ['apply', fileURLToPath(new URL('pagefind-1.5.2.patch', vendor))], { cwd: source });
+  run('git', ['apply', '--unidiff-zero', fileURLToPath(new URL('pagefind-1.5.2.patch', vendor))], { cwd: source });
   const cargoFile = path.join(source, 'pagefind_web/Cargo.toml');
   const cargoHome = process.env.CARGO_HOME || path.join(os.homedir(), '.cargo');
   const remap = [`--remap-path-prefix=${source}=/pagefind`, `--remap-path-prefix=${cargoHome}=/cargo`];
