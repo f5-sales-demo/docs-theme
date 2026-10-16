@@ -23,6 +23,7 @@ import { defaultLocale as f5xcDefaultLocale, f5xcDefaultLocales } from './src/i1
 import { mobileLabels } from './src/i18n/mega-menu-translations.ts';
 import { sidebarTranslations } from './src/i18n/translations.ts';
 import remarkMermaid from './src/plugins/remark-mermaid.mjs';
+import { englishSearchEngineIntegration } from './src/search/pagefind-engine.mjs';
 import { sharedSearchIntegration } from './src/shared/search-integration.mjs';
 import { sharedMode } from './src/shared/settings.mjs';
 import canonicalLlms from './src/utils/canonical-llms.mjs';
@@ -474,6 +475,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
         : []),
       ...(githubRepository === 'f5-sales-demo/statistics' ? [statisticsScriptMarkdown()] : []),
       ...additionalIntegrations,
+      englishSearchEngineIntegration(),
     ],
   });
 }
