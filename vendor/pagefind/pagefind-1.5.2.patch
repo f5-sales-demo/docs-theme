@@ -1,0 +1,91 @@
+diff --git a/pagefind_web/Cargo.lock b/pagefind_web/Cargo.lock
+index 1c15fdf..0ec7782 100644
+--- a/pagefind_web/Cargo.lock
++++ b/pagefind_web/Cargo.lock
+@@ -61 +61 @@ name = "pagefind_web"
+-version = "0.0.0"
++version = "1.5.2"
+diff --git a/pagefind_web/Cargo.toml b/pagefind_web/Cargo.toml
+index de44fac..90669d5 100644
+--- a/pagefind_web/Cargo.toml
++++ b/pagefind_web/Cargo.toml
+@@ -3 +3 @@ name = "pagefind_web"
+-version = "0.0.0"
++version = "1.5.2"
+diff --git a/pagefind_web/src/search.rs b/pagefind_web/src/search.rs
+index 24a75b2..61210ca 100644
+--- a/pagefind_web/src/search.rs
++++ b/pagefind_web/src/search.rs
+@@ -504,0 +505 @@ impl SearchIndex {
++                maps.push(BitSet::new());
+@@ -812,26 +813 @@ impl SearchIndex {
+-        let mut extensions = vec![];
+-        let mut longest_prefix = None;
+-        for (key, results) in self.words.iter() {
+-            if key.starts_with(term) {
+-                debug!({
+-                    format! {"Adding {:#?} to the query", key}
+-                });
+-                extensions.push((key, results));
+-            } else if term.starts_with(key)
+-                && key.len() > longest_prefix.map(String::len).unwrap_or_default()
+-            {
+-                longest_prefix = Some(key);
+-            }
+-        }
+-        if extensions.is_empty() {
+-            debug!({ "No word extensions found, checking the inverse" });
+-            if let Some(longest_prefix) = longest_prefix {
+-                if let Some(results) = self.words.get(longest_prefix) {
+-                    debug!({
+-                        format! {"Adding the prefix {:#?} to the query", longest_prefix}
+-                    });
+-                    extensions.push((longest_prefix, results));
+-                }
+-            }
+-        }
+-        extensions
++        self.words.iter().filter(|(word, _)| word.starts_with(term)).collect()
+@@ -838,0 +815 @@ impl SearchIndex {
++
+@@ -878,0 +856,40 @@ fn union_maps(mut maps: Vec<BitSet>) -> Option<BitSet> {
++
++#[cfg(test)]
++mod forward_prefix_tests {
++    use super::*;
++    use crate::{RankingWeights, WordData, Page, PageWord};
++    use std::collections::BTreeMap;
++    fn fixture() -> SearchIndex {
++        SearchIndex {
++            web_version: "1.5.2", playground_mode: false, generator_version: None,
++            pages: vec![Page { hash: "fixture".into(), word_count: 2 }], average_page_length: 2.0, chunks: vec![], filter_chunks: BTreeMap::new(),
++            words: ["q", "manifest"].into_iter().map(|word| (word.to_string(), WordData { pages: vec![PageWord { page: 0, locs: vec![(24, 0)], meta_locs: vec![] }], additional_variants: vec![] })).collect(),
++            filters: BTreeMap::new(), sorts: BTreeMap::new(), meta_fields: vec![], ranking_weights: RankingWeights::default(),
++        }
++    }
++    #[test]
++    fn unknown_query_cannot_match_a_short_indexed_prefix() {
++        let index = fixture();
++        assert!(index.find_word_extensions("qzxwvjknypvzrltg").is_empty());
++        assert!(index.find_word_extensions("manifestunknownsuffix").is_empty());
++    }
++    #[test]
++    fn autocomplete_and_explicit_short_terms_still_match() {
++        let index = fixture();
++        for (query, expected) in [("manif", "manifest"), ("manifest", "manifest"), ("q", "q")] {
++            let found = index.find_word_extensions(query);
++            assert_eq!(found.len(), 1);
++            assert_eq!(found[0].0, expected);
++        }
++    }
++    #[test]
++    fn english_inflections_are_stemmed_before_prefix_matching() {
++        assert_eq!(stems_from_term("manifests")[0].as_ref(), "manifest");
++    }    #[test]
++    fn every_word_in_a_multiword_query_must_match() {
++        let index = fixture();
++        assert!(index.search_term("qzxwvjknypvzrltg manifest", "qzxwvjknypvzrltg manifest", None, false).1.is_empty());
++        assert_eq!(index.search_term("manifest", "manifest", None, false).1.len(), 1);
++    }
++
++}

@@ -1,0 +1,13 @@
+{
+  "pagefindVersion": "1.5.2",
+  "upstreamCommit": "bf17396721be637cc67c8ed7ead1dc7b8ac43d96",
+  "sha256": "bb201cd6460bacb5399d77ef12f076413655122dd54a529314ffa96bcace5d5d",
+  "patchSha256": "73db39627af42174a3a0732c8450f469d350ccbd4d715872eed9ae77a6c6fb96",
+  "wasmBindgenVersion": "0.2.117",
+  "rustCompiler": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "cargoLockSha256": "bd45029efb862c7aef38ccb524194eb8d36b0eb28ac7cc22467474d27d6556dd",
+  "pathRemapping": {
+    "source": "/pagefind",
+    "dependencies": "/cargo"
+  }
+}
