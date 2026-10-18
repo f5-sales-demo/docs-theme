@@ -409,6 +409,7 @@ export function createF5xcDocsConfig(options: F5xcDocsConfigOptions = {}) {
     site,
     base,
     vite: {
+      define: { 'import.meta.env.F5_DOCS_REPOSITORY': JSON.stringify(githubRepository) },
       plugins: mode === 'local' ? [menuLocalizationPolicy()] : [sharedSearchIntegration()],
       ...(canonicalProvider ? { build: { assetsInlineLimit: 0 } } : {}),
     },

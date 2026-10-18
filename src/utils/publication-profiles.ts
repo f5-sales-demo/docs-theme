@@ -11,6 +11,76 @@ interface PublicationProfile {
 
 /** Repository publication decisions shared by navigation and site configuration. */
 export const publicationProfiles: Record<string, PublicationProfile> = {
+  'certificate-management': {
+    locales: { en: { label: 'English', lang: 'en' } },
+    defaultLocale: 'en',
+    sidebar: [
+      { label: 'Overview', slug: 'index' },
+      {
+        label: 'xcsh',
+        collapsed: false,
+        items: [
+          { label: 'Overview', slug: 'xcsh' },
+          { label: 'Prerequisites', slug: 'xcsh/prerequisites' },
+          { label: 'Configuration', slug: 'xcsh/configuration' },
+          { label: 'Configure', slug: 'xcsh/configure' },
+          { label: 'Verify', slug: 'xcsh/verify' },
+          { label: 'Maintain', slug: 'xcsh/maintain' },
+          { label: 'Remove', slug: 'xcsh/remove' },
+          { label: 'Input variants', slug: 'xcsh/input-workflows' },
+          { label: 'Command reference', slug: 'xcsh/command-reference' },
+        ],
+      },
+      {
+        label: 'Terraform',
+        collapsed: false,
+        items: [
+          { label: 'Overview', slug: 'terraform' },
+          { label: 'Prerequisites', slug: 'terraform/prerequisites' },
+          { label: 'Configuration', slug: 'terraform/configuration' },
+          { label: 'Configure', slug: 'terraform/configure' },
+          { label: 'Verify', slug: 'terraform/verify' },
+          { label: 'Maintain', slug: 'terraform/maintain' },
+          { label: 'Remove', slug: 'terraform/remove' },
+          { label: 'Inputs and lifecycle', slug: 'terraform/input-lifecycle' },
+          { label: 'Qualification campaign', slug: 'terraform/campaign' },
+          {
+            label: 'Certificate types',
+            autogenerate: { directory: 'terraform/certificate-surfaces' },
+            collapsed: true,
+          },
+        ],
+      },
+      {
+        label: 'Client mTLS',
+        collapsed: false,
+        items: [
+          { label: 'Overview', slug: 'client-mtls' },
+          { label: 'Prerequisites', slug: 'client-mtls/prerequisites' },
+          { label: 'Configuration', slug: 'client-mtls/configuration' },
+          { label: 'Configure', slug: 'client-mtls/configure' },
+          { label: 'Verify', slug: 'client-mtls/verify' },
+          { label: 'Maintain', slug: 'client-mtls/maintain' },
+          { label: 'Remove', slug: 'client-mtls/remove' },
+        ],
+      },
+      {
+        label: 'Wingman',
+        collapsed: false,
+        items: [
+          { label: 'Overview', slug: 'wingman' },
+          { label: 'Prerequisites', slug: 'wingman/prerequisites' },
+          { label: 'Configuration', slug: 'wingman/configuration' },
+          { label: 'Configure', slug: 'wingman/configure' },
+          { label: 'Verify', slug: 'wingman/verify' },
+          { label: 'Maintain', slug: 'wingman/maintain' },
+          { label: 'Remove', slug: 'wingman/remove' },
+          { label: 'Infrastructure', slug: 'wingman/validation' },
+        ],
+      },
+    ],
+  },
+
   statistics: {
     locales: { en: { label: 'English', lang: 'en' } },
     defaultLocale: 'en',
