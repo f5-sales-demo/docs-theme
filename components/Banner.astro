@@ -30,7 +30,7 @@ const fixedEditUrl = editUrl ? editUrl.href.replace('/src/content/docs/', '/docs
 
 <Default {...Astro.props}><slot /></Default>
 {!hideBreadcrumbs && (
-  <nav class="breadcrumbs" aria-label={t('f5xc.breadcrumb.label')}>
+  <nav class="breadcrumbs" data-certificate-management={certificateManagement || undefined} aria-label={t('f5xc.breadcrumb.label')}>
     <ol>
       <li><a href={docsHome}>{t('f5xc.breadcrumb.home')}</a></li>
       <li><a href={import.meta.env.BASE_URL}>{siteTitle}</a></li>
@@ -52,3 +52,16 @@ const fixedEditUrl = editUrl ? editUrl.href.replace('/src/content/docs/', '/docs
     )}
   </nav>
 )}
+
+<script>
+  import { installCertificateBreadcrumbOffset } from "../src/utils/breadcrumb-offset.ts";
+  installCertificateBreadcrumbOffset();
+  document.addEventListener("astro:page-load", installCertificateBreadcrumbOffset);
+</script>
+
+<style is:global>
+/* Starlight scroll padding already reserves the header and mobile TOC. */
+html:has(.breadcrumbs[data-certificate-management]) main :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: var(--f5-certificate-breadcrumb-height, 3rem);
+}
+</style>
