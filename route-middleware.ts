@@ -2,15 +2,11 @@ import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 import { itemLabels, menuLabels } from './src/i18n/mega-menu-translations.ts';
 import { isCanonicalReference } from './src/utils/canonical-provider.ts';
+import { suppressIndexToc } from './src/utils/index-toc.ts';
 
 const titleTranslations: Record<string, Record<string, string>> = { ...menuLabels, ...itemLabels };
 
 type SidebarEntry = StarlightRouteData['sidebar'][number];
-
-function isIndexPage(filePath: string | undefined): boolean {
-  if (!filePath) return false;
-  return /(?:^|[\\/])index\.mdx?$/.test(filePath);
-}
 
 function hrefToSlug(href: string): string {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -56,12 +52,12 @@ export const onRequest = defineRouteMiddleware(async (context, next) => {
   const route = context.locals.starlightRoute;
   const entry = route.entry;
 
-  if (!isCanonicalReference(entry.data) && isIndexPage(entry.filePath)) {
-    // Unconditionally hide TOC on index pages
+  const repository = import.meta.env.F5_DOCS_REPOSITORY || '';
+  if (!isCanonicalReference(entry.data) && suppressIndexToc(repository, entry.filePath, entry.data.tableOfContents)) {
     route.toc = undefined;
   }
 
-  if (indexSlugs.size > 0) {
+  if (repository !== 'f5-sales-demo/certificate-management' && indexSlugs.size > 0) {
     route.sidebar = filterIndexPages(route.sidebar, indexSlugs);
   }
 
