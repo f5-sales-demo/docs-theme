@@ -18,7 +18,7 @@ export const publicationProfiles: Record<string, PublicationProfile> = {
       { label: 'Overview', slug: 'index' },
       {
         label: 'xcsh',
-        collapsed: false,
+        collapsed: true,
         items: [
           { label: 'Overview', slug: 'xcsh' },
           { label: 'Prerequisites', slug: 'xcsh/prerequisites' },
@@ -33,7 +33,7 @@ export const publicationProfiles: Record<string, PublicationProfile> = {
       },
       {
         label: 'Terraform',
-        collapsed: false,
+        collapsed: true,
         items: [
           { label: 'Overview', slug: 'terraform' },
           { label: 'Prerequisites', slug: 'terraform/prerequisites' },
@@ -70,7 +70,7 @@ export const publicationProfiles: Record<string, PublicationProfile> = {
       },
       {
         label: 'Client mTLS',
-        collapsed: false,
+        collapsed: true,
         items: [
           { label: 'Overview', slug: 'client-mtls' },
           { label: 'Prerequisites', slug: 'client-mtls/prerequisites' },
@@ -83,7 +83,7 @@ export const publicationProfiles: Record<string, PublicationProfile> = {
       },
       {
         label: 'Wingman',
-        collapsed: false,
+        collapsed: true,
         items: [
           { label: 'Overview', slug: 'wingman' },
           { label: 'Prerequisites', slug: 'wingman/prerequisites' },
