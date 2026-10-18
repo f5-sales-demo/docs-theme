@@ -55,7 +55,10 @@ const fixedEditUrl = editUrl ? editUrl.href.replace('/src/content/docs/', '/docs
 
 <script>
   import { installCertificateBreadcrumbOffset } from "../src/utils/breadcrumb-offset.ts";
+  import { installCertificateSidebarOrientation } from "../src/utils/certificate-sidebar.ts";
   installCertificateBreadcrumbOffset();
+  installCertificateSidebarOrientation();
+  document.addEventListener("astro:page-load", installCertificateSidebarOrientation);
   document.addEventListener("astro:page-load", installCertificateBreadcrumbOffset);
 </script>
 
