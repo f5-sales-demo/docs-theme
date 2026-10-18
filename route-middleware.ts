@@ -1,8 +1,8 @@
 import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 import { itemLabels, menuLabels } from './src/i18n/mega-menu-translations.ts';
-import { suppressIndexToc } from './src/utils/index-toc.ts';
 import { isCanonicalReference } from './src/utils/canonical-provider.ts';
+import { suppressIndexToc } from './src/utils/index-toc.ts';
 
 const titleTranslations: Record<string, Record<string, string>> = { ...menuLabels, ...itemLabels };
 
